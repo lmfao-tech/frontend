@@ -8,6 +8,11 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,

@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const Home: NextPage = () => {
   return (
@@ -7,16 +8,18 @@ const Home: NextPage = () => {
       <Head>
         <title>LMFAO.tech</title>
         <meta name="description" content="LMFAO.tech | Home" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Sidebar */}
+      <div>
+        {/* Sidebar */}
+        <Sidebar/>
 
-      {/* Top Bar */}
+        {/* Top Bar */}
 
-      {/* Feed */}
+        {/* Feed */}
 
-      {/* Profile bar */}
+        {/* Profile bar */}
+      </div>
     </>
   );
 };

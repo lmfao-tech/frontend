@@ -1,9 +1,14 @@
 import React from 'react'
+import { Tooltip } from "flowbite-react";
 
-function SidebarIcon() {
+function SidebarIcon({icon, tooltip} : {icon: React.ReactNode, tooltip: string}) {
   return (
-    <div>SidebarIcon</div>
-  )
+    <div className="cursor-pointer p-1">
+      <Tooltip content={tooltip} placement="right" animation="duration-500">
+        {icon}
+      </Tooltip>
+    </div>
+  );
 }
 
 export default SidebarIcon
