@@ -4,7 +4,7 @@ import type Post from "~/types/Post";
 
 function FeedPost({ post }: { post: Post }) {
   return (
-    <div className="m-4 bg-white rounded-lg shadow-md h-fit">
+    <div className="m-4 bg-white rounded-lg shadow-md break-inside-avoid h-fit">
       {/* Top section */}
       <div>
         {/* User avatar */}
