@@ -1,14 +1,14 @@
 import React from "react";
-import { SparklesIcon, UsersIcon, CogIcon, ChevronDoubleRightIcon, UserIcon, PlusIcon } from "@heroicons/react/solid";
-import { Tooltip } from "flowbite-react";
+import { SparklesIcon, UsersIcon, CogIcon, UserIcon, PlusIcon } from "@heroicons/react/solid";
+import Home from "../icons/Home";
 import SidebarIcon from "./SidebarIcon";
 
 function Sidebar() {
   return (
     <div>
-      <div className="flex flex-col items-center justify-center w-20 min-h-screen space-y-5 border-gray-300 shadow-md border-1">
+      <div className="flex flex-col items-center justify-center w-16 min-h-screen space-y-5 border-gray-300 shadow-md border-1">
         <SidebarIcon
-          icon={<SparklesIcon className="w-6 h-6 text-yellow-300" />}
+          icon={<Home/>}
           tooltip="Feed"
         />
 
