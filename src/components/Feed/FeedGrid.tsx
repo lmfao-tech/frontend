@@ -2,7 +2,9 @@ import React from 'react'
 
 function FeedGrid() {
   return (
-    <div>FeedGrid</div>
+    <div className='bg-slate-100 h-full'>
+      
+    </div>
   )
 }
 

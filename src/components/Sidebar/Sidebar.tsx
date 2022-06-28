@@ -1,5 +1,5 @@
 import React from "react";
-import { SparklesIcon, UsersIcon } from "@heroicons/react/solid";
+import { SparklesIcon, UsersIcon, CogIcon, ChevronDoubleRightIcon, UserIcon, PlusIcon } from "@heroicons/react/solid";
 import { Tooltip } from "flowbite-react";
 import SidebarIcon from "./SidebarIcon";
 
@@ -15,6 +15,26 @@ function Sidebar() {
         <SidebarIcon
           icon={<UsersIcon className="h-6 w-6 text-blue-400" />}
           tooltip="Memes from your friends"
+        />
+
+        <SidebarIcon
+          icon={<UserIcon className="h-6 w-6 text-yellow-400" />}
+          tooltip="Profile"
+        />
+
+        <SidebarIcon
+          icon={<CogIcon className="h-6 w-6 text-gray-400" />}
+          tooltip="Settings"
+        />
+
+        <SidebarIcon
+          icon={<PlusIcon className="h-6 w-6 text-gray-400" />}
+          tooltip="Upload yours"
+        />
+
+        <SidebarIcon
+          icon={<ChevronDoubleRightIcon className="h-6 w-6 text-gray-400" />}
+          tooltip="Open menu"
         />
       </div>
     </div>
