@@ -9,7 +9,7 @@ function SidebarIcon({
   tooltip: string;
 }) {
   return (
-    <div className="p-2 rounded-full cursor-pointer hover:bg-slate-100">
+    <div className="p-2 duration-150 ease-out rounded-full cursor-pointer hover:scale-125">
       <Tooltip content={tooltip} placement="right">
         {icon}
       </Tooltip>
