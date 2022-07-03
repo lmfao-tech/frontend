@@ -16,8 +16,7 @@ export default function Profile() {
     <div className="overflow-auto">
       {session ? (
         <div>
-          <div className="flex flex-col items-center px-5 py-10 ava">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+          <div className="flex flex-col items-center px-5 py-10">
             <div className="rounded-full mx-auto bg-gradient-to-r p-[6px] from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]">
               <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
                 <Avatar img={av} rounded={true} alt="avatar" size="xl" />
@@ -29,7 +28,7 @@ export default function Profile() {
                 {session?.user?.name}
               </span>
               <br />
-              <span className="text-slate-500">@DhravyaShah</span>
+              <span className="text-slate-500"></span>
             </div>
           </div>
           <div className="flex items-center justify-between mx-10">
