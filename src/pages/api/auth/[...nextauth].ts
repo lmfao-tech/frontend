@@ -15,7 +15,6 @@ export default NextAuth({
     callbacks: {
         async jwt({ token, user, account, profile, isNewUser }) {
             if (profile) {
-                console.log(profile)
                 token['userProfile'] = {
                     followersCount: profile.followers_count,
                     twitterHandle: profile.screen_name,
@@ -36,7 +35,6 @@ export default NextAuth({
             // Send properties to the client, like an access_token from a provider.
             let userData = cloneDeep(token.userProfile);
             let credentials = cloneDeep(token.credentials);
-            delete userData.userID;
             session.twitter = userData;
             session.tokens = credentials; 
             return session;
