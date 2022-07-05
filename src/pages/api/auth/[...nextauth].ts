@@ -33,7 +33,6 @@ export default NextAuth({
         async session({ session, token, user }) {
             let userData = cloneDeep(token.userProfile);
             let credentials = cloneDeep(token.credentials);
-            delete userData.userID;
             session.twitter = userData;
             session.tokens = credentials; 
             return session;
