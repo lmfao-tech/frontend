@@ -12,13 +12,13 @@ const Home: NextPage = () => {
         <meta name="description" content="LMFAO.tech | Home" />
       </Head>
 
-      <div className="grid grid-cols-1 md:grid-cols-4">
+      <div className="grid grid-cols-1 lg:grid-cols-4">
         <div className="flex w-full col-span-3">
           <Sidebar />
           <MainPage />
         </div>
 
-        <div className="hidden md:block md:col-span-1">
+        <div className="hidden lg:block lg:col-span-1">
           <Profile />
         </div>
       </div>
