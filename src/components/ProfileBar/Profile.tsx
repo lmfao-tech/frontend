@@ -4,13 +4,18 @@ import { useEffect } from "react";
 
 export default function Profile() {
   const { data: session } = useSession();
-
+  
+  // @ts-ignore 
   let av = session?.user?.image;
   if (av) {
     av = av.replace(/_normal./, ".");
   } else {
     av = "";
   }
+
+  useEffect(() => {
+    // console.log(session)
+  },[session])
 
   return (
     <div className="overflow-auto">
@@ -34,20 +39,23 @@ export default function Profile() {
           <div className="flex items-center justify-between mx-10">
             
             {/* TODO: Fix this */}
-            <div>
-              <span className="font-bold">98</span>
+            <div className="text-center">
+              {/* @ts-ignore */}
+              <span className="font-bold">{session?.twitter?.postCount}</span>
               <br />
               Posts
             </div>
             
-            <div>
-              <span className="font-bold">2.5k</span>
+            <div className="text-center">
+              {/* @ts-ignore */}
+              <span className="font-bold">{session?.twitter?.followersCount}</span>
               <br />
               Followers
             </div>
             
-            <div>
-              <span className="font-bold">9800</span>
+            <div className="text-center">
+              {/* @ts-ignore */}
+              <span className="font-bold">{session?.twitter?.followingCount}</span>
               <br />
               Following
             </div>
