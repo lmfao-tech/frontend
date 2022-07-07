@@ -21,14 +21,16 @@ const post2 = {
 };
 
 const breakpointColumnsObj = {
-  default: 3,
-  900: 2,
+  default: 2,
   640: 1,
 };
 
 function FeedGrid() {
   return (
-    <Masonry breakpointCols={breakpointColumnsObj} className="flex w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200">
+    <Masonry
+      breakpointCols={breakpointColumnsObj}
+      className="flex w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
+    >
       <FeedPost post={post} />
       <FeedPost post={post2} />
       <FeedPost post={post} />

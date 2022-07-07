@@ -20,6 +20,7 @@ function FeedPost({ post }: { post: Post }) {
               {post.uploadedBy}
             </div>
           </div>
+          <div className="m-2 text-xs text-slate-500">{post.date}</div>
         </div>
       </div>
 
@@ -29,16 +30,6 @@ function FeedPost({ post }: { post: Post }) {
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="rounded-md" src={post.image} alt="" />
-
-      <div className="flex justify-between m-2">
-        <div className="flex space-x-2">
-          <HeartIcon className="w-6 h-6 text-red-500" />
-          <ChatIcon className="w-6 h-6 text-slate-400" />
-        </div>
-        <BookmarkIcon className="w-6 h-6 text-slate-400" />
-      </div>
-
-      <div className="m-2 text-xs text-slate-500">{post.date}</div>
     </div>
   );
 }
