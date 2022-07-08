@@ -2,15 +2,17 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import Script from "next/script";
+import { useAtom } from 'jotai'
+import darkModeAtom from "~/atoms/darkmode";
 import Sidebar from "~/components/Sidebar/Sidebar";
-import MainPage from "~/components/MainPage";
-import Profile from "~/components/ProfileBar/Profile";
 import TopBar from "~/components/TopBar";
+import Profile from "~/components/ProfileBar/Profile";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const [darkMode, setDarkMode] = useAtom(darkModeAtom);
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
-      <div className="grid grid-cols-1 lg:grid-cols-4">
+      <div className={`grid grid-cols-1 lg:grid-cols-4 ${darkMode? "dark" : null}`}>
         <div className="flex w-full col-span-3">
           <Sidebar />
           <div>

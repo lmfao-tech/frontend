@@ -13,6 +13,7 @@
     "@types/tailwindcss": "^3.0.11",
     "flowbite": "^1.4.7",
     "flowbite-react": "^0.0.27",
+    "jotai": "^1.7.4",
     "next": "12.2",
     "next-auth": "^4.6.1",
     "react": "18.2.0",

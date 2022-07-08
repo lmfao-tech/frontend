@@ -5,10 +5,10 @@ import SidebarIcon from "./SidebarIcon";
 
 function Sidebar() {
   return (
-    <div>
-      <div className="md:hidden fixed bg-white flex items-center gap-2 bottom-0 drop-shadow-2xl justify-center h-14 w-full">
+    <div className="dark:bg-slate-800">
+      <div className="md:hidden dark:bg-slate-800 fixed bg-white flex items-center gap-2 bottom-0 drop-shadow-2xl justify-center h-14 w-full">
         <SidebarIcon
-          icon={<SparklesIcon className="w-6 h-6 text-yellow-300" />}
+          icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
           tooltip="Feed"
         />
 
@@ -38,9 +38,10 @@ function Sidebar() {
           tooltip="Open menu"
         /> */}
       </div>
+
       <div className="hidden md:flex flex-col items-center justify-center w-20 min-h-screen space-y-5 border-gray-300 shadow-md border-1">
         <SidebarIcon
-          icon={<Home/>}
+          icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
           tooltip="Feed"
         />
 
