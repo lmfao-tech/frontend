@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import FeedPost from "./FeedPost";
 import Masonry from "react-masonry-css";
 import Post from "~/types/Post";
-import InfiniteScroll from "react-infinite-scroll-component";
-import useSWR from "swr";
 import usePostFeed from "~/hooks/usePostFeed";
 
 const breakpointColumnsObj = {
@@ -15,7 +13,7 @@ const breakpointColumnsObj = {
 
 function FeedGrid() {
   const [last, setLastTweet] = useState<number>(0);
-  const { memes, loading, hasMore } = usePostFeed({ lastMemeIndex:last });
+  const { memes, loading, hasMore } : {memes:Post[], loading:boolean, hasMore:boolean} = usePostFeed({ lastMemeIndex:last });
   const observer = useRef<IntersectionObserver>();
 
   const lastMemeRef = useCallback(
