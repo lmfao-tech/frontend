@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import FeedPost from "./FeedPost";
 import Masonry from "react-masonry-css";
 import Post from "~/types/Post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useSWR from "swr";
+import usePostFeed from "~/hooks/usePostFeed";
 
 const breakpointColumnsObj = {
   default: 2,
@@ -11,37 +12,52 @@ const breakpointColumnsObj = {
   640: 1,
 };
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function FeedGrid() {
-  const [posts, setPosts] = React.useState<Post[]>([]);
-  const [postsShown, setPostsShown] = React.useState<Post[]>([]);
-  const [currentNumber, setCurrentNumber] = React.useState<number>(0);
+  const [last, setLastTweet] = useState<number>(0);
+  const { memes, loading, hasMore } = usePostFeed({ lastMemeIndex:last });
+  const observer = useRef<IntersectionObserver>();
 
-  const { data, error } = useSWR("/api/getMemes", fetcher);
+  const lastMemeRef = useCallback(
+    (node: any) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
 
-  useEffect(() => {
-    if (data) {
-      setPosts(data["meme_stream"]);
-      setPostsShown(data["meme_stream"].slice(0, 10));
-    }
-  }
-  , [data]);
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0]?.isIntersecting) {
+          setLastTweet(memes.length);
+        }
+      });
 
-  
+      if (node) observer.current.observe(node);
+    },
+    [loading, memes.length]
+  );
 
-  if (!data) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+
   return (
-
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="flex w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
-      >
-        {posts.map((post) => (
-          <FeedPost key={post.tweet_created_at} post={post} />
-        ))}
-      </Masonry>
+    <Masonry
+      breakpointCols={breakpointColumnsObj}
+      className="flex w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
+    >
+      {/* TODO: Eliminate duplicates*/}
+      {memes.map((post, index) => {
+        if (index === memes.length - 1) {
+          return (
+            <div key={post.tweet_id} ref={lastMemeRef}>
+              <FeedPost post={post} />
+            </div>
+          );
+        } else {
+          return (
+            <div key={post.tweet_id}>
+              <FeedPost post={post} />
+            </div>
+          );
+        }
+      })}
+      {loading && <div>Loading...</div>}
+    </Masonry>
   );
 }
 

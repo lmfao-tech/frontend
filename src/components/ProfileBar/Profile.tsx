@@ -13,10 +13,6 @@ export default function Profile() {
     av = "";
   }
 
-  useEffect(() => {
-    // console.log(session)
-  },[session])
-
   return (
     <div className="overflow-auto">
       {session ? (
