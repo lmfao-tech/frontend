@@ -12,7 +12,7 @@ const breakpointColumnsObj = {
   640: 1,
 };
 
-const Home: NextPage = () => {
+const ATab: NextPage = () => {
 
   const [last, setLastTweet] = useState<number>(0);
   const { memes, loading, hasMore }: { memes: Post[], loading: boolean, hasMore: boolean } = usePostFeed({ lastMemeIndex: last });
@@ -69,4 +69,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default ATab;

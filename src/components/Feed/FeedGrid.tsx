@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import FeedPost from "./FeedPost";
 import Masonry from "react-masonry-css";
 import Post from "~/types/Post";
