@@ -1,45 +1,36 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import FeedPost from "./FeedPost";
-import Post from "~/types/Post";
 import Masonry from "react-masonry-css";
-
-const post = {
-  id: "1",
-  uploadedBy: "John Doe",
-  date: "2020-01-01",
-  description: "This is a description",
-  image: "https://i.redd.it/zebwwgvx6c891.jpg",
-  uploadedByAvatar: "https://i.redd.it/uvw5fn5736891.jpg",
-};
-const post2 = {
-  id: "1",
-  uploadedBy: "John Doe",
-  date: "2020-01-01",
-  description: "This is a longer description that has been ...",
-  image: "https://i.redd.it/uvw5fn5736891.jpg",
-  uploadedByAvatar: "https://i.redd.it/uvw5fn5736891.jpg",
-};
+import Post from "~/types/Post";
 
 const breakpointColumnsObj = {
   default: 2,
+  1100: 3,
   640: 1,
 };
 
 function FeedGrid() {
+  
+  const [posts, setPosts] = React.useState<Post[]>([]);
+  
+  useEffect(() => {
+    fetch("/api/getMemes")
+      .then(res => res.json())
+      .then(data => {
+        setPosts(data['meme_stream']);
+      }
+    );
+  }
+  , []);
+
   return (
     <Masonry
       breakpointCols={breakpointColumnsObj}
       className="flex w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
     >
-      <FeedPost post={post} />
-      <FeedPost post={post2} />
-      <FeedPost post={post} />
-      <FeedPost post={post} />
-      <FeedPost post={post2} />
-      <FeedPost post={post} />
-      <FeedPost post={post2} />
-      <FeedPost post={post2} />
-      <FeedPost post={post} />
+      {posts.map((post) => (
+        <FeedPost key={post.tweet_created_at} post={post} />
+      ))}
     </Masonry>
   );
 }

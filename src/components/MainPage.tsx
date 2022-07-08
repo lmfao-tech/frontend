@@ -1,6 +1,5 @@
 import React from "react";
 import FeedGrid from "./Feed/FeedGrid";
-import Profile from "./ProfileBar/Profile";
 import TopBar from "./TopBar";
 
 function MainPage() {
