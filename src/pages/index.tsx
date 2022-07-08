@@ -13,9 +13,14 @@ const breakpointColumnsObj = {
 };
 
 const Home: NextPage = () => {
-
   const [last, setLastTweet] = useState<number>(0);
-  const { memes, loading, hasMore }: { memes: Post[], loading: boolean, hasMore: boolean } = usePostFeed({ lastMemeIndex: last });
+  const {
+    memes,
+    loading,
+    hasMore,
+  }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
+    lastMemeIndex: last,
+  });
   const observer = useRef<IntersectionObserver>();
 
   const lastMemeRef = useCallback(
@@ -41,12 +46,8 @@ const Home: NextPage = () => {
         <meta name="description" content="LMFAO.tech | Home" />
       </Head>
 
-      <div className="h-screen w-full shadow-sm flex flex-col">
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="flex w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
-        >
-          {/* TODO: Eliminate duplicates*/}
+      <div className="h-full overflow-hidden w-full shadow-sm flex flex-col">
+        <div className="flex flex-col px-1 md:px-24 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200 bg-slate-100 dark:bg-slate-700">
           {memes.map((post, index) => {
             if (index === memes.length - 1) {
               return (
@@ -63,7 +64,7 @@ const Home: NextPage = () => {
             }
           })}
           {loading && <div>Loading...</div>}
-        </Masonry>
+        </div>
       </div>
     </>
   );

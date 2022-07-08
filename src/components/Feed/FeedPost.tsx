@@ -1,12 +1,11 @@
 import React from "react";
-import { HeartIcon, ChatIcon, BookmarkIcon } from "@heroicons/react/solid";
 import type Post from "~/types/Post";
 
 function FeedPost({ post }: { post: Post }) {
   return (
-    <div className="m-4 bg-white rounded-lg shadow-md break-inside-avoid h-fit">
+    <div className="m-4 bg-white dark:bg-slate-800 dark:border-black rounded-3xl  border break-inside-avoid h-fit">
       {/* Top section */}
-      <a href={post.tweet_link}>
+      <a href={post.tweet_link} target="_blank" rel="noreferrer">
         <div>
           {/* User avatar */}
           <div className="flex items-center justify-between h-16 mx-4">
@@ -17,18 +16,22 @@ function FeedPost({ post }: { post: Post }) {
                 src={post.profile_image_url}
                 alt="avatar"
               />
-              <div className="text-sm font-semibold text-slate-800">
+              <div className="text-md font-semibold text-slate-800 dark:text-slate-400">
                 {post.user}
               </div>
             </div>
-            <div className="m-2 text-xs text-slate-500">
+            <div className="m-2 text-xs text-slate-500 dark:text-slate-300">
               {post.tweet_created_at}
             </div>
           </div>
         </div>
-        <div className="flex mx-3 text-sm font-montserrat">{post.tweet_text}</div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rounded-md" src={post.meme_link} alt="" />
+        <div className="flex mx-3 ml-5 text-sm font-montserrat dark:text-slate-300">
+          {unescape(post.tweet_text.split(" ").slice(0, -1).join(" ").substring(0, 120) + (post.tweet_text.length > 120? "..." : ""))}
+        </div>
+        <div className="p-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="rounded-lg" src={post.meme_link} alt="" />
+        </div>
       </a>
     </div>
   );

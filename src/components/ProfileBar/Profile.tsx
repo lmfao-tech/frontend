@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function Profile() {
   const { data: session } = useSession();
-  
+  console.log(session)
   // @ts-ignore 
   let av = session?.user?.image;
   if (av) {
@@ -14,7 +14,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="overflow-auto">
+    <div className="overflow-auto min-h-screen sticky top-0 dark:bg-slate-800">
       {session ? (
         <div>
           <div className="flex flex-col items-center px-5 py-10">
@@ -24,45 +24,48 @@ export default function Profile() {
               </div>
             </div>
             <div className="mt-2 text-center">
-              <span className="text-xl text-black font-trispace">
+              <span className="text-xl text-black font-trispace dark:text-slate-200">
                 {" "}
                 {session?.user?.name}
               </span>
               <br />
-              <span className="text-slate-500"></span>
+              <span className="text-slate-500">
+                @{session?.twitter?.twitterHandle}
+              </span>
             </div>
           </div>
-          <div className="flex items-center justify-between mx-10">
-            
+          <div className="flex items-center justify-between mx-20">
             {/* TODO: Fix this */}
-            <div className="text-center">
+            <div className="text-center dark:text-slate-200">
               {/* @ts-ignore */}
               <span className="font-bold">{session?.twitter?.postCount}</span>
               <br />
-              Posts
+              Tweets
             </div>
-            
-            <div className="text-center">
+
+            <div className="text-center dark:text-slate-200">
               {/* @ts-ignore */}
-              <span className="font-bold">{session?.twitter?.followersCount}</span>
+              <span className="font-bold">
+                {session?.twitter?.followersCount}
+              </span>
               <br />
               Followers
             </div>
-            
-            <div className="text-center">
+
+            <div className="text-center dark:text-slate-200">
               {/* @ts-ignore */}
-              <span className="font-bold">{session?.twitter?.followingCount}</span>
+              <span className="font-bold">
+                {session?.twitter?.followingCount}
+              </span>
               <br />
               Following
             </div>
-            
           </div>
 
           {/* Some top accounts here */}
-          
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center min-h-screen gap-3 px-10">
+        <div className="flex flex-col items-center justify-center gap-3 px-10">
           <h1 className="text-3xl font-bold main-heading">
             <span
               className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text"

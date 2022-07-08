@@ -8,10 +8,8 @@ import logo from "~/public/logo.svg";
 function TopBar() {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
-
-  console.log(darkMode)
   return (
-    <div className="dark:bg-slate-800">
+    <div className="dark:bg-slate-800 bg-white">
       <div className="flex items-center justify-between h-20 mx-5 md:h-16">
         <div className="w-full flex text-lg font-bold md:text-2xl font-trispace text-slate-800 dark:text-white">
           <Image alt="Logo of LMFAO.tech" src={logo} width={32} height={32} />
