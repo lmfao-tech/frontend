@@ -22,13 +22,13 @@ function TopBar() {
         </div>
 
         <div
-          className="flex items-center m-3 p-2 hover:bg-slate-300 rounded-md cursor-pointer dark:text-white dark:hover:bg-slate-600 "
+          className="flex items-center m-3 p-2 bg-slate-200 rounded-md cursor-pointer dark:text-white dark:bg-slate-700 "
           onClick={(e) => setDarkMode(!darkMode)}
         >
           {!darkMode ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -43,7 +43,7 @@ function TopBar() {
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -56,15 +56,6 @@ function TopBar() {
               />
             </svg>
           )}
-        </div>
-
-        <div className="flex items-center w-60 h-10 rounded-lg bg-slate-100 text-slate-300 dark:bg-slate-500">
-          <SearchIcon className="w-6 h-6 mx-2" />
-          <input
-            className="w-full h-10 p-2 text-black border-none rounded-lg bg-slate-100 focus:border-none dark:bg-slate-500 dark:placeholder:text-white border-transparent focus:border-transparent focus:ring-0 dark:text-white"
-            type="text"
-            placeholder="Search"
-          />
         </div>
       </div>
     </div>
