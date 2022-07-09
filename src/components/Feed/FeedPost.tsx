@@ -3,7 +3,7 @@ import type Post from "~/types/Post";
 
 function FeedPost({ post }: { post: Post }) {
   return (
-    <div className="my-4 bg-white dark:bg-slate-800 dark:border-black rounded-3xl  border break-inside-avoid h-fit shadow-md">
+    <div className="my-4 mx-4 md:mx-0 bg-white dark:bg-slate-800 dark:border-black rounded-3xl  border break-inside-avoid h-fit shadow-md">
       {/* Top section */}
       <a href={post.tweet_link} target="_blank" rel="noreferrer">
         <div>
