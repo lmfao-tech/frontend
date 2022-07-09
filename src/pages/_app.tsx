@@ -19,21 +19,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           darkMode ? "dark" : null
         }`}
       >
-        <div className="flex w-full col-span-1 lg:col-span-4">
+        <div className="flex w-full lg:w-[70vw] col-span-1 lg:col-span-4">
           <Sidebar />
-          <div>
-            <div>
-              <div className="sticky top-0">
-                <TopBar />
-              </div>
-              <Component {...pageProps} />
+          <div className="">
+            <div className="sticky top-0">
+              <TopBar />
             </div>
+            <Component {...pageProps} />
           </div>
         </div>
-
-        <div className="hidden lg:block lg:col-span-2">
-          <Profile />
-        </div>
+        <Profile />
       </div>
       <Script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></Script>
     </SessionProvider>
