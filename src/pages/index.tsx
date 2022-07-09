@@ -47,7 +47,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="h-full overflow-hidden w-full shadow-sm flex flex-col">
-        <div className="flex flex-col px-1 md:px-24 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200 bg-slate-100 dark:bg-slate-700">
+        <div className="flex flex-col px-1 md:px-24 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42]">
           {memes.map((post, index) => {
             if (index === memes.length - 1) {
               return (

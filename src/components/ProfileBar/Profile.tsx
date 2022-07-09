@@ -4,8 +4,7 @@ import { useEffect } from "react";
 
 export default function Profile() {
   const { data: session } = useSession();
-  console.log(session)
-  // @ts-ignore 
+  // @ts-ignore
   let av = session?.user?.image;
   if (av) {
     av = av.replace(/_normal./, ".");
@@ -30,7 +29,7 @@ export default function Profile() {
               </span>
               <br />
               <span className="text-slate-500">
-                @{session?.twitter?.twitterHandle}
+                {/* @{session.twitter.twitterHandle} */}
               </span>
             </div>
           </div>
@@ -38,7 +37,7 @@ export default function Profile() {
             {/* TODO: Fix this */}
             <div className="text-center dark:text-slate-200">
               {/* @ts-ignore */}
-              <span className="font-bold">{session?.twitter?.postCount}</span>
+              {/* <span className="font-bold">{session?.twitter?.postCount}</span> */}
               <br />
               Tweets
             </div>
@@ -46,7 +45,7 @@ export default function Profile() {
             <div className="text-center dark:text-slate-200">
               {/* @ts-ignore */}
               <span className="font-bold">
-                {session?.twitter?.followersCount}
+                {/* {session?.twitter?.followersCount} */}
               </span>
               <br />
               Followers
@@ -55,7 +54,7 @@ export default function Profile() {
             <div className="text-center dark:text-slate-200">
               {/* @ts-ignore */}
               <span className="font-bold">
-                {session?.twitter?.followingCount}
+                {/* {session?.twitter?.followingCount} */}
               </span>
               <br />
               Following
@@ -65,8 +64,8 @@ export default function Profile() {
           {/* Some top accounts here */}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center gap-3 px-10">
-          <h1 className="text-3xl font-bold main-heading">
+        <div className="flex flex-col min-h-screen items-center justify-center gap-3 px-10">
+          <h1 className="text-3xl font-bold main-heading dark:text-slate-300">
             <span
               className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text"
               style={{ WebkitTextFillColor: "transparent" }}
@@ -75,7 +74,7 @@ export default function Profile() {
             </span>
             .tech
           </h1>
-          <p className="text-sm text-center">
+          <p className="text-sm text-center dark:text-slate-300">
             A content discovery platform where you can find the best memes
             across twitter, follow memers and stay for a good laugh!
           </p>
