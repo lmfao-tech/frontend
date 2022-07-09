@@ -25,7 +25,7 @@ function FeedPost({ post }: { post: Post }) {
             </div>
           </div>
         </div>
-        <div className="flex mx-3 ml-5 text-sm font-montserrat dark:text-slate-300">
+        <div className="flex mx-3 ml-5 md:text-sm font-montserrat dark:text-slate-300">
           {unescape(post.tweet_text.split(" ").slice(0, -1).join(" ").substring(0, 120) + (post.tweet_text.length > 120? "..." : ""))}
         </div>
         <div className="p-4">
