@@ -13,31 +13,13 @@ const breakpointColumnsObj = {
 };
 
 const Home: NextPage = () => {
-  const [last, setLastTweet] = useState<number>(0);
   const {
     memes,
     loading,
     hasMore,
   }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
-    url: `/api/getMemes?last=${last}&max_tweets=5`,
-  }); 
-  const observer = useRef<IntersectionObserver>();
-
-  const lastMemeRef = useCallback(
-    (node: any) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0]?.isIntersecting) {
-          setLastTweet(memes.length);
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [loading, memes.length]
-  );
+    url: `/api/hotMemes`,
+  });
 
   return (
     <>
@@ -48,21 +30,12 @@ const Home: NextPage = () => {
 
       <div className="h-full overflow-hidden w-full shadow-sm flex flex-col">
         <div className="flex flex-col px-1 md:px-24 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42]">
-          {memes.map((post, index) => {
-            if (index === memes.length - 1) {
-              return (
-                <div key={post.tweet_id} ref={lastMemeRef}>
-                  <FeedPost post={post} />
-                </div>
-              );
-            } else {
-              return (
+          {[... new Set(memes)].map((post, index) => (
                 <div key={post.tweet_id}>
                   <FeedPost post={post} />
                 </div>
-              );
-            }
-          })}
+          )
+          )}
           {loading && <div>Loading...</div>}
         </div>
       </div>

@@ -22,7 +22,7 @@ function shuffle(array: any[]) {
   return array;
 }
 
-export default function usePostFeed({lastMemeIndex} : {lastMemeIndex: number}) {
+export default function usePostFeed({url} : {url: string}) {
   const [memes, setMemes] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
@@ -30,14 +30,14 @@ export default function usePostFeed({lastMemeIndex} : {lastMemeIndex: number}) {
   useEffect(() => {
     setLoading(true);
 
-    fetch(`/api/getMemes?last=${lastMemeIndex}&max_tweets=5`)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setMemes(memes => Array.from(new Set([...memes, ...data])));
         setLoading(false);
         setHasMore(data.length >= 500);
       });
-  }, [lastMemeIndex]);
+  }, [url]);
 
   return { memes, loading, hasMore };
 }
