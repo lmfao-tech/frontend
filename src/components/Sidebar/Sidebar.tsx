@@ -6,7 +6,7 @@ import SidebarIcon from "./SidebarIcon";
 function Sidebar() {
   return (
     <div className="dark:bg-slate-800">
-      <div className="md:hidden dark:bg-slate-800 fixed bg-white flex items-center gap-2 bottom-0 drop-shadow-2xl justify-center h-14 w-full">
+      <div className="md:hidden dark:bg-slate-800 fixed bg-white flex items-center justify-between bottom-0 drop-shadow-2xl px-16 h-20 w-full">
         <SidebarIcon
           icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
           tooltip="Feed"
