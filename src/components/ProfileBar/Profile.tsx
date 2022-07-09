@@ -13,7 +13,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="overflow-auto min-h-screen sticky top-0 dark:bg-slate-800 lg:border-l">
+    <div className="overflow-auto min-h-screen sticky top-0 dark:bg-slate-800 lg:border-l dark:border-zinc-800">
       {session ? (
         <div>
           <div className="flex flex-col items-center px-5 py-10">
