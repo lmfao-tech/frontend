@@ -39,31 +39,29 @@ function Sidebar() {
         /> */}
       </div>
 
-      <div className="hidden sticky top-0 md:flex flex-col items-center justify-center w-20 min-h-screen space-y-5 border-gray-300 shadow-md border-1">
-        <SidebarIcon
-          icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
-          tooltip="Feed"
-        />
-
-        <SidebarIcon
-          icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-          tooltip="Memes from your friends"
-        />
-
-        <SidebarIcon
-          icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-          tooltip="Profile"
-        />
-
-        <SidebarIcon
-          icon={<CogIcon className="w-6 h-6 text-gray-400" />}
-          tooltip="Settings"
-        />
-
-        <SidebarIcon
-          icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-          tooltip="Upload yours"
-        />
+      <div className="hidden sticky top-0 md:flex flex-col items-center justify-center w-28 min-h-screen border-gray-300 shadow-md border-1">
+        <div className="ml-10 space-y-7">
+          <SidebarIcon
+            icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
+            tooltip="Feed"
+          />
+          <SidebarIcon
+            icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+            tooltip="Memes from your friends"
+          />
+          <SidebarIcon
+            icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+            tooltip="Profile"
+          />
+          <SidebarIcon
+            icon={<CogIcon className="w-6 h-6 text-gray-400" />}
+            tooltip="Settings"
+          />
+          <SidebarIcon
+            icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+            tooltip="Upload yours"
+          />
+        </div>
 
         {/* TODO: Implement Sidebar toggle  */}
         {/* <SidebarIcon
