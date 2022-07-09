@@ -39,8 +39,8 @@ function Sidebar() {
         /> */}
       </div>
 
-      <div className="hidden sticky top-0 md:flex flex-col items-center justify-center w-28 min-h-screen border-gray-300 shadow-md border-1">
-        <div className="ml-10 space-y-7">
+      <div className="hidden sticky w-[7vw] top-0 md:flex flex-col items-center justify-center min-h-screen border-gray-300 shadow-md border-1">
+        <div className="space-y-7">
           <SidebarIcon
             icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
             tooltip="Feed"
