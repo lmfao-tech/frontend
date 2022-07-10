@@ -37,7 +37,7 @@ function FeedPost({ post }: { post: Post }) {
                   </button>
                 ) : (
                   <button
-                    className="text-[.7rem] px-3 py-2 text-cyan-500 border-2 border-cyan-200 rounded hover:bg-cyan-200 hover:text-gray-700 cursor-pointer"
+                    className="text-[.7rem] px-3 py-2 text-cyan-500 border-2 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-gray-700 cursor-pointer dark:border-slate-400"
                     onClick={async () => {
                       setFollowing(true);
                       const resp = await fetch(
@@ -74,7 +74,7 @@ function FeedPost({ post }: { post: Post }) {
       <div className="flex gap-2 ml-5 mb-2">
         {!liked ? (
           <div
-            className="hover:bg-red-300 rounded-full p-1 group cursor-pointer"
+            className="hover:bg-red-300 rounded-md p-1 group cursor-pointer"
             onClick={async () => {
               setLiked(true);
               const resp = await fetch(
@@ -89,7 +89,7 @@ function FeedPost({ post }: { post: Post }) {
           </div>
         ) : (
           <div
-            className="hover:bg-red-100 rounded-full p-1 group cursor-pointer"
+            className="hover:bg-red-100 rounded-md p-1 group cursor-pointer"
             onClick={async () => {
               setLiked(false);
               const resp = await fetch(
@@ -106,7 +106,7 @@ function FeedPost({ post }: { post: Post }) {
 
         {!retweeted ? (
           <div
-            className="p-1 cursor-pointer rounded-full hover:bg-blue-200 group"
+            className="p-1 cursor-pointer rounded-md hover:bg-blue-200 group"
             onClick={async () => {
               setRetweeted(true);
               const resp = await fetch(
@@ -121,7 +121,7 @@ function FeedPost({ post }: { post: Post }) {
           </div>
         ) : (
           <div
-            className="p-1 cursor-pointer rounded-full hover:bg-blue-100 group"
+            className="p-1 cursor-pointer rounded-md hover:bg-blue-100 group"
             onClick={async () => {
               setRetweeted(false);
               const resp = await fetch(
@@ -136,11 +136,11 @@ function FeedPost({ post }: { post: Post }) {
           </div>
         )}
 
-        <a href={post.tweet_link} target="_blank" rel="noreferrer" className="p-1 rounded-md bg-slate-200">
+        <a href={post.tweet_link} target="_blank" rel="noreferrer" className="p-1 rounded-md bg-slate-200 dark:bg-slate-400">
           <ExternalLinkIcon className="h-6 w-6"/>
         </a>
 
-        <div className="p-1 rounded-md bg-slate-200 hover:bg-blue-200 cursor-pointer">
+        <div className="p-1 rounded-md bg-slate-200 hover:bg-blue-200 cursor-pointer dark:bg-slate-400">
           <RWebShare
             data={{
               title: "Meme discovered on LMFAO.tech | #LMFAOtech",
@@ -148,7 +148,7 @@ function FeedPost({ post }: { post: Post }) {
               text: post.tweet_text,
             }}
           >
-            <ShareIcon className="h-6 w-6 text-green-400" />
+            <ShareIcon className="h-6 w-6 text-green-400 dark:text-slate-900" />
           </RWebShare>
         </div>
       </div>
