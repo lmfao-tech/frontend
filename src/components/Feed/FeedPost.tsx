@@ -1,10 +1,13 @@
 import { HeartIcon } from "@heroicons/react/outline";
 import {
+  ExternalLinkIcon,
   HeartIcon as HeartIconSolid,
+  ShareIcon,
   SwitchHorizontalIcon,
 } from "@heroicons/react/solid";
 import React from "react";
 import type Post from "~/types/Post";
+import { RWebShare } from "react-web-share";
 
 function FeedPost({ post }: { post: Post }) {
   const [liked, setLiked] = React.useState(false);
@@ -132,6 +135,22 @@ function FeedPost({ post }: { post: Post }) {
             <SwitchHorizontalIcon className="h-6 w-6 text-blue-600 group-hover:text-blue-800" />
           </div>
         )}
+
+        <a href={post.tweet_link} target="_blank" rel="noreferrer" className="p-1 rounded-md bg-slate-200">
+          <ExternalLinkIcon className="h-6 w-6"/>
+        </a>
+
+        <div className="p-1 rounded-md bg-slate-200 hover:bg-blue-200 cursor-pointer">
+          <RWebShare
+            data={{
+              title: "Meme discovered on LMFAO.tech | #LMFAOtech",
+              url: post.tweet_link,
+              text: post.tweet_text,
+            }}
+          >
+            <ShareIcon className="h-6 w-6 text-green-400" />
+          </RWebShare>
+        </div>
       </div>
     </div>
   );
