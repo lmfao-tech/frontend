@@ -2,9 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useState, useRef, useCallback } from "react";
 import FeedPost from "~/components/Feed/FeedPost";
-import Masonry from "react-masonry-css";
 import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
+import FeedPage from "~/components/layouts/FeedPage";
 
 const breakpointColumnsObj = {
   default: 2,
@@ -69,5 +69,11 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+Home.getLayout = (page:NextPage) => {
+  return (
+    <FeedPage>{page}</FeedPage>
+  )
+}
 
 export default Home;
