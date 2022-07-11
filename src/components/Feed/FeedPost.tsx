@@ -21,18 +21,27 @@ function FeedPost({ post }: { post: Post }) {
         <div>
           <div className="flex items-center justify-between h-16 mx-4">
             <div className="flex items-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="w-8 h-8 mr-2 rounded-full"
-                src={post.profile_image_url}
-                alt="avatar"
-              />
-              <div className="text-md font-semibold text-slate-800 dark:text-slate-400">
-                {post.user}
-              </div>
+              <a className="flex items-center" href={`https://twitter.com/${post.username}`} target="_blank" rel="noreferrer">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="w-8 h-8 mr-2 rounded-full"
+                  src={post.profile_image_url}
+                  alt="avatar"
+                />
+                <div className="text-md font-semibold text-slate-800 dark:text-slate-400">
+                  {post.user}
+                </div>
+              </a>
               <div className="ml-2 flex gap-2">
                 {following ? (
-                  <button className="text-[.7rem] px-3 py-2 text-gray-800 bg-cyan-200 rounded">
+                  <button className="text-[.7rem] px-3 py-2 text-gray-800 bg-cyan-200 rounded" onClick={async () => {
+                    setFollowing(false);
+                    const resp = await fetch(
+                      `/api/twitter/tweet/unfollow?id=${post.user_id}`
+                    );
+                    const data = await resp.json();
+                    console.log(data);
+                  }}>
                     Following
                   </button>
                 ) : (
