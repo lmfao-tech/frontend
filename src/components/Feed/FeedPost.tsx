@@ -9,10 +9,11 @@ import React from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { useSession } from "next-auth/react";
+import useLocalStorage from "~/hooks/useLocalStorage";
 
 function FeedPost({ post }: { post: Post }) {
   const [liked, setLiked] = React.useState(false);
-  const [following, setFollowing] = React.useState(false);
+  const [following, setFollowing] = useLocalStorage(`follow-${post.user_id}}`, false);
   const [retweeted, setRetweeted] = React.useState(false);
 
   const { data: session } = useSession();
