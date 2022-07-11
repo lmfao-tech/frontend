@@ -136,8 +136,13 @@ function FeedPost({ post }: { post: Post }) {
           </div>
         )}
 
-        <a href={post.tweet_link} target="_blank" rel="noreferrer" className="p-1 rounded-md bg-slate-200 dark:bg-slate-400">
-          <ExternalLinkIcon className="h-6 w-6"/>
+        <a
+          href={post.tweet_link}
+          target="_blank"
+          rel="noreferrer"
+          className="p-1 rounded-md bg-slate-200 dark:bg-slate-400"
+        >
+          <ExternalLinkIcon className="h-6 w-6" />
         </a>
 
         <div className="p-1 rounded-md bg-slate-200 hover:bg-blue-200 cursor-pointer dark:bg-slate-400">
