@@ -22,7 +22,7 @@ function Sidebar() {
           />
         </Link>
 
-        <Link href="/hot">
+        <Link href="/hot" passHref>
           <SidebarIcon
             icon={<FireIcon className="w-6 h-6 text-orange-400" />}
             tooltip="Hot memes"
