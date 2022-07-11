@@ -13,7 +13,7 @@ import useLocalStorage from "~/hooks/useLocalStorage";
 
 function FeedPost({ post }: { post: Post }) {
   const [liked, setLiked] = React.useState(false);
-  const [following, setFollowing] = useLocalStorage(`follow-${post.user_id}}`, false);
+  const [following, setFollowing] = useLocalStorage(false, `follow-${post.user_id}`);
   const [retweeted, setRetweeted] = React.useState(false);
 
   const { data: session } = useSession();
