@@ -91,7 +91,7 @@ export default function Profile() {
             </div>
           )}
           <div className="px-10 mt-10">
-            <div className="w-full h-[2px] bg-gray-300 rounded">
+            <div className="w-full h-[2px] dark:bg-gray-600 bg-gray-300 rounded">
               {/* divider */}
             </div>
           </div>
