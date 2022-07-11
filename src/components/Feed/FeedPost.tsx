@@ -83,7 +83,7 @@ function FeedPost({ post }: { post: Post }) {
       <div className="flex gap-2 ml-5 mb-2">
         {!liked ? (
           <div
-            className="hover:bg-red-300 rounded-md p-1 group cursor-pointer"
+            className="hover:bg-red-300 rounded-full p-2 group cursor-pointer"
             onClick={async () => {
               setLiked(true);
               const resp = await fetch(
@@ -94,11 +94,11 @@ function FeedPost({ post }: { post: Post }) {
               console.log(data);
             }}
           >
-            <HeartIcon className="h-7 w-7 text-red-300 group-hover:text-gray-600" />
+            <HeartIcon className="h-6 w-6 text-red-300 group-hover:text-gray-600" />
           </div>
         ) : (
           <div
-            className="hover:bg-red-100 rounded-md p-1 group cursor-pointer"
+            className="hover:bg-red-100 rounded-full p-2 group cursor-pointer"
             onClick={async () => {
               setLiked(false);
               const resp = await fetch(
@@ -109,13 +109,13 @@ function FeedPost({ post }: { post: Post }) {
               console.log(data);
             }}
           >
-            <HeartIconSolid className="h-7 w-7 text-red-500" />
+            <HeartIconSolid className="h-6 w-6 text-red-500" />
           </div>
         )}
 
         {!retweeted ? (
           <div
-            className="p-1 cursor-pointer rounded-md hover:bg-blue-200 group"
+            className="p-2 cursor-pointer rounded-full hover:bg-blue-200 group"
             onClick={async () => {
               setRetweeted(true);
               const resp = await fetch(
@@ -130,7 +130,7 @@ function FeedPost({ post }: { post: Post }) {
           </div>
         ) : (
           <div
-            className="p-1 cursor-pointer rounded-md hover:bg-blue-100 group"
+            className="p-2 cursor-pointer rounded-full hover:bg-blue-100 group"
             onClick={async () => {
               setRetweeted(false);
               const resp = await fetch(
@@ -149,12 +149,12 @@ function FeedPost({ post }: { post: Post }) {
           href={post.tweet_link}
           target="_blank"
           rel="noreferrer"
-          className="p-1 rounded-md bg-slate-200 dark:bg-slate-400"
+          className="p-2 rounded-full bg-slate-200 dark:bg-slate-400"
         >
           <ExternalLinkIcon className="h-6 w-6" />
         </a>
 
-        <div className="p-1 rounded-md bg-slate-200 hover:bg-blue-200 cursor-pointer dark:bg-slate-400">
+        <div className="py-1 px-2 flex items-center justify-center rounded-full bg-slate-200 hover:bg-blue-200 cursor-pointer dark:bg-slate-400">
           <RWebShare
             data={{
               title: "Meme discovered on LMFAO.tech | #LMFAOtech",
@@ -162,7 +162,7 @@ function FeedPost({ post }: { post: Post }) {
               text: post.tweet_text,
             }}
           >
-            <ShareIcon className="h-6 w-6 text-green-400 dark:text-slate-900" />
+            <ShareIcon className="h-5 w-5 text-green-400 dark:text-slate-900" />
           </RWebShare>
         </div>
       </div>
