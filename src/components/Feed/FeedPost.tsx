@@ -94,7 +94,7 @@ function FeedPost({ post }: { post: Post }) {
         </div>
         <div className="p-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="rounded-lg max-h-96" src={post.meme_link} alt="" />
+          <img className="rounded-lg" src={post.meme_link} alt="" />
         </div>
       </a>
       {session && (
