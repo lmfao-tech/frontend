@@ -1,6 +1,5 @@
 import { Avatar, Button } from "flowbite-react";
 import { signIn, useSession, signOut } from "next-auth/react";
-import { useEffect } from "react";
 
 export default function Profile() {
   const { data: session } = useSession();
