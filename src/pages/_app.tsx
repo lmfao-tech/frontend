@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   // @ts-ignore
   const getLayout = Component.getLayout || ((page:NextPage) => page);
 
+
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
       {getLayout(<Component {...pageProps} />)}

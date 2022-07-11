@@ -1,6 +1,5 @@
 import { Avatar, Button } from "flowbite-react";
-import { signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { signIn, useSession, signOut } from "next-auth/react";
 
 export default function Profile() {
   const { data: session } = useSession();
@@ -91,6 +90,21 @@ export default function Profile() {
               </Button>
             </div>
           )}
+          <div className="px-10 mt-10">
+            <div className="w-full h-[2px] dark:bg-gray-600 bg-gray-300 rounded">
+              {/* divider */}
+            </div>
+          </div>
+          <div className="flex mt-10 justify-center items-center">
+            <Button
+              outline
+              size="lg"
+              gradientDuoTone="purpleToPink"
+              onClick={() => signOut()}
+            >
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
     </>
