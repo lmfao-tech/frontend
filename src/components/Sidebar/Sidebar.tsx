@@ -16,17 +16,21 @@ function Sidebar() {
     <div className="dark:bg-slate-800">
       <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-16 bg-white md:hidden dark:bg-slate-800 drop-shadow-2xl">
         <Link href="/">
-          <SidebarIcon
-            icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
-            tooltip="Feed"
-          />
+          <div>
+            <SidebarIcon
+              icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
+              tooltip="Feed"
+            />
+          </div>
         </Link>
 
-        <Link href="/hot" passHref>
-          <SidebarIcon
-            icon={<FireIcon className="w-6 h-6 text-orange-400" />}
-            tooltip="Hot memes"
-          />
+        <Link href="/hot">
+          <div>
+            <SidebarIcon
+              icon={<FireIcon className="w-6 h-6 text-orange-400" />}
+              tooltip="Hot memes"
+            />
+          </div>
         </Link>
 
         <SidebarIcon
