@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState, useRef, useCallback } from "react";
@@ -5,12 +6,6 @@ import FeedPost from "~/components/Feed/FeedPost";
 import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
-
-const breakpointColumnsObj = {
-  default: 2,
-  1100: 3,
-  640: 1,
-};
 
 const Home: NextPage = () => {
   const [last, setLastTweet] = useState<number>(0);
@@ -70,7 +65,8 @@ const Home: NextPage = () => {
   );
 };
 
-Home.getLayout = (page:NextPage) => {
+// @ts-ignore
+Home.getLayout = (page:ReactElement) => {
   return (
     <FeedPage>{page}</FeedPage>
   )

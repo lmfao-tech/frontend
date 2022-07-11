@@ -7,6 +7,7 @@ import { NextPage } from "next";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
+  // @ts-ignore
   const getLayout = Component.getLayout || ((page:NextPage) => page);
 
   return (

@@ -1,16 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState, useRef, useCallback } from "react";
 import FeedPost from "~/components/Feed/FeedPost";
-import Masonry from "react-masonry-css";
+import FeedPage from "~/components/layouts/FeedPage";
 import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
-
-const breakpointColumnsObj = {
-  default: 2,
-  1100: 3,
-  640: 1,
-};
 
 const Home: NextPage = () => {
   const {
@@ -24,8 +17,8 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>LMFAO.tech</title>
-        <meta name="description" content="LMFAO.tech | Home" />
+        <title>Hot posts on LMFAO.tech</title>
+        <meta name="description" content="LMFAO.tech | Hot posts" />
       </Head>
 
       <div className="h-full overflow-hidden w-full shadow-sm flex flex-col">
@@ -42,5 +35,13 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+
+// @ts-ignore
+Home.getLayout = (page) => {
+  return (
+    <FeedPage>{page}</FeedPage>
+  )
+}
 
 export default Home;
