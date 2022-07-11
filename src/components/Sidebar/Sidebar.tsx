@@ -14,7 +14,7 @@ import Link from "next/link";
 function Sidebar() {
   return (
     <div className="dark:bg-slate-800">
-      <div className="md:hidden dark:bg-slate-800 fixed bg-white flex items-center justify-between bottom-0 drop-shadow-2xl px-16 h-20 w-full">
+      <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-16 bg-white md:hidden dark:bg-slate-800 drop-shadow-2xl">
         <Link href="/">
           <SidebarIcon
             icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
@@ -56,20 +56,24 @@ function Sidebar() {
         /> */}
       </div>
 
-      <div className="hidden sticky top-0 md:flex flex-col items-center justify-center w-28 min-h-screen border-gray-300 shadow-md border-1">
+      <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
         <div className="ml-10 space-y-7">
           <Link href="/">
-            <SidebarIcon
-              icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
-              tooltip="Feed"
-            />
+            <div>
+              <SidebarIcon
+                icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
+                tooltip="Feed"
+              />
+            </div>
           </Link>
 
           <Link href="/hot">
-            <SidebarIcon
-              icon={<FireIcon className="w-6 h-6 text-orange-400" />}
-              tooltip="Hot memes"
-            />
+            <div>
+              <SidebarIcon
+                icon={<FireIcon className="w-6 h-6 text-orange-400" />}
+                tooltip="Hot memes"
+              />
+            </div>
           </Link>
 
           <SidebarIcon
