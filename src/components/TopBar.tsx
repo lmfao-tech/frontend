@@ -4,14 +4,17 @@ import darkModeAtom from "~/atoms/darkmode";
 import Image from "next/image";
 import { useAtom } from "jotai";
 import logo from "~/public/logo.svg";
+import { useRouter } from "next/router";
 
 function TopBar() {
+
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
+  const router = useRouter();
 
   return (
     <div className="dark:bg-slate-800 w-full bg-white border-b-2 dark:shadow-md dark:border-none z-10">
       <div className="flex items-center justify-between h-20 mx-5 md:h-16">
-        <div className="w-full flex text-lg font-bold md:text-2xl font-trispace text-slate-800 dark:text-white">
+        <div onClick={() => router.push("/")} className="w-full flex text-lg cursor-pointer font-bold md:text-2xl font-trispace text-slate-800 dark:text-white">
           <Image alt="Logo of LMFAO.tech" src={logo} width={32} height={32} />
           <div className="mx-2">
             LMFAO
