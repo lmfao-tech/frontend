@@ -6,16 +6,17 @@ import FeedPost from "~/components/Feed/FeedPost";
 import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
+import PullToRefresh from "react-simple-pull-to-refresh";
 
 const Home: NextPage = () => {
   const [last, setLastTweet] = useState<number>(0);
-  const {
+  let {
     memes,
     loading,
     hasMore,
   }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
     url: `/api/getMemes?last=${last}&max_tweets=5`,
-  }); 
+  });
   const observer = useRef<IntersectionObserver>();
 
   const lastMemeRef = useCallback(
@@ -66,10 +67,8 @@ const Home: NextPage = () => {
 };
 
 // @ts-ignore
-Home.getLayout = (page:ReactElement) => {
-  return (
-    <FeedPage>{page}</FeedPage>
-  )
-}
+Home.getLayout = (page: ReactElement) => {
+  return <FeedPage>{page}</FeedPage>;
+};
 
 export default Home;
