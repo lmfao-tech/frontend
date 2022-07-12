@@ -8,4 +8,17 @@
 
 body {
     overflow-x: hidden;
+    outline-color: transparent;
+}
+
+#haha:focus {
+    border: none;
+    box-shadow: none;
+    outline-style: none;
+    outline: none !important;
+}
+
+#haha {
+    outline: none !important;
+    outline-color: transparent;
 }
