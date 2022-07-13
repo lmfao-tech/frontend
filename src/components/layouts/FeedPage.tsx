@@ -1,33 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import darkModeAtom from "~/atoms/darkmode";
 import Sidebar from "~/components/Sidebar/Sidebar";
 import TopBar from "~/components/TopBar";
 import Profile from "~/components/ProfileBar/Profile";
 import { useEffect } from "react";
-import { useAtom, useAtomValue } from "jotai"
+import { useAtom, useAtomValue } from "jotai";
 
-
-function FeedPage({children} : {children: React.ReactNode}) {
+function FeedPage({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const jotaiDarkmode = useAtomValue(darkModeAtom);
-  
+
   useEffect(() => {
-      const darkMode = window.localStorage.getItem("darkMode");
-      if (darkMode === "true") {
-        setIsDarkMode(true);
-      }
-  }
-  , []);
+    const darkMode = window.localStorage.getItem("darkMode");
+    if (darkMode === "true") {
+      setIsDarkMode(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (jotaiDarkmode) {
       setIsDarkMode(true);
-    }
-    else {
+    } else {
       setIsDarkMode(false);
     }
-  }
-  , [jotaiDarkmode, setIsDarkMode]);
+  }, [jotaiDarkmode, setIsDarkMode]);
 
   return (
     <div>
@@ -36,19 +32,19 @@ function FeedPage({children} : {children: React.ReactNode}) {
           isDarkMode ? "dark" : null
         }`}
       >
-        <div className="flex w-full lg:w-[70vw] col-span-1 lg:col-span-4">
+        <div className="flex w-full col-span-1 lg:col-span-4">
           <Sidebar />
-          <div className="">
+          <div>
             <div className="sticky top-0">
               <TopBar />
             </div>
             {children}
           </div>
         </div>
-        <Profile />
+            <Profile />
       </div>
     </div>
   );
 }
 
-export default FeedPage
+export default FeedPage;

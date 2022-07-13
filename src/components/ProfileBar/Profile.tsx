@@ -13,7 +13,7 @@ export default function Profile() {
 
   return (
     <>
-      <div className="hidden lg:block right-0 fixed w-[28.8vw] lg:col-span-2">
+      <div className="hidden lg:block lg:col-span-2">
         <div className="sticky top-0 min-h-screen overflow-auto dark:bg-slate-800">
           {session ? (
             <div>
@@ -66,7 +66,7 @@ export default function Profile() {
               {/* Some top accounts here */}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center min-h-screen gap-3 px-10">
+            <div className="flex flex-col items-center justify-center w-full min-h-screen gap-3 px-10">
               <h1 className="text-3xl font-bold main-heading dark:text-slate-300">
                 <span
                   className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text"
