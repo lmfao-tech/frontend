@@ -13,10 +13,10 @@ import useLocalStorage from "~/hooks/useLocalStorage";
 
 function FeedPost({ post }: { post: Post }) {
   const [liked, setLiked] = React.useState(false);
-  const [following, setFollowing] = useLocalStorage(
-    false,
-    `follow-${post.user_id}`
-  );
+  // const [following, setFollowing] = useLocalStorage(
+  //   false,
+  //   `follow-${post.user_id}`
+  // );
   const [retweeted, setRetweeted] = React.useState(false);
 
   const { data: session } = useSession();
@@ -45,11 +45,10 @@ function FeedPost({ post }: { post: Post }) {
             </a>
             {session && (
               <div className="flex gap-2 ml-2">
-                {following ? (
+                {/* {following ? (
                   <button
                     className="text-[.7rem] px-3 py-2 text-gray-800 bg-cyan-200 rounded"
                     onClick={async () => {
-                      setFollowing(false);
                       const resp = await fetch(
                         `/api/twitter/tweet/unfollow?id=${post.user_id}`
                       );
@@ -59,11 +58,10 @@ function FeedPost({ post }: { post: Post }) {
                   >
                     Following
                   </button>
-                ) : (
+                ) : ( */}
                   <button
                     className="text-[.7rem] px-3 py-2 text-cyan-500 border-2 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-gray-700 cursor-pointer dark:border-slate-400"
                     onClick={async () => {
-                      setFollowing(true);
                       const resp = await fetch(
                         `/api/twitter/tweet/follow?id=${post.user_id}`
                       );
@@ -73,7 +71,7 @@ function FeedPost({ post }: { post: Post }) {
                   >
                     Follow
                   </button>
-                )}
+                {/* )} */}
               </div>
             )}
           </div>
@@ -95,7 +93,7 @@ function FeedPost({ post }: { post: Post }) {
 
       {!session && (
         <div className="mb-3 ml-5">
-          <span className="p-1 pl-2 border rounded-full dark:text-white">
+          <span className="px-3 py-1 pl-2 border rounded-full dark:text-white">
             Login to interact
           </span>
         </div>

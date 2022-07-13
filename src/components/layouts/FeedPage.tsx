@@ -1,21 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import darkModeAtom from "~/atoms/darkmode";
 import Sidebar from "~/components/Sidebar/Sidebar";
 import TopBar from "~/components/TopBar";
 import Profile from "~/components/ProfileBar/Profile";
 import { useEffect } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai"
 
 
 function FeedPage({children} : {children: React.ReactNode}) {
-  const [darkMode, setDarkMode] = useAtom(darkModeAtom);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const jotaiDarkmode = useAtomValue(darkModeAtom);
+  
+  useEffect(() => {
+      const darkMode = window.localStorage.getItem("darkMode");
+      if (darkMode === "true") {
+        setIsDarkMode(true);
+      }
+  }
+  , []);
 
+  useEffect(() => {
+    if (jotaiDarkmode) {
+      setIsDarkMode(true);
+    }
+    else {
+      setIsDarkMode(false);
+    }
+  }
+  , [jotaiDarkmode, setIsDarkMode]);
 
   return (
     <div>
       <div
         className={`grid grid-cols-1 h-full lg:grid-cols-6 ${
-          darkMode ? "dark" : null
+          isDarkMode ? "dark" : null
         }`}
       >
         <div className="flex w-full lg:w-[70vw] col-span-1 lg:col-span-4">
