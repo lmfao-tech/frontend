@@ -32,7 +32,7 @@ function FeedPage({ children }: { children: React.ReactNode }) {
           isDarkMode ? "dark" : null
         }`}
       >
-        <div className="flex w-full col-span-1 lg:col-span-4">
+        <div className="flex w-full col-span-1 lg:col-span-4 dark:bg-[#222e42]">
           <Sidebar />
           <div>
             <div className="sticky top-0">
@@ -41,7 +41,7 @@ function FeedPage({ children }: { children: React.ReactNode }) {
             {children}
           </div>
         </div>
-            <Profile />
+        <Profile />
       </div>
     </div>
   );
