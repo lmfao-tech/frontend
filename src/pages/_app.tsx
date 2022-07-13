@@ -4,7 +4,6 @@ import { SessionProvider } from "next-auth/react";
 import Script from "next/script";
 import { NextPage } from "next";
 
-
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
   // @ts-ignore

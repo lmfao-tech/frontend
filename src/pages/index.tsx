@@ -67,7 +67,13 @@ const Home: NextPage = () => {
               );
             }
           })}
-          {loading && <div>Loading...</div>}
+          {loading && (
+            <div className="flex items-center justify-center min-h-max">
+              <div className="dark:bg-[#222e42] dark:text-white flex w-full h-full">
+                Loading...
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
