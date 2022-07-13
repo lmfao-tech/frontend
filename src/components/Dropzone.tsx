@@ -56,7 +56,7 @@ export default function Dropzone({ onFileDrop, maxFiles }: {
             {onDrag()}
 
             <div >
-                <h1 className="text-2xl">Drag images here or click to select files</h1>
+                <h1 className="text-xl">Drag images here or click to select files</h1>
                 <h1 className="text-sm mt-2">Attach as many files as you like, each file should not exceed 5mb</h1>
             </div>
         </div>

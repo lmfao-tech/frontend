@@ -12,6 +12,7 @@
     "@heroicons/react": "^1.0.6",
     "flowbite": "^1.4.7",
     "flowbite-react": "^0.0.27",
+    "framer-motion": "^6.5.0",
     "jotai": "^1.7.4",
     "next": "12.2",
     "next-auth": "^4.6.1",

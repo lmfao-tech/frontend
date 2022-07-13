@@ -10,6 +10,7 @@ import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { useSession } from "next-auth/react";
 import useLocalStorage from "~/hooks/useLocalStorage";
+import { motion } from 'framer-motion';
 
 function FeedPost({ post }: { post: Post }) {
   const [liked, setLiked] = React.useState(false);
