@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState, useRef, useCallback } from "react";
@@ -10,12 +10,23 @@ import PullToRefresh from "react-simple-pull-to-refresh";
 
 const Home: NextPage = () => {
   const [last, setLastTweet] = useState<number>(0);
+
+  const [timestamp, setTimestamp] = useState<number>(0);
+
+  useEffect(() => {
+    if (last === 0) {
+      setTimestamp(Date.now());
+      console.log("setTimestamp: ", timestamp);
+    }
+  }
+  , [last]);
+
   let {
     memes,
     loading,
     hasMore,
   }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
-    url: `/api/getMemes?last=${last}&max_tweets=5`,
+    url: `/api/getMemes?last=${last}&max_tweets=5&timestamp=${timestamp}`,
   });
   const observer = useRef<IntersectionObserver>();
 
