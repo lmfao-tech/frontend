@@ -14,7 +14,7 @@ export default function Profile() {
   return (
     <>
       <div className="hidden lg:block right-0 fixed w-[28.8vw] lg:col-span-2">
-        <div className="overflow-auto min-h-screen sticky top-0 dark:bg-slate-800 lg:dark:border-l dark:border-zinc-800">
+        <div className="sticky top-0 min-h-screen overflow-auto dark:bg-slate-800">
           {session ? (
             <div>
               <div className="flex flex-col items-center px-5 py-10">
@@ -66,7 +66,7 @@ export default function Profile() {
               {/* Some top accounts here */}
             </div>
           ) : (
-            <div className="flex flex-col min-h-screen items-center justify-center gap-3 px-10">
+            <div className="flex flex-col items-center justify-center min-h-screen gap-3 px-10">
               <h1 className="text-3xl font-bold main-heading dark:text-slate-300">
                 <span
                   className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text"
@@ -95,7 +95,7 @@ export default function Profile() {
               {/* divider */}
             </div>
           </div>
-          <div className="flex mt-10 justify-center items-center">
+          <div className="flex items-center justify-center mt-10">
             <Button
               outline
               size="lg"

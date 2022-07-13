@@ -24,15 +24,6 @@ function Sidebar() {
           </div>
         </Link>
 
-        <Link href="/hot">
-          <div>
-            <SidebarIcon
-              icon={<FireIcon className="w-6 h-6 text-orange-400" />}
-              tooltip="Hot memes"
-            />
-          </div>
-        </Link>
-
         <SidebarIcon
           icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
           tooltip="Memes from your friends"
@@ -67,15 +58,6 @@ function Sidebar() {
               <SidebarIcon
                 icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
                 tooltip="Feed"
-              />
-            </div>
-          </Link>
-
-          <Link href="/hot">
-            <div>
-              <SidebarIcon
-                icon={<FireIcon className="w-6 h-6 text-orange-400" />}
-                tooltip="Hot memes"
               />
             </div>
           </Link>

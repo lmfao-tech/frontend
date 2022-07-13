@@ -22,7 +22,7 @@ function FeedPost({ post }: { post: Post }) {
   const { data: session } = useSession();
 
   return (
-    <div className="p-2 mx-4 my-4 bg-white border shadow-md md:mx-0 dark:bg-slate-800 dark:border-gray-900 rounded-2xl break-inside-avoid h-fit">
+    <div className="p-2 mx-4 my-4 bg-white shadow-md md:mx-0 dark:bg-slate-800 dark:border-gray-900 rounded-2xl break-inside-avoid h-fit">
       {/* Top section */}
       <div>
         <div className="flex items-center justify-between h-16 mx-4">
