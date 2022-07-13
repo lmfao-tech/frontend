@@ -95,7 +95,7 @@ function FeedPost({ post }: { post: Post }) {
 
       {!session && (
         <div className="mb-3 ml-5">
-          <span className="p-1 pl-2 border rounded-full">
+          <span className="p-1 pl-2 border rounded-full dark:text-white">
             Login to interact
           </span>
         </div>
