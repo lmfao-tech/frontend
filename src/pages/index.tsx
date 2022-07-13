@@ -14,19 +14,16 @@ const Home: NextPage = () => {
   const [timestamp, setTimestamp] = useState<number>(0);
 
   useEffect(() => {
-    if (last === 0) {
       setTimestamp(Date.now());
-      console.log("setTimestamp: ", timestamp);
-    }
   }
-  , [last]);
+  , []);
 
   let {
     memes,
     loading,
     hasMore,
   }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
-    url: `/api/getMemes?last=${last}&max_tweets=5&timestamp=${timestamp}`,
+    url: `/api/getMemes?last=${last}&max_tweets=5`,
   });
   const observer = useRef<IntersectionObserver>();
 
@@ -53,7 +50,7 @@ const Home: NextPage = () => {
         <meta name="description" content="LMFAO.tech | Home" />
       </Head>
 
-      <div className="h-full overflow-hidden bg-gray-100 w-full shadow-sm flex flex-col">
+      <div className="flex flex-col w-full h-full overflow-hidden bg-gray-100 shadow-sm">
         <div className="flex flex-col px-1 md:px-24 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42]">
           {memes.map((post, index) => {
             if (index === memes.length - 1) {
