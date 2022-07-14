@@ -4,31 +4,38 @@ import darkModeAtom from "~/atoms/darkmode";
 import Image from "next/image";
 import { useAtom } from "jotai";
 import logo from "~/public/logo.svg";
+import router from "next/router";
 
 function TopBar() {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
+  
 
   return (
-    <div className="dark:bg-slate-800 bg-white border-b-2 dark:shadow-md dark:border-none z-10">
+    <div className="z-10 bg-white border-b-2 dark:bg-slate-800 dark:shadow-md dark:border-none">
       <div className="flex items-center justify-between h-20 mx-5 md:h-16">
-        <div className="w-full flex text-lg font-bold md:text-2xl font-trispace text-slate-800 dark:text-white">
-          <Image alt="Logo of LMFAO.tech" src={logo} width={32} height={32} />
-          <div className="mx-2">
-            LMFAO
-            <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">
-              .tech
-            </span>
+        <div className="flex w-full">
+          <div
+            onClick={(e) => router.push("/")}
+            className="flex text-lg font-bold cursor-pointer md:text-2xl font-trispace text-slate-800 dark:text-white"
+          >
+            <Image alt="Logo of LMFAO.tech" src={logo} width={32} height={32} />
+            <div className="mx-2">
+              LMFAO
+              <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+                .tech
+              </span>
+            </div>
           </div>
         </div>
 
         <div
-          className="flex items-center m-3 p-2 bg-slate-200 rounded-md cursor-pointer dark:text-white dark:bg-slate-700 "
+          className="flex items-center p-2 m-3 rounded-md cursor-pointer bg-slate-200 dark:text-white dark:bg-slate-700 "
           onClick={(e) => setDarkMode(!darkMode)}
         >
           {!darkMode ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="w-5 h-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -43,7 +50,7 @@ function TopBar() {
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="w-5 h-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

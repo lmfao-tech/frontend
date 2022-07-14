@@ -28,7 +28,7 @@ function Sidebar() {
 
         <SidebarIcon
           icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-          tooltip="Memes from your friends"
+          tooltip="Community"
           position="top"
         />
 
@@ -46,7 +46,7 @@ function Sidebar() {
 
         <SidebarIcon
           icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-          tooltip="Upload yours"
+          tooltip="Upload"
           position="top"
         />
       </div>
@@ -65,7 +65,7 @@ function Sidebar() {
 
           <SidebarIcon
             icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-            tooltip="Memes from your friends"
+            tooltip="Community"
           />
           <SidebarIcon
             icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
@@ -77,7 +77,7 @@ function Sidebar() {
           />
           <SidebarIcon
             icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-            tooltip="Upload yours"
+            tooltip="Upload"
           />
         </div>
 

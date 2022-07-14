@@ -2,14 +2,22 @@ import { HeartIcon } from "@heroicons/react/outline";
 import {
   ExternalLinkIcon,
   HeartIcon as HeartIconSolid,
-  ShareIcon,
   SwitchHorizontalIcon,
 } from "@heroicons/react/solid";
+import {ShareIcon} from "@heroicons/react/outline";
 import React from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { useSession } from "next-auth/react";
 import useLocalStorage from "~/hooks/useLocalStorage";
+
+const removeLinksHashtagsMention = (text: string) => {
+  let m = text.replace(/\s#\w+/g, "").replace(/\s@\w+/g, "");
+
+  // Remove t.co links
+  m = m.replace(/https?:\/\/t.co\/\w+/g, "");
+  return m
+}
 
 function FeedPost({ post }: { post: Post }) {
   const [liked, setLiked] = React.useState(false);
@@ -22,7 +30,7 @@ function FeedPost({ post }: { post: Post }) {
   const { data: session } = useSession();
 
   return (
-    <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 md:mx-4 my dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit">
+    <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit">
       {/* Top section */}
       <div>
         <div className="flex items-center justify-between h-16 mx-4">
@@ -77,8 +85,9 @@ function FeedPost({ post }: { post: Post }) {
       </div>
       <div className="flex mx-3 ml-5 text-sm font-montserrat dark:text-slate-300">
         {unescape(
-          post.tweet_text.split(" ").slice(0, -1).join(" ").substring(0, 120) +
-            (post.tweet_text.length > 120 ? "..." : "")
+          removeLinksHashtagsMention(post.tweet_text)
+          // post.tweet_text.split(" ").slice(0, -1).join(" ").substring(0, 120) +
+          //   (post.tweet_text.length > 120 ? "..." : "")
         )}
       </div>
       <div className="p-4">
@@ -154,7 +163,7 @@ function FeedPost({ post }: { post: Post }) {
           </button>
         ) : (
           <div
-            className="p-2 rounded-md cursor-pointer hover:bg-blue-100 group"
+            className="p-2 rounded-md cursor-pointer hover:bg-green-700/20 group"
             onClick={async () => {
               setRetweeted(false);
               const resp = await fetch(
@@ -164,7 +173,7 @@ function FeedPost({ post }: { post: Post }) {
               console.log(data);
             }}
           >
-            <SwitchHorizontalIcon className="w-6 h-6 text-blue-600 group-hover:text-blue-800" />
+            <SwitchHorizontalIcon className="w-6 h-6 text-green-400" />
           </div>
         )}
         <a
