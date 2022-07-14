@@ -35,35 +35,40 @@ export default function Profile() {
                   </span>
                 </div>
               </div>
-              <div className="flex items-center justify-between mx-20">
-                {/* TODO: Fix this */}
-                <div className="text-center dark:text-slate-200">
-                  {/* @ts-ignore */}
-                  <span className="font-bold">{session?.twitter?.postCount}</span>
-                  <br />
-                  Tweets
-                </div>
-
-                <div className="text-center dark:text-slate-200">
-                  <span className="font-bold">
-                    {/* @ts-ignore */}
-                    {session?.twitter?.followersCount}
-                  </span>
-                  <br />
-                  Followers
-                </div>
-
-                <div className="text-center dark:text-slate-200">
-                  <span className="font-bold">
-                    {/* @ts-ignore */}
-                    {session?.twitter?.followingCount}
-                  </span>
-                  <br />
-                  Following
+              <div className="flex items-center justify-center">
+                <div className="flex items-center justify-between max-w-lg space-x-4">
+                  {/* TODO: Fix this */}
+                  <div className="text-center dark:text-slate-200">
+                    <span className="font-bold">
+                      {/* @ts-ignore */}
+                      {session?.twitter?.postCount}
+                    </span>
+                    <br />
+                    Tweets
+                  </div>
+                  <div className="text-center dark:text-slate-200">
+                    <span className="font-bold">
+                      {/* @ts-ignore */}
+                      {session?.twitter?.followersCount}
+                    </span>
+                    <br />
+                    Followers
+                  </div>
+                  <div className="text-center dark:text-slate-200">
+                    <span className="font-bold">
+                      {/* @ts-ignore */}
+                      {session?.twitter?.followingCount}
+                    </span>
+                    <br />
+                    Following
+                  </div>
                 </div>
               </div>
 
-              {/* Some top accounts here */}
+              {/* Streak count */}
+              {/* Coins count */}
+              {/* Like coins left today */}
+              {/* Upload meme button (one more) */}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center w-full min-h-screen gap-3 px-10">

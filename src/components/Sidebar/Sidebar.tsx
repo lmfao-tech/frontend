@@ -2,7 +2,7 @@ import React from "react";
 import {
   SparklesIcon,
   UsersIcon,
-  CogIcon,
+  DesktopComputerIcon,
   UserIcon,
   PlusIcon,
   FireIcon,
@@ -38,11 +38,15 @@ function Sidebar() {
           position="top"
         />
 
-        <SidebarIcon
-          icon={<CogIcon className="w-6 h-6 text-gray-400" />}
-          tooltip="Settings"
-          position="top"
-        />
+        <Link href="/dash">
+          <div>
+            <SidebarIcon
+              icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
+              tooltip="Dashboard"
+              position="top"
+            />
+          </div>
+        </Link>
 
         <SidebarIcon
           icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
@@ -71,10 +75,14 @@ function Sidebar() {
             icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
             tooltip="Profile"
           />
-          <SidebarIcon
-            icon={<CogIcon className="w-6 h-6 text-gray-400" />}
-            tooltip="Settings"
-          />
+          <Link href="/dash">
+            <div>
+              <SidebarIcon
+                icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
+                tooltip="Dashboard"
+              />
+            </div>
+          </Link>
           <SidebarIcon
             icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
             tooltip="Upload"

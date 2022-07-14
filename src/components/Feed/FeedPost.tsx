@@ -4,7 +4,7 @@ import {
   HeartIcon as HeartIconSolid,
   SwitchHorizontalIcon,
 } from "@heroicons/react/solid";
-import {ShareIcon} from "@heroicons/react/outline";
+import { ShareIcon } from "@heroicons/react/outline";
 import React from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
@@ -16,8 +16,8 @@ const removeLinksHashtagsMention = (text: string) => {
 
   // Remove t.co links
   m = m.replace(/https?:\/\/t.co\/\w+/g, "");
-  return m
-}
+  return m;
+};
 
 function FeedPost({ post }: { post: Post }) {
   const [liked, setLiked] = React.useState(false);
@@ -163,7 +163,7 @@ function FeedPost({ post }: { post: Post }) {
           </button>
         ) : (
           <div
-            className="p-2 rounded-md cursor-pointer hover:bg-green-700/20 group"
+            className="p-2 rounded-full cursor-pointer hover:bg-green-700/20 group"
             onClick={async () => {
               setRetweeted(false);
               const resp = await fetch(

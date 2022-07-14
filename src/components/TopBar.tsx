@@ -3,12 +3,11 @@ import { SearchIcon } from "@heroicons/react/solid";
 import darkModeAtom from "~/atoms/darkmode";
 import Image from "next/image";
 import { useAtom } from "jotai";
-import logo from "~/public/logo.svg";
+import logo from "~/public/logo.png";
 import router from "next/router";
 
 function TopBar() {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
-  
 
   return (
     <div className="z-10 bg-white border-b-2 dark:bg-slate-800 dark:shadow-md dark:border-none">
@@ -18,7 +17,7 @@ function TopBar() {
             onClick={(e) => router.push("/")}
             className="flex text-lg font-bold cursor-pointer md:text-2xl font-trispace text-slate-800 dark:text-white"
           >
-            <Image alt="Logo of LMFAO.tech" src={logo} width={32} height={32} />
+            <Image alt="Logo of LMFAO.tech" src={logo} width={36} height={30} />
             <div className="mx-2">
               LMFAO
               <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">
