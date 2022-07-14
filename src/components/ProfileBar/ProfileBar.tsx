@@ -29,7 +29,8 @@ export default function Profile() {
                 </span>
                 <br />
                 <span className="text-slate-500">
-                  {/* @ts-ignore */}@{session.twitter.twitterHandle}
+                  {/* @ts-ignore */}
+                  @{session.twitter.twitterHandle}
                 </span>
               </div>
             </div>
