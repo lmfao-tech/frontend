@@ -47,7 +47,41 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>LMFAO.tech</title>
-        <meta name="description" content="LMFAO.tech | Home" />
+        <meta
+          name="description"
+          content="LMFAO.tech | Discover memes from all around the internet | Home🌐"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="/logo-white.png" />
+        <meta name="keywords" content="LMFAO, lol, memes, twitter memes" />
+        <meta name="language" content="en" />
+        <meta name="url" content="https://LMFAO.tech" />
+
+        <meta name="og:title" content="LMFAO.tech" />
+        <meta name="og:type" content="social" />
+        <meta name="og:url" content="https://lmfao.tech" />
+        <meta name="og:image" content="https://lmfao.tech/og-image.png" />
+        <meta name="og:site_name" content="LMFAO.tech" />
+        <meta
+          name="og:description"
+          content="LMFAO.tech - A content discovery platform where you can find memes from all across the internet and go LMFAO"
+        />
+        <meta name="og:email" content="hi@lmfao.tech" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="LMFAO.tech" />
+        <meta
+          property="twitter:title"
+          content="LMFAO.tech - A content discovery platform"
+        />
+        <meta
+          property="twitter:description"
+          content="LMFAO.tech: where you can find memes from all across the intenret and go LMFAO"
+        />
+        <meta
+          property="twitter:image"
+          content="https://lmfao.tech/og-image.png"
+        />
       </Head>
 
       <div className="flex flex-col w-full overflow-hidden bg-gray-100 shadow-sm">
