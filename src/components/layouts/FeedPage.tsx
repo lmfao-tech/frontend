@@ -28,7 +28,7 @@ function FeedPage({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <div
-        className={`grid grid-cols-1 h-full lg:grid-cols-6 ${
+        className={`grid grid-cols-1 lg:grid-cols-6 ${
           isDarkMode ? "dark" : null
         }`}
       >

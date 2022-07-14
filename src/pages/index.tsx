@@ -50,8 +50,8 @@ const Home: NextPage = () => {
         <meta name="description" content="LMFAO.tech | Home" />
       </Head>
 
-      <div className="flex flex-col w-full h-full overflow-hidden bg-gray-100 shadow-sm">
-        <div className="flex flex-col px-1 md:px-24 h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42]">
+      <div className="flex flex-col w-full overflow-hidden bg-gray-100 shadow-sm">
+        <div className="flex flex-col px-1 md:px-24 overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42]">
           {memes.map((post, index) => {
             if (index === memes.length - 1) {
               return (
@@ -68,8 +68,8 @@ const Home: NextPage = () => {
             }
           })}
           {loading && (
-            <div className="flex items-center justify-center min-h-max">
-              <div className="dark:bg-[#222e42] dark:text-white flex w-full h-full">
+            <div className="flex items-center justify-center h-full">
+              <div className="dark:bg-[#222e42] dark:text-white">
                 Loading...
               </div>
             </div>
