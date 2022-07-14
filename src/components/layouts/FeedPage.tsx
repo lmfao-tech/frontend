@@ -16,7 +16,9 @@ function FeedPage({ children }: { children: React.ReactNode }) {
             {children}
           </div>
         </div>
+        <div className="hidden lg:block lg:col-span-2">
         <ProfileBar />
+        </div>
       </div>
     </DefaultLayout>
   );
