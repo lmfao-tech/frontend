@@ -23,7 +23,7 @@ export default function Dropzone({ onFileDrop, maxFiles, image, setImage }: {
           <img
             src={URL.createObjectURL(image)}
             alt="Image to be uploaded"
-            height={500}
+            width={350}
           />
           {/* Button to change image */}
             <button 
