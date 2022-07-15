@@ -11,8 +11,8 @@ interface Request extends NextApiRequest {
 }
 
 export default async function handler(
-  req: Request,
-  res: NextApiResponse<Resp>
+    req: Request,
+    res: NextApiResponse<Resp>
 ) {
     const session = await getSession({ req });
 
@@ -45,12 +45,27 @@ export default async function handler(
     })
 
     try {
+
+        const { meme } = req.body;
+
+        if (!meme) {
+            res.status(400).json({
+                success: Status.Failure,
+                error: "Invalid body"
+            })
+            return
+        }
+        
+        const mediaId = await client.v1.uploadMedia(Buffer.from(meme), { type: 'any' });
+
         const data = await client.v2.tweet(
             status, {
-                media: {
-                    
-                }
+            media: {
+                media_ids: [
+                    mediaId
+                ]
             }
+        }
         );
 
         res.status(200).json({
@@ -64,5 +79,5 @@ export default async function handler(
             error: e.message
         })
     }
-    
+
 }
