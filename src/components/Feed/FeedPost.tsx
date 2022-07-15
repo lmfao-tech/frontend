@@ -10,6 +10,7 @@ import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { useSession } from "next-auth/react";
 import useLocalStorage from "~/hooks/useLocalStorage";
+import { motion } from 'framer-motion';
 
 const removeLinksHashtagsMention = (text: string) => {
   let m = text.replace(/\s#\w+/g, "").replace(/\s@\w+/g, "");
