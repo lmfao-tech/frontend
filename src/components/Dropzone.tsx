@@ -1,10 +1,13 @@
 import { useDropzone } from "react-dropzone";
 
-export default function Dropzone({ onFileDrop, maxFiles }: {
+export default function Dropzone({ onFileDrop, maxFiles, image, setImage }: {
     onFileDrop?: (files: File[]) => void;
     maxFiles: number;
+    setImage: (image: File | null) => void;
+    image?: File | null;
 }) {
 
+    
     const {
         getRootProps,
         getInputProps,
@@ -12,6 +15,29 @@ export default function Dropzone({ onFileDrop, maxFiles }: {
         isDragAccept,
         isDragReject
     } = useDropzone({ onDrop: onFileDrop, accept: { 'image/*': [] }, maxFiles: maxFiles });
+
+    if (image) {
+      return (
+        <div className="flex flex-col h-96 w-full justify-center items-center mt-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={URL.createObjectURL(image)}
+            alt="Image to be uploaded"
+            height={500}
+          />
+          {/* Button to change image */}
+            <button 
+                className="bg-red-500/20 text-sm px-3 py-1 rounded text-black dark:text-white"
+                onClick={() => {
+                    setImage(null);
+                }
+            }>
+                Change Image
+            </button>
+            
+        </div>
+      );
+    }
 
     function onDrag() {
         if (isDragAccept) {
@@ -44,7 +70,7 @@ export default function Dropzone({ onFileDrop, maxFiles }: {
                 border-2 border-dashed rounded
                 cursor-pointer 
                 flex justify-center items-center flex-row gap-2 
-                p-28 mt-2
+                p-10 md:p-28 mt-2
                 transition-[background-color]
                 border-gray-500
                 ${isDragReject ? `bg-[rgba(224,49,49,0.35)]` : isDragAccept ? `bg-[rgba(25,113,194,0.35)]` : 'bg-transparent'}
@@ -56,8 +82,7 @@ export default function Dropzone({ onFileDrop, maxFiles }: {
             {onDrag()}
 
             <div >
-                <h1 className="text-xl">Drag images here or click to select files</h1>
-                <h1 className="text-sm mt-2">Attach as many files as you like, each file should not exceed 5mb</h1>
+                <h1 className="text-xl">Drag your image here or click to select</h1>
             </div>
         </div>
     )
