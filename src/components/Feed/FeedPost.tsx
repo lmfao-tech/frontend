@@ -21,7 +21,7 @@ const removeLinksHashtagsMention = (text: string) => {
 
 function FeedPost({ post }: { post: Post }) {
   const vibrateOnceOnClick = () => {
-    window.navigator?.vibrate?.(50);
+    window.navigator?.vibrate?.(200);
   };
 
   const [liked, setLiked] = React.useState(false);
