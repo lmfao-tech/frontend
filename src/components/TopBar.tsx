@@ -11,7 +11,7 @@ function TopBar() {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   return (
-    <div className="z-10 bg-white border-b-2 dark:bg-slate-800 dark:shadow-md dark:border-none">
+    <div className="z-auto bg-white border-b-2 dark:bg-slate-800 dark:shadow-md dark:border-none">
       <div className="flex items-center justify-between h-20 mx-5 md:h-16">
         <div className="flex w-full">
           <div
