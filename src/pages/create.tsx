@@ -8,6 +8,7 @@ import Tabs from "~/components/Tabs";
 const Create: NextPage = () => {
 
     const { data: session } = useSession();
+    const [activeTab, setActiveTab] = useState(0);
 
     // @ts-ignore
     let av = session?.user?.image;
@@ -23,8 +24,14 @@ const Create: NextPage = () => {
             <div className="mt-10 -z-[0] bg-slate-100 h-36 resize flex max-h-96 p-4 focus-within:border-blue-500 border-transparent border-2 dark:bg-gray-600 shadow-2xl drop-shadow-2xl dark:text-white rounded-md w-[600px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={av} className="rounded-full h-16" alt="avatar" />
-                <textarea maxLength={280} id="haha" className="w-full p-5 resize bg-transparent border-none haha" placeholder="Tweet" required />
+                <textarea 
+                    maxLength={280} 
+                    id="haha" 
+                    className="w-full p-5 resize bg-transparent border-none haha" 
+                    placeholder="Whats happening?" 
+                />
             </div>
+            
             <Tabs
                 items={[
                     {
@@ -47,7 +54,9 @@ const Create: NextPage = () => {
                     },
                     tabContent: " mt-2 w-full"
                 }}
+                activeTab={setActiveTab}
             />
+            <button className="bg-blue-500 px-5 py-3 my-10 rounded text-white">Publish</button>
         </div>
     )
 }

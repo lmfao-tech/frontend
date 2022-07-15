@@ -5,7 +5,7 @@ interface Props {
         name: string;
         component: React.ReactNode;
     }>;
-    activeTab?: number;
+    activeTab?: (arg0: number) => void;
     extendTailwind?: {
         tabButtons?: {
             list?: string;
@@ -19,7 +19,8 @@ interface Props {
 
 const Tabs = ({ items, activeTab, extendTailwind }: Props) => {
 
-    const [active, setActive] = React.useState<number>(activeTab || 0);
+    const [active, setActive] = React.useState<number>(0);
+    activeTab?.(active);
 
     return (
         <div className={`${extendTailwind?.parent}`}>
