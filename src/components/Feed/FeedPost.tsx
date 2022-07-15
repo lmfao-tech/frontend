@@ -20,6 +20,10 @@ const removeLinksHashtagsMention = (text: string) => {
 };
 
 function FeedPost({ post }: { post: Post }) {
+  const vibrateOnceOnClick = () => {
+    window.navigator?.vibrate?.(50);
+  };
+
   const [liked, setLiked] = React.useState(false);
   // const [following, setFollowing] = useLocalStorage(
   //   false,
@@ -113,8 +117,8 @@ function FeedPost({ post }: { post: Post }) {
               const resp = await fetch(
                 `/api/twitter/tweet/like?id=${post.tweet_id}`
               );
+              vibrateOnceOnClick()
               const data = await resp.json();
-              console.log(data);
             }}
           >
             <HeartIcon
@@ -131,8 +135,8 @@ function FeedPost({ post }: { post: Post }) {
               const resp = await fetch(
                 `/api/twitter/tweet/unlike?id=${post.tweet_id}`
               );
+              vibrateOnceOnClick();
               const data = await resp.json();
-              console.log(data);
             }}
           >
             <HeartIconSolid className="w-6 h-6 text-red-500" />
@@ -151,8 +155,8 @@ function FeedPost({ post }: { post: Post }) {
               const resp = await fetch(
                 `/api/twitter/tweet/retweet?id=${post.tweet_id}`
               );
+              vibrateOnceOnClick();
               const data = await resp.json();
-              console.log(data);
             }}
           >
             <SwitchHorizontalIcon
@@ -169,8 +173,8 @@ function FeedPost({ post }: { post: Post }) {
               const resp = await fetch(
                 `/api/twitter/tweet/unretweet?id=${post.tweet_id}`
               );
+              vibrateOnceOnClick();
               const data = await resp.json();
-              console.log(data);
             }}
           >
             <SwitchHorizontalIcon className="w-6 h-6 text-green-400" />
