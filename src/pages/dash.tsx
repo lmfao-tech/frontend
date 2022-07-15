@@ -1,6 +1,6 @@
 import React from 'react'
 import Profile from '~/components/ProfileBar/ProfileBar'
-import CreatePage from '~/components/layouts/CreatePage'
+import NotFeedPage from '~/components/layouts/NotFeedPage'
 
 function dash() {
   return (
@@ -12,7 +12,7 @@ function dash() {
 
 // @ts-ignore
 dash.getLayout = (page: ReactElement) => {
-  return <CreatePage>{page}</CreatePage>;
+  return <NotFeedPage>{page}</NotFeedPage>;
 };
 
 export default dash

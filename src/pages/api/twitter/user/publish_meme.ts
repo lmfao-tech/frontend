@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
 import { TwitterApi } from 'twitter-api-v2';
+import fs from 'fs';
 
 interface Request extends NextApiRequest {
     query: {
@@ -29,7 +30,7 @@ export default async function handler(
     if (!status) {
         res.status(400).json({
             success: Status.Failure,
-            error: "Missing status"
+            error: "Invalid query"
         })
         return
     }
@@ -48,15 +49,11 @@ export default async function handler(
 
         const { meme } = req.body;
 
-        if (!meme) {
-            res.status(400).json({
-                success: Status.Failure,
-                error: "Invalid body"
-            })
-            return
-        }
-        
-        const mediaId = await client.v1.uploadMedia(Buffer.from(meme), { type: 'any' });
+        const mediaId = await client.v1.uploadMedia(
+            meme, { type: 'any' }
+        );
+    
+        console.log(mediaId)
 
         const data = await client.v2.tweet(
             status, {

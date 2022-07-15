@@ -27,7 +27,7 @@ export default function Dropzone({ onFileDrop, maxFiles, image, setImage }: {
           />
           {/* Button to change image */}
             <button 
-                className="bg-red-500/20 text-sm px-3 py-1 rounded text-black dark:text-white"
+                className="bg-blue-400 text-sm px-4 mt-1 text-white py-2 rounded"
                 onClick={() => {
                     setImage(null);
                 }

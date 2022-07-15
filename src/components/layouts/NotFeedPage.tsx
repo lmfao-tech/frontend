@@ -2,7 +2,7 @@ import Sidebar from "~/components/Sidebar/Sidebar";
 import TopBar from "~/components/TopBar";
 import DefaultLayout from "./DefaultLayout";
 
-function CreatePage({ children }: { children: React.ReactNode }) {
+function NotFeedPage({ children }: { children: React.ReactNode }) {
   return (
     <DefaultLayout>
       <div className="">
@@ -20,4 +20,4 @@ function CreatePage({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default CreatePage;
+export default NotFeedPage;
