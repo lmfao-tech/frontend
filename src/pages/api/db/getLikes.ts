@@ -4,8 +4,14 @@ import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
 import { prisma } from '~/db/client';
 
+interface Request extends NextApiRequest {
+    query: {
+        id: string
+    }
+}
+
 export default async function handler(
-  req: NextApiRequest,
+  req: Request,
   res: NextApiResponse<Resp>
 ) {
     
@@ -19,37 +25,34 @@ export default async function handler(
         return
     }
 
+    const { id } = req.query;
+
+    if (!id) {
+        res.status(400).json({
+            success: Status.Failure,
+            error: "Invalid query"
+        })
+        return
+    }
+
     const user = await prisma.user.findFirst({
         where: {
             id: `${session.twitter.userID}` 
-        },
-        include: {
-            likes: true
         }
     })
 
-    if (!user) {
-        const newUser = await prisma.user.create({
-            data: {
-                id: `${session.twitter.userID}`,
-                name: session.user!.name!,
-                email: session.user!.email!,
-                hahaCoins: 100,
-                lmfaoCoins: 0
-            },
-            include: {
-                likes: true
-            }
-        })
-        return res.status(200).json({
-            success: Status.Success,
-            data: newUser
-        })
-    }
+    const likes = await prisma.like.findMany({
+        where: {
+            id: id
+        },
+        include: {
+            user: true
+        }
+    })
 
     return res.status(200).json({
         success: Status.Success,
-        data: user
+        data: likes
     })
 
 }
