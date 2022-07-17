@@ -1,9 +1,12 @@
 import { Avatar, Button } from "flowbite-react";
 import { signIn, useSession, signOut } from "next-auth/react";
+import { useContext, useEffect } from "react";
+import { useHaha } from "~/contexts/HahaContext";
 
 export default function Profile() {
   const { data: session } = useSession();
-  // @ts-ignore
+  const { coins } = useHaha();
+
   let av = session?.user?.image;
   if (av) {
     av = av.replace(/_normal./, ".");
@@ -29,7 +32,6 @@ export default function Profile() {
                 </span>
                 <br />
                 <span className="text-slate-500">
-                  {/* @ts-ignore */}
                   @{session.twitter.twitterHandle}
                 </span>
               </div>
@@ -39,7 +41,6 @@ export default function Profile() {
                 {/* TODO: Fix this */}
                 <div className="text-center dark:text-slate-200">
                   <span className="font-bold">
-                    {/* @ts-ignore */}
                     {session?.twitter?.postCount}
                   </span>
                   <br />
@@ -47,7 +48,6 @@ export default function Profile() {
                 </div>
                 <div className="text-center dark:text-slate-200">
                   <span className="font-bold">
-                    {/* @ts-ignore */}
                     {session?.twitter?.followersCount}
                   </span>
                   <br />
@@ -55,7 +55,6 @@ export default function Profile() {
                 </div>
                 <div className="text-center dark:text-slate-200">
                   <span className="font-bold">
-                    {/* @ts-ignore */}
                     {session?.twitter?.followingCount}
                   </span>
                   <br />
