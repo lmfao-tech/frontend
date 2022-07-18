@@ -1,12 +1,12 @@
 {
-    "theme_color": "#35c9f6",
-    "background_color": "#fff",
+    "theme_color": "#222e42",
+    "background_color": "#1e293b",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "LMFAO.tech",
     "short_name": "LMFAO.tech",
-    "description": "Content discovery platform for Memes",
+    "description": "Discover memes from all around the internet!",
     "icons": [
         {
             "src": "icons/icon-192x192.png",
