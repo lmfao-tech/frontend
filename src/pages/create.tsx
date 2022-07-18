@@ -25,14 +25,21 @@ const Create: NextPage = () => {
             alert("Please upload an image");
             return
         }
-
-        const resp = await fetch(
-            `/api/twitter/user/publish_meme?status="${status}"`,
-        )
-        const data = await resp.json();
-
-        console.log(data)
-
+        
+        // Convert image to base64
+        const reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.onload = async () => {
+            const base64 = reader.result as string;
+            const response = await fetch(`/api/twitter/user/publish_meme?status=${status}`, {
+                method: "POST",
+                body:base64,
+            });
+            const data = await response.json();
+            console.log(data);
+        }
+        
+        
     }
 
     return (
@@ -49,6 +56,8 @@ const Create: NextPage = () => {
                         id="haha"
                         className="w-full p-5 resize bg-transparent border-none haha"
                         placeholder="Say something like ... THIS MEME IS SO FUNNY LMFAO"
+                        onChange={(e) => setStatus(e.target.value)}
+                        value={status}
                     />
                 </div>
                 <Tabs

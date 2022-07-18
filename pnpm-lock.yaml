@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@heroicons/react': ^1.0.6
+  '@types/formidable': ^2.0.5
   '@types/node': 18.0.0
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
@@ -10,6 +11,7 @@ specifiers:
   eslint-config-next: 12.1.6
   flowbite: ^1.4.7
   flowbite-react: ^0.0.27
+  formidable: ^2.0.1
   framer-motion: ^6.5.0
   jotai: ^1.7.4
   next: '12.2'
@@ -33,6 +35,7 @@ dependencies:
   '@heroicons/react': 1.0.6_react@18.2.0
   flowbite: 1.4.7
   flowbite-react: 0.0.27_f7u7coe27y5lebjwvpvlijmrdm
+  formidable: 2.0.1
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   jotai: 1.7.4_react@18.2.0
   next: 12.2.1_biqbaboplfbrettd7655fr4n2y
@@ -50,6 +53,7 @@ dependencies:
   twitter-lite: 1.1.0
 
 devDependencies:
+  '@types/formidable': 2.0.5
   '@types/node': 18.0.0
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
@@ -1795,6 +1799,12 @@ packages:
     resolution: {integrity: sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==}
     dev: false
 
+  /@types/formidable/2.0.5:
+    resolution: {integrity: sha512-uvMcdn/KK3maPOaVUAc3HEYbCEhjaGFwww4EsX6IJfWIJ1tzHtDHczuImH3GKdusPnAAmzB07St90uabZeCKPA==}
+    dependencies:
+      '@types/node': 18.0.0
+    dev: true
+
   /@types/glob/7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
@@ -2352,6 +2362,10 @@ packages:
       es-abstract: 1.20.1
       es-shim-unscopables: 1.0.0
     dev: true
+
+  /asap/2.0.6:
+    resolution: {integrity: sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==}
+    dev: false
 
   /assign-symbols/1.0.0:
     resolution: {integrity: sha512-Q+JC7Whu8HhmTdBph/Tq59IoRtoy6KAm5zzPv00WdujX82lbAL8K7WVjne7vdCsAmbF4AYaDOPyO3k0kl8qIrw==}
@@ -3008,6 +3022,13 @@ packages:
       acorn-node: 1.8.2
       defined: 1.0.0
       minimist: 1.2.6
+
+  /dezalgo/1.0.3:
+    resolution: {integrity: sha512-K7i4zNfT2kgQz3GylDw40ot9GAE47sFZ9EXHFSPP6zONLgH6kWXE0KWJchkbQJLBkRazq4APwZ4OwiFFlT95OQ==}
+    dependencies:
+      asap: 2.0.6
+      wrappy: 1.0.2
+    dev: false
 
   /didyoumean/1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
@@ -3707,6 +3728,15 @@ packages:
       - supports-color
     dev: false
 
+  /formidable/2.0.1:
+    resolution: {integrity: sha512-rjTMNbp2BpfQShhFbR3Ruk3qk2y9jKpvMW78nJgx8QKtxjDVrwbZG+wvDOmVbifHyOUOQJXxqEy6r0faRrPzTQ==}
+    dependencies:
+      dezalgo: 1.0.3
+      hexoid: 1.0.0
+      once: 1.4.0
+      qs: 6.9.3
+    dev: false
+
   /forwarded/0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
@@ -4015,6 +4045,11 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
+
+  /hexoid/1.0.0:
+    resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}
+    engines: {node: '>=8'}
+    dev: false
 
   /hey-listen/1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
@@ -5449,6 +5484,11 @@ packages:
     engines: {node: '>=0.6'}
     dependencies:
       side-channel: 1.0.4
+    dev: false
+
+  /qs/6.9.3:
+    resolution: {integrity: sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==}
+    engines: {node: '>=0.6'}
     dev: false
 
   /querystring/0.2.0:
