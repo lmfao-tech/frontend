@@ -83,10 +83,14 @@ function Sidebar() {
               />
             </div>
           </Link>
-          <SidebarIcon
-            icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-            tooltip="Upload"
-          />
+          <Link href="/create">
+            <div>
+              <SidebarIcon
+                icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+                tooltip="Upload"
+              />
+            </div>
+          </Link>
         </div>
 
         {/* TODO: Implement Sidebar toggle  */}
