@@ -5,11 +5,12 @@ import {
   SwitchHorizontalIcon,
 } from "@heroicons/react/solid";
 import { ShareIcon } from "@heroicons/react/outline";
-import React from "react";
+import React, { useEffect } from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { useSession } from "next-auth/react";
 import useLocalStorage from "~/hooks/useLocalStorage";
+import { useHaha } from "~/contexts/HahaContext";
 
 const removeLinksHashtagsMention = (text: string) => {
   let m = text.replace(/\s#\w+/g, "").replace(/\s@\w+/g, "");
@@ -20,9 +21,16 @@ const removeLinksHashtagsMention = (text: string) => {
 };
 
 function FeedPost({ post }: { post: Post }) {
+
+  const { like, unlike, coins, likes } = useHaha();
+
   const vibrateOnceOnClick = () => {
     window.navigator?.vibrate?.(200);
   };
+
+  useEffect(() => {
+    console.log(coins)
+  }, [coins])
 
   const [liked, setLiked] = React.useState(false);
   // const [following, setFollowing] = useLocalStorage(
@@ -32,6 +40,12 @@ function FeedPost({ post }: { post: Post }) {
   const [retweeted, setRetweeted] = React.useState(false);
 
   const { data: session } = useSession();
+
+  useEffect(() => {
+    const e = likes.find((l) => l.id == post.tweet_id)
+    setLiked(e !== undefined && e !== null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[likes]);
 
   return (
     <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit">
@@ -113,12 +127,8 @@ function FeedPost({ post }: { post: Post }) {
               !session ? "hover:bg-none" : "hover:bg-red-700/20 cursor-pointer"
             }`}
             onClick={async () => {
-              setLiked(true);
-              const resp = await fetch(
-                `/api/twitter/tweet/like?id=${post.tweet_id}`
-              );
+              like(post.tweet_id, post.user_id);
               vibrateOnceOnClick()
-              const data = await resp.json();
             }}
           >
             <HeartIcon
@@ -131,12 +141,8 @@ function FeedPost({ post }: { post: Post }) {
           <div
             className="p-2 rounded-full cursor-pointer hover:bg-red-700/20 group"
             onClick={async () => {
-              setLiked(false);
-              const resp = await fetch(
-                `/api/twitter/tweet/unlike?id=${post.tweet_id}`
-              );
+              unlike(post.tweet_id, post.user_id);
               vibrateOnceOnClick();
-              const data = await resp.json();
             }}
           >
             <HeartIconSolid className="w-6 h-6 text-red-500" />

@@ -41,10 +41,10 @@ export default function Profile() {
                 {/* TODO: Fix this */}
                 <div className="text-center dark:text-slate-200">
                   <span className="font-bold">
-                    {session?.twitter?.postCount}
+                    {coins.haha}
                   </span>
                   <br />
-                  Tweets
+                  HahaCoins
                 </div>
                 <div className="text-center dark:text-slate-200">
                   <span className="font-bold">
