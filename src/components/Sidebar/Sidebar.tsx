@@ -48,11 +48,15 @@ function Sidebar() {
           </div>
         </Link>
 
-        <SidebarIcon
-          icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-          tooltip="Upload"
-          position="top"
-        />
+        <Link href="/create">
+          <div>
+            <SidebarIcon
+              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+              tooltip="Upload"
+              position="top"
+            />
+          </div>
+        </Link>
       </div>
 
       {/* Larger devices */}
