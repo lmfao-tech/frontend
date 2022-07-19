@@ -8,7 +8,7 @@ import { ShareIcon } from "@heroicons/react/outline";
 import React, { useEffect } from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import useLocalStorage from "~/hooks/useLocalStorage";
 import { useHaha } from "~/contexts/HahaContext";
 
@@ -114,7 +114,7 @@ function FeedPost({ post }: { post: Post }) {
       </div>
       {!session && (
         <div className="mb-3 ml-5">
-          <span className="px-3 py-1 pl-2 border rounded-full dark:text-white">
+          <span onClick={() => signIn("twitch")} className="px-3 py-2 text-sm hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white">
             Login to interact
           </span>
         </div>
