@@ -114,7 +114,7 @@ function FeedPost({ post }: { post: Post }) {
       </div>
       {!session && (
         <div className="mb-3 ml-5">
-          <span onClick={() => signIn("twitch")} className="px-3 py-2 text-sm hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white">
+          <span onClick={() => signIn("twitter")} className="px-3 py-2 text-sm hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white">
             Login to interact
           </span>
         </div>
