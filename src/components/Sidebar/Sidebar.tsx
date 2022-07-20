@@ -26,11 +26,14 @@ function Sidebar() {
           </div>
         </Link>
 
-        <SidebarIcon
-          icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-          tooltip="Community"
-          position="top"
-        />
+        <Link href="/community">
+          <div>
+            <SidebarIcon
+              icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+              tooltip="Community"
+            />
+          </div>
+        </Link>
 
         <SidebarIcon
           icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
@@ -48,11 +51,15 @@ function Sidebar() {
           </div>
         </Link>
 
-        <SidebarIcon
-          icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-          tooltip="Upload"
-          position="top"
-        />
+        <Link href="/create">
+          <div>
+            <SidebarIcon
+              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+              tooltip="Upload"
+              position="top"
+            />
+          </div>
+        </Link>
       </div>
 
       {/* Larger devices */}
@@ -67,10 +74,15 @@ function Sidebar() {
             </div>
           </Link>
 
-          <SidebarIcon
-            icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-            tooltip="Community"
-          />
+          <Link href="/community">
+            <div>
+              <SidebarIcon
+                icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+                tooltip="Community"
+              />
+            </div>
+          </Link>
+
           <SidebarIcon
             icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
             tooltip="Profile"
@@ -83,10 +95,14 @@ function Sidebar() {
               />
             </div>
           </Link>
-          <SidebarIcon
-            icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-            tooltip="Upload"
-          />
+          <Link href="/create">
+            <div>
+              <SidebarIcon
+                icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+                tooltip="Upload"
+              />
+            </div>
+          </Link>
         </div>
 
         {/* TODO: Implement Sidebar toggle  */}

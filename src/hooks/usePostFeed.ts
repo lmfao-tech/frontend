@@ -36,7 +36,7 @@ export default function usePostFeed({url} : {url: string}) {
       .then((data) => {
         setMemes(memes => Array.from(new Set([...memes, ...data])));
         setLoading(false);
-        setHasMore(data.length >= 500);
+        setHasMore(data.length >= 100);
       });
   }, [url]);
 

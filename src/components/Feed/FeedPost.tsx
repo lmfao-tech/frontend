@@ -10,6 +10,7 @@ import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { signIn, useSession } from "next-auth/react";
 import useLocalStorage from "~/hooks/useLocalStorage";
+import { motion } from 'framer-motion';
 import { useHaha } from "~/contexts/HahaContext";
 
 const removeLinksHashtagsMention = (text: string) => {
@@ -47,8 +48,10 @@ function FeedPost({ post }: { post: Post }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[likes]);
 
+  console.log(post.user_id)
+
   return (
-    <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit">
+    <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit w-full">
       {/* Top section */}
       <div>
         <div className="flex items-center justify-between h-16 mx-4">
@@ -108,9 +111,9 @@ function FeedPost({ post }: { post: Post }) {
           //   (post.tweet_text.length > 120 ? "..." : "")
         )}
       </div>
-      <div className="p-4">
+      <div className="p-4 w-full">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rounded-lg" src={post.meme_link} alt="" />
+        <img className="rounded-lg w-full" src={post.meme_link} alt={post.tweet_text} />
       </div>
       {!session && (
         <div className="mb-3 ml-5">

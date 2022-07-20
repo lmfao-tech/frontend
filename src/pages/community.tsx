@@ -7,14 +7,14 @@ import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
 
-const Home: NextPage = () => {
+const Community: NextPage = () => {
   const [last, setLastTweet] = useState<number>(0);
   let {
     memes,
     loading,
     hasMore,
   }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
-    url: `/api/getMemes?last=${last}&max_tweets=5`,
+    url: `/api/communityMemes?last=${last}&max_tweets=5`,
   });
   const observer = useRef<IntersectionObserver>();
 
@@ -37,12 +37,12 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
+        <title>Community memes LMFAO.tech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Home | LMFAO.tech</title>
       </Head>
 
       <div className="flex flex-col w-full overflow-hidden bg-gray-100 shadow-sm ">
-        <div className="flex flex-col px-1 md:px-20 overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42] ">
+        <div className="flex flex-col px-1 md:px-20 overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42]">
           {memes.map((post, index) => {
             if (index === memes.length - 1) {
               return (
@@ -72,8 +72,8 @@ const Home: NextPage = () => {
 };
 
 // @ts-ignore
-Home.getLayout = (page: ReactElement) => {
+Community.getLayout = (page: ReactElement) => {
   return <FeedPage>{page}</FeedPage>;
 };
 
-export default Home;
+export default Community;

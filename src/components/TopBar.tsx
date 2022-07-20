@@ -5,10 +5,12 @@ import Image from "next/image";
 import { useAtom } from "jotai";
 import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
-import router from "next/router";
+import {useRouter} from "next/router";
 
 function TopBar() {
+
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
+  const router = useRouter();
 
   return (
     <div className="z-auto bg-white border-b-2 dark:bg-slate-800 dark:shadow-md dark:border-none">

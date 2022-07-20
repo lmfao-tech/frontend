@@ -23,11 +23,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
   }, [jotaiDarkmode, setIsDarkMode]);
   return (
     <div>
-      <div
-        className={`${
-          isDarkMode ? "dark" : null
-        }`}
-      >
+      <div className={`${isDarkMode ? "dark" : null}`}>
         {children}
       </div>
     </div>
