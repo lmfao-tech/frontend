@@ -39,7 +39,7 @@ export default async function handler(
 
     let user = await prisma.user.findFirst({
         where: {
-            id: `${session.twitter.userID}`
+            name: session.twitter.twitterHandle
         },
         include: {
             likes: true
@@ -85,7 +85,7 @@ export default async function handler(
     
     await prisma.user.update({
         where: {
-            id: `${session.twitter.userID}`
+            name: session.twitter.twitterHandle
         },
         data: {
             hahaCoins: {
@@ -123,7 +123,7 @@ export default async function handler(
 
     const daUser = await prisma.user.findFirst({
         where: {
-            id: `${session.twitter.userID}`
+            name: session.twitter.twitterHandle
         },
         include: {
             likes: true

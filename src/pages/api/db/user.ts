@@ -21,7 +21,7 @@ export default async function handler(
 
     const user = await prisma.user.findFirst({
         where: {
-            id: `${session.twitter.userID}` 
+            name: session.twitter.twitterHandle
         },
         include: {
             likes: true

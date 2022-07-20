@@ -38,7 +38,7 @@ export default async function handler(
 
     let user = await prisma.user.findFirst({
         where: {
-            id: `${session.twitter.userID}`
+            name: session.twitter.twitterHandle
         },
         include: {
             likes: true
@@ -49,7 +49,7 @@ export default async function handler(
         user = await prisma.user.create({
             data: {
                 id: `${session.twitter.userID}`,
-                name: session.user.name,
+                name: session.twitter.twitterHandle,
                 email: session.user.email,
                 hahaCoins: 100,
                 lmfaoCoins: 0
@@ -77,7 +77,7 @@ export default async function handler(
             user: {
                 connectOrCreate: {
                     where: {
-                        id: `${session.twitter.userID}`
+                        name: session.twitter.twitterHandle
                     },
                     create: {
                         id: `${session.twitter.userID}`,
@@ -94,7 +94,7 @@ export default async function handler(
             user: {
                 connectOrCreate: {
                     where: {
-                        id: `${session.twitter.userID}`
+                        name: session.twitter.twitterHandle
                     },
                     create: {
                         id: `${session.twitter.userID}`,
@@ -110,7 +110,7 @@ export default async function handler(
     
     await prisma.user.update({
         where: {
-            id: `${session.twitter.userID}`
+            name: session.twitter.twitterHandle
         },
         data: {
             hahaCoins: {
@@ -148,7 +148,7 @@ export default async function handler(
 
     const daUser = await prisma.user.findFirst({
         where: {
-            id: `${session.twitter.userID}`
+            name: session.twitter.twitterHandle
         },
         include: {
             likes: true
