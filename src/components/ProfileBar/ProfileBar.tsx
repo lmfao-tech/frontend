@@ -85,14 +85,14 @@ export default function Profile() {
             </div>
 
             {/* Create button fixed to the bottom */}
-            <div className="fixed bottom-0 mx-3 my-7 h-10 right-0 w-80 md:w-96 z-10 flex flex-col items-center justify-center">
+            <div className="fixed bottom-0 mx-3 mr-7 my-7 h-10 right-0 w-80 md:w-96 z-10 flex flex-col items-center justify-center">
               <Link
                 href="/create"
                 as={`/create`}
                 passHref={true}
                 prefetch={true}
               >
-                <div className="rounded-lg text-white bg-gradient-to-r from-sky-400 to-blue-500 p-3 justify-center flex py-5 mx-3 my-5 w-full shadow-xl shadow-blue-500/50 hover:scale-105 ease-out delay-100 cursor-pointer">
+                <div className="rounded-lg text-white bg-gradient-to-r transition-[transform] from-sky-400 to-blue-500 p-3 justify-center flex py-5 mx-3 my-5 w-full shadow-xl shadow-blue-500/50 hover:scale-105 ease-out delay-100 cursor-pointer">
                   Create a meme
                 </div>
               </Link>
