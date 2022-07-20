@@ -25,7 +25,10 @@ export default function Profile() {
       <div className="sticky top-0 min-h-screen dark:bg-slate-800">
         {session ? (
           <div className="flex min-h-screen flex-col">
-            <button onClick={()=>setExtended(!extended)} className="flex group items-center relative  p-1 pl-3 mb-7 pb-3 mx-5 mt-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer">
+            <button
+              onClick={() => setExtended(!extended)}
+              className="flex group items-center relative  p-1 pl-3 mb-7 pb-3 mx-5 mt-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer"
+            >
               <div className="rounded-full bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
                   <Avatar img={av} rounded={true} alt="avatar" size="md" />
@@ -40,8 +43,8 @@ export default function Profile() {
                   @{session.twitter.twitterHandle}
                 </span>
               </div>
-                <ChevronDownIcon className="h-6 w-6 ml-auto mr-2 text-back dark:text-white group-hover:translate-y-1 transition-all delay-150 ease-out" />
-              
+              <ChevronDownIcon className="h-6 w-6 ml-auto mr-2 text-back dark:text-white group-hover:translate-y-1 transition-all delay-150 ease-out" />
+
               {extended && (
                 <div className="absolute mt-32 mr-2 flex justify-center bg-blue-400 rounded-full w-full text-white py-2">
                   <button onClick={() => signOut()} className="flex">
@@ -94,8 +97,7 @@ export default function Profile() {
               <Leaderboard />
             </div>
 
-            {/* Create button fixed to the bottom */}
-            <div className="fixed bottom-0 mx-3 mr-7 my-7 h-10 right-0 w-72 xl:w-96 z-10 flex flex-col items-center justify-center">
+            <div className="sticky bottom-0 mx-3 mr-7 my-7 h-10 w-72 xl:w-96 z-10 flex flex-col items-center justify-center">
               <Link
                 href="/create"
                 as={`/create`}
@@ -118,7 +120,7 @@ export default function Profile() {
             </h1>
             <p className="text-sm text-center dark:text-slate-300">
               A content discovery platform where you can find the best memes
-              across twitter, follow memers and stay for a good laugh!
+              across Twitter. Follow memers and stay for a good laugh!
             </p>
             <Button
               outline
@@ -141,7 +143,7 @@ export default function Profile() {
                   <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
                 </svg>
               </div>
-              Login with twitter
+              Login with Twitter
             </Button>
           </div>
         )}

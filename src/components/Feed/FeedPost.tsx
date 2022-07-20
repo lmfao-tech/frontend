@@ -100,12 +100,12 @@ function FeedPost({ post }: { post: Post }) {
       </div>
       {!session && (
         <div className="mb-3 ml-5">
-          <span
+          <button
             onClick={() => router.push('/dash')}
-            className="px-3 py-2 text-sm hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white"
+            className="px-3 py-2 text-sm hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white"
           >
             Login to interact
-          </span>
+          </button>
         </div>
       )}
       <div className="flex gap-2 mb-2 ml-5">
@@ -183,7 +183,7 @@ function FeedPost({ post }: { post: Post }) {
         >
           <ExternalLinkIcon className="w-6 h-6" />
         </a>
-        <div className="flex items-center justify-center px-2 py-1 rounded-md cursor-pointer bg-slate-200 hover:bg-blue-200 dark:bg-yellow-400">
+        <button className="flex items-center justify-center px-2 py-1 rounded-md cursor-pointer bg-slate-200 hover:bg-blue-200 dark:bg-yellow-400">
           <RWebShare
             data={{
               title: "Meme discovered on LMFAO.tech | #LMFAOtech",
@@ -193,7 +193,7 @@ function FeedPost({ post }: { post: Post }) {
           >
             <ShareIcon className="w-5 h-5 text-green-400 dark:text-slate-900" />
           </RWebShare>
-        </div>
+        </button>
       </div>
     </div>
   );
