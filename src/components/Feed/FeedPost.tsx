@@ -10,7 +10,6 @@ import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { signIn, useSession } from "next-auth/react";
 import useLocalStorage from "~/hooks/useLocalStorage";
-import { motion } from 'framer-motion';
 import { useHaha } from "~/contexts/HahaContext";
 
 const removeLinksHashtagsMention = (text: string) => {
@@ -130,7 +129,7 @@ function FeedPost({ post }: { post: Post }) {
               !session ? "hover:bg-none" : "hover:bg-red-700/20 cursor-pointer"
             }`}
             onClick={async () => {
-              like(post.tweet_id, post.user_id);
+              like(post.tweet_id, post.username);
               vibrateOnceOnClick()
             }}
           >
@@ -144,7 +143,7 @@ function FeedPost({ post }: { post: Post }) {
           <div
             className="p-2 rounded-full cursor-pointer hover:bg-red-700/20 group"
             onClick={async () => {
-              unlike(post.tweet_id, post.user_id);
+              unlike(post.tweet_id, post.username);
               vibrateOnceOnClick();
             }}
           >

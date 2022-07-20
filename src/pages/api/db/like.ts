@@ -60,13 +60,7 @@ export default async function handler(
         })
     }
 
-    if (user.hahaCoins < 1) {
-        res.status(424).json({
-            success: Status.Failure,
-            error: "The user does not have enough coins!"
-        })
-        return
-    }
+    const lessHaha = user.hahaCoins < 1 ? true : false;
 
     if (user.likes.find((like) => like.id === id)) {
         return res.status(424).json({
@@ -120,7 +114,7 @@ export default async function handler(
         },
         data: {
             hahaCoins: {
-                decrement: 1
+                decrement: lessHaha ? 0 : 1
             },
             likes: {
                 connect: {
@@ -137,7 +131,7 @@ export default async function handler(
             },
             data: {
                 lmfaoCoins: {
-                    increment: 1
+                    increment: lessHaha ? 0 : 1
                 }
             }
         })
