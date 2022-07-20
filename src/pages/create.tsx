@@ -31,14 +31,13 @@ const Create: NextPage = () => {
         reader.readAsDataURL(image);
         reader.onload = async () => {
             const base64 = reader.result as string;
-            const response = await fetch(`/api/twitter/user/publish_meme?status=${status}`, {
+            const response = await fetch(`/api/twitter/user/publish_meme${status.length < 1 ? "" : `?status=${status}`}"`, {
                 method: "POST",
                 body:base64,
             });
             const data = await response.json();
             console.log(data);
         }
-        
         
     }
 

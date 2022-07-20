@@ -8,7 +8,7 @@ import fs from "fs";
 interface Request extends NextApiRequest {
   files: any;
   query: {
-    status: string;
+    status?: string;
   };
 }
 
@@ -24,14 +24,6 @@ export default async function handler(
     res.status(401).json({
       success: Status.Failure,
       error: "Unauthorized",
-    });
-    return;
-  }
-
-  if (!status) {
-    res.status(400).json({
-      success: Status.Failure,
-      error: "Invalid query",
     });
     return;
   }
@@ -58,7 +50,7 @@ export default async function handler(
       type: "png",
       target: "tweet",
     });
-    const data = await client.v2.tweet(status + " #LMFAOtech", {
+    const data = await client.v2.tweet(status ? `${status} #LMFAOtech` : "#LMFAOtech", {
       media: {media_ids: [mediaId]},
     });
 
