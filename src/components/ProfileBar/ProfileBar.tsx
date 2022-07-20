@@ -19,13 +19,13 @@ export default function Profile() {
       <div className="sticky top-0 min-h-screen overflow-auto dark:bg-slate-800">
         {session ? (
           <div>
-            <div className="flex flex-col items-center px-5 py-10">
-              <div className="rounded-full mx-auto bg-gradient-to-r p-[6px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
+            <div className="flex items-center px-10 py-7 mt-2 gap-3">
+              <div className="rounded-full bg-gradient-to-r p-[6px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
-                  <Avatar img={av} rounded={true} alt="avatar" size="xl" />
+                  <Avatar img={av} rounded={true} alt="avatar" size="lg" />
                 </div>
               </div>
-              <div className="mt-2 text-center">
+              <div className="mt-2">
                 <span className="text-xl text-black font-trispace dark:text-slate-200">
                   {" "}
                   {session?.user?.name}
@@ -35,38 +35,51 @@ export default function Profile() {
                   @{session.twitter.twitterHandle}
                 </span>
               </div>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:fill-white ml-auto mr-2" viewBox="0 0 320 512">
+                <path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/>
+              </svg>
             </div>
-            <div className="flex items-center justify-center">
-              <div className="flex items-center justify-between max-w-lg space-x-4">
+            <div className="flex items-center justify-center mt-5">
+              <div className="flex items-center flex-col gap-5 justify-between max-w-lg space-x-4">
                 {/* TODO: Fix this */}
-                <div className="text-center dark:text-slate-200">
-                  <span className="font-bold">
-                    {coins.haha}
+                <div className="text-center flex-col flex text-xl dark:text-slate-200">
+                  <span className="font-bold text-2xl mb-2">
+                    😂 {coins.haha}
                   </span>
-                  <br />
-                  HahaCoins
+                  HAHA coins
                 </div>
-                <div className="text-center dark:text-slate-200">
-                  <span className="font-bold">
-                    {session?.twitter?.followersCount}
+                <div className="text-center flex-col flex text-xl dark:text-slate-200">
+                  <span className="font-bold mb-2 text-2xl">
+                   💀 {coins.lmfao}
                   </span>
-                  <br />
-                  Followers
-                </div>
-                <div className="text-center dark:text-slate-200">
-                  <span className="font-bold">
-                    {session?.twitter?.followingCount}
-                  </span>
-                  <br />
-                  Following
+                  LMFAO coins
                 </div>
               </div>
             </div>
 
-            {/* Streak count */}
-            {/* Coins count */}
-            {/* Like coins left today */}
-            {/* Upload meme button (one more) */}
+            <div className="px-5 my-3">
+              <div className="w-full h-max rounded py-3 bg-slate-500/30 dark:text-white">
+                <h1 className="text-center text-lg underline underline-offset-2">Leaderboard</h1>
+                <div className="flex py-2 flex-col">
+                  <div className="flex">
+                    <span>#1</span>
+                    <span>
+                      <Avatar img={av} rounded={true} alt="avatar" size="dm" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-full mt-auto px-5">
+              <div className="rounded-md bg-gradient-to-r p-[4px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
+                <button className="w-full tracking-wider font-bold dark:text-white hover:text-white bg-white hover:bg-transparent dark:hover:bg-transparent transition-[background-color] dark:bg-slate-800 py-4 text-center text-xl rounded-md">
+                  CREATE
+                </button>
+              </div>
+            </div>
+
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full min-h-screen gap-3 px-10">
@@ -93,21 +106,6 @@ export default function Profile() {
             </Button>
           </div>
         )}
-        <div className="px-10 mt-10">
-          <div className="w-full h-[2px] dark:bg-gray-600 bg-gray-300 rounded">
-            {/* divider */}
-          </div>
-        </div>
-        <div className="flex items-center justify-center mt-10">
-          <Button
-            outline
-            size="lg"
-            gradientDuoTone="purpleToPink"
-            onClick={() => signOut()}
-          >
-            Logout
-          </Button>
-        </div>
       </div>
     </>
   );
