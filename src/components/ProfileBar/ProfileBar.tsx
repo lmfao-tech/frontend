@@ -20,10 +20,10 @@ export default function Profile() {
 
   return (
     <>
-      <div className="sticky top-0 min-h-screen dark:bg-slate-800">
+      <div className="sticky top-0 h-screen overflow-auto dark:bg-slate-800">
         {session ? (
-          <div className="flex min-h-screen flex-col">
-            <div className="flex group items-center p-1 pl-3 mb-7 pb-3 mx-5 mt-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer">
+          <div className="flex min-h-screen flex-col mb-20">
+            <div className="flex group items-center px-6 py-3 mx-5 mt-5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer">
               <div className="rounded-full bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
                   <Avatar img={av} rounded={true} alt="avatar" size="md" />
@@ -40,11 +40,11 @@ export default function Profile() {
               </div>
               <ChevronDownIcon className="h-6 w-6 ml-auto mr-2 text-back dark:text-white group-hover:translate-y-1 transition-all delay-150 ease-out" />
             </div>
-            <div className="flex items-center justify-center my-5">
+            <div className="flex items-center justify-center mb-3 mt-10">
               <div className="flex items-center gap-5 justify-between max-w-lg space-x-4">
                 {/* TODO: Fix this */}
-                <div className="text-center flex-col flex text-xl dark:text-slate-200">
-                  <span className="font-bold text-2xl mb-2">
+                <div className="text-center items-center flex-col flex text-xl dark:text-slate-200">
+                  <span className="font-bold flex items-center justify-center gap-2 mb-2">
                     <Image
                       src="/icons/HAHAcoins.png"
                       alt=""
@@ -61,12 +61,13 @@ export default function Profile() {
                   </div>
                 </div>
                 <div className="text-center flex-col flex text-xl dark:text-slate-200">
-                  <span className="font-bold text-2xl mb-2">
+                  <span className="font-bold flex items-center justify-center gap-2 mb-2">
                     <Image
                       src="/icons/icon-192x192.png"
                       alt=""
                       width={25}
                       height={25}
+                      className="scale-125"
                     />{" "}
                     {coins.lmfao}
                   </span>
@@ -84,19 +85,22 @@ export default function Profile() {
               <Leaderboard />
             </div>
 
-            {/* Create button fixed to the bottom */}
-            <div className="fixed bottom-0 mx-3 mr-7 my-7 h-10 right-0 w-72 xl:w-96 z-10 flex flex-col items-center justify-center">
-              <Link
-                href="/create"
-                as={`/create`}
-                passHref={true}
-                prefetch={true}
-              >
-                <div className="rounded-lg text-white bg-gradient-to-r transition-[transform] from-sky-400 to-blue-500 p-3 justify-center flex py-5 mx-3 my-5 w-full shadow-xl shadow-blue-500/50 hover:scale-105 ease-out delay-100 cursor-pointer">
-                  Create a meme
-                </div>
-              </Link>
+            <div className="flex px-8 py-8 items-center justify-center fixed bottom-0 right-0 z-10 bg-white dark:bg-slate-800">
+              {/* Create button fixed to the bottom */}
+              <div className="flex flex-col items-center justify-center h-10 w-80 lg:w-80 ">
+                <Link
+                  href="/create"
+                  as={`/create`}
+                  passHref={true}
+                  prefetch={true}
+                >
+                  <div className="rounded-lg text-white bg-gradient-to-r transition-[transform] from-sky-400 to-blue-500 p-3 justify-center flex py-5 mx-3 my-5 w-full shadow-xl shadow-blue-500/50 hover:scale-105 ease-out delay-100 cursor-pointer">
+                    Create a meme
+                  </div>
+                </Link>
+              </div>
             </div>
+
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full min-h-screen gap-3 px-10">
