@@ -32,7 +32,7 @@ export default async function handler(
         const newUser = await prisma.user.create({
             data: {
                 id: `${session.twitter.userID}`,
-                name: session.user!.name!,
+                name: session.twitter.twitterHandle,
                 email: session.user!.email!,
                 hahaCoins: 100,
                 lmfaoCoins: 0
