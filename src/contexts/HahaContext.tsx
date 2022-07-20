@@ -74,10 +74,16 @@ const HahaProvider = ({ children }: any) => {
 
     }
     const retweet = async (id: string | number) => {
-        
+        const resp = await fetch(
+            `/api/twitter/tweet/retweet?id=${id}`
+        );
+        return (await resp.json());
     }
     const unretweet = async (id: string | number) => {
-
+        const resp = await fetch(
+            `/api/twitter/tweet/unretweet?id=${id}`
+        );
+        return (await resp.json());
     }
 
     const post = async () => {
