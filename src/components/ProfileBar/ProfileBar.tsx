@@ -23,7 +23,7 @@ export default function Profile() {
       <div className="sticky top-0 min-h-screen dark:bg-slate-800">
         {session ? (
           <div className="flex min-h-screen flex-col">
-            <div className="flex group items-center p-1 pl-3 mb-7 pb-3 mx-5 mt-2 rounded-full hover:bg-slate-700 hover:cursor-pointer">
+            <div className="flex group items-center p-1 pl-3 mb-7 pb-3 mx-5 mt-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer">
               <div className="rounded-full bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
                   <Avatar img={av} rounded={true} alt="avatar" size="md" />
@@ -38,7 +38,7 @@ export default function Profile() {
                   @{session.twitter.twitterHandle}
                 </span>
               </div>
-              <ChevronDownIcon className="h-6 w-6 ml-auto mr-2 text-white group-hover:translate-y-1 transition-all delay-150 ease-out" />
+              <ChevronDownIcon className="h-6 w-6 ml-auto mr-2 text-back dark:text-white group-hover:translate-y-1 transition-all delay-150 ease-out" />
             </div>
             <div className="flex items-center justify-center my-5">
               <div className="flex items-center gap-5 justify-between max-w-lg space-x-4">
@@ -71,7 +71,7 @@ export default function Profile() {
                     {coins.lmfao}
                   </span>
                   <div>
-                    <span className="bg-clip-text bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500 text-transparent">
+                    <span className="bg-clip-text bg-blue-600 dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500 text-transparent">
                       LMFAO
                     </span>{" "}
                     coins
