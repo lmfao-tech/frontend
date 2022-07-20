@@ -78,7 +78,7 @@ export default async function handler(
         },
         data: {
             user: {
-                disconnect: [{id: `${session.twitter.userID}`}]
+                disconnect: [{name: session.twitter.twitterHandle}]
             }
         }
     })
