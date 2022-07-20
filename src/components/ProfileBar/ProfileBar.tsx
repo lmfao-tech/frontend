@@ -48,8 +48,8 @@ export default function Profile() {
                     <Image
                       src="/icons/HAHAcoins.png"
                       alt=""
-                      width={20}
-                      height={20}
+                      width={25}
+                      height={25}
                     />{" "}
                     {coins.haha}
                   </span>
@@ -85,7 +85,7 @@ export default function Profile() {
             </div>
 
             {/* Create button fixed to the bottom */}
-            <div className="fixed bottom-0 mx-3 mr-7 my-7 h-10 right-0 w-80 md:w-96 z-10 flex flex-col items-center justify-center">
+            <div className="fixed bottom-0 mx-3 mr-7 my-7 h-10 right-0 w-72 xl:w-96 z-10 flex flex-col items-center justify-center">
               <Link
                 href="/create"
                 as={`/create`}
