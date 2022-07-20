@@ -1,25 +1,33 @@
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model Like {
-  id           String    @id
-  user         User[]
+  id   String @id
+  user User[]
 }
 
 model User {
-  id           String    @unique
-  name         String    @id
-  email        String    @unique
-  hahaCoins    Int       @default(0)
-  lmfaoCoins   Int       @default(0)
-  likes        Like[]
+  id         String @unique
+  name       String @id
+  email      String @unique
+  hahaCoins  Int    @default(0)
+  lmfaoCoins Int    @default(0)
+  likes      Like[]
+}
+
+model LikeToUser {
+  A String
+  B String
+
+  @@unique([A, B], map: "_LikeToUser_AB_unique")
+  @@index([B], map: "_LikeToUser_B_index")
+  @@map("_LikeToUser")
 }
