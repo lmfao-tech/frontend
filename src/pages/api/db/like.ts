@@ -133,7 +133,7 @@ export default async function handler(
     try {        
         await prisma.user.update({
             where: {
-                id: `${authorId}`
+                name: `${authorId}`
             },
             data: {
                 lmfaoCoins: {
