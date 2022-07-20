@@ -2,11 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
-import { TwitterApi } from 'twitter-api-v2';
+import { prisma } from '~/db/client';
 
 interface Request extends NextApiRequest {
     query: {
-        id: string;
+        id: string
     }
 }
 
@@ -14,9 +14,8 @@ export default async function handler(
   req: Request,
   res: NextApiResponse<Resp>
 ) {
+    
     const session = await getSession({ req });
-
-    const { id } = req.query;
 
     if (!session) {
         res.status(401).json({
@@ -26,35 +25,36 @@ export default async function handler(
         return
     }
 
+    const { id } = req.query;
+
     if (!id) {
         res.status(400).json({
             success: Status.Failure,
-            error: "Missing id"
+            error: "Invalid query"
         })
         return
     }
 
-    const client = new TwitterApi({
-        appKey: process.env.TWITTER_API_KEY!,
-        appSecret: process.env.TWITTER_API_SECRET!,
-        accessToken: session.tokens.authToken,
-        accessSecret: session.tokens.authSecret,
+    const user = await prisma.user.findFirst({
+        where: {
+            name: session.twitter.twitterHandle
+        }
     })
 
-    try {
-        const data = await client.v2.like(session.tokens.authToken.split("-")[0]!, id);
+    const likes = await prisma.like.findMany({
+        where: {
+            id: id
+        },
+        include: {
+            user: true
+        }
+    })
 
-        res.status(200).json({
-            success: Status.Success,
-            data: data
-        })
-
-    } catch (e: any) {
-        res.status(500).json({
-            success: Status.Failure,
-            error: e.message
-        })
-    }
-    
+    return res.status(200).json({
+        success: Status.Success,
+        data: {
+            likes, user
+        }
+    })
 
 }

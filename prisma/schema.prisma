@@ -1,0 +1,24 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Like {
+  id   String @id
+  user User[]
+}
+
+model User {
+  id         String
+  name       String @id
+  email      String
+  hahaCoins  Int    @default(0)
+  lmfaoCoins Int    @default(0)
+  likes      Like[]
+}

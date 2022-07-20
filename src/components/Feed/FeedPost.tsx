@@ -5,34 +5,48 @@ import {
   SwitchHorizontalIcon,
 } from "@heroicons/react/solid";
 import { ShareIcon } from "@heroicons/react/outline";
-import React from "react";
+import React, { useEffect } from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
-import { useSession } from "next-auth/react";
-import useLocalStorage from "~/hooks/useLocalStorage";
-import { motion } from 'framer-motion';
+import { signIn, useSession } from "next-auth/react";
+import { useHaha } from "~/contexts/HahaContext";
 
 const removeLinksHashtagsMention = (text: string) => {
+
+  function unEscape(htmlStr:string) {
+    htmlStr = htmlStr.replace(/&lt;/g, "<");
+    htmlStr = htmlStr.replace(/&gt;/g, ">");
+    htmlStr = htmlStr.replace(/&quot;/g, '"');
+    htmlStr = htmlStr.replace(/&#39;/g, "'");
+    htmlStr = htmlStr.replace(/&amp;/g, "&");
+    return htmlStr;
+  }
+
   let m = text.replace(/\s#\w+/g, "").replace(/\s@\w+/g, "");
 
   // Remove t.co links
   m = m.replace(/https?:\/\/t.co\/\w+/g, "");
-  return m;
+  return unescape(m);
 };
 
 function FeedPost({ post }: { post: Post }) {
+
+  const { like, unlike, coins, likes } = useHaha();
+
   const vibrateOnceOnClick = () => {
     window.navigator?.vibrate?.(200);
   };
 
   const [liked, setLiked] = React.useState(false);
-  // const [following, setFollowing] = useLocalStorage(
-  //   false,
-  //   `follow-${post.user_id}`
-  // );
   const [retweeted, setRetweeted] = React.useState(false);
 
   const { data: session } = useSession();
+
+  useEffect(() => {
+    const e = likes.find((l) => l.id == post.tweet_id)
+    setLiked(e !== undefined && e !== null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[likes]);
 
   return (
     <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit w-full">
@@ -57,51 +71,30 @@ function FeedPost({ post }: { post: Post }) {
           </a>
           {session && (
             <div className="flex gap-2 ml-2">
-              {/* {following ? (
-                    <button
-                      className="text-[.7rem] px-3 py-2 text-gray-800 bg-cyan-200 rounded"
-                      onClick={async () => {
-                        const resp = await fetch(
-                          `/api/twitter/tweet/unfollow?id=${post.user_id}`
-                        );
-                        const data = await resp.json();
-                        console.log(data);
-                      }}
-                    >
-                      Following
-                    </button>
-                  ) : ( */}
               <button
                 className="text-[.7rem] px-3 py-2 text-cyan-500 border-2 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-gray-700 cursor-pointer dark:border-slate-400"
                 onClick={async () => {
                   const resp = await fetch(
                     `/api/twitter/tweet/follow?id=${post.user_id}`
                   );
-                  const data = await resp.json();
-                  console.log(data);
                 }}
               >
                 Follow
               </button>
-              {/* )} */}
             </div>
           )}
         </div>
       </div>
       <div className="flex mx-3 ml-5 text-sm font-montserrat dark:text-slate-300">
-        {unescape(
-          removeLinksHashtagsMention(post.tweet_text)
-          // post.tweet_text.split(" ").slice(0, -1).join(" ").substring(0, 120) +
-          //   (post.tweet_text.length > 120 ? "..." : "")
-        )}
+        {removeLinksHashtagsMention(post.tweet_text)}
       </div>
       <div className="p-4 w-full">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rounded-lg w-full" src={post.meme_link} alt={post.tweet_text} />
+        <img className="rounded-lg w-full text-slate-500" src={post.meme_link} alt={`Image not found, tweet might be deleted -  ${post.tweet_text}`} />
       </div>
       {!session && (
         <div className="mb-3 ml-5">
-          <span className="px-3 py-1 pl-2 border rounded-full dark:text-white">
+          <span onClick={() => signIn("twitter")} className="px-3 py-2 text-sm hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white">
             Login to interact
           </span>
         </div>
@@ -114,12 +107,8 @@ function FeedPost({ post }: { post: Post }) {
               !session ? "hover:bg-none" : "hover:bg-red-700/20 cursor-pointer"
             }`}
             onClick={async () => {
-              setLiked(true);
-              const resp = await fetch(
-                `/api/twitter/tweet/like?id=${post.tweet_id}`
-              );
+              like(post.tweet_id, post.username);
               vibrateOnceOnClick()
-              const data = await resp.json();
             }}
           >
             <HeartIcon
@@ -132,12 +121,8 @@ function FeedPost({ post }: { post: Post }) {
           <div
             className="p-2 rounded-full cursor-pointer hover:bg-red-700/20 group"
             onClick={async () => {
-              setLiked(false);
-              const resp = await fetch(
-                `/api/twitter/tweet/unlike?id=${post.tweet_id}`
-              );
+              unlike(post.tweet_id, post.username);
               vibrateOnceOnClick();
-              const data = await resp.json();
             }}
           >
             <HeartIconSolid className="w-6 h-6 text-red-500" />
