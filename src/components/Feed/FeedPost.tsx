@@ -48,6 +48,8 @@ function FeedPost({ post }: { post: Post }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[likes]);
 
+  console.log(post.user_id)
+
   return (
     <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit w-full">
       {/* Top section */}
