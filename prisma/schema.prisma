@@ -15,9 +15,9 @@ model Like {
 }
 
 model User {
-  id         String @unique
+  id         String
   name       String @id
-  email      String @unique
+  email      String
   hahaCoins  Int    @default(0)
   lmfaoCoins Int    @default(0)
   likes      Like[]
