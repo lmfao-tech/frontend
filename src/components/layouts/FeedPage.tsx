@@ -21,7 +21,7 @@ function FeedPage({ children }: { children: React.ReactNode }) {
       <div className="grid grid-cols-1 lg:grid-cols-7">
         <div className="flex w-full col-span-1 lg:col-span-5 dark:bg-[#222e42]">
           <Sidebar />
-          <div className="min-h-screen" key={state}>
+          <div className="min-h-screen w-full" key={state}>
             <div className="sticky top-0 z-10">
               <TopBar />
             </div>
