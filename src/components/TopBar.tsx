@@ -15,22 +15,28 @@ function TopBar() {
   return (
     <div className="z-auto bg-white border-b-2 dark:bg-slate-800 dark:shadow-md dark:border-none">
       <div className="flex items-center justify-between h-20 mx-5 md:h-16">
-        <div className="flex w-full">
-          <div
-            onClick={(e) => router.push("/")}
-            className="flex text-lg font-bold cursor-pointer md:text-2xl font-trispace text-slate-800 dark:text-white"
-          >
-            <Image alt="Logo of LMFAO.tech" src={darkMode ?logo_white:logo_black} width={36} height={36} />
-            <div className="mx-2">
-              LMFAO
-              <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">
-                .tech
-              </span>
+        <button onClick={(e) => router.push("/")}>
+          <div className="flex w-full">
+            <div
+              className="flex text-lg font-bold cursor-pointer md:text-2xl font-trispace text-slate-800 dark:text-white"
+            >
+              <Image
+                alt="Logo of LMFAO.tech"
+                src={darkMode ? logo_white : logo_black}
+                width={36}
+                height={36}
+              />
+              <div className="mx-2">
+                LMFAO
+                <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+                  .tech
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </button>
 
-        <div
+        <button
           className="flex items-center p-2 m-3 rounded-md cursor-pointer bg-slate-200 dark:text-white dark:bg-slate-700 "
           onClick={(e) => setDarkMode(!darkMode)}
         >
@@ -65,7 +71,7 @@ function TopBar() {
               />
             </svg>
           )}
-        </div>
+        </button>
       </div>
     </div>
   );

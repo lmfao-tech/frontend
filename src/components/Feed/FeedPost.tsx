@@ -10,6 +10,7 @@ import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { signIn, useSession } from "next-auth/react";
 import { useHaha } from "~/contexts/HahaContext";
+import { useRouter } from "next/router";
 
 const removeLinksHashtagsMention = (text: string) => {
   function unEscape(htmlStr: string) {
@@ -31,6 +32,7 @@ const removeLinksHashtagsMention = (text: string) => {
 function FeedPost({ post }: { post: Post }) {
   const { like, unlike, coins, likes } = useHaha();
   const [ loading, setLoading ] = React.useState(true);
+  const router = useRouter();
 
   const vibrateOnceOnClick = () => {
     window.navigator?.vibrate?.(200);
@@ -99,7 +101,7 @@ function FeedPost({ post }: { post: Post }) {
       {!session && (
         <div className="mb-3 ml-5">
           <span
-            onClick={() => signIn("twitter")}
+            onClick={() => router.push('/dash')}
             className="px-3 py-2 text-sm hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white"
           >
             Login to interact
