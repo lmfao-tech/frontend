@@ -2,12 +2,8 @@ import React from 'react'
 import { Avatar } from 'flowbite-react'
 import Image from "next/image"
 
-type Coin = {
-  haha: number;
-  lmfao: number;
-}
 
-function LeaderboardIcon({coins,rank, name, avatar}: {coins: Coin,rank:number, name:string, avatar:string}) {
+function LeaderboardIcon({coins,rank, name, avatar}: {coins: number,rank:number, name:string, avatar:string}) {
   return (
     <div>
       <div className="flex px-5 gap-2 items-center">
@@ -19,7 +15,7 @@ function LeaderboardIcon({coins,rank, name, avatar}: {coins: Coin,rank:number, n
         </span>
         <span>{name}</span>
         <span className="ml-auto flex">
-          <Image src="/icons/icon-192x192.png" width={25} height={25} alt="LMFAO coins"/> {coins.lmfao}</span>
+          <Image src="/icons/icon-192x192.png" width={25} height={25} alt="LMFAO coins"/> {coins}</span>
       </div>
     </div>
   );

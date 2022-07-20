@@ -9,7 +9,6 @@ import React, { useEffect } from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { signIn, useSession } from "next-auth/react";
-import useLocalStorage from "~/hooks/useLocalStorage";
 import { useHaha } from "~/contexts/HahaContext";
 
 const removeLinksHashtagsMention = (text: string) => {
@@ -38,15 +37,7 @@ function FeedPost({ post }: { post: Post }) {
     window.navigator?.vibrate?.(200);
   };
 
-  useEffect(() => {
-    console.log(coins)
-  }, [coins])
-
   const [liked, setLiked] = React.useState(false);
-  // const [following, setFollowing] = useLocalStorage(
-  //   false,
-  //   `follow-${post.user_id}`
-  // );
   const [retweeted, setRetweeted] = React.useState(false);
 
   const { data: session } = useSession();
@@ -56,8 +47,6 @@ function FeedPost({ post }: { post: Post }) {
     setLiked(e !== undefined && e !== null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[likes]);
-
-  console.log(post.user_id)
 
   return (
     <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit w-full">
@@ -82,33 +71,16 @@ function FeedPost({ post }: { post: Post }) {
           </a>
           {session && (
             <div className="flex gap-2 ml-2">
-              {/* {following ? (
-                    <button
-                      className="text-[.7rem] px-3 py-2 text-gray-800 bg-cyan-200 rounded"
-                      onClick={async () => {
-                        const resp = await fetch(
-                          `/api/twitter/tweet/unfollow?id=${post.user_id}`
-                        );
-                        const data = await resp.json();
-                        console.log(data);
-                      }}
-                    >
-                      Following
-                    </button>
-                  ) : ( */}
               <button
                 className="text-[.7rem] px-3 py-2 text-cyan-500 border-2 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-gray-700 cursor-pointer dark:border-slate-400"
                 onClick={async () => {
                   const resp = await fetch(
                     `/api/twitter/tweet/follow?id=${post.user_id}`
                   );
-                  const data = await resp.json();
-                  console.log(data);
                 }}
               >
                 Follow
               </button>
-              {/* )} */}
             </div>
           )}
         </div>

@@ -35,8 +35,6 @@ const Create: NextPage = () => {
                 method: "POST",
                 body:base64,
             });
-            const data = await response.json();
-            console.log(data);
         }
         
     }
