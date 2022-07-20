@@ -15,7 +15,7 @@ function Sidebar() {
   return (
     <div className="dark:bg-slate-800  z-10">
       {/* Mobile */}
-      <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-16 bg-white md:hidden dark:bg-slate-800 drop-shadow-2xl">
+      <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-8 bg-white md:hidden dark:bg-slate-800 drop-shadow-2xl">
         <Link href="/">
           <div>
             <SidebarIcon
