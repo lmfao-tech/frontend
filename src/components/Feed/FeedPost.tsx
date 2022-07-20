@@ -13,11 +13,21 @@ import useLocalStorage from "~/hooks/useLocalStorage";
 import { useHaha } from "~/contexts/HahaContext";
 
 const removeLinksHashtagsMention = (text: string) => {
+
+  function unEscape(htmlStr:string) {
+    htmlStr = htmlStr.replace(/&lt;/g, "<");
+    htmlStr = htmlStr.replace(/&gt;/g, ">");
+    htmlStr = htmlStr.replace(/&quot;/g, '"');
+    htmlStr = htmlStr.replace(/&#39;/g, "'");
+    htmlStr = htmlStr.replace(/&amp;/g, "&");
+    return htmlStr;
+  }
+
   let m = text.replace(/\s#\w+/g, "").replace(/\s@\w+/g, "");
 
   // Remove t.co links
   m = m.replace(/https?:\/\/t.co\/\w+/g, "");
-  return m;
+  return unescape(m);
 };
 
 function FeedPost({ post }: { post: Post }) {
@@ -104,15 +114,11 @@ function FeedPost({ post }: { post: Post }) {
         </div>
       </div>
       <div className="flex mx-3 ml-5 text-sm font-montserrat dark:text-slate-300">
-        {unescape(
-          removeLinksHashtagsMention(post.tweet_text)
-          // post.tweet_text.split(" ").slice(0, -1).join(" ").substring(0, 120) +
-          //   (post.tweet_text.length > 120 ? "..." : "")
-        )}
+        {removeLinksHashtagsMention(post.tweet_text)}
       </div>
       <div className="p-4 w-full">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rounded-lg w-full" src={post.meme_link} alt={post.tweet_text} />
+        <img className="rounded-lg w-full text-slate-500" src={post.meme_link} alt={`Image not found, tweet might be deleted -  ${post.tweet_text}`} />
       </div>
       {!session && (
         <div className="mb-3 ml-5">
