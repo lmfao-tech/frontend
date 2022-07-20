@@ -6,6 +6,7 @@ import FeedPost from "~/components/Feed/FeedPost";
 import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
+import { Spinner } from "flowbite-react";
 
 const Home: NextPage = () => {
   const [last, setLastTweet] = useState<number>(0);
@@ -61,7 +62,7 @@ const Home: NextPage = () => {
           {loading && (
             <div className="flex items-center justify-center h-full">
               <div className="dark:bg-[#222e42] dark:text-white">
-                Loading...
+                Loading... <Spinner />
               </div>
             </div>
           )}
