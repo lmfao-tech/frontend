@@ -18,8 +18,7 @@ function Sidebar() {
           <div>
             <SidebarIcon
               icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
-              tooltip="Feed"
-              position="top"
+              mobile={true}
             />
           </div>
         </Link>
@@ -28,23 +27,7 @@ function Sidebar() {
           <div>
             <SidebarIcon
               icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-              tooltip="Community"
-            />
-          </div>
-        </Link>
-
-        <SidebarIcon
-          icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-          tooltip="Profile"
-          position="top"
-        />
-
-        <Link href="/dash">
-          <div>
-            <SidebarIcon
-              icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
-              tooltip="Dashboard"
-              position="top"
+              mobile={true}
             />
           </div>
         </Link>
@@ -53,8 +36,21 @@ function Sidebar() {
           <div>
             <SidebarIcon
               icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-              tooltip="Upload"
-              position="top"
+              mobile={true}
+            />
+          </div>
+        </Link>
+
+        <SidebarIcon
+          icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+          mobile={true}
+        />
+
+        <Link href="/dash">
+          <div>
+            <SidebarIcon
+              icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
+              mobile={true}
             />
           </div>
         </Link>
