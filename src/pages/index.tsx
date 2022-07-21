@@ -43,8 +43,8 @@ const Home: NextPageWithLayout = () => {
         <title>Home | LMFAO.tech</title>
       </Head>
 
-      <div className="flex flex-col w-full overflow-hidden bg-gray-100 shadow-sm  mb-20 md:md-0">
-        <div className="flex flex-col px-1 md:px-20 overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42] ">
+      <div className="flex flex-col w-full overflow-hidden shadow-sm  mb-20 md:md-0">
+        <div className="flex flex-col md:px-32 overflow-auto scrollbar-thin scrollbar-thumb-slate-200  ">
           {memes.map((post, index) => {
             if (index === memes.length - 1) {
               return (
