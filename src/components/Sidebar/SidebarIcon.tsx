@@ -12,11 +12,13 @@ function SidebarIcon({
   
 }) {
   return (
-    <div className="p-2 duration-150 ease-out rounded-full cursor-pointer hover:scale-125">
-      <Tooltip content={tooltip} placement={position}>
-        {icon}
-      </Tooltip>
-    </div>
+    <button>
+      <div className="p-2 duration-150 ease-out rounded-full cursor-pointer hover:scale-125">
+        <Tooltip content={tooltip} placement={position}>
+          {icon}
+        </Tooltip>
+      </div>
+    </button>
   );
 }
 

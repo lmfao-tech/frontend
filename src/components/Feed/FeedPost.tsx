@@ -10,10 +10,10 @@ import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { signIn, useSession } from "next-auth/react";
 import { useHaha } from "~/contexts/HahaContext";
+import { useRouter } from "next/router";
 
 const removeLinksHashtagsMention = (text: string) => {
-
-  function unEscape(htmlStr:string) {
+  function unEscape(htmlStr: string) {
     htmlStr = htmlStr.replace(/&lt;/g, "<");
     htmlStr = htmlStr.replace(/&gt;/g, ">");
     htmlStr = htmlStr.replace(/&quot;/g, '"');
@@ -26,16 +26,18 @@ const removeLinksHashtagsMention = (text: string) => {
 
   // Remove t.co links
   m = m.replace(/https?:\/\/t.co\/\w+/g, "");
-  return unescape(m);
+  return unEscape(m);
 };
 
 function FeedPost({ post }: { post: Post }) {
-
   const { like, unlike, coins, likes } = useHaha();
+  const [ loading, setLoading ] = React.useState(true);
+  const router = useRouter();
 
   const vibrateOnceOnClick = () => {
     window.navigator?.vibrate?.(200);
   };
+
 
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
@@ -43,10 +45,10 @@ function FeedPost({ post }: { post: Post }) {
   const { data: session } = useSession();
 
   useEffect(() => {
-    const e = likes.find((l) => l.id == post.tweet_id)
+    const e = likes.find((l) => l.id == post.tweet_id);
     setLiked(e !== undefined && e !== null);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[likes]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [likes]);
 
   return (
     <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit w-full">
@@ -90,13 +92,20 @@ function FeedPost({ post }: { post: Post }) {
       </div>
       <div className="p-4 w-full">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="rounded-lg w-full text-slate-500" src={post.meme_link} alt={`Image not found, tweet might be deleted -  ${post.tweet_text}`} />
+        <img
+          className="rounded-lg w-full text-slate-500"
+          src={post.meme_link}
+          alt={`Image not found, tweet might be deleted -  ${post.tweet_text}`}
+        />
       </div>
       {!session && (
         <div className="mb-3 ml-5">
-          <span onClick={() => signIn("twitter")} className="px-3 py-2 text-sm hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white">
+          <button
+            onClick={() => router.push('/dash')}
+            className="px-3 py-2 text-sm hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white"
+          >
             Login to interact
-          </span>
+          </button>
         </div>
       )}
       <div className="flex gap-2 mb-2 ml-5">
@@ -108,7 +117,7 @@ function FeedPost({ post }: { post: Post }) {
             }`}
             onClick={async () => {
               like(post.tweet_id, post.username);
-              vibrateOnceOnClick()
+              vibrateOnceOnClick();
             }}
           >
             <HeartIcon
@@ -174,7 +183,7 @@ function FeedPost({ post }: { post: Post }) {
         >
           <ExternalLinkIcon className="w-6 h-6" />
         </a>
-        <div className="flex items-center justify-center px-2 py-1 rounded-md cursor-pointer bg-slate-200 hover:bg-blue-200 dark:bg-yellow-400">
+        <button className="flex items-center justify-center px-2 py-1 rounded-md cursor-pointer bg-slate-200 hover:bg-blue-200 dark:bg-yellow-400">
           <RWebShare
             data={{
               title: "Meme discovered on LMFAO.tech | #LMFAOtech",
@@ -184,7 +193,7 @@ function FeedPost({ post }: { post: Post }) {
           >
             <ShareIcon className="w-5 h-5 text-green-400 dark:text-slate-900" />
           </RWebShare>
-        </div>
+        </button>
       </div>
     </div>
   );
