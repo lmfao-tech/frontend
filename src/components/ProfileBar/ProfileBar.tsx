@@ -53,9 +53,9 @@ export default function Profile() {
                 </div>
               )}
             </button>
-            <div className="flex items-center justify-center mt-10 mb-3">
+            <div className="flex items-center justify-center mt-7">
               <div className="flex items-center justify-between max-w-lg gap-5 space-x-4">
-                <div className="flex flex-col items-center text-xl text-center dark:text-slate-200">
+                <div className="flex flex-col items-center text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 font-bold">
                     <Image
                       src="/icons/HAHAcoins.png"
@@ -72,7 +72,7 @@ export default function Profile() {
                     coins
                   </div>
                 </div>
-                <div className="flex flex-col text-xl text-center dark:text-slate-200">
+                <div className="flex flex-col text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 font-bold">
                     <Image
                       src="/icons/icon-192x192.png"

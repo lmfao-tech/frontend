@@ -68,10 +68,10 @@ function FeedPost({ post }: { post: Post }) {
               width={23}
               height={23}
               placeholder="blur"
-              blurDataURL="/defaultpfp.jpg"
+              blurDataURL="/icons/defaultpfp.jpg"
               unoptimized
             />
-            <div className="mx-2 text-sm font-mono text-slate-800 dark:text-slate-300">
+            <div className="mx-2 font-mono text-sm text-slate-800 dark:text-slate-300">
               {post.username}
             </div>
           </a>
@@ -91,10 +91,10 @@ function FeedPost({ post }: { post: Post }) {
           )}
         </div>
       </div>
-      <div className="flex mx-3 py-2 ml-5  text-xs md:text-sm font-montserrat dark:text-slate-300">
+      <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
         {removeLinksHashtagsMention(post.tweet_text)}
       </div>
-      <div className="my-2 w-full border-y dark:border-slate-900">
+      <div className="w-full my-2 border-y dark:border-slate-900">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="w-full text-slate-500 px-0.5"
@@ -106,7 +106,7 @@ function FeedPost({ post }: { post: Post }) {
         <div className="mb-3 ml-5">
           <button
             onClick={() => router.push("/dash")}
-            className="px-3 py-2 text-sm hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white"
+            className="px-3 py-2 text-sm border rounded-full cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-600 dark:text-white"
           >
             Login to interact
           </button>
