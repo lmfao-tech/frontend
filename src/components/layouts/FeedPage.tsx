@@ -4,16 +4,14 @@ import ProfileBar from "~/components/ProfileBar/ProfileBar";
 import DefaultLayout from "./DefaultLayout";
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { useState } from "react";
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/solid";
+import { ArrowDownIcon } from "@heroicons/react/solid";
 import { Spinner } from "flowbite-react";
-import FeedPost from "../Feed/FeedPost";
 
 function FeedPage({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<number>(0);
 
   async function handleRefresh() {
     setState(state + 1);
-    // await window.location.reload();
   }
 
   return (

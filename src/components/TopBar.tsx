@@ -1,5 +1,4 @@
 import React from "react";
-import { SearchIcon } from "@heroicons/react/solid";
 import darkModeAtom from "~/atoms/darkmode";
 import Image from "next/image";
 import { useAtom } from "jotai";

@@ -55,7 +55,6 @@ export default function Profile() {
             </button>
             <div className="flex items-center justify-center mb-3 mt-10">
               <div className="flex items-center gap-5 justify-between max-w-lg space-x-4">
-                {/* TODO: Fix this */}
                 <div className="text-center items-center flex-col flex text-xl dark:text-slate-200">
                   <span className="font-bold flex items-center justify-center gap-2 mb-2">
                     <Image

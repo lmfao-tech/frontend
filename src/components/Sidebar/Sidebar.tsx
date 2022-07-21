@@ -5,9 +5,7 @@ import {
   DesktopComputerIcon,
   UserIcon,
   PlusIcon,
-  FireIcon,
 } from "@heroicons/react/solid";
-import Home from "../icons/Home";
 import SidebarIcon from "./SidebarIcon";
 import Link from "next/link";
 

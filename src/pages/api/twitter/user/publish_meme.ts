@@ -1,9 +1,7 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Resp, Status } from "~/types/Request";
 import { getSession } from "next-auth/react";
 import { TwitterApi } from "twitter-api-v2";
-import fs from "fs";
 
 interface Request extends NextApiRequest {
   files: any;

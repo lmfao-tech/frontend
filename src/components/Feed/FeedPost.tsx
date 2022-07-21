@@ -8,7 +8,7 @@ import { ShareIcon } from "@heroicons/react/outline";
 import React, { useEffect } from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useHaha } from "~/contexts/HahaContext";
 import { useRouter } from "next/router";
 import Image from "next/image";
