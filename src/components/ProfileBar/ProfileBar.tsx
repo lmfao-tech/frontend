@@ -129,7 +129,7 @@ export default function Profile() {
               gradientDuoTone="purpleToPink"
               onClick={() => signIn("twitter")}
             >
-              <div className="mx-3">
+              <div className="mr-3">
                 <svg
                   stroke="currentColor"
                   fill="none"
