@@ -6,8 +6,9 @@ import FeedPost from "~/components/Feed/FeedPost";
 import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
+import NextPageWithLayout from "~/types/NextPageWithLayout";
 
-const Community: NextPage = () => {
+const Community: NextPageWithLayout = () => {
   const [last, setLastTweet] = useState<number>(0);
   let {
     memes,
@@ -71,7 +72,6 @@ const Community: NextPage = () => {
   );
 };
 
-// @ts-ignore
 Community.getLayout = (page: ReactElement) => {
   return <FeedPage>{page}</FeedPage>;
 };

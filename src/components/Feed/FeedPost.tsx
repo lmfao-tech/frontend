@@ -11,6 +11,7 @@ import { RWebShare } from "react-web-share";
 import { signIn, useSession } from "next-auth/react";
 import { useHaha } from "~/contexts/HahaContext";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const removeLinksHashtagsMention = (text: string) => {
   function unEscape(htmlStr: string) {
@@ -61,11 +62,15 @@ function FeedPost({ post }: { post: Post }) {
             target="_blank"
             rel="noreferrer"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               className="w-8 h-8 mr-2 rounded-full"
               src={post.profile_image_url}
               alt="avatar"
+              width={25}
+              height={25}
+              placeholder="blur"
+              blurDataURL="/defaultpfp.jpg"
+              unoptimized
             />
             <div className="font-semibold text-md text-slate-800 dark:text-slate-400">
               {post.user}

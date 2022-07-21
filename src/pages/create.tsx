@@ -4,8 +4,9 @@ import { ReactElement, useState } from "react";
 import Dropzone from "~/components/Dropzone";
 import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Tabs from "~/components/Tabs";
+import NextPageWithLayout from "~/types/NextPageWithLayout";
 
-const Create: NextPage = () => {
+const Create: NextPageWithLayout = () => {
     const { data: session } = useSession();
     const [activeTab, setActiveTab] = useState(0);
 
@@ -98,7 +99,6 @@ const Create: NextPage = () => {
     );
 };
 
-// @ts-ignore
 Create.getLayout = (page: ReactElement) => {
     return <NotFeedPage>{page}</NotFeedPage>;
 };

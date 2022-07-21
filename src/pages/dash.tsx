@@ -1,9 +1,11 @@
 import React from 'react'
+import type { ReactElement } from 'react';
 import Profile from '~/components/ProfileBar/ProfileBar'
 import NotFeedPage from '~/components/layouts/NotFeedPage'
 import Head from 'next/head';
+import NextPageWithLayout from "~/types/NextPageWithLayout";
 
-function dash() {
+const dash: NextPageWithLayout = () => {
   return (
     <div>
       <Head>
@@ -15,7 +17,6 @@ function dash() {
   );
 }
 
-// @ts-ignore
 dash.getLayout = (page: ReactElement) => {
   return <NotFeedPage>{page}</NotFeedPage>;
 };
