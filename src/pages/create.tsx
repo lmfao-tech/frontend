@@ -13,7 +13,6 @@ const Create: NextPageWithLayout = () => {
     const [status, setStatus] = useState<string>("");
     const [image, setImage] = useState<File | null>(null);
 
-    // @ts-ignore
     let av = session?.user?.image;
     if (av) {
         av = av.replace(/_normal./, ".");

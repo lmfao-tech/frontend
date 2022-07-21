@@ -29,12 +29,9 @@ export default async function handler(
   }
 
   const client = new TwitterApi({
-    // @ts-ignore
     appKey: process.env.TWITTER_API_KEY!,
     appSecret: process.env.TWITTER_API_SECRET!,
-    // @ts-ignore
     accessToken: session.tokens.authToken,
-    // @ts-ignore
     accessSecret: session.tokens.authSecret,
   });
 

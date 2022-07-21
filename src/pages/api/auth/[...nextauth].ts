@@ -1,6 +1,5 @@
 import NextAuth from "next-auth"
 import TwitterProvider from "next-auth/providers/twitter";
-// @ts-ignore
 import {cloneDeep} from "tailwindcss/lib/util/cloneDeep";
 
 export default NextAuth({
