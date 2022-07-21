@@ -22,7 +22,7 @@ export default function Profile() {
 
   return (
     <>
-      <div className="sticky top-0 h-screen overflow-auto dark:bg-slate-800">
+      <div className="sticky top-0 h-screen overflow-auto scrollbar-thin dark:bg-slate-800">
         {session ? (
           <div className="flex min-h-screen flex-col">
             <button
@@ -44,7 +44,6 @@ export default function Profile() {
                 </span>
               </div>
               <ChevronDownIcon className="h-6 w-6 ml-auto mr-2 text-back dark:text-white group-hover:translate-y-1 transition-all delay-150 ease-out" />
-            </div>
 
               {extended && (
                 <div className="absolute mt-32 mr-2 flex justify-center bg-blue-400 rounded-full w-full text-white py-2">
