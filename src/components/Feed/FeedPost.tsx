@@ -51,7 +51,7 @@ function FeedPost({ post }: { post: Post }) {
   }, [likes]);
 
   return (
-    <div className="py-0.5 my-2 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full">
+    <div className="py-0.5 my-1 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full">
       {/* Top section */}
       <div>
         <div className="flex items-center justify-between h-12 mx-4 ">
@@ -94,10 +94,10 @@ function FeedPost({ post }: { post: Post }) {
       <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
         {removeLinksHashtagsMention(post.tweet_text)}
       </div>
-      <div className="w-full my-2 border-y dark:border-slate-900">
+      <div className="w-full px-0 my-2 md:px-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          className="w-full text-slate-500 px-0.5"
+          className="w-full rounded-md text-slate-500"
           src={post.meme_link}
           alt={`Image not found, tweet might be deleted -  ${post.tweet_text}`}
         />
@@ -112,7 +112,7 @@ function FeedPost({ post }: { post: Post }) {
           </button>
         </div>
       )}
-      <div className="flex gap-2 mb-2 ml-5">
+      <div className="flex gap-3 mb-2 ml-3">
         {!liked ? (
           <button
             disabled={!session}

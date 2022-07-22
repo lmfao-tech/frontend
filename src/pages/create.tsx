@@ -36,7 +36,8 @@ const Create: NextPageWithLayout = () => {
                 body:base64,
             });
         }
-        
+        setImage(null);
+        setStatus("");
     }
 
     return (
