@@ -46,9 +46,9 @@ export default function Profile() {
               <ChevronDownIcon className="w-6 h-6 ml-auto mr-2 transition-all ease-out delay-150 text-back dark:text-white group-hover:translate-y-1" />
 
               {extended && (
-                <div className="absolute flex justify-center w-full py-2 mt-32 mr-2 text-white bg-blue-400 rounded-full">
+                <div className="absolute mt-32 mr-2 flex justify-center bg-blue-400 rounded-full w-40 text-white py-2">
                   <button onClick={() => signOut()} className="flex">
-                    Logout <LogoutIcon className="w-6 h-6 mx-3" />
+                    Logout <LogoutIcon className="h-6 w-6 ml-3" />
                   </button>
                 </div>
               )}
@@ -128,7 +128,7 @@ export default function Profile() {
               gradientDuoTone="purpleToPink"
               onClick={() => signIn("twitter")}
             >
-              <div className="mx-3">
+              <div className="mr-3">
                 <svg
                   stroke="currentColor"
                   fill="none"
