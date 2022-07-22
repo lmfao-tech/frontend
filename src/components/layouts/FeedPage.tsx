@@ -17,22 +17,22 @@ function FeedPage({ children }: { children: React.ReactNode }) {
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 lg:grid-cols-7">
-        <div className="flex w-full col-span-1 lg:col-span-5 dark:bg-[#222e42]">
+        <div className="flex w-full col-span-1 lg:col-span-5 bg-[#e2e8f0] dark:bg-[#101010]">
           <Sidebar />
-          <div className="min-h-screen w-full" key={state}>
+          <div className="w-full min-h-screen" key={state}>
             <div className="sticky top-0 z-10">
               <TopBar />
             </div>
             <div className="overflow-hidden">
               <PullToRefresh
                 pullingContent={
-                  <div className="flex items-center justify-center text-black dark:text-white mt-4 animate-bounce">
-                    <ArrowDownIcon className="h-6 w-6" />
-                    Pull down to refresh <ArrowDownIcon className="h-6 w-6" />{" "}
+                  <div className="flex items-center justify-center mt-4 text-black dark:text-white animate-bounce">
+                    <ArrowDownIcon className="w-6 h-6" />
+                    Pull down to refresh <ArrowDownIcon className="w-6 h-6" />{" "}
                   </div>
                 }
                 refreshingContent={
-                  <div className="flex items-center justify-center text-black dark:text-white mt-4 animate-bounce">
+                  <div className="flex items-center justify-center mt-4 text-black dark:text-white animate-bounce">
                     <span className="mr-6">Refreshing</span>{" "}
                     <Spinner aria-label="Loading" />
                   </div>

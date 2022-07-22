@@ -32,13 +32,12 @@ const removeLinksHashtagsMention = (text: string) => {
 
 function FeedPost({ post }: { post: Post }) {
   const { like, unlike, coins, likes } = useHaha();
-  const [ loading, setLoading ] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
   const router = useRouter();
 
   const vibrateOnceOnClick = () => {
     window.navigator?.vibrate?.(200);
   };
-
 
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
@@ -52,10 +51,10 @@ function FeedPost({ post }: { post: Post }) {
   }, [likes]);
 
   return (
-    <div className="p-0.5 py-1 mx-0.5 my-4 bg-white shadow-md md:p-2 dark:bg-slate-800 dark:border-gray-900 rounded-xl md:rounded-2xl break-inside-avoid h-fit w-full">
+    <div className="py-0.5 my-2 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full">
       {/* Top section */}
       <div>
-        <div className="flex items-center justify-between h-16 mx-4">
+        <div className="flex items-center justify-between h-12 mx-4 ">
           <a
             className="flex items-center"
             href={`https://twitter.com/${post.username}`}
@@ -63,23 +62,23 @@ function FeedPost({ post }: { post: Post }) {
             rel="noreferrer"
           >
             <Image
-              className="w-8 h-8 mr-2 rounded-full"
+              className="w-8 h-8 rounded-full"
               src={post.profile_image_url}
               alt="avatar"
-              width={25}
-              height={25}
+              width={23}
+              height={23}
               placeholder="blur"
-              blurDataURL="/defaultpfp.jpg"
+              blurDataURL="/icons/defaultpfp.jpg"
               unoptimized
             />
-            <div className="font-semibold text-md text-slate-800 dark:text-slate-400">
-              {post.user}
+            <div className="mx-2 font-mono text-sm text-slate-800 dark:text-slate-300">
+              {post.username}
             </div>
           </a>
           {session && (
-            <div className="flex gap-2 ml-2">
+            <div className="flex ml-1">
               <button
-                className="text-[.7rem] px-3 py-2 text-cyan-500 border-2 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-gray-700 cursor-pointer dark:border-slate-400"
+                className="text-[.5rem] md:text-[.7rem] mt-1 px-2 py-1 text-cyan-500 border-2 border-cyan-200 rounded-lg hover:bg-cyan-600 hover:text-white cursor-pointer dark:border-slate-600"
                 onClick={async () => {
                   const resp = await fetch(
                     `/api/twitter/tweet/follow?id=${post.user_id}`
@@ -92,13 +91,13 @@ function FeedPost({ post }: { post: Post }) {
           )}
         </div>
       </div>
-      <div className="flex mx-3 ml-5 text-sm font-montserrat dark:text-slate-300">
+      <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
         {removeLinksHashtagsMention(post.tweet_text)}
       </div>
-      <div className="p-4 w-full">
+      <div className="w-full my-2 border-y dark:border-slate-900">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          className="rounded-lg w-full text-slate-500"
+          className="w-full text-slate-500 px-0.5"
           src={post.meme_link}
           alt={`Image not found, tweet might be deleted -  ${post.tweet_text}`}
         />
@@ -106,8 +105,8 @@ function FeedPost({ post }: { post: Post }) {
       {!session && (
         <div className="mb-3 ml-5">
           <button
-            onClick={() => router.push('/dash')}
-            className="px-3 py-2 text-sm hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer border rounded-full dark:text-white"
+            onClick={() => router.push("/dash")}
+            className="px-3 py-2 text-sm border rounded-full cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-600 dark:text-white"
           >
             Login to interact
           </button>

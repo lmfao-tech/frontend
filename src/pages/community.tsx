@@ -7,6 +7,7 @@ import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
+import { Spinner } from "flowbite-react";
 
 const Community: NextPageWithLayout = () => {
   const [last, setLastTweet] = useState<number>(0);
@@ -42,8 +43,8 @@ const Community: NextPageWithLayout = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
-      <div className="flex flex-col w-full overflow-hidden bg-gray-100 shadow-sm ">
-        <div className="flex flex-col px-1 md:px-20 overflow-auto scrollbar-thin scrollbar-thumb-slate-200 dark:bg-[#222e42]">
+      <div className="flex flex-col w-full mb-20 overflow-hidden shadow-sm md:md-0">
+        <div className="flex flex-col md:px-32">
           {memes.map((post, index) => {
             if (index === memes.length - 1) {
               return (
@@ -61,8 +62,8 @@ const Community: NextPageWithLayout = () => {
           })}
           {loading && (
             <div className="flex items-center justify-center h-full">
-              <div className="dark:bg-[#222e42] dark:text-white">
-                Loading...
+              <div className="dark:text-white ">
+                Loading... <Spinner />
               </div>
             </div>
           )}
