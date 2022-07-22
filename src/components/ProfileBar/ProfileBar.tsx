@@ -46,9 +46,9 @@ export default function Profile() {
               <ChevronDownIcon className="h-6 w-6 ml-auto mr-2 text-back dark:text-white group-hover:translate-y-1 transition-all delay-150 ease-out" />
 
               {extended && (
-                <div className="absolute mt-32 mr-2 flex justify-center bg-blue-400 rounded-full w-full text-white py-2">
+                <div className="absolute mt-32 mr-2 flex justify-center bg-blue-400 rounded-full w-40 text-white py-2">
                   <button onClick={() => signOut()} className="flex">
-                    Logout <LogoutIcon className="h-6 w-6 mx-3" />
+                    Logout <LogoutIcon className="h-6 w-6 ml-3" />
                   </button>
                 </div>
               )}
