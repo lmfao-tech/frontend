@@ -16,6 +16,8 @@ interface haha {
     unlike: (id: string | number, authorId: string | number) => Promise<void>;
     retweet: (id: string | number) => Promise<void>;
     unretweet: (id: string | number) => Promise<void>;
+    follow: (id: string | number) => Promise<void>;
+    unfollow: (id: string | number) => Promise<void>;
     post: () => Promise<void>;
 }
 
@@ -29,6 +31,8 @@ const HahaContext = createContext<haha>({
     unlike: async () => {},
     retweet: async () => {},
     unretweet: async () => {},
+    follow: async () => {},
+    unfollow: async () => {},
     post: async () => {}
 });
 
@@ -88,6 +92,42 @@ const HahaProvider = ({ children }: any) => {
         
     }
 
+    const follow = async (id: string | number) => {
+        const resp = await fetch(
+            `/api/twitter/tweet/follow?id=${id}`
+        );
+        console.log(await resp.json())
+
+        const old = localStorage.getItem("follows");
+        
+        if (old) {
+            const ummYeah = JSON.parse(old);
+            ummYeah[`${id}`] = true;
+            localStorage.setItem('follows', JSON.stringify(ummYeah))
+        } else {
+            const yeah: any = {};
+            yeah[`${id}`] = true;
+            localStorage.setItem('follows', JSON.stringify(yeah))
+        }
+    }
+
+    const unfollow = async (id: string | number) => {
+        const resp = await fetch(
+            `/api/twitter/tweet/unfollow?id=${id}`
+        );
+        const old = localStorage.getItem("follows");
+        
+        if (old) {
+            const ummYeah = JSON.parse(old);
+            ummYeah[`${id}`] = true;
+            localStorage.setItem('follows', JSON.stringify(ummYeah))
+        } else {
+            const yeah: any = {};
+            yeah[`${id}`] = true;
+            localStorage.setItem('follows', JSON.stringify(yeah))
+        }
+    }
+
     useEffect(() => {
         (async function() {
             
@@ -108,7 +148,7 @@ const HahaProvider = ({ children }: any) => {
             coins: {
                 lmfao: lmfaoCoins,
                 haha: hahaCoins
-            }, like, likes, unlike, retweet, unretweet, post,
+            }, like, likes, unlike, retweet, unretweet, post, follow, unfollow
         }}>
             {children}
         </HahaContext.Provider>

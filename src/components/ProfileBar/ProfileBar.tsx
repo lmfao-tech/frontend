@@ -24,10 +24,10 @@ export default function Profile() {
     <>
       <div className="sticky top-0 h-screen overflow-auto scrollbar-thin dark:bg-[#242424]">
         {session ? (
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen mx-1">
             <button
               onClick={() => setExtended(!extended)}
-              className="relative flex items-center px-6 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer"
+              className="relative flex items-center px-6 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-slate-600 hover:cursor-pointer"
             >
               <div className="rounded-full bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
@@ -35,7 +35,7 @@ export default function Profile() {
                 </div>
               </div>
               <div className="flex flex-col mx-3 mt-2">
-                <span className="text-black text-md font-trispace dark:text-slate-200">
+                <span className="text-black text-left text-md font-trispace dark:text-slate-200">
                   {" "}
                   {session?.user?.name}
                 </span>
