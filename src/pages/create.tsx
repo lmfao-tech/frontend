@@ -31,9 +31,9 @@ const Create: NextPageWithLayout = () => {
         reader.readAsDataURL(image);
         reader.onload = async () => {
             const base64 = reader.result as string;
-            const response = await fetch(`/api/twitter/user/publish_meme${status.length < 1 ? "" : `?status=${status}`}"`, {
+            const response = await fetch(`/api/twitter/user/publish_meme?${status.length < 1 ? "" : `status=${status}`}`, {
                 method: "POST",
-                body:base64,
+                body: base64,
             });
         }
         setImage(null);
