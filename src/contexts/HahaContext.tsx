@@ -50,7 +50,6 @@ const HahaProvider = ({ children }: any) => {
             const r = await fetch(`api/db/like?id=${id}&authorId=${authorId}`);
             const d: Resp = await r.json();
             if (d.success === Status.Success) {
-                setLikes(d.data.user.likes);
                 setLmfaoCoins(d.data.user.lmfaoCoins)
                 setHahaCoins(d.data.user.hahaCoins)
             }
@@ -66,7 +65,6 @@ const HahaProvider = ({ children }: any) => {
             const r = await fetch(`api/db/unlike?id=${id}&authorId=${authorId}`);
             const d: Resp = await r.json();
             if (d.success === Status.Success) {
-                setLikes(d.data.user.likes);
                 setHahaCoins(d.data.user.hahaCoins)
                 setLmfaoCoins(d.data.user.lmfaoCoins)
             }

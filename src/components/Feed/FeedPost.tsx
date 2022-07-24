@@ -120,6 +120,7 @@ function FeedPost({ post }: { post: Post }) {
               !session ? "hover:bg-none" : "hover:bg-red-700/20 cursor-pointer"
             }`}
             onClick={async () => {
+              setLiked(true);
               like(post.tweet_id, post.username);
               vibrateOnceOnClick();
             }}
@@ -134,6 +135,7 @@ function FeedPost({ post }: { post: Post }) {
           <div
             className="p-2 rounded-full cursor-pointer hover:bg-red-700/20 group"
             onClick={async () => {
+              setLiked(false);
               unlike(post.tweet_id, post.username);
               vibrateOnceOnClick();
             }}
