@@ -12,13 +12,23 @@ export default async function response(
       "https://api.lmfao.tech/top_memes?last=" +
         last +
         "&max_tweets" +
-        max_tweets
+        max_tweets, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": process.env.AUTH || "",
+        },
+      }
     );
     const resp = await fetch(
       "https://api.lmfao.tech/get_memes?last=" +
         last +
         "&max_tweets=" +
-        max_tweets
+        max_tweets, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": process.env.AUTH || "",
+        },
+      }
     );
     const data = await resp.json();
     const topMemes = await top_memes.json();

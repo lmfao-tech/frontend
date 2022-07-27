@@ -13,7 +13,12 @@ export default async function response(
       "https://api.lmfao.tech/community_memes?last=" +
         last +
         "&max_tweets=" +
-        max_tweets
+        max_tweets, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": process.env.AUTH || "",
+        },
+      }
     );
     const data = await resp.json();
     res.status(200).json(data);
