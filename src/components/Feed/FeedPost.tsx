@@ -5,7 +5,7 @@ import {
   SwitchHorizontalIcon,
 } from "@heroicons/react/solid";
 import { ShareIcon } from "@heroicons/react/outline";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import type Post from "~/types/Post";
 import { RWebShare } from "react-web-share";
 import { useSession } from "next-auth/react";
@@ -31,7 +31,9 @@ const removeLinksHashtagsMention = (text: string) => {
 };
 
 function FeedPost({ post }: { post: Post }) {
-  const { like, unlike, coins, likes } = useHaha();
+  const { like, unlike, coins, likes, follow, unfollow } = useHaha();
+  const [ followed, setFollowed ] = React.useState<boolean>(false);
+
   const [loading, setLoading] = React.useState(true);
   const router = useRouter();
 
@@ -43,6 +45,17 @@ function FeedPost({ post }: { post: Post }) {
   const [retweeted, setRetweeted] = React.useState(false);
 
   const { data: session } = useSession();
+
+  useEffect(() => {
+
+    const old = localStorage.getItem("follows")
+
+    if (old && old.length > 0) {
+      const ummYeah = JSON.parse(old);
+        
+    }
+
+  },[])
 
   useEffect(() => {
     const e = likes.find((l) => l.id == post.tweet_id);
@@ -77,16 +90,27 @@ function FeedPost({ post }: { post: Post }) {
           </a>
           {session && (
             <div className="flex ml-1">
-              <button
-                className="text-[.5rem] md:text-[.7rem] mt-1 px-2 py-1 text-cyan-500 border-2 border-cyan-200 rounded-lg hover:bg-cyan-600 hover:text-white cursor-pointer dark:border-slate-600"
-                onClick={async () => {
-                  const resp = await fetch(
-                    `/api/twitter/tweet/follow?id=${post.user_id}`
-                  );
-                }}
-              >
-                Follow
-              </button>
+              {!followed ? (
+                <button
+                  className="text-[.5rem] md:text-[.7rem] mt-1 px-2 py-1 text-cyan-500 border-2 dark:hover:bg-slate-600 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-white cursor-pointer dark:border-slate-600"
+                  onClick={async () => {
+                    setFollowed(true);
+                    await follow(post.user_id);
+                  }}
+                >
+                  Follow
+                </button>
+              ) : (
+                <button
+                  className="text-[.5rem] bg-cyan-100 hover:bg-cyan-200 dark:bg-slate-500 dark:hover:bg-transparent text-white md:text-[.7rem] mt-1 px-2 py-1 border-2 border-cyan-200 rounded-lg hover:text-white cursor-pointer dark:border-slate-600"
+                  onClick={async () => {
+                    setFollowed(false);
+                    await unfollow(post.user_id);
+                  }}
+                >
+                  Followed
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -120,6 +144,7 @@ function FeedPost({ post }: { post: Post }) {
               !session ? "hover:bg-none" : "hover:bg-red-700/20 cursor-pointer"
             }`}
             onClick={async () => {
+              setLiked(true);
               like(post.tweet_id, post.username);
               vibrateOnceOnClick();
             }}
@@ -134,6 +159,7 @@ function FeedPost({ post }: { post: Post }) {
           <div
             className="p-2 rounded-full cursor-pointer hover:bg-red-700/20 group"
             onClick={async () => {
+              setLiked(false);
               unlike(post.tweet_id, post.username);
               vibrateOnceOnClick();
             }}
