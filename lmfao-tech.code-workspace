@@ -1,12 +1,16 @@
 {
-	"folders": [
-		{
-			"name": "Frontend",
-			"path": "..\\Documents\\lmfao_tech\\lmfao_tech_frontend"
-		},
-		{
-			"name": "Backend",
-			"path": "..\\Documents\\Python Projects\\lmfao_tech_backend"
-		}
-	]
+  "folders": [
+    {
+      "name": "Frontend",
+      "path": "..\\lmfao_tech_frontend"
+    },
+    {
+      "name": "Backend",
+      "path": "..\\lmfao_tech_backend"
+    },
+    {
+      "name": "Coins distributor",
+      "path": "..\\coins-distributer"
+    }
+  ]
 }

@@ -22,3 +22,7 @@ model User {
   lmfaoCoins Int    @default(0)
   likes      Like[]
 }
+
+model Mod {
+  id String @id
+}
