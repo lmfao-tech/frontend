@@ -31,7 +31,7 @@ const removeLinksHashtagsMention = (text: string) => {
 };
 
 function FeedPost({ post }: { post: Post }) {
-  const { like, unlike, coins, likes, follow, unfollow } = useHaha();
+  const { like, unlike, likes, follow, unfollow, mod } = useHaha();
   const [ followed, setFollowed ] = React.useState<boolean>(false);
 
   const [loading, setLoading] = React.useState(true);
@@ -109,6 +109,16 @@ function FeedPost({ post }: { post: Post }) {
                   }}
                 >
                   Followed
+                </button>
+              )}
+              {mod && (
+                <button
+                  className="text-[.5rem] ml-1 md:text-[.7rem] mt-1 px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400"
+                  onClick={() => {
+                    
+                  }}
+                >
+                  Delete
                 </button>
               )}
             </div>
