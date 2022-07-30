@@ -32,12 +32,16 @@ export default function usePostFeed({url} : {url: string}) {
     setLoading(true);
 
     fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setMemes(memes => Array.from(new Set([...memes, ...data])));
-        setLoading(false);
-        setHasMore(data.length >= 100);
-      });
+      .then(
+        async (res) => {
+          const data = await res.json();
+          console.log(url)
+          console.log(data)
+          setMemes(memes => Array.from(new Set([...memes, ...data])));
+          setLoading(false);
+          setHasMore(data.length >= 100);
+        }
+      );
   }, [url]);
 
   return { memes, loading, hasMore };
