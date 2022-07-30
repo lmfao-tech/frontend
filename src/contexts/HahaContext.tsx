@@ -19,6 +19,7 @@ interface haha {
     follow: (id: string | number) => Promise<void>;
     unfollow: (id: string | number) => Promise<void>;
     post: () => Promise<void>;
+    deletePost: (id: string) => Promise<void>;
     mod: boolean;
 }
 
@@ -35,6 +36,7 @@ const HahaContext = createContext<haha>({
     follow: async () => {},
     unfollow: async () => {},
     post: async () => {},
+    deletePost: async () => {},
     mod: false
 });
 
@@ -95,6 +97,10 @@ const HahaProvider = ({ children }: any) => {
         
     }
 
+    const deletePost = async (id: string) => {
+
+    }
+
     const follow = async (id: string | number) => {
         const resp = await fetch(
             `/api/twitter/tweet/follow?id=${id}`
@@ -152,7 +158,7 @@ const HahaProvider = ({ children }: any) => {
             coins: {
                 lmfao: lmfaoCoins,
                 haha: hahaCoins
-            }, like, likes, unlike, retweet, unretweet, post, follow, unfollow, mod
+            }, like, likes, unlike, retweet, unretweet, post, follow, unfollow, mod, deletePost
         }}>
             {children}
         </HahaContext.Provider>
