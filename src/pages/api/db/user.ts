@@ -47,9 +47,20 @@ export default async function handler(
         })
     }
 
+    const yo = await prisma.mods.findFirst({
+        where: {
+            id: session.twitter.twitterHandle
+        }
+    })
+
     return res.status(200).json({
         success: Status.Success,
-        data: user
+        data: {
+            ...user,
+            ...{
+                mod: yo !== null
+            }
+        }
     })
 
 }

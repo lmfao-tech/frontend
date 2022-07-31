@@ -8,8 +8,11 @@ import {
 } from "@heroicons/react/solid";
 import SidebarIcon from "./SidebarIcon";
 import Link from "next/link";
+import { useHaha } from "~/contexts/HahaContext";
+import { FilterIcon } from "@heroicons/react/outline";
 
 function Sidebar() {
+  const { mod } = useHaha();
   return (
     <div className="bg-white dark:bg-[#242424]  z-10">
       {/* Mobile */}
@@ -40,6 +43,17 @@ function Sidebar() {
             />
           </div>
         </Link>
+
+        {mod && (
+          <Link href="/mod">
+            <div>
+              <SidebarIcon
+                icon={<FilterIcon className="w-6 h-6 text-red-500" />}
+                mobile={true}
+              />
+            </div>
+          </Link>
+        )}
 
         <SidebarIcon
           icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
@@ -97,6 +111,17 @@ function Sidebar() {
               />
             </div>
           </Link>
+
+          {mod && (
+            <Link href="/mod">
+              <div>
+                <SidebarIcon
+                  icon={<FilterIcon className="w-6 h-6 text-red-500" />}
+                  tooltip="Moderation"
+                />
+              </div>
+            </Link>
+          )}
         </div>
 
         {/* TODO: Implement Sidebar toggle  */}

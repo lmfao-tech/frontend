@@ -23,6 +23,6 @@ model User {
   likes      Like[]
 }
 
-model Moderators {
+model Mods {
   id String @id
 }

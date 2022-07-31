@@ -34,9 +34,10 @@ export default function usePostFeed({url} : {url: string}) {
     fetch(url)
       .then(
         async (res) => {
-          const data = await res.json();
-          console.log(url)
-          console.log(data)
+          let data = await res.json();
+          if (data.error === "Unauthorized") {
+            data = []
+          }
           setMemes(memes => Array.from(new Set([...memes, ...data])));
           setLoading(false);
           setHasMore(data.length >= 100);

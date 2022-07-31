@@ -30,32 +30,36 @@ const removeLinksHashtagsMention = (text: string) => {
   return unEscape(m);
 };
 
-function FeedPost({ post }: { post: Post }) {
-  const { like, unlike, coins, likes, follow, unfollow } = useHaha();
-  const [ followed, setFollowed ] = React.useState<boolean>(false);
+function FeedPost({
+  post,
+  removed = false,
+}: {
+  post: Post;
+  removed?: boolean;
+}) {
+  const { like, unlike, likes, follow, unfollow, mod } = useHaha();
 
-  const [loading, setLoading] = React.useState(true);
+  const [followed, setFollowed] = useState<boolean>(false);
+
+  const [deleted, setDeleted] = useState<boolean>(removed);
   const router = useRouter();
 
   const vibrateOnceOnClick = () => {
     window.navigator?.vibrate?.(200);
   };
 
-  const [liked, setLiked] = React.useState(false);
-  const [retweeted, setRetweeted] = React.useState(false);
+  const [liked, setLiked] = useState(false);
+  const [retweeted, setRetweeted] = useState(false);
 
   const { data: session } = useSession();
 
   useEffect(() => {
-
-    const old = localStorage.getItem("follows")
+    const old = localStorage.getItem("follows");
 
     if (old && old.length > 0) {
       const ummYeah = JSON.parse(old);
-        
     }
-
-  },[])
+  }, []);
 
   useEffect(() => {
     const e = likes.find((l) => l.id == post.tweet_id);
@@ -111,10 +115,50 @@ function FeedPost({ post }: { post: Post }) {
                   Followed
                 </button>
               )}
+              {mod && (
+                <button
+                  className={`text-[.5rem] ml-1 md:text-[.7rem] mt-1 px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
+                    deleted && "bg-red-200"
+                  } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
+                  onClick={async () => {
+                    if (!deleted) {
+                      await fetch(
+                        `/api/mods/remove_post?id=${post.tweet_id}`
+                      ).then((res) => {
+                        res.json();
+                        console.log(res);
+                        if (res.ok === true) {
+                          setDeleted(true);
+                        }
+                      });
+                    } else {
+                      await fetch(
+                        `/api/mods/revive_post?id=${post.tweet_id}`
+                      ).then((res) => {
+                        res.json();
+                        console.log(res);
+                        if (res.ok === true) {
+                          setDeleted(false);
+                        }
+                      });
+                    }
+                  }}
+                >
+                  {deleted ? "Revive" : "Delete"}
+                </button>
+              )}
             </div>
           )}
         </div>
       </div>
+      {post.removed_by && (
+        <div className="mx-3 ml-5">
+          Removed by{" "}
+          <a className="text-blue-500" href={`https://twitter.com/${post.removed_by}`}>
+            {post.removed_by}
+          </a>
+        </div>
+      )}
       <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
         {removeLinksHashtagsMention(post.tweet_text)}
       </div>
