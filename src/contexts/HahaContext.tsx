@@ -96,9 +96,12 @@ const HahaProvider = ({ children }: any) => {
     const post = async () => {
         
     }
-
+    
     const deletePost = async (id: string) => {
-
+        
+    }
+    const revivePost = async (id: string) => {
+        
     }
 
     const follow = async (id: string | number) => {
