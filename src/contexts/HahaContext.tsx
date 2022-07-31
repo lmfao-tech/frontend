@@ -19,6 +19,8 @@ interface haha {
     follow: (id: string | number) => Promise<void>;
     unfollow: (id: string | number) => Promise<void>;
     post: () => Promise<void>;
+    deletePost: (id: string) => Promise<void>;
+    mod: boolean;
 }
 
 const HahaContext = createContext<haha>({
@@ -33,12 +35,15 @@ const HahaContext = createContext<haha>({
     unretweet: async () => {},
     follow: async () => {},
     unfollow: async () => {},
-    post: async () => {}
+    post: async () => {},
+    deletePost: async () => {},
+    mod: false
 });
 
 const HahaProvider = ({ children }: any) => {
     const [hahaCoins, setHahaCoins] = useState<number>(0);
     const [lmfaoCoins, setLmfaoCoins] = useState<number>(0);
+    const [mod,setMod] = useState<boolean>(false);
     const [likes, setLikes] = useState<Array<{
         id: string | number;
         authorId: string | number;
@@ -91,6 +96,13 @@ const HahaProvider = ({ children }: any) => {
     const post = async () => {
         
     }
+    
+    const deletePost = async (id: string) => {
+        
+    }
+    const revivePost = async (id: string) => {
+        
+    }
 
     const follow = async (id: string | number) => {
         const resp = await fetch(
@@ -138,9 +150,10 @@ const HahaProvider = ({ children }: any) => {
                 setHahaCoins(data.data.hahaCoins);
                 setLmfaoCoins(data.data.lmfaoCoins);
                 setLikes(data.data.likes);
+                setMod(data.data.mod);
             }
         
-        })()
+        })();
     },[])
 
     return (
@@ -148,7 +161,7 @@ const HahaProvider = ({ children }: any) => {
             coins: {
                 lmfao: lmfaoCoins,
                 haha: hahaCoins
-            }, like, likes, unlike, retweet, unretweet, post, follow, unfollow
+            }, like, likes, unlike, retweet, unretweet, post, follow, unfollow, mod, deletePost
         }}>
             {children}
         </HahaContext.Provider>
