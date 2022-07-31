@@ -27,11 +27,11 @@ export default function Profile() {
           <div className="flex flex-col min-h-screen mx-1">
             <button
               onClick={() => setExtended(!extended)}
-              className="relative flex items-center px-6 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-slate-600 hover:cursor-pointer"
+              className="relative flex items-center px-6 mx-2 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"
             >
               <div className="rounded-full bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
-                  <Avatar img={av} rounded={true} alt="avatar" size="md" />
+                  <Avatar img={av} rounded={true} alt="avatar" />
                 </div>
               </div>
               <div className="flex flex-col mx-3 mt-2">
@@ -46,7 +46,7 @@ export default function Profile() {
               <ChevronDownIcon className="w-6 h-6 ml-auto mr-2 transition-all ease-out delay-150 text-back dark:text-white group-hover:translate-y-1" />
 
               {extended && (
-                <div className="absolute mt-32 mr-2 flex justify-center bg-blue-400 rounded-full w-40 text-white py-2">
+                <div className="absolute mt-32 mr-2 flex justify-center z-10 bg-blue-400 rounded-full w-40 text-white py-2">
                   <button onClick={() => signOut()} className="flex">
                     Logout <LogoutIcon className="h-6 w-6 ml-3" />
                   </button>
