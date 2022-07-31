@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Resp, Status } from "~/types/Request";
 import { getSession } from "next-auth/react";
 import { TwitterApi } from "twitter-api-v2";
+import { prisma } from "~/db/client";
 
 interface Request extends NextApiRequest {
   files: any;
@@ -41,12 +42,22 @@ export default async function handler(
       "base64"
     );
 
-    const mediaId = await client.v1.uploadMedia(buff   , {
+    const mediaId = await client.v1.uploadMedia(buff, {
       type: "png",
       target: "tweet",
     });
-    const data = await client.v2.tweet(status ? `${status} #LMFAOtech` : "#LMFAOtech", {
-      media: {media_ids: [mediaId]},
+    const data = await client.v2.tweet(
+      status ? `${status} #LMFAOtech` : "#LMFAOtech",
+      {
+        media: { media_ids: [mediaId] },
+      }
+    );
+
+    prisma.user.update({
+      where: {
+        name: session.twitter.twitterHandle,
+      },
+      data: {},
     });
 
     res.status(200).json({
@@ -64,7 +75,7 @@ export default async function handler(
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb", 
+      sizeLimit: "10mb",
     },
   },
 };

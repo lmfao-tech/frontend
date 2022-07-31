@@ -21,6 +21,9 @@ model User {
   hahaCoins  Int    @default(0)
   lmfaoCoins Int    @default(0)
   likes      Like[]
+  current_streak Int @default(0)
+  longest_streak Int @default(0)
+  last_updated DateTime @default(now())
 }
 
 model Mods {
