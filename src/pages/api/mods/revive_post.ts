@@ -46,7 +46,7 @@ export default async function handler(
   }
 
   await fetch(
-    `https://api.lmfao.tech/remove_post?id=${id}`,
+    `https://api.lmfao.tech/revive_post?id=${id}`,
     {
       headers: {
         "Content-Type": "application/json",

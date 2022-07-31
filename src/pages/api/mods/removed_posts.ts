@@ -45,8 +45,8 @@ export default async function handler(
     })
   }
 
-  await fetch(
-    `https://api.lmfao.tech/remove_post?id=${id}`,
+  const resp = await fetch(
+    `https://api.lmfao.tech/removed_post?id=${id}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -54,10 +54,11 @@ export default async function handler(
       }
     }
   )
+  const data = await resp.json();
   
   res.status(200).json({
     success: Status.Success,
-    data: "done"
+    data: data
   })
     
 }
