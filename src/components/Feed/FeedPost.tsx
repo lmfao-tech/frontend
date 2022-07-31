@@ -115,38 +115,6 @@ function FeedPost({
                   Followed
                 </button>
               )}
-              {mod && (
-                <button
-                  className={`text-[.5rem] ml-1 md:text-[.7rem] mt-1 px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
-                    deleted && "bg-red-200"
-                  } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
-                  onClick={async () => {
-                    if (!deleted) {
-                      await fetch(
-                        `/api/mods/remove_post?id=${post.tweet_id}`
-                      ).then((res) => {
-                        res.json();
-                        console.log(res);
-                        if (res.ok === true) {
-                          setDeleted(true);
-                        }
-                      });
-                    } else {
-                      await fetch(
-                        `/api/mods/revive_post?id=${post.tweet_id}`
-                      ).then((res) => {
-                        res.json();
-                        console.log(res);
-                        if (res.ok === true) {
-                          setDeleted(false);
-                        }
-                      });
-                    }
-                  }}
-                >
-                  {deleted ? "Revive" : "Delete"}
-                </button>
-              )}
             </div>
           )}
         </div>
@@ -154,7 +122,10 @@ function FeedPost({
       {post.removed_by && (
         <div className="mx-3 ml-5">
           Removed by{" "}
-          <a className="text-blue-500" href={`https://twitter.com/${post.removed_by}`}>
+          <a
+            className="text-blue-500"
+            href={`https://twitter.com/${post.removed_by}`}
+          >
             {post.removed_by}
           </a>
         </div>
@@ -268,6 +239,38 @@ function FeedPost({
             <ShareIcon className="w-5 h-5 text-green-400 dark:text-slate-900" />
           </RWebShare>
         </button>
+        {mod && (
+          <button
+            className={`text-[.5rem] md:text-[.7rem] px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
+              deleted && "bg-red-200"
+            } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
+            onClick={async () => {
+              if (!deleted) {
+                await fetch(`/api/mods/remove_post?id=${post.tweet_id}`).then(
+                  (res) => {
+                    res.json();
+                    console.log(res);
+                    if (res.ok === true) {
+                      setDeleted(true);
+                    }
+                  }
+                );
+              } else {
+                await fetch(`/api/mods/revive_post?id=${post.tweet_id}`).then(
+                  (res) => {
+                    res.json();
+                    console.log(res);
+                    if (res.ok === true) {
+                      setDeleted(false);
+                    }
+                  }
+                );
+              }
+            }}
+          >
+            {deleted ? "Revive" : "Delete"}
+          </button>
+        )}
       </div>
     </div>
   );
