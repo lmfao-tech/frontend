@@ -108,8 +108,6 @@ const HahaProvider = ({ children }: any) => {
         const resp = await fetch(
             `/api/twitter/tweet/follow?id=${id}`
         );
-        console.log(await resp.json())
-
         const old = localStorage.getItem("follows");
         
         if (old) {
