@@ -7,7 +7,8 @@ type Post = {
 	tweet_link: string,
 	tweet_created_at: string,
 	meme_link: string,
-	user_id: string
+	user_id: string,
+	removed_by?: string,
 }
 
 export default Post;

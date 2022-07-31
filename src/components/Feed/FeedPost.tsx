@@ -151,6 +151,14 @@ function FeedPost({
           )}
         </div>
       </div>
+      {post.removed_by && (
+        <div className="mx-3 ml-5">
+          Removed by{" "}
+          <a className="text-blue-500" href={`https://twitter.com/${post.removed_by}`}>
+            {post.removed_by}
+          </a>
+        </div>
+      )}
       <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
         {removeLinksHashtagsMention(post.tweet_text)}
       </div>
