@@ -45,15 +45,12 @@ export default async function handler(
     })
   }
 
-  await fetch(
-    `https://api.lmfao.tech/revive_post?id=${id}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": process.env.AUTH || "",
-      }
-    }
-  )
+  await fetch(`https://api.lmfao.tech/revive_meme?id=${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: process.env.AUTH || "",
+    },
+  });
   
   res.status(200).json({
     success: Status.Success,
