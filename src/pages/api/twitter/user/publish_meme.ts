@@ -53,12 +53,47 @@ export default async function handler(
       }
     );
 
-    prisma.user.update({
-      where: {
-        name: session.twitter.twitterHandle,
-      },
-      data: {},
-    });
+    const user = prisma.user
+      .findFirst({
+        where: {
+          name: session.twitter.twitterHandle,
+        },
+      })
+      .then((user) => {
+        if (user) {
+          // Check if last_updated was one day ago
+          const lastUpdated = new Date(user.last_updated);
+          const now = new Date();
+          const diff = now.getTime() - lastUpdated.getTime();
+          const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
+          if (diffDays > 1) {
+            // Update last_updated
+            prisma.user.update({
+              where: {
+                name: session.twitter.twitterHandle,
+              },
+              data: {
+                current_streak: 0,
+              },
+            });
+          } else {
+            prisma.user.update({
+              where: {
+                name: session.twitter.twitterHandle,
+              },
+              data: {
+                longest_streak:
+                  user.current_streak + 1 > user.longest_streak
+                    ? user.current_streak + 1
+                    : user.longest_streak,
+
+                current_streak: user.current_streak + 1,
+                last_updated: new Date(),
+              },
+            });
+          }
+        }
+      });
 
     res.status(200).json({
       success: Status.Success,
