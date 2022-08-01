@@ -41,11 +41,10 @@ const Create: NextPageWithLayout = () => {
         }
       )
         .then((res) => res.json())
+        .then((res) => console.log(res))
         .catch((err) => {
           console.error(err);
-        }
-      );
-      console.log(response)
+        });
     };
     setImage(null);
     setStatus("");

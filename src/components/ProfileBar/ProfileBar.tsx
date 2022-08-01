@@ -102,7 +102,6 @@ export default function Profile() {
                 href="/create"
                 as={`/create`}
                 passHref={true}
-                prefetch={true}
               >
                 <div className="rounded-lg text-white bg-gradient-to-r transition-[transform] from-sky-400 to-blue-500 p-3 justify-center flex py-5 my-5 w-full shadow-xl shadow-blue-500/50 hover:scale-105 ease-out delay-100 cursor-pointer">
                   Create a meme

@@ -59,36 +59,37 @@ export default async function handler(
           name: session.twitter.twitterHandle,
         },
       })
-      .then((user) => {
+      .then(async (user) => {
         if (!user) {
           return;
         }
+        const isNewLongestStreak =
+          user.longest_streak < user.current_streak + 1;
         // Check if last_updated was one day ago
         const lastUpdated = new Date(user.last_updated);
         const now = new Date();
         const diff = now.getTime() - lastUpdated.getTime();
-        const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
-        if (diffDays > 1) {
-          prisma.user.update({
+        const diffDays = diff / (1000 * 3600 * 24);
+        if (diffDays > 1 && diffDays < 2) {
+          await prisma.user.update({
+            where: {
+              name: session.twitter.twitterHandle,
+            },
+            data: {
+              longest_streak: isNewLongestStreak
+                ? user.current_streak + 1
+                : user.longest_streak,
+              current_streak: user.current_streak + 1,
+              last_updated: new Date(),
+            },
+          });
+        } else if (diffDays > 2) {
+          await prisma.user.update({
             where: {
               name: session.twitter.twitterHandle,
             },
             data: {
               current_streak: 0,
-            },
-          });
-        } else {
-          prisma.user.update({
-            where: {
-              name: session.twitter.twitterHandle,
-            },
-            data: {
-              longest_streak:
-                user.current_streak + 1 > user.longest_streak
-                  ? user.current_streak + 1
-                  : user.longest_streak,
-
-              current_streak: user.current_streak + 1,
               last_updated: new Date(),
             },
           });
@@ -97,7 +98,7 @@ export default async function handler(
 
     res.status(200).json({
       success: Status.Success,
-      //   data: data,
+      // data: data,
     });
   } catch (e: any) {
     res.status(500).json({
