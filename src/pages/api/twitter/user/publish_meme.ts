@@ -89,7 +89,7 @@ export default async function handler(
               name: session.twitter.twitterHandle,
             },
             data: {
-              current_streak: 0,
+              current_streak: 1,
               last_updated: new Date(),
             },
           });
