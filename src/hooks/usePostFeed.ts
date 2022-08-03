@@ -27,7 +27,6 @@ export default function usePostFeed({url} : {url: string}) {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
 
-
   useEffect(() => {
     setLoading(true);
 
@@ -38,7 +37,7 @@ export default function usePostFeed({url} : {url: string}) {
           if (data.error === "Unauthorized") {
             data = []
           }
-          setMemes(memes => Array.from(new Set([...memes, ...data])));
+          setMemes(memes => Array.from(new Set([...memes, ...data.memes])));
           setLoading(false);
           setHasMore(data.length >= 100);
         }

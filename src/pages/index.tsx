@@ -10,13 +10,14 @@ import { Spinner } from "flowbite-react";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
 
 const Home: NextPageWithLayout = () => {
-  const [last, setLastTweet] = useState<number>(0);
+  const [last, setLast] = useState<number>(0);
+
   let {
     memes,
     loading,
-    hasMore,
-  }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
-    url: `/api/getMemes?last=${last}&max_tweets=5`,
+    hasMore
+  }: { memes: Post[]; loading: boolean; hasMore: boolean} = usePostFeed({
+    url: `/api/getMemes?last=${last}&max_tweets=10`,
   });
   const observer = useRef<IntersectionObserver>();
 
@@ -27,14 +28,14 @@ const Home: NextPageWithLayout = () => {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0]?.isIntersecting) {
-          setLastTweet(memes.length);
+          setLast(memes.length)
         }
       });
-
       if (node) observer.current.observe(node);
     },
-    [loading, memes.length]
+    [loading, memes]
   );
+
 
   return (
     <>
