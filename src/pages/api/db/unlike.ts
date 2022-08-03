@@ -91,6 +91,9 @@ export default async function handler(
             hahaCoins: {
                 increment: moreHaha ? 0 : 1
             },
+            lmfaoCoins: {
+                decrement: 1
+            },
             likes: {
                 disconnect: {
                     id: id
@@ -106,7 +109,7 @@ export default async function handler(
             },
             data: {
                 lmfaoCoins: {
-                    decrement: moreHaha ? 0 : 1
+                    decrement: moreHaha ? 0 : 5
                 }
             }
         })
