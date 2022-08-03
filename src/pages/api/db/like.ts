@@ -120,6 +120,9 @@ export default async function handler(
                 connect: {
                     id: id
                 }
+            },
+            lmfaoCoins: {
+                increment: lessHaha ? 0 : 1
             }
         }
     })
@@ -131,11 +134,12 @@ export default async function handler(
             },
             data: {
                 lmfaoCoins: {
-                    increment: lessHaha ? 0 : 1
+                    increment: lessHaha ? 0 : 5
                 }
             }
         })
     } catch {}
+
 
     const likes = await prisma.like.findFirst({
         where: {
@@ -158,7 +162,7 @@ export default async function handler(
     return res.status(200).json({
         success: Status.Success,
         data: {
-            likes, user: daUser
+             likes, user: daUser
         }
     })
 
