@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Resp, Status } from "~/types/Request";
 import { getSession } from "next-auth/react";
 import { TwitterApi } from "twitter-api-v2";
+import { prisma } from "~/db/client";
 
 interface Request extends NextApiRequest {
   files: any;
@@ -41,17 +42,63 @@ export default async function handler(
       "base64"
     );
 
-    const mediaId = await client.v1.uploadMedia(buff   , {
+    const mediaId = await client.v1.uploadMedia(buff, {
       type: "png",
       target: "tweet",
     });
-    const data = await client.v2.tweet(status ? `${status} #LMFAOtech` : "#LMFAOtech", {
-      media: {media_ids: [mediaId]},
-    });
+    const data = await client.v2.tweet(
+      status ? `${status} #LMFAOtech` : "#LMFAOtech",
+      {
+        media: { media_ids: [mediaId] },
+      }
+    );
+
+    const user = prisma.user
+      .findFirst({
+        where: {
+          name: session.twitter.twitterHandle,
+        },
+      })
+      .then(async (user) => {
+        if (!user) {
+          return;
+        }
+        const isNewLongestStreak =
+          user.longest_streak < user.current_streak + 1;
+        // Check if last_updated was one day ago
+        const lastUpdated = new Date(user.last_updated);
+        const now = new Date();
+        const diff = now.getTime() - lastUpdated.getTime();
+        const diffDays = diff / (1000 * 3600 * 24);
+        if (diffDays > 1 && diffDays < 2) {
+          await prisma.user.update({
+            where: {
+              name: session.twitter.twitterHandle,
+            },
+            data: {
+              longest_streak: isNewLongestStreak
+                ? user.current_streak + 1
+                : user.longest_streak,
+              current_streak: user.current_streak + 1,
+              last_updated: new Date(),
+            },
+          });
+        } else if (diffDays > 2) {
+          await prisma.user.update({
+            where: {
+              name: session.twitter.twitterHandle,
+            },
+            data: {
+              current_streak: 1,
+              last_updated: new Date(),
+            },
+          });
+        }
+      });
 
     res.status(200).json({
       success: Status.Success,
-      //   data: data,
+      // data: data,
     });
   } catch (e: any) {
     res.status(500).json({
@@ -64,7 +111,7 @@ export default async function handler(
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb", 
+      sizeLimit: "10mb",
     },
   },
 };

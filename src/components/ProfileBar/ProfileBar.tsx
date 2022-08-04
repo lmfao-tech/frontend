@@ -1,7 +1,7 @@
 import { Avatar, Button } from "flowbite-react";
 import { signIn, useSession, signOut } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, FireIcon } from "@heroicons/react/solid";
 import { useHaha } from "~/contexts/HahaContext";
 import Image from "next/image";
 import Leaderboard from "../Leaderboard/Leaderboard";
@@ -10,7 +10,7 @@ import { LogoutIcon } from "@heroicons/react/solid";
 
 export default function Profile() {
   const { data: session } = useSession();
-  const { coins } = useHaha();
+  const { coins, streaks } = useHaha();
   const [extended, setExtended] = useState(false);
 
   let av = session?.user?.image;
@@ -54,7 +54,8 @@ export default function Profile() {
               )}
             </button>
             <div className="flex items-center justify-center mt-7">
-              <div className="flex items-center justify-between max-w-lg gap-5 space-x-4">
+              <div className="flex items-center justify-around mx-5 max-w-lg gap-5 space-x-4">
+                
                 <div className="flex flex-col items-center text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 font-bold">
                     <Image
@@ -72,6 +73,7 @@ export default function Profile() {
                     coins
                   </div>
                 </div>
+
                 <div className="flex flex-col text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 font-bold">
                     <Image
@@ -90,6 +92,21 @@ export default function Profile() {
                     coins
                   </div>
                 </div>
+
+                <div className="flex flex-col text-lg text-center dark:text-slate-200">
+                  <span className="flex items-center justify-center gap-2 mb-2 font-bold">
+                    <FireIcon className="h-6 w-6 ml-3 text-red-500" />
+                    {streaks.current}
+                  </span>
+                  <div>
+                    <span className="text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
+                      Streaks
+                    </span>{" "}
+                    <span className="text-sm">
+                      (current)
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -102,7 +119,6 @@ export default function Profile() {
                 href="/create"
                 as={`/create`}
                 passHref={true}
-                prefetch={true}
               >
                 <div className="rounded-lg text-white bg-gradient-to-r transition-[transform] from-sky-400 to-blue-500 p-3 justify-center flex py-5 my-5 w-full shadow-xl shadow-blue-500/50 hover:scale-105 ease-out delay-100 cursor-pointer">
                   Create a meme

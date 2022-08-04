@@ -84,8 +84,6 @@ function FeedPost({
               alt="avatar"
               width={23}
               height={23}
-              placeholder="blur"
-              blurDataURL="/icons/defaultpfp.jpg"
               unoptimized
             />
             <div className="mx-2 font-mono text-sm text-slate-800 dark:text-slate-300">
