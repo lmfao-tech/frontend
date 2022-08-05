@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  SparklesIcon,
   UsersIcon,
   DesktopComputerIcon,
   UserIcon,
   PlusIcon,
+  FilterIcon,
+  HomeIcon
 } from "@heroicons/react/solid";
 import SidebarIcon from "./SidebarIcon";
 import Link from "next/link";
 import { useHaha } from "~/contexts/HahaContext";
-import { FilterIcon } from "@heroicons/react/outline";
 
 function Sidebar() {
   const { mod } = useHaha();
@@ -20,7 +20,7 @@ function Sidebar() {
         <Link href="/">
           <div>
             <SidebarIcon
-              icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
+              icon={<HomeIcon className="w-6 h-6 text-yellow-200" />}
               mobile={true}
             />
           </div>
@@ -76,7 +76,7 @@ function Sidebar() {
           <Link href="/">
             <div>
               <SidebarIcon
-                icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
+                icon={<HomeIcon className="w-6 h-6 text-yellow-200" />}
                 tooltip="Feed"
               />
             </div>
