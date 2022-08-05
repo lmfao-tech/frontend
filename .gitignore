@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 lmfao-tech.code-workspace
+worker/*
+worker
 
 # dependencies
 /node_modules
