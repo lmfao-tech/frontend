@@ -4,14 +4,20 @@ import { useContext, useEffect, useState } from "react";
 import { ChevronDownIcon, FireIcon } from "@heroicons/react/solid";
 import { useHaha } from "~/contexts/HahaContext";
 import Image from "next/image";
-import Leaderboard from "../Leaderboard/Leaderboard";
+import Leaderboard from "../Leaderboard";
 import Link from "next/link";
+import logo_white from "~/../public/logo-white.png";
+import logo_black from "~/../public/logo-black.png";
+import { useAtom } from 'jotai';
+import darkModeAtom from '~/atoms/darkmode';
 import { LogoutIcon } from "@heroicons/react/solid";
 
 export default function Profile() {
   const { data: session } = useSession();
   const { coins, streaks } = useHaha();
   const [extended, setExtended] = useState(false);
+
+  const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   let av = session?.user?.image;
   if (av) {
@@ -77,7 +83,7 @@ export default function Profile() {
                 <div className="flex flex-col text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 font-bold">
                     <Image
-                      src="/icons/icon-192x192.png"
+                      src={darkMode ? logo_white : logo_black}
                       alt=""
                       width={25}
                       height={25}

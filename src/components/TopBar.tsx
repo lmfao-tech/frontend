@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useAtom } from "jotai";
 import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 function TopBar() {
 
