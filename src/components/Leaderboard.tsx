@@ -6,12 +6,26 @@ import { useAtom } from 'jotai';
 import darkModeAtom from '~/atoms/darkmode';
 import Image from "next/image"
 
-function LeaderboardIcon({coins,rank, name, avatar}: {coins: number,rank:number, name:string, avatar:string}) {
+interface Props {
+  coins: number;
+  rank: number;
+  name: string;
+  avatar: string;
+}
+
+function LeaderboardIcon({ coins,rank, name, avatar }: Props) {
   
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   return (
     <div>
+      {rank !== 1 && (
+        <>
+          <div className="px-4 pb-1">
+            <div className='h-[2px] w-full rounded-xl bg-slate-300 dark:bg-slate-800/50' />
+          </div>
+        </>
+      )}
       <div className="flex items-center gap-2 px-5">
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500">
           #{rank}
