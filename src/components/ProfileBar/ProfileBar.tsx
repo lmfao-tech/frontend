@@ -32,7 +32,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
     <>
       <div className="sticky top-0 h-screen overflow-auto scrollbar-thin dark:bg-[#242424]">
         {session ? (
-          <div className="flex flex-col min-h-screen mx-1">
+          <div className="flex flex-col h-full min-h-screen mx-1">
             <button
               onClick={() => setExtended(!extended)}
               className="relative flex items-center px-6 mx-2 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"
@@ -43,7 +43,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                 </div>
               </div>
               <div className="flex flex-col mx-3 mt-2">
-                <span className="text-black text-left text-md font-trispace dark:text-slate-200">
+                <span className="text-left text-black text-md font-trispace dark:text-slate-200">
                   {" "}
                   {session?.user?.name}
                 </span>
@@ -56,13 +56,13 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
               {extended && (
                 <div className="absolute ml-40 mt-32 mr-2 flex justify-center z-10 dark:bg-gray-600 bg-blue-400 rounded-full w-40 text-white py-2">
                   <button onClick={() => signOut()} className="flex">
-                    Logout <LogoutIcon className="h-6 w-6 ml-3" />
+                    Logout <LogoutIcon className="w-6 h-6 ml-3" />
                   </button>
                 </div>
               )}
             </button>
             <div className="flex items-center justify-center mt-7">
-              <div className="flex items-center justify-around mx-5 max-w-lg gap-5 space-x-4">
+              <div className="flex items-center justify-around max-w-lg gap-5 mx-5 space-x-4">
                 <div className="flex flex-col items-center text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 font-bold">
                     <Image
@@ -80,7 +80,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                         data-tip="You get 50 HAHA coins every day. Liking a meme will cost 1 HAHA coin. The recipient will get LMFAO coins for every like they receive."
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="h-4 w-4 text-slate-500" />
+                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
                       </div>
                     </span>{" "}
                     coins
@@ -105,14 +105,14 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                         data-tip="This is the main currency of LMFAO.tech. You can earn LMFAO coins by uploading memes and liking others memes."
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="h-4 w-4 text-slate-500" />
+                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
                       </div>
                     </span>{" "}
                     coins
                   </div>
                 </div>
-
-                <div className="flex flex-col items-center justify-center text-lg text-center dark:text-slate-200">
+                
+                <div className="flex flex-col items-center text-center justify-center text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 mr-3 font-bold">
                     <FireIcon className="h-6 w-6 text-red-500" />
                     {streaks.current}
@@ -124,7 +124,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                         data-tip="Upload a meme through LMFAO.tech every day to keep your streaks. LMFAO coins are awarded based on streaks"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="h-4 w-4 text-slate-500" />
+                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
                       </div>
                     </span>{" "}
                   </div>
@@ -133,7 +133,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
               </div>
             </div>
 
-            <div className="px-5 my-3 mt-10 text-white">
+            <div className="px-5 my-3 mt-10 dark:text-white">
               <Leaderboard rank={rank}/>
             </div>
 
