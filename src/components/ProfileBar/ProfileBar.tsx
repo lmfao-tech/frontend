@@ -1,12 +1,12 @@
 import { Avatar, Button } from "flowbite-react";
 import { signIn, useSession, signOut } from "next-auth/react";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ChevronDownIcon, FireIcon } from "@heroicons/react/solid";
 import { useHaha } from "~/contexts/HahaContext";
 import Image from "next/image";
 import Leaderboard from "../Leaderboard/Leaderboard";
 import Link from "next/link";
-import { LogoutIcon } from "@heroicons/react/solid";
+import { LogoutIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 
 export default function Profile({ children }: { children?: React.ReactNode }) {
@@ -68,8 +68,14 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     {coins.haha}
                   </span>
                   <div>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-blue-500">
+                    <span className="flex text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-blue-500">
                       HAHA
+                      <div
+                        data-tip="You get 50 HAHA coins every day. Liking a meme will cost 1 HAHA coin. The recipient will get LMFAO coins for every like they receive."
+                        className="text-xs cursor-pointer"
+                      >
+                        <InformationCircleIcon className="h-4 w-4 text-slate-500" />
+                      </div>
                     </span>{" "}
                     coins
                   </div>
@@ -87,8 +93,14 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     {coins.lmfao}
                   </span>
                   <div>
-                    <span className="text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
+                    <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                       LMFAO
+                      <div
+                        data-tip="This is the main currency of LMFAO.tech. You can earn LMFAO coins by uploading memes and liking others memes."
+                        className="text-xs cursor-pointer"
+                      >
+                        <InformationCircleIcon className="h-4 w-4 text-slate-500" />
+                      </div>
                     </span>{" "}
                     coins
                   </div>
@@ -100,8 +112,14 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     {streaks.current}
                   </span>
                   <div>
-                    <span className="text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
+                    <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                       Streaks
+                      <div
+                        data-tip="Upload a meme through LMFAO.tech every day to keep your streaks. LMFAO coins are awarded based on streaks"
+                        className="text-xs cursor-pointer"
+                      >
+                        <InformationCircleIcon className="h-4 w-4 text-slate-500" />
+                      </div>
                     </span>{" "}
                     <span className="text-sm">(current)</span>
                   </div>
@@ -127,7 +145,11 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
               !children && "min-h-screen"
             }`}
           >
-            <h1 className={`text-5xl ${children && "text-6xl"} font-trispace font-bold main-heading dark:text-slate-300 mb-3`}>
+            <h1
+              className={`text-5xl ${
+                children && "text-6xl"
+              } font-trispace font-bold main-heading dark:text-slate-300 mb-3`}
+            >
               <span className="text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text">
                 LMFAO
               </span>
