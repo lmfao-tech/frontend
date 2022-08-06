@@ -54,7 +54,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
               <ChevronDownIcon className="w-6 h-6 ml-auto mr-2 transition-all ease-out delay-150 text-back dark:text-white group-hover:translate-y-1" />
 
               {extended && (
-                <div className="absolute z-10 flex justify-center w-40 py-2 mt-32 mr-2 text-white bg-blue-400 rounded-full">
+                <div className="absolute ml-40 mt-32 mr-2 flex justify-center z-10 dark:bg-gray-600 bg-blue-400 rounded-full w-40 text-white py-2">
                   <button onClick={() => signOut()} className="flex">
                     Logout <LogoutIcon className="w-6 h-6 ml-3" />
                   </button>
@@ -111,10 +111,10 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     coins
                   </div>
                 </div>
-
-                <div className="flex flex-col text-lg text-center dark:text-slate-200">
-                  <span className="flex items-center justify-center gap-2 mb-2 font-bold">
-                    <FireIcon className="w-6 h-6 ml-3 text-red-500" />
+                
+                <div className="flex flex-col items-center text-center justify-center text-lg text-center dark:text-slate-200">
+                  <span className="flex items-center justify-center gap-2 mb-2 mr-3 font-bold">
+                    <FireIcon className="h-6 w-6 text-red-500" />
                     {streaks.current}
                   </span>
                   <div>
@@ -127,8 +127,8 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                         <InformationCircleIcon className="w-4 h-4 text-slate-500" />
                       </div>
                     </span>{" "}
-                    <span className="text-sm">(current)</span>
                   </div>
+                  <span className="text-sm mr-3">(current)</span>
                 </div>
               </div>
             </div>
