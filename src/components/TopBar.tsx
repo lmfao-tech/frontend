@@ -1,4 +1,3 @@
-import React from "react";
 import darkModeAtom from "~/atoms/darkmode";
 import Image from "next/image";
 import { useAtom } from "jotai";

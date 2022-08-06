@@ -39,7 +39,7 @@ const dash: NextPageWithLayout = () => {
           </div>
           Login with Twitter
         </Button>
-        <div className="flex md:flex-row flex-col justify-evenly w-full gap-5 mt-10 flex-1 mb-24 md:mb-0">
+        <div className="flex md:flex-row flex-col justify-evenly w-full gap-5 mt-10 mb-24 md:mb-0">
           {/* Discover */}
           <div className="flex flex-col justify-center items-center dark:text-white">
             <SparklesIcon className="w-24 h-24 text-yellow-300" />
