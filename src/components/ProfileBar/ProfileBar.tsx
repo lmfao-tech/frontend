@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 export default function Profile({ children }: { children?: React.ReactNode }) {
   const { data: session } = useSession();
-  const { coins, streaks } = useHaha();
+  const { coins, streaks, rank } = useHaha();
   const [extended, setExtended] = useState(false);
   const router = useRouter();
 
@@ -127,8 +127,8 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
               </div>
             </div>
 
-            <div className="px-5 my-3 mt-10">
-              <Leaderboard />
+            <div className="px-5 my-3 mt-10 text-white">
+              <Leaderboard rank={rank}/>
             </div>
 
             <div className="sticky z-10 flex flex-col items-center justify-center h-10 mx-3 bottom-9 my-7">
