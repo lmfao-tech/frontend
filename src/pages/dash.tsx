@@ -39,36 +39,40 @@ const dash: NextPageWithLayout = () => {
           </div>
           Login with Twitter
         </Button>
-        <div className="flex md:flex-row flex-col justify-evenly w-full gap-5 mt-10 mb-24 md:mb-0">
+        <div className="flex md:flex-row flex-col justify-center text-center w-full gap-5 mt-10 mb-24 md:mb-0">
           {/* Discover */}
-          <div className="flex flex-col justify-center items-center dark:text-white">
+          <div className="flex flex-col flex-1 justify-center items-center dark:text-white">
             <SparklesIcon className="w-24 h-24 text-yellow-300" />
             <h2 className="dark:text-white font-montserrat text-xl mt-3">
               Discover memes
             </h2>
-            <span>
+            <span className="text-center">
               Thousands of memes are uploaded every second on twitter. Be the
               first to find them! Also see the amazing memes chosen, liked and
               made by our community.
             </span>
           </div>
           {/* Interact */}
-          <div className="flex flex-col justify-center items-center dark:text-white">
+          <div className="flex flex-col justify-center flex-1 items-center dark:text-white">
             <HeartIcon className="w-24 h-24 text-red-500" />
             <h2 className="dark:text-white font-montserrat text-xl">
               Interact
             </h2>
-            Interact with the community. Uploading and liking memes gives you
-            LMFAO points
+            <span className="text-center">
+              Interact with the community. Uploading and liking memes gives you
+              LMFAO points
+            </span>
           </div>
           {/* Be famous */}
-          <div className="flex flex-col justify-center items-center dark:text-white">
+          <div className="flex flex-col flex-1 justify-center items-center dark:text-white">
             <ChartBarIcon className="w-24 h-24 text-blue-500" />
             <h2 className="dark:text-white font-montserrat text-xl">
               Become famous
             </h2>
-            The more memes you upload, posts you like, and the more likes you
-            get, the more LMFAO points you have. Be at the top of the leaderboard.
+            <span className="text-center">
+              The more memes you upload, posts you like, and the more likes you
+              get, the more LMFAO points you have. Be at the top of the leaderboard.
+            </span>
           </div>
         </div>
       </Profile>
