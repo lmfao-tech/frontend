@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ChevronDownIcon, FireIcon } from "@heroicons/react/solid";
 import { useHaha } from "~/contexts/HahaContext";
 import Image from "next/image";
-import Leaderboard from "../Leaderboard/Leaderboard";
+import Leaderboard from "../Leaderboard";
 import Link from "next/link";
 import { LogoutIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
@@ -14,6 +14,8 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
   const { coins, streaks } = useHaha();
   const [extended, setExtended] = useState(false);
   const router = useRouter();
+
+  const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   let av = session?.user?.image;
   if (av) {
@@ -84,7 +86,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                 <div className="flex flex-col text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 font-bold">
                     <Image
-                      src="/icons/icon-192x192.png"
+                      src={darkMode ? logo_white : logo_black}
                       alt=""
                       width={25}
                       height={25}
