@@ -54,7 +54,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
               <ChevronDownIcon className="w-6 h-6 ml-auto mr-2 transition-all ease-out delay-150 text-back dark:text-white group-hover:translate-y-1" />
 
               {extended && (
-                <div className="absolute mt-32 mr-2 flex justify-center z-10 bg-blue-400 rounded-full w-40 text-white py-2">
+                <div className="absolute ml-40 mt-32 mr-2 flex justify-center z-10 dark:bg-gray-600 bg-blue-400 rounded-full w-40 text-white py-2">
                   <button onClick={() => signOut()} className="flex">
                     Logout <LogoutIcon className="h-6 w-6 ml-3" />
                   </button>
