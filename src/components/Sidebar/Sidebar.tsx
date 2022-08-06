@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  SparklesIcon,
   UsersIcon,
   DesktopComputerIcon,
   UserIcon,
   PlusIcon,
+  FilterIcon,
+  HomeIcon,
 } from "@heroicons/react/solid";
 import SidebarIcon from "./SidebarIcon";
 import Link from "next/link";
 import { useHaha } from "~/contexts/HahaContext";
-import { FilterIcon } from "@heroicons/react/outline";
 
 function Sidebar() {
   const { mod } = useHaha();
@@ -20,8 +20,7 @@ function Sidebar() {
         <Link href="/">
           <div>
             <SidebarIcon
-              icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
-              mobile={true}
+              icon={<HomeIcon className="w-6 h-6 text-yellow-200" />}
             />
           </div>
         </Link>
@@ -30,7 +29,6 @@ function Sidebar() {
           <div>
             <SidebarIcon
               icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-              mobile={true}
             />
           </div>
         </Link>
@@ -39,7 +37,6 @@ function Sidebar() {
           <div>
             <SidebarIcon
               icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-              mobile={true}
             />
           </div>
         </Link>
@@ -49,22 +46,17 @@ function Sidebar() {
             <div>
               <SidebarIcon
                 icon={<FilterIcon className="w-6 h-6 text-red-500" />}
-                mobile={true}
               />
             </div>
           </Link>
         )}
 
-        <SidebarIcon
-          icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-          mobile={true}
-        />
+        <SidebarIcon icon={<UserIcon className="w-6 h-6 text-yellow-400" />} />
 
         <Link href="/dash">
           <div>
             <SidebarIcon
               icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
-              mobile={true}
             />
           </div>
         </Link>
@@ -74,40 +66,38 @@ function Sidebar() {
       <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
         <div className="ml-10 space-y-7">
           <Link href="/">
-            <div>
+            <div data-tip="Home" data-place="right">
               <SidebarIcon
-                icon={<SparklesIcon className="w-6 h-6 text-yellow-200" />}
-                tooltip="Feed"
+                icon={<HomeIcon className="w-6 h-6 text-yellow-200" />}
               />
             </div>
           </Link>
 
           <Link href="/community">
-            <div>
+            <div data-tip="Community" data-place="right">
               <SidebarIcon
                 icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-                tooltip="Community"
               />
             </div>
           </Link>
 
           <SidebarIcon
             icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-            tooltip="Profile"
+            data-tip="Profile"
           />
           <Link href="/dash">
-            <div>
+            <div data-tip="Dashboard" data-place="right">
               <SidebarIcon
                 icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
-                tooltip="Dashboard"
+                data-tip="Dashboard"
               />
             </div>
           </Link>
           <Link href="/create">
-            <div>
+            <div data-tip="Create" data-place="right">
               <SidebarIcon
                 icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-                tooltip="Upload"
+                data-tip="Upload"
               />
             </div>
           </Link>
@@ -117,7 +107,7 @@ function Sidebar() {
               <div>
                 <SidebarIcon
                   icon={<FilterIcon className="w-6 h-6 text-red-500" />}
-                  tooltip="Moderation"
+                  data-tip="Moderation"
                 />
               </div>
             </Link>

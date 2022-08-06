@@ -25,6 +25,7 @@ interface haha {
   post: () => Promise<void>;
   deletePost: (id: string) => Promise<void>;
   mod: boolean;
+  rank: number;
 }
 
 const HahaContext = createContext<haha>({
@@ -46,6 +47,7 @@ const HahaContext = createContext<haha>({
   post: async () => {},
   deletePost: async () => {},
   mod: false,
+  rank: 0,
 });
 
 const HahaProvider = ({ children }: any) => {
@@ -66,6 +68,7 @@ const HahaProvider = ({ children }: any) => {
       user: any;
     }>
   >([]);
+  const [rank, setRank] = useState<number>(0);
 
   const like = async (id: string | number, authorId: string | number) => {
     const resp = await fetch(`/api/twitter/tweet/like?id=${id}`);
@@ -141,16 +144,17 @@ const HahaProvider = ({ children }: any) => {
     (async function () {
       const resp = await fetch(`/api/db/user`);
       const data: Resp = await resp.json();
-        console.log(data)
+      console.log(data);
       if (data.success == Status.Success) {
         setHahaCoins(data.data.hahaCoins);
         setLmfaoCoins(data.data.lmfaoCoins);
         setLikes(data.data.likes);
         setMod(data.data.mod);
         setStreaks({
-            current: data.data.current_streak,
-            longest: data.data.longest_streak,
-        })
+          current: data.data.current_streak,
+          longest: data.data.longest_streak,
+        });
+        setRank(data.data.rank);
       }
     })();
   }, []);
@@ -173,6 +177,7 @@ const HahaProvider = ({ children }: any) => {
         mod,
         deletePost,
         streaks,
+        rank,
       }}
     >
       {children}

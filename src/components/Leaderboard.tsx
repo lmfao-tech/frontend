@@ -41,25 +41,23 @@ function LeaderboardIcon({ coins,rank, name, avatar }: Props) {
   );
 }
 
-function Leaderboard() {
+function Leaderboard({ rank }: { rank: number }) {
+  const [data, setData] = React.useState<any[]>([]);
 
-    const [data, setData] = React.useState<any[]>([]);
-
-    React.useEffect(() => {
-        fetch('/api/db/getLeaderboard')
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data.data);
-            }
-            );
-    }, []);
-
+  React.useEffect(() => {
+    fetch("/api/db/getLeaderboard")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.data);
+      });
+  }, []);
 
   return (
     <div>
       <div className="w-full py-3 rounded-2xl bg-slate-200 dark:bg-slate-500/30 dark:text-white">
         <h1 className="text-lg text-center">Leaderboard</h1>
         <div className="flex flex-col h-48 gap-1 py-2 overflow-y-scroll scrollbar-thin xl:h-72 2xl:h-96 ">
+          <span className="px-5">Your rank: #{rank}</span>
           {data.map((user, index) => (
             <LeaderboardIcon
               key={index}

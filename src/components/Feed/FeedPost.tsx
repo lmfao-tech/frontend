@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { useHaha } from "~/contexts/HahaContext";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { Spinner } from "flowbite-react";
 
 const removeLinksHashtagsMention = (text: string) => {
   function unEscape(htmlStr: string) {
@@ -50,6 +51,7 @@ function FeedPost({
 
   const [liked, setLiked] = useState(false);
   const [retweeted, setRetweeted] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const { data: session } = useSession();
 
@@ -243,6 +245,7 @@ function FeedPost({
               deleted && "bg-red-200"
             } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
             onClick={async () => {
+              setIsDeleteLoading(true);
               if (!deleted) {
                 await fetch(`/api/mods/remove_post?id=${post.tweet_id}`).then(
                   (res) => {
@@ -251,6 +254,7 @@ function FeedPost({
                     if (res.ok === true) {
                       setDeleted(true);
                     }
+                    setIsDeleteLoading(false);
                   }
                 );
               } else {
@@ -261,12 +265,13 @@ function FeedPost({
                     if (res.ok === true) {
                       setDeleted(false);
                     }
+                    setIsDeleteLoading(false);
                   }
                 );
               }
             }}
           >
-            {deleted ? "Revive" : "Delete"}
+            {deleted ? "Revive" : "Delete"} {isDeleteLoading && <Spinner />}
           </button>
         )}
       </div>
