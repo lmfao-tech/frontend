@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
 import { prisma } from '~/db/client';
-import { disconnect } from 'process';
 
 interface Request extends NextApiRequest {
     query: {
@@ -52,7 +51,7 @@ export default async function handler(
                 id: `${session.twitter.userID}`,
                 name: session.twitter.twitterHandle,
                 email: session.user.email,
-                hahaCoins: 100,
+                hahaCoins: 50,
                 lmfaoCoins: 0
             },
             include: {
@@ -70,7 +69,7 @@ export default async function handler(
         })
     }
 
-    const moreHaha = user.hahaCoins > 99 ? true : false;
+    const moreHaha = user.hahaCoins > 45 ? true : false;
 
     await prisma.like.update({
         where: {

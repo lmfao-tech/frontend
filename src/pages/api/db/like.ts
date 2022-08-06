@@ -51,7 +51,7 @@ export default async function handler(
                 id: `${session.twitter.userID}`,
                 name: session.twitter.twitterHandle,
                 email: session.user.email,
-                hahaCoins: 100,
+                hahaCoins: 50,
                 lmfaoCoins: 0
             },
             include: {
@@ -83,7 +83,7 @@ export default async function handler(
                         id: `${session.twitter.userID}`,
                         name: session.twitter.twitterHandle,
                         email: session.user.email,
-                        hahaCoins: 99,
+                        hahaCoins: 49,
                         lmfaoCoins: 0,
                     }
                 }
@@ -100,7 +100,7 @@ export default async function handler(
                         id: `${session.twitter.userID}`,
                         name: session.twitter.twitterHandle,
                         email: session.user.email,
-                        hahaCoins: 99,
+                        hahaCoins: 49,
                         lmfaoCoins: 0,
                     }
                 }
