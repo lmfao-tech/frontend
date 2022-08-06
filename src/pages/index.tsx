@@ -1,5 +1,4 @@
 import { ReactElement, useEffect } from "react";
-import type { NextPage } from "next";
 import Head from "next/head";
 import { useState, useRef, useCallback } from "react";
 import FeedPost from "~/components/Feed/FeedPost";
