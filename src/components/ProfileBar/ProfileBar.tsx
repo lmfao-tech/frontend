@@ -112,9 +112,9 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col text-lg text-center dark:text-slate-200">
-                  <span className="flex items-center justify-center gap-2 mb-2 font-bold">
-                    <FireIcon className="h-6 w-6 ml-3 text-red-500" />
+                <div className="flex flex-col items-center justify-center text-lg text-center dark:text-slate-200">
+                  <span className="flex items-center justify-center gap-2 mb-2 mr-3 font-bold">
+                    <FireIcon className="h-6 w-6 text-red-500" />
                     {streaks.current}
                   </span>
                   <div>
@@ -127,8 +127,8 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                         <InformationCircleIcon className="h-4 w-4 text-slate-500" />
                       </div>
                     </span>{" "}
-                    <span className="text-sm">(current)</span>
                   </div>
+                  <span className="text-sm mr-3">(current)</span>
                 </div>
               </div>
             </div>
