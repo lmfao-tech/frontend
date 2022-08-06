@@ -32,7 +32,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
     <>
       <div className="sticky top-0 h-screen overflow-auto scrollbar-thin dark:bg-[#242424]">
         {session ? (
-          <div className="flex flex-col min-h-screen mx-1">
+          <div className="flex flex-col h-full min-h-screen mx-1">
             <button
               onClick={() => setExtended(!extended)}
               className="relative flex items-center px-6 mx-2 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"

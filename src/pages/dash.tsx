@@ -39,11 +39,11 @@ const dash: NextPageWithLayout = () => {
           </div>
           Login with Twitter
         </Button>
-        <div className="flex md:flex-row flex-col justify-center text-center w-full gap-5 mt-10 mb-24 md:mb-0">
+        <div className="flex flex-col justify-center w-full gap-5 mt-10 mb-24 overflow-y-hidden text-center md:flex-row md:mb-0">
           {/* Discover */}
-          <div className="flex flex-col flex-1 justify-center items-center dark:text-white">
+          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
             <SparklesIcon className="w-24 h-24 text-yellow-300" />
-            <h2 className="dark:text-white font-montserrat text-xl mt-3">
+            <h2 className="mt-3 text-xl dark:text-white font-montserrat">
               Discover memes
             </h2>
             <span className="text-center">
@@ -53,9 +53,9 @@ const dash: NextPageWithLayout = () => {
             </span>
           </div>
           {/* Interact */}
-          <div className="flex flex-col justify-center flex-1 items-center dark:text-white">
+          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
             <HeartIcon className="w-24 h-24 text-red-500" />
-            <h2 className="dark:text-white font-montserrat text-xl">
+            <h2 className="text-xl dark:text-white font-montserrat">
               Interact
             </h2>
             <span className="text-center">
@@ -64,14 +64,15 @@ const dash: NextPageWithLayout = () => {
             </span>
           </div>
           {/* Be famous */}
-          <div className="flex flex-col flex-1 justify-center items-center dark:text-white">
+          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
             <ChartBarIcon className="w-24 h-24 text-blue-500" />
-            <h2 className="dark:text-white font-montserrat text-xl">
+            <h2 className="text-xl dark:text-white font-montserrat">
               Become famous
             </h2>
             <span className="text-center">
               The more memes you upload, posts you like, and the more likes you
-              get, the more LMFAO points you have. Be at the top of the leaderboard.
+              get, the more LMFAO points you have. Be at the top of the
+              leaderboard.
             </span>
           </div>
         </div>
