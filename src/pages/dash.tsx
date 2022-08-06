@@ -39,7 +39,7 @@ const dash: NextPageWithLayout = () => {
           </div>
           Login with Twitter
         </Button>
-        <div className="flex md:flex-row flex-col justify-evenly w-full gap-5 mt-10">
+        <div className="flex md:flex-row flex-col justify-evenly w-full gap-5 mt-10 flex-1 mb-24 md:mb-0">
           {/* Discover */}
           <div className="flex flex-col justify-center items-center dark:text-white">
             <SparklesIcon className="w-24 h-24 text-yellow-300" />
@@ -48,7 +48,8 @@ const dash: NextPageWithLayout = () => {
             </h2>
             <span>
               Thousands of memes are uploaded every second on twitter. Be the
-              first to find them!
+              first to find them! Also see the amazing memes chosen, liked and
+              made by our community.
             </span>
           </div>
           {/* Interact */}
@@ -57,7 +58,8 @@ const dash: NextPageWithLayout = () => {
             <h2 className="dark:text-white font-montserrat text-xl">
               Interact
             </h2>
-            New memes are pulled every second fron twitter
+            Interact with the community. Uploading and liking memes gives you
+            LMFAO points
           </div>
           {/* Be famous */}
           <div className="flex flex-col justify-center items-center dark:text-white">
@@ -65,7 +67,8 @@ const dash: NextPageWithLayout = () => {
             <h2 className="dark:text-white font-montserrat text-xl">
               Become famous
             </h2>
-            New memes are pulled every second fron twitter
+            The more memes you upload, posts you like, and the more likes you
+            get, the more LMFAO points you have. Be at the top of the leaderboard.
           </div>
         </div>
       </Profile>
