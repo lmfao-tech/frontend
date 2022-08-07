@@ -1,11 +1,11 @@
-/* Title attribute as tooltip */
-[data-tooltip] {
+/* Title attribute as tip */
+[data-tip] {
     position: relative;
     z-index: 100 !important;
   }
-  /* Positioning and visibility settings of the tooltip */
-  [data-tooltip]::before,
-  [data-tooltip]::after {
+  /* Positioning and visibility settings of the tip */
+  [data-tip]::before,
+  [data-tip]::after {
     position: absolute;
     left: 50%;
     bottom: calc(100% + 5px); /* 5px is the size of the arrow */
@@ -17,9 +17,9 @@
     transition: 0.3s;
     will-change: transform;
   }
-  /* The actual tooltip with a dynamic width */
-  [data-tooltip]::before {
-    content: attr(data-tooltip);
+  /* The actual tip with a dynamic width */
+  [data-tip]::before {
+    content: attr(data-tip);
   
     /*min-width: 50px;*/
     /*max-width: 300px;*/
@@ -38,98 +38,98 @@
   
     transform: translate(-50%, -5px) scale(0.5);
   }
-  /* Tooltip arrow */
-  [data-tooltip]::after {
+  /* tip arrow */
+  [data-tip]::after {
     content: '';
     border-style: solid;
     border-width: 5px 5px 0 5px; /* CSS triangle */
     border-color: rgba(50, 50, 50, 1) transparent transparent transparent;
   
     transform-origin: top;   /* Orientation setting for the slide-down effect */
-    transition-duration: 0s; /* If the mouse leaves the element, the transition effects for the tooltip arrow are "turned off" */
+    transition-duration: 0s; /* If the mouse leaves the element, the transition effects for the tip arrow are "turned off" */
     transform: translateX(-50%) scaleY(0);
   }
-  /* Tooltip becomes visible at hover */
-  [data-tooltip]:hover::before,
-  [data-tooltip]:hover::after {
+  /* tip becomes visible at hover */
+  [data-tip]:hover::before,
+  [data-tip]:hover::after {
     visibility: visible;
     opacity: 1;
   }
   /* Scales from 0.5 to 1 -> grow effect */
-  [data-tooltip]:hover::before {
+  [data-tip]:hover::before {
     transition-delay: 0.3s;
     transform: translate(-50%, -5px) scale(1);
   }
   /* Arrow slide down effect only on mouseenter (NOT on mouseleave) */
-  [data-tooltip]:hover::after {
+  [data-tip]:hover::after {
     transition-delay: 0.5s; /* Starting after the grow effect */
     transition-duration: 0.2s;
     transform: translateX(-50%) scaleY(1);
   }
   
-  /* *** That's it for the basic tooltip. If you want some adjustability here are some orientation settings you can use: *** */
+  /* *** That's it for the basic tip. If you want some adjustability here are some orientation settings you can use: *** */
   
   /* LEFT */
-  /* Tooltip + arrow */
-  [data-tooltip-location="left"]::before,
-  [data-tooltip-location="left"]::after {
+  /* tip + arrow */
+  [data-place="left"]::before,
+  [data-place="left"]::after {
     left: auto;
     bottom: 50%;
     right: calc(100% + 5px);
   }
-  /* Tooltip */
-  [data-tooltip-location="left"]::before {
+  /* tip */
+  [data-place="left"]::before {
     transform: translate(-5px, 50%) scale(0.5);
   }
-  [data-tooltip-location="left"]:hover::before {
+  [data-place="left"]:hover::before {
     transform: translate(-5px, 50%) scale(1);
   }
   /* Arrow */
-  [data-tooltip-location="left"]::after {
+  [data-place="left"]::after {
     border-width: 5px 0 5px 5px;
     border-color: transparent transparent transparent rgba(50, 50, 50, 1);
     transform-origin: left;
     transform: translateY(50%) scaleX(0);
   }
-  [data-tooltip-location="left"]:hover::after {
+  [data-place="left"]:hover::after {
     transform: translateY(50%) scaleX(1);
   }
   
   /* RIGHT */
-  [data-tooltip-location="right"]::before,
-  [data-tooltip-location="right"]::after {
+  [data-place="right"]::before,
+  [data-place="right"]::after {
     bottom: 50%;
     left: calc(100% + 5px);
   }
-  [data-tooltip-location="right"]::before {
+  [data-place="right"]::before {
     transform: translate(5px, 50%) scale(0.5);
   }
-  [data-tooltip-location="right"]:hover::before {
+  [data-place="right"]:hover::before {
     transform: translate(5px, 50%) scale(1);
   }
-  [data-tooltip-location="right"]::after {
+  [data-place="right"]::after {
     border-width: 5px 5px 5px 0;
     border-color: transparent rgba(50, 50, 50, 1) transparent transparent;
     transform-origin: right;
     transform: translateY(50%) scaleX(0);
   }
-  [data-tooltip-location="right"]:hover::after {
+  [data-place="right"]:hover::after {
     transform: translateY(50%) scaleX(1);
   }
   
   /* BOTTOM */
-  [data-tooltip-location="bottom"]::before,
-  [data-tooltip-location="bottom"]::after {
+  [data-place="bottom"]::before,
+  [data-place="bottom"]::after {
     top: calc(100% + 5px);
     bottom: auto;
   }
-  [data-tooltip-location="bottom"]::before {
+  [data-place="bottom"]::before {
     transform: translate(-50%, 5px) scale(0.5);
   }
-  [data-tooltip-location="bottom"]:hover::before {
+  [data-place="bottom"]:hover::before {
     transform: translate(-50%, 5px) scale(1);
   }
-  [data-tooltip-location="bottom"]::after {
+  [data-place="bottom"]::after {
     transform-origin: bottom;
     border-width: 0 5px 5px 5px;
     border-color: transparent transparent rgba(50, 50, 50, 1) transparent;

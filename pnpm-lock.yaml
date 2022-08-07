@@ -37,7 +37,6 @@ specifiers:
   react-masonry-css: ^1.0.16
   react-simple-pull-to-refresh: ^1.3.0
   react-toolkit: 2.0.0-alpha.6
-  react-tooltip: ^4.2.21
   react-web-share: ^1.1.6
   tailwind-scrollbar: ^1.3.1
   tailwindcss: ^3.1.4
@@ -74,7 +73,6 @@ dependencies:
   react-masonry-css: 1.0.16_react@18.2.0
   react-simple-pull-to-refresh: 1.3.0_biqbaboplfbrettd7655fr4n2y
   react-toolkit: 2.0.0-alpha.6_scxhmbcwnay7fgl5u4mcdzbnsi
-  react-tooltip: 4.2.21_biqbaboplfbrettd7655fr4n2y
   react-web-share: 1.1.6_react@18.2.0
   tailwind-scrollbar: 1.3.1
   twitter-api-v2: 1.12.3
@@ -6252,19 +6250,6 @@ packages:
       - webpack-plugin-serve
     dev: false
 
-  /react-tooltip/4.2.21_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-zSLprMymBDowknr0KVDiJ05IjZn9mQhhg4PRsqln0OZtURAJ1snt1xi5daZfagsh6vfsziZrc9pErPTDY1ACig==}
-    engines: {npm: '>=6.13'}
-    peerDependencies:
-      react: '>=16.0.0'
-      react-dom: '>=16.0.0'
-    dependencies:
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      uuid: 7.0.3
-    dev: false
-
   /react-web-share/1.1.6_react@18.2.0:
     resolution: {integrity: sha512-IttmjG4DlIPEWNnS3RBccaPo6zFs2DNYk+92YjW1iPp0L9h0hXCaellxIQx8xhLepLFoiVjOMM/MNbLSZUzzsw==}
     peerDependencies:
@@ -7302,11 +7287,6 @@ packages:
     resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
     dependencies:
       base64-arraybuffer: 1.0.2
-    dev: false
-
-  /uuid/7.0.3:
-    resolution: {integrity: sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==}
-    hasBin: true
     dev: false
 
   /uuid/8.3.2:

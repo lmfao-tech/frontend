@@ -24,8 +24,6 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
   }, [jotaiDarkmode, setIsDarkMode]);
   return (
     <div>
-      <ReactTooltip effect="solid" />
-
       <div className={`${isDarkMode ? "dark" : null}`}>{children}</div>
     </div>
   );

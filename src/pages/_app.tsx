@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
+import "../styles/tooltip.css";
 import { SessionProvider } from "next-auth/react";
 import Script from "next/script";
 import { NextPage } from "next";
