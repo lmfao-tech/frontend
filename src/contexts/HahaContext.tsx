@@ -144,7 +144,6 @@ const HahaProvider = ({ children }: any) => {
     (async function () {
       const resp = await fetch(`/api/db/user`);
       const data: Resp = await resp.json();
-      console.log(data);
       if (data.success == Status.Success) {
         setHahaCoins(data.data.hahaCoins);
         setLmfaoCoins(data.data.lmfaoCoins);

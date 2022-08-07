@@ -63,7 +63,6 @@ function UserProfile({ u }: any) {
       .then(
         async (resp) => {
           const user = await resp.json();
-          console.log(user);
           setUser(user.data);
         }
       )
