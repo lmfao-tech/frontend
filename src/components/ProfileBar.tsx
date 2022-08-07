@@ -2,7 +2,7 @@ import { Avatar, Button } from "flowbite-react";
 import { useSession, signOut } from "next-auth/react";
 import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ChevronDownIcon, FireIcon } from "@heroicons/react/solid";
 import { useHaha } from "~/contexts/HahaContext";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import { LogoutIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import darkModeAtom from "~/atoms/darkmode";
+import { useHelp } from "~/contexts/HelpContext";
 
 export default function Profile({ children }: { children?: React.ReactNode }) {
   const { data: session } = useSession();
@@ -28,6 +29,8 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
     av = "";
   }
 
+  const { helpOpen, setHelpOpen } = useHelp();
+
   return (
     <>
       <div className="sticky top-0 h-screen overflow-auto scrollbar-thin dark:bg-[#242424]">
@@ -37,7 +40,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
               onClick={() => setExtended(!extended)}
               className="relative flex items-center px-6 mx-2 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"
             >
-              <div className="rounded-full bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
+              <div className="rounded-full relative bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
                   <Avatar img={av} rounded={true} alt="avatar" />
                 </div>
@@ -77,10 +80,13 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     <span className="flex text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-blue-500">
                       HAHA
                       <div
-                        data-tip="You get 50 HAHA coins every day. Liking a meme will cost 1 HAHA coin. The recipient will get LMFAO coins for every like they receive."
+                        data-tip="Click for more info"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon
+                          onClick={() => setHelpOpen(true)}
+                          className="w-4 h-4 text-slate-500"
+                        />
                       </div>
                     </span>{" "}
                     coins
@@ -102,16 +108,19 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                       LMFAO
                       <div
-                        data-tip="This is the main currency of LMFAO.tech. You can earn LMFAO coins by uploading memes and liking others memes."
+                        data-tip="Click for more info"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon
+                          onClick={() => setHelpOpen(true)}
+                          className="w-4 h-4 text-slate-500"
+                        />
                       </div>
                     </span>{" "}
                     coins
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col items-center justify-center text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 mr-3 font-bold">
                     <FireIcon className="h-6 w-6 text-red-500" />
@@ -121,10 +130,13 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                       Streaks
                       <div
-                        data-tip="Upload a meme through LMFAO.tech every day to keep your streaks. LMFAO coins are awarded based on streaks"
+                        data-tip="Click for more info"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon
+                          onClick={() => setHelpOpen(true)}
+                          className="w-4 h-4 text-slate-500"
+                        />
                       </div>
                     </span>{" "}
                   </div>
@@ -134,7 +146,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
             </div>
 
             <div className="px-5 my-3 mt-10 dark:text-white">
-              <Leaderboard rank={rank}/>
+              <Leaderboard rank={rank} />
             </div>
 
             <div className="sticky z-10 flex flex-col items-center justify-center h-10 mx-3 bottom-9 my-7">

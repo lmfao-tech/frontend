@@ -226,7 +226,7 @@ function FeedPost({
           rel="noreferrer"
           className="p-2 rounded-md bg-slate-200 dark:bg-slate-400"
         >
-          <ExternalLinkIcon className="w-6 h-6" />
+          <ExternalLinkIcon className="w-6 h-6 text-black" />
         </a>
         <button className="flex items-center justify-center px-2 py-1 rounded-md cursor-pointer bg-slate-200 hover:bg-blue-200 dark:bg-yellow-400">
           <RWebShare

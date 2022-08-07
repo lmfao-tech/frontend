@@ -22,10 +22,11 @@ function shuffle(array: any[]) {
   return array;
 }
 
-export default function usePostFeed({url} : {url: string}) {
+export default function usePostFeed({ url } : {url: string}) {
   const [memes, setMemes] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
+  const [meta, setMeta] = useState<any>({});
 
   useEffect(() => {
     setLoading(true);
@@ -37,6 +38,7 @@ export default function usePostFeed({url} : {url: string}) {
           if (data.error === "Unauthorized") {
             data = []
           }
+          setMeta(data.meta);
           setMemes(memes => Array.from(new Set([...memes, ...data.memes])));
           setLoading(false);
           setHasMore(data.length >= 100);
@@ -44,5 +46,5 @@ export default function usePostFeed({url} : {url: string}) {
       );
   }, [url]);
 
-  return { memes, loading, hasMore };
+  return { memes, loading, hasMore, meta };
 }

@@ -4,11 +4,18 @@ import { Resp, Status } from "~/types/Request";
 import { getSession } from "next-auth/react";
 import { prisma } from "~/db/client";
 
+type Request = NextApiRequest & {
+  query: {
+    username?: string;
+  };
+};
+
 export default async function handler(
-  req: NextApiRequest,
+  req: Request,
   res: NextApiResponse<Resp>
 ) {
   const session = await getSession({ req });
+  const { username } = req.query;
 
   if (!session) {
     res.status(401).json({
@@ -20,14 +27,14 @@ export default async function handler(
 
   const user = await prisma.user.findFirst({
     where: {
-      name: session.twitter.twitterHandle,
+      name: username ? username : session.twitter.twitterHandle,
     },
     include: {
       likes: true,
     },
   });
 
-  if (!user) {
+  if (!user && !username) {
     const newUser = await prisma.user.create({
       data: {
         id: `${session.twitter.userID}`,
@@ -44,11 +51,25 @@ export default async function handler(
       success: Status.Success,
       data: newUser,
     });
+  } else if (!user && username) {
+    res.status(404).json({
+      success: Status.Failure,
+      error: "User not found",
+    });
+    return;
+  }
+
+  if (!user) {
+    res.status(404).json({
+      success: Status.Failure,
+      error: "User not found",
+    });
+    return;
   }
 
   const isMod = await prisma.mods.findFirst({
     where: {
-      id: session.twitter.twitterHandle,
+      id: username ? username : session.twitter.twitterHandle,
     },
   });
 
@@ -56,7 +77,6 @@ export default async function handler(
   const rank =
     (await prisma.user.count({
       where: {
-        // LMFAO coins are greater than the user's LMFAO coins
         OR: [
           {
             lmfaoCoins: {
