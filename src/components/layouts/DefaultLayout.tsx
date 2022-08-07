@@ -30,7 +30,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
 
         {helpOpen && (
 
-          <div className={`fixed p-10 lg:p-72 z-[1000] ${isDarkMode ? "bg-black/20": "bg-black/10"} flex justify-center items-center w-screen h-screen`}>
+          <div onClick={() => setHelpOpen(false)} className={`fixed p-10 lg:p-72 z-[1000] ${isDarkMode ? "bg-black/20": "bg-black/10"} flex justify-center items-center w-screen h-screen`}>
             <motion.div initial={{ scale: 0 }} exit={{ scale: 0, opacity: 0 }} animate={{ scale: 1 }} className={`relative overflow-y-auto scrollbar-thin w-screen z-[1001] rounded-md h-[60vh] ${isDarkMode ? "bg-gray-600 text-white": "bg-gray-300"}`}>
               
               <button onClick={() => setHelpOpen(false)} className={`focus:bg-gray-500 ${!isDarkMode && "hover:text-white focus:text-white"} hover:bg-gray-500 p-1 rounded absolute top-o right-0 mt-3 mr-3`}>
