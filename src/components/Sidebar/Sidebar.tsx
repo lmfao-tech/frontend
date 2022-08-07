@@ -48,51 +48,47 @@ function Sidebar() {
   const router = useRouter();
 
   const currentPath = router.pathname;
-  const isHome = currentPath === "/";
-  const isCommunity = currentPath === "/community";
-  const isCreate = currentPath === "/create";
-  const isDashboard = currentPath === "/dash";
 
   return (
     <div className="bg-white dark:bg-[#242424]  z-10">
       {/* Mobile */}
       <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-8 bg-white md:hidden dark:bg-[#242424] drop-shadow-2xl">
-      <Item
-            route="/"
-            tip="Home"
-            icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
-          />
+        <Item
+          route="/"
+          tip="Home"
+          icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
+        />
 
+        <Item
+          route="/community"
+          tip="Community"
+          icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+        />
+
+        <Item
+          route="/create"
+          tip="upload"
+          icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+        />
+        
+        <SidebarIcon
+          icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+          data-tip="Profile"
+        />
+
+        <Item
+          route="/dash"
+          tip="Dashboard"
+          icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
+        />
+
+        {mod && (
           <Item
-            route="/community"
-            tip="Community"
-            icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+            route="/mod"
+            tip="Moderation"
+            icon={<FilterIcon className="w-6 h-6 text-red-500" />}
           />
-
-          <Item
-            route="/create"
-            tip="upload"
-            icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-          />
-          
-          <SidebarIcon
-            icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-            data-tip="Profile"
-          />
-
-          <Item
-            route="/dash"
-            tip="Dashboard"
-            icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
-          />
-
-          {mod && (
-            <Item
-              route="/mod"
-              tip="Moderation"
-              icon={<FilterIcon className="w-6 h-6 text-red-500" />}
-            />
-          )}
+        )}
       </div>
 
       {/* Larger devices */}
