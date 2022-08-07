@@ -21,7 +21,7 @@ export default async function response(
 
   try {
     const resp = await fetch(
-      `https://api.lmfao.tech/profile_memes?username=${u}last=` +
+      `https://api.lmfao.tech/profile_memes?username=${u}&last=` +
         last +
         "&max_tweets=" +
         max_tweets,

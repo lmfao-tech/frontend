@@ -26,7 +26,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
   }, [jotaiDarkmode, setIsDarkMode]);
 
   return (
-    <div>
+    <div className={`${isDarkMode ? "dark" : null}`}>
       <AnimatePresence>
 
         {helpOpen && (
@@ -74,7 +74,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
           </div>
         )}
       </AnimatePresence>
-      <div className={`${isDarkMode ? "dark" : null}`}>{children}</div>
+      <div>{children}</div>
     </div>
   );
 }
