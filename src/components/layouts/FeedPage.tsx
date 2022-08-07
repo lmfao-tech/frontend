@@ -1,4 +1,4 @@
-import Sidebar from "~/components/Sidebar/Sidebar";
+import Sidebar from "~/components/Sidebar";
 import TopBar from "~/components/TopBar";
 import ProfileBar from "~/components/ProfileBar/ProfileBar";
 import DefaultLayout from "./DefaultLayout";

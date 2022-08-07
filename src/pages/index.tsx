@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from "react";
 import Head from "next/head";
 import { useState, useRef, useCallback } from "react";
-import FeedPost from "~/components/Feed/FeedPost";
+import FeedPost from "~/components/FeedPost";
 import Post from "~/types/Post";
 import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
