@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import NotFeedPage from "~/components/layouts/NotFeedPage";
-import { Avatar } from "flowbite-react";
+import { Avatar, Spinner } from "flowbite-react";
 import Image from "next/image";
 import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
@@ -11,13 +11,40 @@ import { useAtom } from "jotai";
 import darkModeAtom from "~/atoms/darkmode";
 import { useHaha } from "~/contexts/HahaContext";
 import { useHelp } from "~/contexts/HelpContext";
+import usePostFeed from "~/hooks/usePostFeed";
+import Post from "~/types/Post";
+import FeedPost from "~/components/FeedPost";
 
 function UserProfile({ u }: any) {
   const router = useRouter();
   const [user, setUser] = React.useState<any>();
   const { coins, streaks } = useHaha();
-
   const { helpOpen, setHelpOpen } = useHelp();
+  const [last, setLast] = useState<number>(0);
+
+  let {
+    memes,
+    loading,
+    hasMore
+  }: { memes: Post[]; loading: boolean; hasMore: boolean} = usePostFeed({
+    url: `/api/profileMemes?u=${u}}last=${last}&max_tweets=10`,
+  });
+  const observer = useRef<IntersectionObserver>();
+
+  const lastMemeRef = useCallback(
+    (node: any) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0]?.isIntersecting) {
+          setLast(memes.length)
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading, memes]
+  );
 
   // longest or current :rofl: // big bren
   const [lOrc, setLorC] = useState(false);
@@ -117,7 +144,32 @@ function UserProfile({ u }: any) {
         )}
       </div>
       <div className="col-span-4 text-white min-h-screen w-full">
-
+      <div className="flex flex-col w-full mb-20 overflow-hidden shadow-sm md:md-0">
+        <div className="flex flex-col px-2 md:px-32">
+          {memes.map((post, index) => {
+            if (index === memes.length - 1) {
+              return (
+                <div key={post.tweet_id} ref={lastMemeRef}>
+                  <FeedPost post={post} />
+                </div>
+              );
+            } else {
+              return (
+                <div key={post.tweet_id}>
+                  <FeedPost post={post} />
+                </div>
+              );
+            }
+          })}
+          {loading && (
+            <div className="flex items-center justify-center h-full">
+              <div className="dark:text-white ">
+                Loading... <Spinner />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       </div>
       <div className="hidden lg:block dark:text-white w-full col-span-2">
         {/* Display the user object*/}
