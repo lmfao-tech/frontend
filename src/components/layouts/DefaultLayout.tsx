@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import darkModeAtom from "~/atoms/darkmode";
 import { useEffect } from "react";
-import ReactTooltip from "react-tooltip";
 import { useAtom, useAtomValue } from "jotai";
 
 function DefaultLayout({ children }: { children: React.ReactNode }) {

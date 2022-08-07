@@ -6,6 +6,7 @@
   /* Positioning and visibility settings of the tip */
   [data-tip]::before,
   [data-tip]::after {
+
     position: absolute;
     left: 50%;
     bottom: calc(100% + 5px); /* 5px is the size of the arrow */
