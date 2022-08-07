@@ -2,7 +2,7 @@ import { Avatar, Button } from "flowbite-react";
 import { useSession, signOut } from "next-auth/react";
 import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ChevronDownIcon, FireIcon } from "@heroicons/react/solid";
 import { useHaha } from "~/contexts/HahaContext";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import { LogoutIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import darkModeAtom from "~/atoms/darkmode";
+import { useHelp } from "~/contexts/HelpContext";
 
 export default function Profile({ children }: { children?: React.ReactNode }) {
   const { data: session } = useSession();
@@ -27,6 +28,8 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
   } else {
     av = "";
   }
+
+  const { helpOpen, setHelpOpen } = useHelp();
 
   return (
     <>
@@ -80,7 +83,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                         data-tip="You get 50 HAHA coins every day. Liking a meme will cost 1 HAHA coin. The recipient will get LMFAO coins for every like they receive."
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
                       </div>
                     </span>{" "}
                     coins
@@ -105,7 +108,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                         data-tip="This is the main currency of LMFAO.tech. You can earn LMFAO coins by uploading memes and liking others memes."
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
                       </div>
                     </span>{" "}
                     coins
@@ -121,10 +124,10 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                       Streaks
                       <div
-                        data-tip="Upload a meme through LMFAO.tech every day to keep your streaks. LMFAO coins are awarded based on streaks"
+                        data-tip="Click for info"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
                       </div>
                     </span>{" "}
                   </div>

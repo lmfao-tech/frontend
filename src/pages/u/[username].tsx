@@ -10,11 +10,14 @@ import { InformationCircleIcon, FireIcon } from "@heroicons/react/solid";
 import { useAtom } from "jotai";
 import darkModeAtom from "~/atoms/darkmode";
 import { useHaha } from "~/contexts/HahaContext";
+import { useHelp } from "~/contexts/HelpContext";
 
 function UserProfile({ u }: any) {
   const router = useRouter();
   const [user, setUser] = React.useState<any>();
   const { coins, streaks } = useHaha();
+
+  const { helpOpen, setHelpOpen } = useHelp();
 
   // longest or current :rofl: // big bren
   const [lOrc, setLorC] = useState(false);
@@ -81,10 +84,10 @@ function UserProfile({ u }: any) {
                   <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                     LMFAO
                     <div
-                      data-tip="This is the main currency of LMFAO.tech. You can earn LMFAO coins by uploading memes and liking others memes."
+                      data-tip="Click for info"
                       className="text-xs cursor-pointer"
                     >
-                      <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                      <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
                     </div>
                   </span>{" "}
                   coins
@@ -103,10 +106,10 @@ function UserProfile({ u }: any) {
                   <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                     Streaks
                     <div
-                      data-tip="Upload a meme through LMFAO.tech every day to keep your streaks. LMFAO coins are awarded based on streaks"
+                      data-tip="Click for info"
                       className="text-xs cursor-pointer"
                     >
-                      <InformationCircleIcon className="w-4 h-4 text-slate-500" />
+                      <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
                     </div>
                   </span>{" "}
                 </div>
