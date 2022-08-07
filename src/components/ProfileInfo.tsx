@@ -22,9 +22,11 @@ function ProfileInfo({
   streaks: number;
   max_streaks: number;
 }) {
-  return <div>
-    <Avatar img={profile_image_url} />
-  </div>;
+  return (
+    <div>
+      <Avatar img={profile_image_url} />
+    </div>
+  );
 }
 
 export default ProfileInfo;

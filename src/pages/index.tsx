@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import Head from "next/head";
 import { useState, useRef, useCallback } from "react";
 import FeedPost from "~/components/FeedPost";
