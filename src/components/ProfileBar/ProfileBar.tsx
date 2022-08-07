@@ -112,7 +112,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                   </div>
                 </div>
                 
-                <div className="flex flex-col items-center text-center justify-center text-lg text-center dark:text-slate-200">
+                <div className="flex flex-col items-center justify-center text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 mr-3 font-bold">
                     <FireIcon className="h-6 w-6 text-red-500" />
                     {streaks.current}
