@@ -24,14 +24,15 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
       setIsDarkMode(false);
     }
   }, [jotaiDarkmode, setIsDarkMode]);
+
   return (
     <div>
       <AnimatePresence>
 
         {helpOpen && (
 
-          <div onClick={() => setHelpOpen(false)} className={`fixed p-10 lg:p-72 z-[1000] ${isDarkMode ? "bg-black/20": "bg-black/10"} flex justify-center items-center w-screen h-screen`}>
-            <motion.div initial={{ scale: 0 }} exit={{ scale: 0, opacity: 0 }} animate={{ scale: 1 }} className={`relative overflow-y-auto scrollbar-thin w-screen z-[1001] rounded-md h-[60vh] ${isDarkMode ? "bg-gray-600 text-white": "bg-gray-300"}`}>
+          <div className={`fixed p-10 lg:p-72 z-[400] ${isDarkMode ? "bg-black/20": "bg-black/10"} flex justify-center items-center w-screen h-screen`}>
+            <motion.div initial={{ scale: 0 }} exit={{ scale: 0, opacity: 0 }} animate={{ scale: 1 }} className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[60vh] ${isDarkMode ? "bg-gray-600 text-white": "bg-gray-300"}`}>
               
               <button onClick={() => setHelpOpen(false)} className={`focus:bg-gray-500 ${!isDarkMode && "hover:text-white focus:text-white"} hover:bg-gray-500 p-1 rounded absolute top-o right-0 mt-3 mr-3`}>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" className="" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 13.4l-4.9 4.9q-.275.275-.7.275q-.425 0-.7-.275q-.275-.275-.275-.7q0-.425.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275q.425 0 .7.275q.275.275.275.7q0 .425-.275.7L13.4 12l4.9 4.9q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275Z"></path></svg>

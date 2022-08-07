@@ -11,6 +11,23 @@ const HelpProvider = ({ children }: any) => {
 
     const [helpOpen, setHelpOpen] = useState(false);
 
+    useEffect(() => {
+
+        function e(ev: KeyboardEvent) {
+            if (ev.key === "q" || ev.key.toLowerCase() === "esc") {
+                setHelpOpen(false);
+            }
+        }
+
+        window.addEventListener("keypress", e)
+    
+        return () => {
+          window.removeEventListener("keypress", e);
+        }
+    
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
     return (
         <HelpContext.Provider value={{ helpOpen, setHelpOpen }}>
             {children}
