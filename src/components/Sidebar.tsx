@@ -10,12 +10,9 @@ import {
 import Link from "next/link";
 import { useHaha } from "~/contexts/HahaContext";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
-function SidebarIcon({
-  icon
-}: {
-  icon: React.ReactNode;
-}) {
+function SidebarIcon({ icon }: { icon: React.ReactNode }) {
   return (
     <button>
       <div className="p-2 duration-150 ease-out rounded-full cursor-pointer hover:scale-125">
@@ -25,17 +22,17 @@ function SidebarIcon({
   );
 }
 
-
 function Sidebar() {
   const { mod } = useHaha();
   const router = useRouter();
+  const { data: session } = useSession();
 
   const currentPath = router.pathname;
   const isHome = currentPath === "/";
   const isCommunity = currentPath === "/community";
   const isCreate = currentPath === "/create";
   const isDashboard = currentPath === "/dash";
-
+  const isProfile = currentPath === `/u/[username]`;
   return (
     <div className="bg-white dark:bg-[#242424]  z-10">
       {/* Mobile */}
@@ -86,7 +83,17 @@ function Sidebar() {
           </Link>
         )}
 
-        <SidebarIcon icon={<UserIcon className="w-6 h-6 text-yellow-400" />} />
+        <Link href={`/u/${session?.twitter?.twitterHandle}`}>
+          <div
+            className={`rounded-full ${
+              isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
+          >
+            <SidebarIcon
+              icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+            />
+          </div>
+        </Link>
 
         <Link href="/dash">
           <div
@@ -132,10 +139,20 @@ function Sidebar() {
             </div>
           </Link>
 
-          <SidebarIcon
-            icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-            data-tip="Profile"
-          />
+          <Link href={`/u/${session?.twitter?.twitterHandle}`}>
+            <div
+              data-tip="Profile"
+              data-place="right"
+              className={`rounded-full ${
+                isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
+              }`}
+            >
+              <SidebarIcon
+                icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+              />
+            </div>
+          </Link>
+
           <Link href="/dash">
             <div
               data-tip="Dashboard"

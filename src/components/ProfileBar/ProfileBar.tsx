@@ -80,10 +80,13 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     <span className="flex text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-blue-500">
                       HAHA
                       <div
-                        data-tip="You get 50 HAHA coins every day. Liking a meme will cost 1 HAHA coin. The recipient will get LMFAO coins for every like they receive."
+                        data-tip="Click for more info"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon
+                          onClick={() => setHelpOpen(true)}
+                          className="w-4 h-4 text-slate-500"
+                        />
                       </div>
                     </span>{" "}
                     coins
@@ -105,16 +108,19 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                       LMFAO
                       <div
-                        data-tip="This is the main currency of LMFAO.tech. You can earn LMFAO coins by uploading memes and liking others memes."
+                        data-tip="Click for more info"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon
+                          onClick={() => setHelpOpen(true)}
+                          className="w-4 h-4 text-slate-500"
+                        />
                       </div>
                     </span>{" "}
                     coins
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col items-center justify-center text-lg text-center dark:text-slate-200">
                   <span className="flex items-center justify-center gap-2 mb-2 mr-3 font-bold">
                     <FireIcon className="h-6 w-6 text-red-500" />
@@ -124,10 +130,13 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                     <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
                       Streaks
                       <div
-                        data-tip="Click for info"
+                        data-tip="Click for more info"
                         className="text-xs cursor-pointer"
                       >
-                        <InformationCircleIcon onClick={() => setHelpOpen(true)} className="w-4 h-4 text-slate-500" />
+                        <InformationCircleIcon
+                          onClick={() => setHelpOpen(true)}
+                          className="w-4 h-4 text-slate-500"
+                        />
                       </div>
                     </span>{" "}
                   </div>
@@ -137,7 +146,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
             </div>
 
             <div className="px-5 my-3 mt-10 dark:text-white">
-              <Leaderboard rank={rank}/>
+              <Leaderboard rank={rank} />
             </div>
 
             <div className="sticky z-10 flex flex-col items-center justify-center h-10 mx-3 bottom-9 my-7">
