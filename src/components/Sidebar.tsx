@@ -7,10 +7,23 @@ import {
   FilterIcon,
   HomeIcon,
 } from "@heroicons/react/solid";
-import SidebarIcon from "./SidebarIcon";
 import Link from "next/link";
 import { useHaha } from "~/contexts/HahaContext";
 import { useRouter } from "next/router";
+
+function SidebarIcon({
+  icon
+}: {
+  icon: React.ReactNode;
+}) {
+  return (
+    <button>
+      <div className="p-2 duration-150 ease-out rounded-full cursor-pointer hover:scale-125">
+        {icon}
+      </div>
+    </button>
+  );
+}
 
 interface Props {
   tip: string;

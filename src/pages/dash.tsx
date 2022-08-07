@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "flowbite-react";
 import type { ReactElement } from "react";
 import { signIn } from "next-auth/react";
-import Profile from "~/components/ProfileBar/ProfileBar";
+import Profile from "~/components/ProfileBar";
 import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Head from "next/head";
 import NextPageWithLayout from "~/types/NextPageWithLayout";

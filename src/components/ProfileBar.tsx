@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ChevronDownIcon, FireIcon } from "@heroicons/react/solid";
 import { useHaha } from "~/contexts/HahaContext";
 import Image from "next/image";
-import Leaderboard from "../Leaderboard";
+import Leaderboard from "./Leaderboard";
 import Link from "next/link";
 import { LogoutIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
