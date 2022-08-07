@@ -24,5 +24,5 @@ body {
 }
 
 .rank-btn-profile {
-    @apply bg-yellow-300 border-2 border-white absolute rounded-full w-10 h-10 flex justify-center items-center top-0 right-0 z-10;
+    @apply bg-yellow-300 border-2 border-white absolute rounded-full w-10 h-10 flex justify-center items-center top-0 right-0 z-[9];
 }
