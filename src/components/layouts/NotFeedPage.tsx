@@ -9,7 +9,7 @@ function NotFeedPage({ children }: { children: React.ReactNode }) {
         <div className="flex w-full dark:bg-[#141414]">
           <Sidebar />
           <div className="w-full">
-            <div className="sticky top-0 z-10">
+            <div className="sticky top-0 z-50">
               <TopBar />
             </div>
             <div>{children}</div>

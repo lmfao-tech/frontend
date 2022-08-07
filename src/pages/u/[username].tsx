@@ -125,7 +125,7 @@ function User({ user, pfp, meta }: any) {
         </div>
 
         <div className="flex flex-col justify-center items-center">
-          <span className="text-xl">
+          <span className="text-xl dark:text-white">
             <span className="dark:text-gray-500 text-gray-400">@</span>
             {user.name}
           </span>
@@ -173,7 +173,7 @@ function User({ user, pfp, meta }: any) {
             {lOrc ? user.current_streak : user.longest_streak}
           </span>
           <div>
-            <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
+            <span className="flex text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500 z-0">
               Streaks
               <div data-tip="Click for info" className="text-xs cursor-pointer">
                 <InformationCircleIcon
