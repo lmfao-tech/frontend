@@ -5,8 +5,9 @@ import Dropzone from "~/components/Dropzone";
 import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Tabs from "~/components/Tabs";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
+import Create from "~/components/Create";
 
-const Create: NextPageWithLayout = () => {
+const CreatePage: NextPageWithLayout = () => {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState(0);
 
@@ -51,7 +52,7 @@ const Create: NextPageWithLayout = () => {
   }
 
   return (
-    <div className="pb-20">
+    <div className="pb-20 w-full">
       <div className="flex flex-col items-center px-3 pt-10 dark:bg-[#242424] md:pt-28 dark:text-white">
         <h1 className="text-2xl font-bold text-center md:text-3xl">
           Upload your own meme
@@ -86,8 +87,8 @@ const Create: NextPageWithLayout = () => {
             {
               name: "Meme Maker",
               component: (
-                <div className="flex items-center justify-center w-full bg-gray-500 h-96">
-                  In Progress
+                <div className="w-full">
+                  <Create />
                 </div>
               ),
             },
@@ -112,8 +113,8 @@ const Create: NextPageWithLayout = () => {
   );
 };
 
-Create.getLayout = (page: ReactElement) => {
+CreatePage.getLayout = (page: ReactElement) => {
   return <NotFeedPage>{page}</NotFeedPage>;
 };
 
-export default Create;
+export default CreatePage;
