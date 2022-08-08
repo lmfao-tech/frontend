@@ -57,6 +57,7 @@ function UserProfile({ u }: any) {
   useEffect(() => {
     fetch(`/api/db/user?username=${u}`).then(async (resp) => {
       const user = await resp.json();
+      if (user.error) { window.location.href = `https://twitter.com/${u}`; return }
       setUser(user.data);
     });
 

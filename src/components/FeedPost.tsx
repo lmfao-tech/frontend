@@ -76,7 +76,7 @@ function FeedPost({
         <div className="flex items-center justify-between h-12 mx-4 ">
           <a
             className="flex items-center"
-            href={`https://twitter.com/${post.username}`}
+            href={`/u/${post.username}`}
             target="_blank"
             rel="noreferrer"
           >
