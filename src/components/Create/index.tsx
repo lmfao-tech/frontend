@@ -333,24 +333,25 @@ function Create() {
       {/*  */}
       <Flex>
         {/* Editing View */}
-        <div className="editContainer relative h-80 w-80 z-50">
+        <div className="editContainer relative">
           <div className="absolute h-full w-full border-2"></div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          {/* eslint-disable-next-line @next/next/no-img-element */} {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <img className="hidden " src="." ref={offScreenImage} />
           <EditView
             ref={imageContainer}
             className="editorView -z-10"
             style={{
               backgroundImage: `url(${memeTemplateView})`,
-              height: "290px",
+              height: "300px",
+              border: "1px solid #000",
+              backgroundSize: "contain",
             }}
           ></EditView>
           <Actions>
-            <ActionButton className="btn btn-light upload">
+            <ActionButton className="btn btn-light upload z-10">
               Upload <i className="fas fa-share-from-square"></i>
             </ActionButton>
-            <ActionButton className="btn btn-secondary" onClick={downloadMeme}>
+            <ActionButton className="btn btn-secondary z-10" onClick={downloadMeme}>
               Download <i className="fas fa-cloud-arrow-down"></i>
             </ActionButton>
           </Actions>

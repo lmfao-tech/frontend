@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 	color: var(--text-dark);
 	max-width: 1100px;
-	margin: 50px auto 20px;
+	margin: 5px auto 20px;
 	padding: 1rem;
 
 	input {
@@ -116,10 +116,6 @@ export const ActionButton = styled.button`
 		border: 1px solid #f85656;
 		color: #f85656;
 		width: 20%;
-	}
-
-	&.upload {
-		cursor: not-allowed;	
 	}
 `;
 
