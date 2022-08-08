@@ -1,4 +1,4 @@
-import { useState, useRef, SyntheticEvent, FormEvent } from "react";
+import { useState, useRef, SyntheticEvent, FormEvent, useEffect } from "react";
 import interact from "interactjs";
 import html2canvas from "html2canvas";
 import { v4 as uuid } from "uuid";
@@ -14,9 +14,27 @@ import {
   Controls,
 } from "./Create.styled";
 import React from "react";
-import tempImage from "public/og-image.png";
+import AddIconForm from "./AddIconForm";
+import {
+  faAlignCenter,
+  faAlignLeft,
+  faAlignRight,
+  faImage,
+  faTextHeight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import tempImage from "public/og-image.png";
 
-function selectFile(contentType: string, multiple = false) {
+/**
+ * Select file(s).
+ * @param {String} contentType The content type of files you wish to select. For instance, use "image/*" to select all types of images.
+ * @param {Boolean} multiple Indicates if the user can select multiple files.
+ * @returns {Promise<File|File[]>} A promise of a file or array of files in case the multiple parameter is true.
+ */
+function selectFile(
+  contentType: string,
+  multiple = false
+): Promise<File | File[]> {
   return new Promise((resolve) => {
     let input = document.createElement("input");
     input.type = "file";
@@ -26,7 +44,7 @@ function selectFile(contentType: string, multiple = false) {
     input.onchange = () => {
       let files = Array.from(input.files!);
       if (multiple) resolve(files);
-      else resolve(files[0]);
+      else resolve(files[0]!);
     };
 
     input.click();
@@ -36,12 +54,13 @@ function selectFile(contentType: string, multiple = false) {
 function Create() {
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
-  const [memeTemplateView, setMemeTemplate] = useState(tempImage);
+  const [memeTemplateView, setMemeTemplate] = useState(
+    "https://millenia.tech/logo.png"
+  );
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [memeTemplates, setMemeTemplates] = useState([]);
-
-  console.log(tempImage);
 
   function dragMoveListener(event: any) {
     var target = event.target;
@@ -78,22 +97,21 @@ function Create() {
 
   const deleteSelected = (e: FormEvent) => {
     if (selectedText) {
-      if (document !== null) {
-        document.querySelector(`#${selectedText}`)!.remove();
+      let el = document.querySelector(`#${selectedText}`);
+      if (el) {
+        el.remove();
       }
     }
   };
 
   const addFile = async () => {
     try {
-      const selectedFile = await selectFile("png, jpg");
+      const selectedFile: any = await selectFile("png, jpg");
       const fileReader = new FileReader();
-      // @ts-ignore
       fileReader.readAsDataURL(selectedFile);
 
-      fileReader.onload = function (oEvnt) {
+      fileReader.onload = function (oEvnt: any) {
         const newImage = document.createElement("img");
-        // @ts-ignore
         newImage.src = oEvnt.target.result;
         newImage.setAttribute("alt", ".");
         const random_id = "meme-" + uuid();
@@ -101,7 +119,7 @@ function Create() {
         imageContainer.current.append(newImage);
 
         interactIcon(random_id);
-        // TODO dispatch(closeModal());
+        setIsModalOpen(false);
       };
     } catch (error) {
       console.log(error);
@@ -158,10 +176,7 @@ function Create() {
   }
 
   const AddImageToCanvas = (e: any) => {
-    // TODO
-    // dispatch(
-    //   showModal(<AddIconForm addFile={addFile} addIcon={AddIconToCanvas} />)
-    // );
+    setIsModalOpen(true);
   };
 
   const AddIconToCanvas = (e: any) => {
@@ -186,8 +201,7 @@ function Create() {
     newText.toggleAttribute("data-text-italics");
     newText.classList.add("meme_text");
     newText.innerText = "Enter text here...";
-    // @ts-ignore
-    newText.contentEditable = true;
+    newText.contentEditable = "true";
     imageContainer.current.append(newText);
     newText.focus();
 
@@ -224,25 +238,6 @@ function Create() {
           },
         },
       });
-    // .resizable({
-    // 	edges: { top: true, left: true, bottom: true, right: true },
-    // 	listeners: {
-    // 		move: function (event) {
-    // 			let { x, y } = event.target.dataset;
-
-    // 			x = (parseFloat(x) || 0) + event.deltaRect.left;
-    // 			y = (parseFloat(y) || 0) + event.deltaRect.top;
-
-    // 			Object.assign(event.target.style, {
-    // 				width: `${event.rect.width}px`,
-    // 				height: `${event.rect.height}px`,
-    // 				transform: `translate(${x}px, ${y}px)`,
-    // 			});
-
-    // 			Object.assign(event.target.dataset, { x, y });
-    // 		},
-    // 	},
-    // })
   };
 
   const removeSelections = () => {
@@ -278,15 +273,13 @@ function Create() {
     },
     toggleUnderline: function () {
       if (!selectedText) return;
-      const textElem = document.querySelector(`#${selectedText}`);
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
       if (!textElem) return setSelectedText("");
       textElem.toggleAttribute("data-text-underlined");
       if (textElem.hasAttribute("data-text-underlined")) {
-        // @ts-ignore
         textElem.style.textDecoration = "underline";
         return;
       }
-      // @ts-ignore
       textElem.style.textDecoration = "none";
     },
     changeText: function (e: any) {
@@ -297,24 +290,21 @@ function Create() {
     },
     changeTextSize: function (e: any) {
       if (!selectedText) return;
-      const textElem = document.querySelector(`#${selectedText}`);
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
       if (!textElem) return setSelectedText("");
-      // @ts-ignore
       textElem.style.fontSize = `${e.target.value}px`;
     },
     changeTextColor: function (e: any) {
       if (!selectedText) return;
-      const textElem = document.querySelector(`#${selectedText}`);
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
       if (!textElem) return setSelectedText("");
-      // @ts-ignore
       textElem.style.color = e.target.value;
     },
     justify: function (e: any) {
       console.log(e.target.dataset["justification"]);
       if (!selectedText) return;
-      const textElem = document.querySelector(`#${selectedText}`);
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
       if (!textElem) return setSelectedText("");
-      // @ts-ignore
       textElem.style.textAlign = e.target.dataset["justification"];
     },
   };
@@ -334,15 +324,23 @@ function Create() {
         </div>
       </HomeCategory>
 
+      {isModalOpen && (
+        <div className="hover:border-2 p-3">
+          <AddIconForm addFile={addFile} addIcon={AddIconToCanvas} />
+        </div>
+      )}
+
       {/*  */}
       <Flex>
         {/* Editing View */}
-        <div className="editContainer">
+        <div className="editContainer relative h-80 w-80 z-50">
+          <div className="absolute h-full w-full border-2"></div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="." alt="off-screen" hidden ref={offScreenImage} />
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <img className="hidden " src="." ref={offScreenImage} />
           <EditView
             ref={imageContainer}
-            className="editorView"
+            className="editorView -z-10"
             style={{
               backgroundImage: `url(${memeTemplateView})`,
               height: "290px",
@@ -361,14 +359,21 @@ function Create() {
         {/* Editing Controls */}
         <Controls>
           <Actions>
-            <ActionButton className="btn btn-light" onClick={AddTextToCanvas}>
-              Add Text <i className="fas fa-text-height"></i>
+            <ActionButton
+              className="btn btn-light flex gap-2"
+              onClick={AddTextToCanvas}
+            >
+              Add Text{" "}
+              <FontAwesomeIcon className="h-5 w-5" icon={faTextHeight} />
             </ActionButton>
-            <ActionButton className="btn btn-light" onClick={AddImageToCanvas}>
-              Add Image <i className="fas fa-image"></i>
+            <ActionButton
+              className="btn btn-light flex gap-2"
+              onClick={AddImageToCanvas}
+            >
+              Add Image <FontAwesomeIcon className="h-5 w-5" icon={faImage} />
             </ActionButton>
           </Actions>
-          <div className="text">
+          <div className="text border">
             <textarea onChange={textFunctions.changeText} value={currentText} />
           </div>
 
@@ -399,7 +404,7 @@ function Create() {
             <div>
               <p>Font size:</p>
               <input
-                type="text"
+                type="number"
                 defaultValue={16}
                 maxLength={3}
                 onChange={textFunctions.changeTextSize}
@@ -425,21 +430,21 @@ function Create() {
                   onClick={textFunctions.justify}
                   data-justification="left"
                 >
-                  <i className="fas fa-align-left"></i>
+                  <FontAwesomeIcon icon={faAlignLeft} />
                 </button>
                 <button
                   className="midAlign"
                   onClick={textFunctions.justify}
                   data-justification="center"
                 >
-                  <i className="fas fa-align-center"></i>
+                  <FontAwesomeIcon icon={faAlignCenter} />
                 </button>
                 <button
                   className="rightAlign"
                   onClick={textFunctions.justify}
                   data-justification="right"
                 >
-                  <i className="fas fa-align-right"></i>
+                  <FontAwesomeIcon icon={faAlignRight} />
                 </button>
               </div>
             </div>

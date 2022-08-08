@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const Container = styled.div`
 	color: var(--text-dark);
 	max-width: 1100px;
 	margin: 50px auto 20px;

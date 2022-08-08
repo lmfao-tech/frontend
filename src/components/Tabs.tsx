@@ -24,7 +24,7 @@ const Tabs = ({ items, activeTab, extendTailwind }: Props) => {
 
     return (
         <div className={`${extendTailwind?.parent}`}>
-            <div className={`flex gap-1 ${extendTailwind?.tabButtons?.list}`}>
+            <div className={`flex gap-1 w-full ${extendTailwind?.tabButtons?.list}`}>
                 {items.map((item, index) => {
                     return (
                         <button key={index} onClick={() => {

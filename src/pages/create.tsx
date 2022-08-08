@@ -52,7 +52,7 @@ const CreatePage: NextPageWithLayout = () => {
   }
 
   return (
-    <div className="pb-20 w-full">
+    <div className="pb-20">
       <div className="flex flex-col items-center px-3 pt-10 dark:bg-[#242424] md:pt-28 dark:text-white">
         <h1 className="text-2xl font-bold text-center md:text-3xl">
           Upload your own meme
@@ -94,7 +94,7 @@ const CreatePage: NextPageWithLayout = () => {
             },
           ]}
           extendTailwind={{
-            parent: "mt-10 w-full md:px-60",
+            parent: "mt-10 w-full md:px-3",
             tabButtons: {
               list: "justify-center",
             },
