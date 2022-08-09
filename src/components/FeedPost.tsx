@@ -13,6 +13,8 @@ import { useHaha } from "~/contexts/HahaContext";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Spinner } from "flowbite-react";
+import { Status } from "~/types/Request";
+import toast from "react-hot-toast";
 
 const removeLinksHashtagsMention = (text: string) => {
   function unEscape(htmlStr: string) {
@@ -38,7 +40,7 @@ function FeedPost({
   post: Post;
   removed?: boolean;
 }) {
-  const { like, unlike, likes, follow, unfollow, mod } = useHaha();
+  const { like, unlike, likes, follow, unfollow, mod, retweet, unretweet } = useHaha();
 
   const [followed, setFollowed] = useState<boolean>(false);
 
@@ -192,11 +194,24 @@ function FeedPost({
             }`}
             onClick={async () => {
               setRetweeted(true);
-              const resp = await fetch(
-                `/api/twitter/tweet/retweet?id=${post.tweet_id}`
-              );
+              const data = await retweet(post.tweet_id);
               vibrateOnceOnClick();
-              const data = await resp.json();
+              if (data.success === Status.Success) {
+                toast.success("Retweeted successfully", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  }
+                });
+              } else if (data.success === Status.Failure) {
+                toast.error("An error occured while retweeting the post...", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  }
+                })
+                setRetweeted(false)
+              } 
             }}
           >
             <SwitchHorizontalIcon
@@ -215,6 +230,21 @@ function FeedPost({
               );
               vibrateOnceOnClick();
               const data = await resp.json();
+              if (data.success === Status.Success) {
+                toast.success("Unretweeted successfully", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  }
+                });
+              } else if (data.success === Status.Failure) {
+                toast.error("An error occured while unretweeting the post...", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  }
+                })
+              } 
             }}
           >
             <SwitchHorizontalIcon className="w-6 h-6 text-green-400" />
