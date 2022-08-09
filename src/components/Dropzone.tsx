@@ -11,7 +11,7 @@ export default function Dropzone({
   maxFiles: number;
   setImage: (image: File | null) => void;
   image?: File | null;
-  publish: (image: File) => void;
+  publish: (image: File) => Promise<void>;
 }) {
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({

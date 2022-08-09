@@ -85,7 +85,7 @@ function Create({
 
   useEffect(() => {
     // Get all meme templates from folder /templates
-    const total = 13;
+    const total = 22;
     let templates = [];
     for (let i = 1; i <= total; i++) {
       templates.push(`/templates/${i}.jpg`);
