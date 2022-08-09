@@ -40,8 +40,7 @@ function FeedPost({
   post: Post;
   removed?: boolean;
 }) {
-  const { like, unlike, likes, follow, unfollow, mod, retweet, unretweet } =
-    useHaha();
+  const { like, unlike, likes, follow, unfollow, mod, retweet, unretweet } = useHaha();
 
   const [followed, setFollowed] = useState<boolean>(false);
 
@@ -201,7 +200,6 @@ function FeedPost({
               if (data.success === Status.Success) {
                 toast.success("Retweeted successfully", {
                   style: {
-                    marginTop: "40px",
                     backgroundColor: "#292929",
                     color: "white",
                   },
@@ -209,7 +207,6 @@ function FeedPost({
               } else if (data.success === Status.Failure) {
                 toast.error("An error occured while retweeting the post...", {
                   style: {
-                    marginTop: "40px",
                     backgroundColor: "#292929",
                     color: "white",
                   },
@@ -237,7 +234,6 @@ function FeedPost({
               if (data.success === Status.Success) {
                 toast.success("Unretweeted successfully", {
                   style: {
-                    marginTop: "40px",
                     backgroundColor: "#292929",
                     color: "white",
                   },
@@ -245,7 +241,6 @@ function FeedPost({
               } else if (data.success === Status.Failure) {
                 toast.error("An error occured while unretweeting the post...", {
                   style: {
-                    marginTop: "40px",
                     backgroundColor: "#292929",
                     color: "white",
                   },
