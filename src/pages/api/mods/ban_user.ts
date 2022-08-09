@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 
 interface Req extends NextApiRequest {
   query: {
-    id: string;
+    user: string;
   };
 }
 
@@ -20,9 +20,9 @@ export default async function handler(req: Req, res: NextApiResponse<Resp>) {
     return;
   }
 
-  const { id } = req.query;
+  const { user } = req.query;
 
-  if (id === null) {
+  if (user === null) {
     res.status(400).json({
       success: Status.Failure,
       error: "Invalid query",
@@ -39,16 +39,19 @@ export default async function handler(req: Req, res: NextApiResponse<Resp>) {
     return res.status(403).json({
       success: Status.Failure,
       error:
-        "Forbidden access: Mod privileges are needed to access this endpoint",
+        "Forbidden Access: Mod privileges are needed to access this endpoint",
     });
   }
 
-  await fetch(`https://api.lmfao.tech/revive_meme?id=${id}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: process.env.AUTH || "",
-    },
-  });
+  await fetch(
+    `https://api.lmfao.tech/ban_user?user=${user}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: process.env.AUTH || "",
+      },
+    }
+  );
 
   res.status(200).json({
     success: Status.Success,

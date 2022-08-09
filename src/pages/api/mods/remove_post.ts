@@ -1,18 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Resp, Status } from "~/types/Request";
-import { prisma } from '~/db/client';
+import { prisma } from "~/db/client";
 import { getSession } from "next-auth/react";
 
 interface Req extends NextApiRequest {
   query: {
     id: string;
-  }
+  };
 }
 
-export default async function handler(
-  req: Req,
-  res: NextApiResponse<Resp>
-) {
+export default async function handler(req: Req, res: NextApiResponse<Resp>) {
   const session = await getSession({ req });
 
   if (!session) {
@@ -29,20 +26,21 @@ export default async function handler(
     res.status(400).json({
       success: Status.Failure,
       error: "Invalid query",
-    })
+    });
   }
 
   const mod = await prisma.mods.findFirst({
     where: {
-      id: session.twitter.twitterHandle
-    }
-  })
+      id: session.twitter.twitterHandle,
+    },
+  });
 
   if (mod === null) {
     return res.status(403).json({
       success: Status.Failure,
-      error: "Forbidden Acess: Mod privelages are needed to access this endpoint",
-    })
+      error:
+        "Forbidden access: Mod privileges are needed to access this endpoint",
+    });
   }
 
   await fetch(
@@ -54,10 +52,9 @@ export default async function handler(
       },
     }
   );
-  
+
   res.status(200).json({
     success: Status.Success,
-    data: "done"
-  })
-    
+    data: "done",
+  });
 }

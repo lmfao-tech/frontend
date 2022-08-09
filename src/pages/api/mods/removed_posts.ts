@@ -31,7 +31,7 @@ export default async function handler(req: Req, res: NextApiResponse<Resp>) {
     return res.status(403).json({
       success: Status.Failure,
       error:
-        "Forbidden Acess: Mod privelages are needed to access this endpoint",
+        "Forbidden access: Mod privileges are needed to access this endpoint",
     });
   }
 
