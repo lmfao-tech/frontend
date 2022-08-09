@@ -189,12 +189,11 @@ export async function getServerSideProps(context: any) {
     async (resp) => {
       const user = await resp.json();
       if (user.error) {
-        console.log(user);
+        return
       }
       return user;
     }
   );
-  console.log(user);
   return {
     props: {
       u: username,

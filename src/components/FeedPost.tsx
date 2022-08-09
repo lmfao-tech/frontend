@@ -250,7 +250,6 @@ function FeedPost({
                 await fetch(`/api/mods/remove_post?id=${post.tweet_id}`).then(
                   (res) => {
                     res.json();
-                    console.log(res);
                     if (res.ok === true) {
                       setDeleted(true);
                     }
@@ -261,7 +260,6 @@ function FeedPost({
                 await fetch(`/api/mods/revive_post?id=${post.tweet_id}`).then(
                   (res) => {
                     res.json();
-                    console.log(res);
                     if (res.ok === true) {
                       setDeleted(false);
                     }
