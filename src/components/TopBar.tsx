@@ -15,7 +15,7 @@ function TopBar() {
       <div className="flex items-center justify-between h-20 mx-5 md:h-16">
         <button onClick={(e) => router.push("/")}>
           <div className="flex w-full">
-            <div className="flex text-lg font-bold cursor-pointer md:text-2xl font-trispace text-slate-800 dark:text-white">
+            <div className="flex text-lg justify-center items-center font-bold cursor-pointer md:text-2xl font-trispace text-slate-800 dark:text-white">
               <Image
                 alt="Logo of LMFAO.tech"
                 src={darkMode ? logo_white : logo_black}

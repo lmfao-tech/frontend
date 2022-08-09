@@ -359,42 +359,42 @@ function Create() {
 
         {/* Editing Controls */}
         <Controls>
-          <Actions>
+          <Actions className="flex justify-center items-center">
             <ActionButton
-              className="btn btn-light flex gap-2"
+              className="btn bg-gray-300 dark:text-white dark:bg-gray-500 btn-light flex justify-center items-center gap-2"
               onClick={AddTextToCanvas}
             >
               Add Text{" "}
               <FontAwesomeIcon className="h-5 w-5" icon={faTextHeight} />
             </ActionButton>
             <ActionButton
-              className="btn btn-light flex gap-2"
+              className="btn bg-gray-300 dark:text-white dark:bg-gray-500 btn-light flex justify-center items-center gap-2"
               onClick={AddImageToCanvas}
             >
               Add Image <FontAwesomeIcon className="h-5 w-5" icon={faImage} />
             </ActionButton>
           </Actions>
-          <div className="text border">
-            <textarea onChange={textFunctions.changeText} value={currentText} />
+          <div className="text border p-0 border-none">
+            <textarea onChange={textFunctions.changeText} className="w-full resize-none dark:text-white dark:bg-gray-700 rounded" value={currentText} />
           </div>
 
           {/* Font Size */}
           <div className="formatting">
             {/* Bold, Italics, and Underline */}
             <div className="styling">
-              <p>Font Style:</p>
+              <p className="font-bold">Font Style:</p>
               <div>
-                <button className="bold" onClick={textFunctions.toggleBold}>
+                <button className="font-bold border border-gray-500 w-8 h-8" onClick={textFunctions.toggleBold}>
                   B
                 </button>
                 <button
-                  className="italic"
+                  className="italic border border-gray-500 w-8 h-8"
                   onClick={textFunctions.toggleItalics}
                 >
                   I
                 </button>
                 <button
-                  className="underline"
+                  className="underline border border-gray-500 w-8 h-8"
                   onClick={textFunctions.toggleUnderline}
                 >
                   U
@@ -403,45 +403,38 @@ function Create() {
             </div>
 
             <div>
-              <p>Font size:</p>
+              <p className="font-bold">Font size:</p>
               <input
                 type="number"
                 defaultValue={16}
                 maxLength={3}
+                className="w-full resize-none dark:text-white dark:bg-gray-700 rounded"
                 onChange={textFunctions.changeTextSize}
               />
             </div>
 
-            <div>
-              <p>Font color:</p>
-              <input
-                type="color"
-                defaultValue="#ffffff"
-                onChange={textFunctions.changeTextColor}
-              ></input>
-            </div>
           </div>
           <div className="formatting">
             {/* Text alignment */}
             <div className="styling">
-              <p>Text alignment:</p>
-              <div>
+              <p className="font-bold">Text alignment:</p>
+              <div className="fill-black dark:fill-white">
                 <button
-                  className="leftAlign"
+                  className="leftAlign border p-[5px] w-8 h-8"
                   onClick={textFunctions.justify}
                   data-justification="left"
                 >
                   <FontAwesomeIcon icon={faAlignLeft} />
                 </button>
                 <button
-                  className="midAlign"
+                  className="midAlign border p-[5px] w-8 h-8"
                   onClick={textFunctions.justify}
                   data-justification="center"
                 >
                   <FontAwesomeIcon icon={faAlignCenter} />
                 </button>
                 <button
-                  className="rightAlign"
+                  className="rightAlign border p-[5px] w-8 h-8"
                   onClick={textFunctions.justify}
                   data-justification="right"
                 >
@@ -454,8 +447,20 @@ function Create() {
             <div>
               <p>Stroke width:</p>
               <div className="inputStroke">
-                <input type="text" defaultValue="0" />
+                <input type="text" defaultValue="0" className="w-full resize-none dark:text-white dark:bg-gray-700 rounded" />
               </div>
+            </div>
+
+            <br/>
+
+            <div>
+              <p>Font color:</p>
+              <input
+                type="color"
+                defaultValue="#ffffff"
+                onChange={textFunctions.changeTextColor}
+                className=""
+              ></input>
             </div>
 
             <div>
