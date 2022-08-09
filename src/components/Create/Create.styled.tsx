@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export function Container({ children }: any) {
+	return (
+		<div className="text-black dark:text-white max-w-[1100px] p-4 [&>input]:text-[16px]">{children}</div>
+	)
+}
+
+export const _Container = styled.div`
 	color: var(--text-dark);
 	max-width: 1100px;
 	padding: 1rem;
@@ -10,7 +16,31 @@ export const Container = styled.div`
 	}
 `;
 
-export const HomeCategory = styled.section`
+export function HomeCategory({ children }: any) {
+	return (
+		<section 
+			className="
+				max-w-[1100px] 
+				p-4 
+				[&>.categoryHeader]:flex
+				[&>.categoryHeader]:items-center
+				[&>.categoryHeader]:justify-between
+				[&>.categoryHeader]:mb-2
+				[&>.categoryHeader>.category]:border
+				[&>.categoryHeader>.category]:border-[#73707e4f]
+				[&>.categoryHeader>.category]:outline-none
+				[&>.categoryHeader>.category]:box-border
+				[&>.categoryHeader>.category]:py-2
+				[&>.categoryHeader>.category]:px-3
+				
+			"
+		>
+			{children}
+		</section>
+	)
+}
+
+export const _HomeCategory = styled.section`
 	max-width: 1100px;
 	padding: 1rem;
 
@@ -68,6 +98,21 @@ export const HomeCategory = styled.section`
 		}
 	}
 `;
+
+export function _Flex({ children }: any) {
+	return (
+		<div
+			className="
+				max-w-[1000px]
+				mx-auto
+				grid
+				
+			"
+		>
+			{children}
+		</div>
+	)
+}
 
 export const Flex = styled.div`
 	max-width: 1000px;

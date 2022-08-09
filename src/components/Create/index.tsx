@@ -325,7 +325,7 @@ function Create() {
       </HomeCategory>
 
       {isModalOpen && (
-        <div className="hover:border-2 p-3">
+        <div className="my-3">
           <AddIconForm addFile={addFile} addIcon={AddIconToCanvas} />
         </div>
       )}
