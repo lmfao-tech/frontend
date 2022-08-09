@@ -1,10 +1,12 @@
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { ReactElement, useState } from "react";
+import toast from "react-hot-toast";
 import Dropzone from "~/components/Dropzone";
 import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Tabs from "~/components/Tabs";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
+import { Status } from "~/types/Request";
 
 const Create: NextPageWithLayout = () => {
   const { data: session } = useSession();
@@ -21,8 +23,14 @@ const Create: NextPageWithLayout = () => {
   }
 
   async function publish() {
+
     if (image === null) {
-      alert("Please upload an image");
+      toast.error("Please upload an image", {
+        style: {
+          background: "#292929",
+          color: "white",
+        }
+      });
       return;
     }
 
@@ -41,9 +49,32 @@ const Create: NextPageWithLayout = () => {
         }
       )
         .then((res) => res.json())
-        .then((res) => console.log(res))
+        .then((res) => { 
+          console.log(res);
+          if (res.status === Status.Success) {
+            toast.success("Meme published successfully", {
+              style: {
+                background: "#292929",
+                color: "white"
+              }
+            });
+          } else if (res.status === Status.Failure) {
+            toast.error("An error occured while posting the meme...", {
+              style: {
+                background: "#292929",
+                color: "white"
+              }
+            })
+          }
+        })
         .catch((err) => {
           console.error(err);
+          toast.error("An error occured while posting the meme...", {
+            style: {
+              background: "#292929",
+              color: "white"
+            }
+          })
         });
     };
     setImage(null);

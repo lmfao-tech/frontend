@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Resp, Status } from "~/types/Request";
 
 interface haha {
@@ -18,8 +19,8 @@ interface haha {
   }>;
   like: (id: string | number, authorId: string | number) => Promise<void>;
   unlike: (id: string | number, authorId: string | number) => Promise<void>;
-  retweet: (id: string | number) => Promise<void>;
-  unretweet: (id: string | number) => Promise<void>;
+  retweet: (id: string | number) => Promise<any>;
+  unretweet: (id: string | number) => Promise<any>;
   follow: (id: string | number) => Promise<void>;
   unfollow: (id: string | number) => Promise<void>;
   post: () => Promise<void>;
