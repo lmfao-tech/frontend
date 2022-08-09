@@ -14,6 +14,7 @@ import { useHelp } from "~/contexts/HelpContext";
 import usePostFeed from "~/hooks/usePostFeed";
 import Post from "~/types/Post";
 import FeedPost from "~/components/FeedPost";
+import { Status } from "../../types/Request";
 
 function UserProfile({ u, user }: any) {
   const router = useRouter();
@@ -185,24 +186,39 @@ export async function getServerSideProps(context: any) {
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
       : "https://lmfao.tech";
+  
+  try {
+    const resp = await fetch(`${url}/api/db/user?username=${username}`);
+    const user = await resp.json();
 
-  const user = await fetch(`${url}/api/db/user?username=${username}`).then(
-    async (resp) => {
-      const user = await resp.json();
-      if (user.error) {
-        return {
-          props: {},
-          redirect: {
-            permanent: false,
-            destination: `https://twitter.com/${username}`
-          }
+    if (user.success === Status.Failure) {
+      return {
+        props: {},
+        redirect: {
+          permanent: false,
+          destination: `https://twitter.com/${username}`
         }
       }
-      return user;
+      
     }
-  );
 
-  if (!user) {
+    if (!user) {
+      return {
+        props: {},
+        redirect: {
+          permanent: false,
+          destination: `https://twitter.com/${username}`
+        }
+      }
+    }
+
+    return {
+      props: {
+        u: username,
+        user: user.data,
+      },
+    };
+  } catch {
     return {
       props: {},
       redirect: {
@@ -211,13 +227,7 @@ export async function getServerSideProps(context: any) {
       }
     }
   }
-
-  return {
-    props: {
-      u: username,
-      user: user.data,
-    },
-  };
+  
 }
 
 UserProfile.getLayout = (page: ReactElement) => {
