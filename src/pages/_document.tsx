@@ -44,6 +44,7 @@ export default function Document() {
           data-website-id="ff7c1c8b-8ff2-4e72-828c-e140b07175a8"
           src="https://umami.dhravya.dev/umami.js"
         ></script>
+        <meta name="theme-color" content="#242424"></meta>
       </Head>
       <body>
         <Main />
