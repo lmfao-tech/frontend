@@ -17,7 +17,7 @@ export default async function handler(
   const session = await getSession({ req });
   const { username } = req.query;
 
-  if (!session) {
+  if (!username && !session) {
     res.status(401).json({
       success: Status.Failure,
       error: "Unauthorized",
@@ -27,7 +27,7 @@ export default async function handler(
 
   const user = await prisma.user.findFirst({
     where: {
-      name: username ? username : session.twitter.twitterHandle,
+      name: username ? username : session?.twitter.twitterHandle,
     },
     include: {
       likes: true,
@@ -37,9 +37,9 @@ export default async function handler(
   if (!user && !username) {
     const newUser = await prisma.user.create({
       data: {
-        id: `${session.twitter.userID}`,
-        name: session.twitter.twitterHandle,
-        email: session.user!.email!,
+        id: `${session?.twitter.userID}`,
+        name: session!.twitter.twitterHandle,
+        email: session?.user!.email!,
         hahaCoins: 100,
         lmfaoCoins: 0,
       },
@@ -69,7 +69,7 @@ export default async function handler(
 
   const isMod = await prisma.mods.findFirst({
     where: {
-      id: username ? username : session.twitter.twitterHandle,
+      id: username ? username : session?.twitter.twitterHandle,
     },
   });
 

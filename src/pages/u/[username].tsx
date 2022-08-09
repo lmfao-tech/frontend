@@ -15,9 +15,8 @@ import usePostFeed from "~/hooks/usePostFeed";
 import Post from "~/types/Post";
 import FeedPost from "~/components/FeedPost";
 
-function UserProfile({ u }: any) {
+function UserProfile({ u, user }: any) {
   const router = useRouter();
-  const [user, setUser] = React.useState<any>();
   const [last, setLast] = useState<number>(0);
 
   let {
@@ -47,22 +46,9 @@ function UserProfile({ u }: any) {
   );
 
   let pfp;
-
-  if (user) {
-    pfp = `https://unavatar.io/twitter/${user.name}`;
+  if (user){
+    pfp = `https://unavatar.io/twitter/${u}`;
   }
-
-  const [darkMode, setDarkMode] = useAtom(darkModeAtom);
-
-  useEffect(() => {
-    fetch(`/api/db/user?username=${u}`).then(async (resp) => {
-      const user = await resp.json();
-      if (user.error) { window.location.href = `https://twitter.com/${u}`; return }
-      setUser(user.data);
-    });
-
-    fetch;
-  }, [u, router]);
 
   return (
     <div className="grid lg:grid-cols-6">
@@ -192,9 +178,27 @@ function User({ user, pfp, meta }: any) {
 }
 
 export async function getServerSideProps(context: any) {
+  let username = context.params.username;
+
+  const url =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://lmfao.tech";
+
+  const user = await fetch(`${url}/api/db/user?username=${username}`).then(
+    async (resp) => {
+      const user = await resp.json();
+      if (user.error) {
+        console.log(user);
+      }
+      return user;
+    }
+  );
+  console.log(user);
   return {
     props: {
-      u: context.params.username,
+      u: username,
+      user: user.data,
     },
   };
 }
