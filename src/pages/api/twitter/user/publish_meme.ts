@@ -47,7 +47,7 @@ export default async function handler(
       target: "tweet",
     });
     const data = await client.v2.tweet(
-      status ? `${status} @LMFAO_tech` : "@LMFAO_tech",
+      status ? `${status} @LMFAO_tech` : "Meme from @LMFAO_tech",
       {
         media: { media_ids: [mediaId] },
       }

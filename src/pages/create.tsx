@@ -24,7 +24,7 @@ const CreatePage: NextPageWithLayout = () => {
     av = "";
   }
 
-  async function publish() {
+  async function publish(image:File | null) {
     if (image === null) {
       toast.error("Please upload an image", {
         style: {
@@ -115,6 +115,7 @@ const CreatePage: NextPageWithLayout = () => {
                     maxFiles={1}
                     image={image}
                     setImage={setImage}
+                    publish={publish}
                   />
                 ),
               },
@@ -122,7 +123,9 @@ const CreatePage: NextPageWithLayout = () => {
                 name: "Meme Maker",
                 component: (
                   <div className="w-full">
-                    <Create />
+                    <Create
+                      publish={publish}
+                    />
                   </div>
                 ),
               },
@@ -136,12 +139,6 @@ const CreatePage: NextPageWithLayout = () => {
             }}
             activeTab={setActiveTab}
           />
-          <button
-            onClick={publish}
-            className="px-5 py-3 my-10 text-white bg-blue-500 rounded"
-          >
-            Publish
-          </button>
         </div>
       </div>
     </>

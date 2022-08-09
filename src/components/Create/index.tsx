@@ -53,10 +53,15 @@ function selectFile(
   });
 }
 
-function Create() {
+function Create({
+  publish
+}: {
+  publish: (image: File) => void;
+}) {
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
-  const [memeTemplateView, setMemeTemplate] = useState<string>("/templates/1.jpg");
+  const [memeTemplateView, setMemeTemplate] =
+    useState<string>("/templates/1.jpg");
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
@@ -64,10 +69,10 @@ function Create() {
 
   useEffect(() => {
     // Get all meme templates from folder /templates
-    const total = 13
-    let templates = []
+    const total = 13;
+    let templates = [];
     for (let i = 1; i <= total; i++) {
-      templates.push(`/templates/${i}.jpg`)
+      templates.push(`/templates/${i}.jpg`);
     }
     setMemeTemplates(templates);
   }, []);
@@ -92,6 +97,22 @@ function Create() {
     ) {
       canvas.toBlob((blob) => saveAs(blob!, `lmfao-tech-${Date.now()}.png`));
     });
+  };
+
+  const publishMeme = (e:any) => {
+    e.preventDefault();
+    html2canvas(imageContainer.current!, { useCORS: true })
+      .then(function (canvas) {
+        canvas.toBlob((blob) => {
+          const file = new File([blob!], `lmfao-tech-${Date.now()}.png`, {
+            type: "image/png",
+          });
+          publish(file);
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const useTemplate = (e: any) => {
@@ -366,14 +387,17 @@ function Create() {
             }}
           ></EditView>
           <Actions>
-            <ActionButton className="btn btn-light upload z-10">
-              Upload <i className="fas fa-share-from-square"></i>
-            </ActionButton>
             <ActionButton
               className="btn btn-secondary z-10"
               onClick={downloadMeme}
             >
               Download <i className="fas fa-cloud-arrow-down"></i>
+            </ActionButton>
+            <ActionButton
+              onClick={publishMeme}
+              className="btn btn-primary z-10 bg-blue-600 mx-2"
+            >
+              Publish
             </ActionButton>
           </Actions>
         </div>
