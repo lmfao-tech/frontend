@@ -5,24 +5,11 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 function AddIconForm(props: any) {
   return (
-    <IconForm>
-      <AddImageBtn className="btn btn-primary" onClick={props.addFile}>
+    <div className="text-center bg-gray-700/10 dark:bg-gray-700/40 py-3 rounded">
+      <button className="bg-blue-600 px-5 py-3 text-white rounded-md" onClick={props.addFile}>
         Upload Image
-      </AddImageBtn>
-      <p className="title">You can also choose from our library of icons</p>
-      <div className="gallery">
-        {/* <LazyLoadImage
-          className="upload-image"
-          src={meme1}
-          alt="icon"
-          onClick={props.addIcon}
-          width="40px"
-          height="40px"
-          effect="blur"
-          placeholderSrc={"/images/icon-canvas.png"}
-        /> */}
-      </div>
-    </IconForm>
+      </button>
+    </div>
   );
 }
 
