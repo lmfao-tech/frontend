@@ -26,6 +26,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import ReactDOM from "react-dom";
+import { motion } from "framer-motion";
+import { useAtom } from "jotai";
+import darkModeAtom from "~/atoms/darkmode";
+// @ts-ignore
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 /**
  * Select file(s).
@@ -53,6 +59,12 @@ function selectFile(
   });
 }
 
+const breakpointColumnsObj = {
+  default: 3,
+  900: 2,
+  640: 1,
+};
+
 function Create({
   publish
 }: {
@@ -66,6 +78,9 @@ function Create({
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
   const [memeTemplates, setMemeTemplates] = useState<string[]>([]);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [dark, setDark] = useAtom(darkModeAtom);
 
   useEffect(() => {
     // Get all meme templates from folder /templates
@@ -99,7 +114,7 @@ function Create({
     });
   };
 
-  const publishMeme = (e:any) => {
+  const publishMeme = (e: any) => {
     e.preventDefault();
     html2canvas(imageContainer.current!, { useCORS: true })
       .then(function (canvas) {
@@ -126,6 +141,7 @@ function Create({
     const newHeight = parseFloat(ContainerWidth) / ratio;
     imageContainer.current.style.height = newHeight + "px";
     setMemeTemplate(e.target.src);
+    setModalOpen(false);
   };
 
   const deleteSelected = (e: FormEvent) => {
@@ -347,26 +363,67 @@ function Create({
   return (
     <Container>
       <HomeCategory>
-        <div className="categoryHeader">
-          <h2>Meme Templates</h2>
+        <div className="flex justify-center items-center">
+          <button onClick={() => setModalOpen(true)} className="text-white bg-blue-500 rounded-md px-5 py-3">
+            Choose a meme template
+          </button>
         </div>
-        <div className="memeTemplates">
-          {memeTemplates.map((template) => {
-            return (
+        {modalOpen && ReactDOM.createPortal((
+          <div className="bg-black/40 lg:bg-black/30 flex justify-center items-center p-5 lg:p-52 fixed w-screen h-screen z-[10000]">
+            <motion.div
+              initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }}
+              className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[80vh] ${dark ? "bg-gray-600 text-white" : "bg-gray-300"}`}
+            >
               <button
-                key={Math.random()}
-                className="card"
-                onClick={useTemplate}
+                onClick={() => setModalOpen(false)}
+                className={`focus:bg-gray-500 ${!dark && "hover:text-white focus:text-white"
+                  } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
               >
-                <LazyLoadImage
-                  src={template}
-                  alt="LMFAO Template"
-                  effect="blur"
-                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  className=""
+                  width="1.5em"
+                  height="1.5em"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m12 13.4l-4.9 4.9q-.275.275-.7.275q-.425 0-.7-.275q-.275-.275-.275-.7q0-.425.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275q.425 0 .7.275q.275.275.275.7q0 .425-.275.7L13.4 12l4.9 4.9q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275Z"
+                  ></path>
+                </svg>
               </button>
-            );
-          })}
-        </div>
+
+              <div className="p-3">
+
+                <h1 className="text-center font-bold text-2xl my-2">Choose a meme template</h1>
+                
+                <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
+                  <Masonry breakpointCols={breakpointColumnsObj} className="flex gap-5 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200">
+                    {memeTemplates.map((template, index) => {
+                      return (
+                        <button
+                          key={index}
+                          className="card p-1 border m-1"
+                          onClick={useTemplate}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={template}
+                            alt="LMFAO Template"
+                            className=""
+                          />
+                        </button>
+                      );
+                    })}
+                  </Masonry>
+                </ResponsiveMasonry>
+              
+              </div>
+
+            </motion.div>
+          </div>
+        ), document.getElementById('modals')!)}
       </HomeCategory>
 
       {/*  */}

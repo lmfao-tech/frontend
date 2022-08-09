@@ -291,7 +291,7 @@ export const EditView = React.forwardRef((props: any, ref) => {
 				[&>[contenteditable]]:border-transparent
 				[&>[contenteditable]]:font-bold
 				[&>[contenteditable]]:text-[26px]
-				[&>[contenteditable]]:text-[#fff]
+				[&>[contenteditable]]:text-black
 				
 				[&>[contenteditable]]:focus:border-[#73707e85]
 				[&>[contenteditable>.justify-center]]:text-center
@@ -301,7 +301,6 @@ export const EditView = React.forwardRef((props: any, ref) => {
 			`}
 			style={{
 				...props.style,
-				textShadow: "0px 0px 5px rgba(0, 0, 0, 0.8)"
 			}}
 		>
 		</div>
