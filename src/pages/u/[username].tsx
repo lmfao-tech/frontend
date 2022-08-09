@@ -178,6 +178,7 @@ function User({ user, pfp, meta }: any) {
 }
 
 export async function getServerSideProps(context: any) {
+
   let username = context.params.username;
 
   const url =
@@ -189,11 +190,28 @@ export async function getServerSideProps(context: any) {
     async (resp) => {
       const user = await resp.json();
       if (user.error) {
-        return
+        return {
+          props: {},
+          redirect: {
+            permanent: false,
+            destination: `https://twitter.com/${username}`
+          }
+        }
       }
       return user;
     }
   );
+
+  if (!user) {
+    return {
+      props: {},
+      redirect: {
+        permanent: false,
+        destination: `https://twitter.com/${username}`
+      }
+    }
+  }
+
   return {
     props: {
       u: username,
