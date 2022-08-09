@@ -22,8 +22,19 @@ function SidebarIcon({ icon }: { icon: React.ReactNode }) {
   );
 }
 
-function Item({ link, tip, icon, check, home }: { check?: string, home?: boolean, link: string, tip: string, icon: JSX.Element | JSX.Element[] }) {
-  
+function Item({
+  link,
+  tip,
+  icon,
+  check,
+  home,
+}: {
+  check?: string;
+  home?: boolean;
+  link: string;
+  tip: string;
+  icon: JSX.Element | JSX.Element[];
+}) {
   const router = useRouter();
   const currentPath = router.pathname;
 
@@ -36,17 +47,16 @@ function Item({ link, tip, icon, check, home }: { check?: string, home?: boolean
   return (
     <Link href={link}>
       <div
-        className={`rounded-full w-12 h-12 flex justify-center items-center ${isHere && "dark:bg-slate-700/50 bg-slate-400/20"
-          }`}
+        className={`rounded-full w-12 h-12 flex justify-center items-center ${
+          isHere && "dark:bg-slate-700/50 bg-slate-400/20"
+        }`}
         data-tip={tip}
         data-place="right"
       >
-        <SidebarIcon
-          icon={icon}
-        />
+        <SidebarIcon icon={icon} />
       </div>
     </Link>
-  )
+  );
 }
 
 function Sidebar() {
@@ -66,8 +76,9 @@ function Sidebar() {
       <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-8 bg-white md:hidden dark:bg-[#242424] drop-shadow-2xl">
         <Link href="/">
           <div
-            className={`rounded-full ${isHome && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
+            className={`rounded-full ${
+              isHome && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
           >
             <SidebarIcon
               icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
@@ -77,8 +88,9 @@ function Sidebar() {
 
         <Link href="/community">
           <div
-            className={`rounded-full ${isCommunity && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
+            className={`rounded-full ${
+              isCommunity && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
           >
             <SidebarIcon
               icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
@@ -86,16 +98,19 @@ function Sidebar() {
           </div>
         </Link>
 
-        <Link href="/create">
-          <div
-            className={`rounded-full ${isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
+        {session && (
+          <Link href="/create">
+            <div
+              className={`rounded-full ${
+                isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
               }`}
-          >
-            <SidebarIcon
-              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-            />
-          </div>
-        </Link>
+            >
+              <SidebarIcon
+                icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+              />
+            </div>
+          </Link>
+        )}
 
         {mod && (
           <Link href="/mod">
@@ -107,21 +122,25 @@ function Sidebar() {
           </Link>
         )}
 
-        <Link href={`/u/${session?.twitter?.twitterHandle}`}>
-          <div
-            className={`rounded-full ${isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
+        {session && (
+          <Link href={`/u/${session?.twitter?.twitterHandle}`}>
+            <div
+              className={`rounded-full ${
+                isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
               }`}
-          >
-            <SidebarIcon
-              icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-            />
-          </div>
-        </Link>
+            >
+              <SidebarIcon
+                icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+              />
+            </div>
+          </Link>
+        )}
 
         <Link href="/dash">
           <div
-            className={`rounded-full ${isDashboard && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
+            className={`rounded-full ${
+              isDashboard && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
           >
             <SidebarIcon
               icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
@@ -133,7 +152,6 @@ function Sidebar() {
       {/* Larger devices */}
       <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
         <div className="ml-10 space-y-7">
-
           <Item
             link="/"
             tip="Home"
@@ -147,12 +165,14 @@ function Sidebar() {
             icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
           />
 
-          <Item 
-            link={`/u/${session?.twitter?.twitterHandle}`}
-            tip="Profile"
-            icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-            check="/u"
-          />
+          {session && (
+            <Item
+              link={`/u/${session?.twitter?.twitterHandle}`}
+              tip="Profile"
+              icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+              check="/u"
+            />
+          )}
 
           <Item
             link="/dash"
@@ -160,11 +180,13 @@ function Sidebar() {
             icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
           />
 
-          <Item
-            link="/create"
-            tip="Create"
-            icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-          />
+          {session && (
+            <Item
+              link="/create"
+              tip="Create"
+              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+            />
+          )}
 
           {mod && (
             <Item
