@@ -37,9 +37,9 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
             } flex justify-center items-center w-screen h-screen`}
           >
             <motion.div
-              initial={{ scale: 0 }}
-              exit={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1 }}
+              initial={{ scaleY: 0 }}
+              exit={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
               className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[60vh] ${
                 isDarkMode ? "bg-gray-600 text-white" : "bg-gray-300"
               }`}
@@ -48,7 +48,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
                 onClick={() => setHelpOpen(false)}
                 className={`focus:bg-gray-500 ${
                   !isDarkMode && "hover:text-white focus:text-white"
-                } hover:bg-gray-500 p-1 rounded absolute top-o right-0 mt-3 mr-3`}
+                } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

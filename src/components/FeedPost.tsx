@@ -13,6 +13,8 @@ import { useHaha } from "~/contexts/HahaContext";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Spinner } from "flowbite-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import { Status } from "~/types/Request";
 import toast from "react-hot-toast";
 
@@ -138,9 +140,10 @@ function FeedPost({
       </div>
       <div className="w-full px-0 my-2 md:px-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <LazyLoadImage
           className="w-full rounded-md text-slate-500"
           src={post.meme_link}
+          effect="blur"
           alt={`Image not found, tweet might be deleted -  ${post.tweet_text}`}
         />
       </div>
