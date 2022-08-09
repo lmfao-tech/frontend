@@ -220,7 +220,6 @@ export const _Actions = styled.div`
 export function ActionButton(props: any) {
 
 	let p: any = {...props};
-	console.log(p)
 	delete p.className;
 
 	return (

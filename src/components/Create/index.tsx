@@ -24,7 +24,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import tempImage from "public/og-image.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 /**
  * Select file(s).
@@ -55,13 +56,21 @@ function selectFile(
 function Create() {
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
-  const [memeTemplateView, setMemeTemplate] = useState(
-    "https://lmfao.tech/og-image.png"
-  );
+  const [memeTemplateView, setMemeTemplate] = useState<string>("/templates/1.jpg");
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
-  const [memeTemplates, setMemeTemplates] = useState([]);
+  const [memeTemplates, setMemeTemplates] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Get all meme templates from folder /templates
+    const total = 13
+    let templates = []
+    for (let i = 1; i <= total; i++) {
+      templates.push(`/templates/${i}.jpg`)
+    }
+    setMemeTemplates(templates);
+  }, []);
 
   function dragMoveListener(event: any) {
     var target = event.target;
@@ -72,13 +81,15 @@ function Create() {
     // translate the element
     target.style.transform = "translate(" + x + "px, " + y + "px)";
 
-    // update the posiion attributes
+    // update the position attributes
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
   }
 
   const downloadMeme = () => {
-    html2canvas(imageContainer.current!, {useCORS: true}).then(function (canvas) {
+    html2canvas(imageContainer.current!, { useCORS: true }).then(function (
+      canvas
+    ) {
       canvas.toBlob((blob) => saveAs(blob!, `lmfao-tech-${Date.now()}.png`));
     });
   };
@@ -143,7 +154,7 @@ function Create() {
           setSelectedImage(id);
         } else {
           setSelectedText(id);
-        } 
+        }
       })
       .resizable({
         edges: { top: true, left: true, bottom: true, right: true },
@@ -304,46 +315,54 @@ function Create() {
     },
     justify: function (e: any) {
       if (!selectedText) return;
-      
-      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      
-      return 
-      // TODO: fix justify
 
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+
+      return;
+      // TODO: fix justify
     },
   };
 
   return (
     <Container>
       <HomeCategory>
-        {/* <div className="categoryHeader">
+        <div className="categoryHeader">
           <h2>Meme Templates</h2>
-          <div className="categoryOptions">
-            <select className="category" name="category" id="category">
-              <option defaultValue="Latest">Latest</option>
-              <option defaultValue="Trending">Trending</option>
-              <option defaultValue="Downloads">Downloads</option>
-            </select>
-          </div>
-        </div> */}
+        </div>
+        <div className="memeTemplates">
+          {memeTemplates.map((template) => {
+            return (
+              <button
+                key={Math.random()}
+                className="card"
+                onClick={useTemplate}
+              >
+                <LazyLoadImage
+                  src={template}
+                  alt="LMFAO Template"
+                  effect="blur"
+                />
+              </button>
+            );
+          })}
+        </div>
       </HomeCategory>
-
 
       {/*  */}
       <Flex>
         {/* Editing View */}
         <div className="editContainer relative">
           <div className="absolute h-full w-full border-2"></div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}{" "}
-          {/* eslint-disable-next-line jsx-a11y/alt-text */}
-          <img className="hidden " src="." ref={offScreenImage} />
+          {/* eslint-disable @next/next/no-img-element*/}
+          {/* eslint-disable jsx-a11y/alt-text */}
+          <img className="hidden -z-10" src="." ref={offScreenImage} />
           <EditView
             ref={imageContainer}
             className="editorView"
             style={{
               backgroundImage: `url(${memeTemplateView})`,
               height: "300px",
-              border: "1px solid #000"
+              border: "1px solid #000",
             }}
           ></EditView>
           <Actions>

@@ -26,6 +26,7 @@ specifiers:
   flowbite-react: ^0.0.27
   formidable: ^2.0.1
   framer-motion: ^6.5.1
+  html-to-image: ^1.9.0
   html2canvas: ^1.4.1
   interactjs: ^1.10.17
   jotai: ^1.7.4
@@ -68,6 +69,7 @@ dependencies:
   flowbite-react: 0.0.27_f7u7coe27y5lebjwvpvlijmrdm
   formidable: 2.0.1
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
+  html-to-image: 1.9.0
   html2canvas: 1.4.1
   interactjs: 1.10.17
   jotai: 1.7.4_react@18.2.0
@@ -4632,6 +4634,10 @@ packages:
 
   /html-entities/2.3.3:
     resolution: {integrity: sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==}
+    dev: false
+
+  /html-to-image/1.9.0:
+    resolution: {integrity: sha512-9gaDCIYg62Ek07F2pBk76AHgYZ2gxq2YALU7rK3gNCqXuhu6cWzsOQqM7qGbjZiOzxGzrU1deDqZpAod2NEwbA==}
     dev: false
 
   /html2canvas/1.4.1:
