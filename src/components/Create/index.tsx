@@ -32,6 +32,7 @@ import { useAtom } from "jotai";
 import darkModeAtom from "~/atoms/darkmode";
 // @ts-ignore
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import toast from "react-hot-toast";
 
 /**
  * Select file(s).
@@ -123,10 +124,22 @@ function Create({
             type: "image/png",
           });
           publish(file);
+          toast.success("Meme published successfully", {
+            style: {
+              background: "#292929",
+              color: "white",
+            },
+          });
         });
       })
       .catch(function (error) {
         console.log(error);
+        toast.error("An error occured while posting the meme...", {
+          style: {
+            background: "#292929",
+            color: "white",
+          },
+        });
       });
   };
 
@@ -443,17 +456,18 @@ function Create({
               border: "1px solid #000",
             }}
           ></EditView>
-          <Actions>
+          <Actions className="flex justify-center items-center px-5">
             <ActionButton
-              className="btn btn-secondary z-10"
+              className="btn btn-secondary z-10 dark:fill-white flex justify-center items-center gap-2 border"
               onClick={downloadMeme}
             >
-              Download <i className="fas fa-cloud-arrow-down"></i>
+              Download <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 20q-.825 0-1.412-.587Q4 18.825 4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 20 18 20Zm6-4l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11Z"></path></svg>
             </ActionButton>
             <ActionButton
               onClick={publishMeme}
-              className="btn btn-primary z-10 bg-blue-600 mx-2"
+              className="btn btn-primary z-10 bg-blue-600 text-white fill-white flex justify-center items-center gap-2 "
             >
+              <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4ZM5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h14q.825 0 1.413.587Q21 4.175 21 5v14q0 .825-.587 1.413Q19.825 21 19 21Z"></path></svg>
               Publish
             </ActionButton>
           </Actions>
@@ -463,14 +477,14 @@ function Create({
         <Controls>
           <Actions className="flex justify-center items-center">
             <ActionButton
-              className="btn bg-gray-300 dark:text-white dark:bg-gray-500 btn-light flex justify-center items-center gap-2"
+              className="btn bg-gray-200 dark:text-white dark:bg-gray-600 btn-light flex justify-center items-center gap-2"
               onClick={AddTextToCanvas}
             >
               Add Text{" "}
               <FontAwesomeIcon className="h-5 w-5" icon={faTextHeight} />
             </ActionButton>
             <ActionButton
-              className="btn bg-gray-300 dark:text-white dark:bg-gray-500 btn-light flex justify-center items-center gap-2"
+              className="btn bg-gray-200 dark:text-white dark:bg-gray-600 btn-light flex justify-center items-center gap-2"
               onClick={AddImageToCanvas}
             >
               Add Image <FontAwesomeIcon className="h-5 w-5" icon={faImage} />
@@ -574,14 +588,14 @@ function Create({
                 type="color"
                 defaultValue="#ffffff"
                 onChange={textFunctions.changeTextColor}
-                className=""
+                className="w-24 h-10 p-1 bg-gray-200 dark:bg-gray-700 rounded-sm"
               ></input>
             </div>
 
             <div>
               <p>Stroke color:</p>
               <div className="inputStroke">
-                <input type="color" defaultValue="#000000" />
+                <input type="color" className="w-24 h-10 p-1 bg-gray-200 dark:bg-gray-700 rounded-sm" defaultValue="#000000" />
               </div>
             </div>
           </div>
