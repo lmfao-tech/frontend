@@ -21,7 +21,9 @@ import {
   faAlignRight,
   faImage,
   faTextHeight,
+  // @ts-ignore
 } from "@fortawesome/free-solid-svg-icons";
+// @ts-ignore
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import tempImage from "public/og-image.png";
 
@@ -55,9 +57,10 @@ function Create() {
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
   const [memeTemplateView, setMemeTemplate] = useState(
-    "https://millenia.tech/logo.png"
+    "https://lmfao.tech/og-image.png"
   );
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
+  const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memeTemplates, setMemeTemplates] = useState([]);
@@ -77,7 +80,7 @@ function Create() {
   }
 
   const downloadMeme = () => {
-    html2canvas(imageContainer.current!).then(function (canvas) {
+    html2canvas(imageContainer.current!, {useCORS: true}).then(function (canvas) {
       canvas.toBlob((blob) => saveAs(blob!, `lmfao-tech-${Date.now()}.png`));
     });
   };
@@ -102,6 +105,12 @@ function Create() {
         el.remove();
       }
     }
+    if (selectedImage) {
+      let el = document.querySelector(`#${selectedImage}`);
+      if (el) {
+        el.remove();
+      }
+    }
   };
 
   const addFile = async () => {
@@ -120,6 +129,7 @@ function Create() {
 
         interactIcon(random_id);
         setIsModalOpen(false);
+        setSelectedImage(random_id);
       };
     } catch (error) {
       console.log(error);
@@ -130,6 +140,13 @@ function Create() {
     interact(`#${id}`)
       .on("tap", (e) => {
         // set state of to manipulate the element from the toolkit
+        // If element is text, set selectedText to the id of the element
+        // If element is image, set selectedImage to the id of the element
+        if (e.target.tagName === "IMG") {
+          setSelectedImage(id);
+        } else {
+          setSelectedText(id);
+        } 
       })
       .resizable({
         edges: { top: true, left: true, bottom: true, right: true },
@@ -187,7 +204,7 @@ function Create() {
     const random_id = "meme-" + uuid();
     newImage.setAttribute("id", random_id);
     imageContainer.current.append(newImage);
-    // TODO dispatch(closeModal());
+    setIsModalOpen(false);
 
     interactIcon(random_id);
   };
@@ -242,6 +259,7 @@ function Create() {
 
   const removeSelections = () => {
     setSelectedText("");
+    setSelectedImage("");
   };
 
   const textFunctions = {
@@ -312,7 +330,7 @@ function Create() {
   return (
     <Container>
       <HomeCategory>
-        <div className="categoryHeader">
+        {/* <div className="categoryHeader">
           <h2>Meme Templates</h2>
           <div className="categoryOptions">
             <select className="category" name="category" id="category">
@@ -321,7 +339,7 @@ function Create() {
               <option defaultValue="Downloads">Downloads</option>
             </select>
           </div>
-        </div>
+        </div> */}
       </HomeCategory>
 
       {isModalOpen && (
@@ -335,23 +353,26 @@ function Create() {
         {/* Editing View */}
         <div className="editContainer relative">
           <div className="absolute h-full w-full border-2"></div>
-          {/* eslint-disable-next-line @next/next/no-img-element */} {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}{" "}
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <img className="hidden " src="." ref={offScreenImage} />
           <EditView
             ref={imageContainer}
-            className="editorView -z-10"
+            className="editorView"
             style={{
               backgroundImage: `url(${memeTemplateView})`,
               height: "300px",
-              border: "1px solid #000",
-              backgroundSize: "contain",
+              border: "1px solid #000"
             }}
           ></EditView>
           <Actions>
             <ActionButton className="btn btn-light upload z-10">
               Upload <i className="fas fa-share-from-square"></i>
             </ActionButton>
-            <ActionButton className="btn btn-secondary z-10" onClick={downloadMeme}>
+            <ActionButton
+              className="btn btn-secondary z-10"
+              onClick={downloadMeme}
+            >
               Download <i className="fas fa-cloud-arrow-down"></i>
             </ActionButton>
           </Actions>
@@ -375,7 +396,11 @@ function Create() {
             </ActionButton>
           </Actions>
           <div className="text border p-0 border-none">
-            <textarea onChange={textFunctions.changeText} className="w-full resize-none dark:text-white dark:bg-gray-700 rounded" value={currentText} />
+            <textarea
+              onChange={textFunctions.changeText}
+              className="w-full resize-none dark:text-white dark:bg-gray-700 rounded"
+              value={currentText}
+            />
           </div>
 
           {/* Font Size */}
@@ -384,7 +409,10 @@ function Create() {
             <div className="styling">
               <p className="font-bold">Font Style:</p>
               <div>
-                <button className="font-bold border border-gray-500 w-8 h-8" onClick={textFunctions.toggleBold}>
+                <button
+                  className="font-bold border border-gray-500 w-8 h-8"
+                  onClick={textFunctions.toggleBold}
+                >
                   B
                 </button>
                 <button
@@ -412,7 +440,6 @@ function Create() {
                 onChange={textFunctions.changeTextSize}
               />
             </div>
-
           </div>
           <div className="formatting">
             {/* Text alignment */}
@@ -447,11 +474,15 @@ function Create() {
             <div>
               <p>Stroke width:</p>
               <div className="inputStroke">
-                <input type="text" defaultValue="0" className="w-full resize-none dark:text-white dark:bg-gray-700 rounded" />
+                <input
+                  type="number"
+                  defaultValue="0"
+                  className="w-full resize-none dark:text-white dark:bg-gray-700 rounded"
+                />
               </div>
             </div>
 
-            <br/>
+            <br />
 
             <div>
               <p>Font color:</p>
