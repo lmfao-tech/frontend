@@ -14,7 +14,6 @@ import {
   Controls,
 } from "./Create.styled";
 import React from "react";
-import AddIconForm from "./AddIconForm";
 import {
   faAlignCenter,
   faAlignLeft,
@@ -62,7 +61,6 @@ function Create() {
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [memeTemplates, setMemeTemplates] = useState([]);
 
   function dragMoveListener(event: any) {
@@ -128,7 +126,6 @@ function Create() {
         imageContainer.current.append(newImage);
 
         interactIcon(random_id);
-        setIsModalOpen(false);
         setSelectedImage(random_id);
       };
     } catch (error) {
@@ -193,20 +190,7 @@ function Create() {
   }
 
   const AddImageToCanvas = (e: any) => {
-    setIsModalOpen(true);
-  };
-
-  const AddIconToCanvas = (e: any) => {
-    const newImage = document.createElement("img");
-    // newImage.src = templateFive;
-    newImage.src = e.target.src;
-    newImage.setAttribute("alt", ".");
-    const random_id = "meme-" + uuid();
-    newImage.setAttribute("id", random_id);
-    imageContainer.current.append(newImage);
-    setIsModalOpen(false);
-
-    interactIcon(random_id);
+    addFile();
   };
 
   const AddTextToCanvas = (e: any) => {
@@ -319,11 +303,13 @@ function Create() {
       textElem.style.color = e.target.value;
     },
     justify: function (e: any) {
-      console.log(e.target.dataset["justification"]);
       if (!selectedText) return;
+      
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
-      textElem.style.textAlign = e.target.dataset["justification"];
+      
+      return 
+      // TODO: fix justify
+
     },
   };
 
@@ -342,11 +328,6 @@ function Create() {
         </div> */}
       </HomeCategory>
 
-      {isModalOpen && (
-        <div className="my-3">
-          <AddIconForm addFile={addFile} addIcon={AddIconToCanvas} />
-        </div>
-      )}
 
       {/*  */}
       <Flex>
@@ -449,6 +430,7 @@ function Create() {
                 <button
                   className="leftAlign border p-[5px] w-8 h-8"
                   onClick={textFunctions.justify}
+                  value="left"
                   data-justification="left"
                 >
                   <FontAwesomeIcon icon={faAlignLeft} />
@@ -456,6 +438,7 @@ function Create() {
                 <button
                   className="midAlign border p-[5px] w-8 h-8"
                   onClick={textFunctions.justify}
+                  value="center"
                   data-justification="center"
                 >
                   <FontAwesomeIcon icon={faAlignCenter} />
@@ -463,6 +446,7 @@ function Create() {
                 <button
                   className="rightAlign border p-[5px] w-8 h-8"
                   onClick={textFunctions.justify}
+                  value="right"
                   data-justification="right"
                 >
                   <FontAwesomeIcon icon={faAlignRight} />
