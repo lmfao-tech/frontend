@@ -6,11 +6,8 @@ import Dropzone from "~/components/Dropzone";
 import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Tabs from "~/components/Tabs";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
-<<<<<<< HEAD
 import Create from "~/components/Create";
-=======
 import { Status } from "~/types/Request";
->>>>>>> ca227a3d279263de70ff00248a34ebe5887fbda4
 
 const CreatePage: NextPageWithLayout = () => {
   const { data: session } = useSession();
