@@ -15,6 +15,8 @@ import Image from "next/image";
 import { Spinner } from "flowbite-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { Status } from "~/types/Request";
+import toast from "react-hot-toast";
 
 const removeLinksHashtagsMention = (text: string) => {
   function unEscape(htmlStr: string) {
@@ -40,11 +42,12 @@ function FeedPost({
   post: Post;
   removed?: boolean;
 }) {
-  const { like, unlike, likes, follow, unfollow, mod } = useHaha();
+  const { like, unlike, likes, follow, unfollow, mod, retweet, unretweet } = useHaha();
 
   const [followed, setFollowed] = useState<boolean>(false);
 
   const [deleted, setDeleted] = useState<boolean>(removed);
+  const [banned, setBanned] = useState<boolean>(false);
   const router = useRouter();
 
   const vibrateOnceOnClick = () => {
@@ -78,7 +81,7 @@ function FeedPost({
         <div className="flex items-center justify-between h-12 mx-4 ">
           <a
             className="flex items-center"
-            href={`https://twitter.com/${post.username}`}
+            href={`/u/${post.username}`}
             target="_blank"
             rel="noreferrer"
           >
@@ -122,7 +125,7 @@ function FeedPost({
         </div>
       </div>
       {post.removed_by && (
-        <div className="mx-3 ml-5">
+        <div className="mx-3 ml-5 dark:text-white text-gray-700">
           Removed by{" "}
           <a
             className="text-blue-500"
@@ -195,11 +198,24 @@ function FeedPost({
             }`}
             onClick={async () => {
               setRetweeted(true);
-              const resp = await fetch(
-                `/api/twitter/tweet/retweet?id=${post.tweet_id}`
-              );
+              const data: any = await retweet(post.tweet_id);
               vibrateOnceOnClick();
-              const data = await resp.json();
+              if (data.success === Status.Success) {
+                toast.success("Retweeted successfully", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  },
+                });
+              } else if (data.success === Status.Failure) {
+                toast.error("An error occured while retweeting the post...", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  },
+                });
+                setRetweeted(false);
+              }
             }}
           >
             <SwitchHorizontalIcon
@@ -218,6 +234,21 @@ function FeedPost({
               );
               vibrateOnceOnClick();
               const data = await resp.json();
+              if (data.success === Status.Success) {
+                toast.success("Unretweeted successfully", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  },
+                });
+              } else if (data.success === Status.Failure) {
+                toast.error("An error occured while unretweeting the post...", {
+                  style: {
+                    backgroundColor: "#292929",
+                    color: "white",
+                  },
+                });
+              }
             }}
           >
             <SwitchHorizontalIcon className="w-6 h-6 text-green-400" />
@@ -234,7 +265,7 @@ function FeedPost({
         <button className="flex items-center justify-center px-2 py-1 rounded-md cursor-pointer bg-slate-200 hover:bg-blue-200 dark:bg-yellow-400">
           <RWebShare
             data={{
-              title: "Meme discovered on LMFAO.tech | #LMFAOtech",
+              title: "Meme discovered on LMFAO.tech | @LMFAO_tech",
               url: post.tweet_link,
               text: post.tweet_text,
             }}
@@ -243,39 +274,58 @@ function FeedPost({
           </RWebShare>
         </button>
         {mod && (
-          <button
-            className={`text-[.5rem] md:text-[.7rem] px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
-              deleted && "bg-red-200"
-            } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
-            onClick={async () => {
-              setIsDeleteLoading(true);
-              if (!deleted) {
-                await fetch(`/api/mods/remove_post?id=${post.tweet_id}`).then(
-                  (res) => {
-                    res.json();
-                    console.log(res);
-                    if (res.ok === true) {
-                      setDeleted(true);
+          <>
+            <button
+              className={`text-[.5rem] md:text-[.7rem] px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
+                deleted && "bg-red-200"
+              } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
+              onClick={async () => {
+                setIsDeleteLoading(true);
+                if (!deleted) {
+                  await fetch(`/api/mods/remove_post?id=${post.tweet_id}`).then(
+                    (res) => {
+                      res.json();
+                      if (res.ok === true) {
+                        setDeleted(true);
+                      }
+                      setIsDeleteLoading(false);
                     }
-                    setIsDeleteLoading(false);
-                  }
-                );
-              } else {
-                await fetch(`/api/mods/revive_post?id=${post.tweet_id}`).then(
-                  (res) => {
-                    res.json();
-                    console.log(res);
-                    if (res.ok === true) {
-                      setDeleted(false);
+                  );
+                } else {
+                  await fetch(`/api/mods/revive_post?id=${post.tweet_id}`).then(
+                    (res) => {
+                      res.json();
+                      if (res.ok === true) {
+                        setDeleted(false);
+                      }
+                      setIsDeleteLoading(false);
                     }
-                    setIsDeleteLoading(false);
-                  }
-                );
-              }
-            }}
-          >
-            {deleted ? "Revive" : "Delete"} {isDeleteLoading && <Spinner />}
-          </button>
+                  );
+                }
+              }}
+            >
+              {deleted ? "Revive" : "Delete"} {isDeleteLoading && <Spinner />}
+            </button>
+
+            <button
+              className={`text-[.5rem] px-3 md:text-[.7rem] py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
+                banned && "bg-red-200"
+              } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
+              disabled={banned}
+              onClick={async () => {
+                if (!banned) {
+                  await fetch(`/api/mods/ban_user?user=${post.username}`).then(
+                    (res) => {
+                      res.json();
+                      setBanned(true);
+                    }
+                  );
+                }
+              }}
+            >
+              {banned ? "User banned" : "Ban"}
+            </button>
+          </>
         )}
       </div>
     </div>

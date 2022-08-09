@@ -5,6 +5,7 @@ import logo_black from "~/../public/logo-black.png";
 import { useAtom } from 'jotai';
 import darkModeAtom from '~/atoms/darkmode';
 import Image from "next/image"
+import Link from 'next/link';
 
 interface Props {
   coins: number;
@@ -18,26 +19,28 @@ function LeaderboardIcon({ coins,rank, name, avatar }: Props) {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   return (
-    <div>
-      {rank !== 1 && (
-        <>
-          <div className="px-4 pb-1">
-            <div className='h-[2px] w-full rounded-xl bg-slate-300 dark:bg-slate-800/50' />
-          </div>
-        </>
-      )}
-      <div className="flex items-center gap-2 px-5">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500">
-          #{rank}
-        </span>
-        <span>
-          <Avatar img={avatar} rounded={true} alt="avatar" size="sm" />
-        </span>
-        <span>{name}</span>
-        <span className="flex ml-auto">
-          <Image src={darkMode ? logo_white : logo_black} width={25} height={25} alt="LMFAO coins"/> {coins}</span>
+    <a target="_blank" href={`/u/${name}`} rel="noreferrer">
+      <div className="hover:bg-slate-500/20 dark:hover:bg-slate-500/30 py-1 mx-5 hover:cursor-pointer rounded-md">
+        <div className="flex items-center gap-2 px-3">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500">
+            #{rank}
+          </span>
+          <span>
+            <Avatar img={avatar} rounded={true} alt="avatar" size="sm" />
+          </span>
+          <span>{name}</span>
+          <span className="flex ml-auto">
+            <Image
+              src={darkMode ? logo_white : logo_black}
+              width={25}
+              height={25}
+              alt="LMFAO coins"
+            />{" "}
+            {coins}
+          </span>
+        </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -57,15 +60,24 @@ function Leaderboard({ rank }: { rank: number }) {
       <div className="w-full py-3 rounded-2xl bg-slate-200 dark:bg-slate-500/30 text-black dark:text-white">
         <h1 className="text-lg text-center">Leaderboard</h1>
         <div className="flex flex-col h-48 gap-1 py-2 overflow-y-scroll scrollbar-thin xl:h-72 2xl:h-96 ">
-          <span className="px-5">Your rank: #{rank}</span>
+          <span className="px-5">
+            Your rank: <span className='rounded-full text-black inline-flex w-8 h-8 justify-center items-center dark:bg-[#ffcc00] bg-yellow-300'>#{rank}</span>
+          </span>
           {data.map((user, index) => (
-            <LeaderboardIcon
-              key={index}
-              rank={index + 1}
-              coins={user.lmfaoCoins}
-              name={user.name}
-              avatar={`https://unavatar.io/twitter/${user.name}`}
-            />
+            <>
+              {index !== 0 && (
+                <div className="mx-4 px-3">
+                  <div className="rounded-2xl h-[2px] w-full bg-slate-300 dark:bg-slate-800/60"></div>
+                </div>
+              )}
+              <LeaderboardIcon
+                key={index}
+                rank={index + 1}
+                coins={user.lmfaoCoins}
+                name={user.name}
+                avatar={`https://unavatar.io/twitter/${user.name}`}
+              />
+            </>
           ))}
         </div>
       </div>

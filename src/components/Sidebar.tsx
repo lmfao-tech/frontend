@@ -22,6 +22,43 @@ function SidebarIcon({ icon }: { icon: React.ReactNode }) {
   );
 }
 
+function Item({
+  link,
+  tip,
+  icon,
+  check,
+  home,
+}: {
+  check?: string;
+  home?: boolean;
+  link: string;
+  tip: string;
+  icon: JSX.Element | JSX.Element[];
+}) {
+  const router = useRouter();
+  const currentPath = router.pathname;
+
+  let isHere = currentPath.startsWith(check ? check : link);
+
+  if (home) {
+    isHere = currentPath === "/";
+  }
+
+  return (
+    <Link href={link}>
+      <div
+        className={`rounded-full w-12 h-12 flex justify-center items-center ${
+          isHere && "dark:bg-slate-700/50 bg-slate-400/20"
+        }`}
+        data-tip={tip}
+        data-place="right"
+      >
+        <SidebarIcon icon={icon} />
+      </div>
+    </Link>
+  );
+}
+
 function Sidebar() {
   const { mod } = useHaha();
   const router = useRouter();
@@ -61,17 +98,19 @@ function Sidebar() {
           </div>
         </Link>
 
-        <Link href="/create">
-          <div
-            className={`rounded-full ${
-              isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
-            }`}
-          >
-            <SidebarIcon
-              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-            />
-          </div>
-        </Link>
+        {session && (
+          <Link href="/create">
+            <div
+              className={`rounded-full ${
+                isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
+              }`}
+            >
+              <SidebarIcon
+                icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+              />
+            </div>
+          </Link>
+        )}
 
         {mod && (
           <Link href="/mod">
@@ -83,17 +122,19 @@ function Sidebar() {
           </Link>
         )}
 
-        <Link href={`/u/${session?.twitter?.twitterHandle}`}>
-          <div
-            className={`rounded-full ${
-              isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
-            }`}
-          >
-            <SidebarIcon
-              icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-            />
-          </div>
-        </Link>
+        {session && (
+          <Link href={`/u/${session?.twitter?.twitterHandle}`}>
+            <div
+              className={`rounded-full ${
+                isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
+              }`}
+            >
+              <SidebarIcon
+                icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+              />
+            </div>
+          </Link>
+        )}
 
         <Link href="/dash">
           <div
@@ -111,86 +152,48 @@ function Sidebar() {
       {/* Larger devices */}
       <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
         <div className="ml-10 space-y-7">
-          <Link href="/">
-            <div
-              data-tip="Home"
-              data-place="right"
-              className={`rounded-full ${
-                isHome && "dark:bg-slate-700/50 bg-slate-500/10"
-              }`}
-            >
-              <SidebarIcon
-                icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
-              />
-            </div>
-          </Link>
+          <Item
+            link="/"
+            tip="Home"
+            icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
+            home={true}
+          />
 
-          <Link href="/community">
-            <div
-              data-tip="Community"
-              data-place="right"
-              className={`rounded-full ${
-                isCommunity && "dark:bg-slate-700/50 bg-slate-500/10"
-              }`}
-            >
-              <SidebarIcon
-                icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
-              />
-            </div>
-          </Link>
+          <Item
+            link="/community"
+            tip="Community"
+            icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+          />
 
-          <Link href={`/u/${session?.twitter?.twitterHandle}`}>
-            <div
-              data-tip="Profile"
-              data-place="right"
-              className={`rounded-full ${
-                isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
-            >
-              <SidebarIcon
-                icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
-              />
-            </div>
-          </Link>
+          {session && (
+            <Item
+              link={`/u/${session?.twitter?.twitterHandle}`}
+              tip="Profile"
+              icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+              check="/u"
+            />
+          )}
 
-          <Link href="/dash">
-            <div
-              data-tip="Dashboard"
-              data-place="right"
-              className={`rounded-full ${
-                isDashboard && "dark:bg-slate-700/50 bg-slate-500/10"
-              }`}
-            >
-              <SidebarIcon
-                icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
-                data-tip="Dashboard"
-              />
-            </div>
-          </Link>
-          <Link href="/create">
-            <div
-              data-tip="Create"
-              data-place="right"
-              className={`rounded-full ${
-                isCreate && "dark:bg-slate-700/50 bg-slate-500/10"
-              }`}
-            >
-              <SidebarIcon
-                icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-                data-tip="Upload"
-              />
-            </div>
-          </Link>
+          <Item
+            link="/dash"
+            tip="Dashboard"
+            icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
+          />
+
+          {session && (
+            <Item
+              link="/create"
+              tip="Create"
+              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+            />
+          )}
 
           {mod && (
-            <Link href="/mod">
-              <div>
-                <SidebarIcon
-                  icon={<FilterIcon className="w-6 h-6 text-red-500" />}
-                  data-tip="Moderation"
-                />
-              </div>
-            </Link>
+            <Item
+              link="/mod"
+              tip="Moderation"
+              icon={<FilterIcon className="w-6 h-6 text-red-500" />}
+            />
           )}
         </div>
 

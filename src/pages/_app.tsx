@@ -9,6 +9,7 @@ import { AppContext, AppInitialProps, AppLayoutProps } from "next/app";
 import type { NextComponentType } from "next";
 import { ReactNode } from "react";
 import HelpProvider from "~/contexts/HelpContext";
+import { Toaster } from "react-hot-toast";
 
 const LmfaoTech: NextComponentType<
   AppContext,
@@ -26,6 +27,7 @@ const LmfaoTech: NextComponentType<
             <link rel="shortcut icon" href="/icons/maskable.png" />
             <link rel="apple-touch-icon" href="/icons/maskable.png"></link>
           </Head>
+          <Toaster />
           {getLayout(<Component {...pageProps} />)}
           <Script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></Script>
         </HelpProvider>
