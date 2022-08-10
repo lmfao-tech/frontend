@@ -7,11 +7,11 @@ import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
 import { Spinner } from "flowbite-react";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 const Home: NextPageWithLayout = () => {
   const [last, setLast] = useState<number>(0);
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
   
   let {
     memes,

@@ -8,13 +8,13 @@ import FeedPage from "~/components/layouts/FeedPage";
 import { Spinner } from "flowbite-react";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
 import { useHaha } from "~/contexts/HahaContext";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 const Moderation: NextPageWithLayout = () => {
   const { coins, deletePost, follow, like, likes, mod } = useHaha();
   const [last, setLastTweet] = useState<number>(0);
 
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
 
   let {
     memes,

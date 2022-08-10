@@ -9,13 +9,13 @@ import NextPageWithLayout from "~/types/NextPageWithLayout";
 import Create from "~/components/Create";
 import { Status } from "~/types/Request";
 import Head from "next/head";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 const CreatePage: NextPageWithLayout = () => {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState(0);
 
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
 
   const [status, setStatus] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);

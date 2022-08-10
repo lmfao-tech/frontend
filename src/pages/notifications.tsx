@@ -11,7 +11,7 @@ import darkModeAtom from "~/atoms/darkmode";
 import { useAtom } from "jotai";
 import Notifications from "~/components/Notification";
 import Head from "next/head";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 const NotificationCenter = dynamic(async () => (await import("@novu/notification-center")).NotificationCenter, {
   ssr: false
@@ -21,7 +21,7 @@ const Notification: NextPageWithLayout = () => {
 
   const { data: session } = useSession();
   const [dark, setDark] = useAtom(darkModeAtom);
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
 
   return (
     <div className="">

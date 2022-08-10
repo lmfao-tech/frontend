@@ -3,6 +3,7 @@ import { useNotifications } from '@novu/notification-center';
 import { Spinner } from 'flowbite-react';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
+import { useNotifs } from '~/contexts/NotifyContext';
 
 function timeDifference(current: Date, previous: Date) {
 
@@ -52,10 +53,12 @@ const Notifications = () => {
     } = useNotifications();
 
     const [unseens, setUnseens] = React.useState(0);
-
+    const { readAll } = useNotifs();
+    
     const [nLoading, setNLoading] = React.useState(false);
 
     useEffect(() => {
+        
         let tutol = 0;
         for (const notif of notifications) {
             if (!notif.seen) {
@@ -63,7 +66,8 @@ const Notifications = () => {
             }
         }
         setUnseens(tutol);
-    }, [notifications])
+        readAll()
+    }, [notifications, readAll])
 
     return (
         <div className="p-5 lg:p-10 lg:px-36">
@@ -73,7 +77,6 @@ const Notifications = () => {
 
                 <div className='flex mt-2 flex-col gap-2'>
                     {notifications.map((notif, index) => {
-                        !notif.seen && markAsSeen(notif._id)
                         return (
                             <div className='border relative flex gap-2 items-center border-gray-400/20 bg-gray-400/20 dark:border-[#292929] dark:bg-[#292929] rounded-md p-2' key={index}>
                                 <div className={`inline-block ${notif.seen ? "dark:bg-white bg-gray-700" : "dark:bg-gray-500 bg-gray-400"} w-1 rounded-md h-7 min-h-full`} />

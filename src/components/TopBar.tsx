@@ -5,13 +5,13 @@ import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
 import { useRouter } from "next/router";
 import { BellIcon } from "@heroicons/react/outline";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 function TopBar() {
 
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
   const router = useRouter();
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
 
   return (
     <div className="z-auto bg-white border-b-2 dark:bg-[#242424] dark:shadow-md dark:border-none">

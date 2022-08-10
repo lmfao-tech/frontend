@@ -7,12 +7,12 @@ import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Head from "next/head";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
 import { ChartBarIcon, HeartIcon, SparklesIcon } from "@heroicons/react/solid";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 const dash: NextPageWithLayout = () => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
 
   return (
     <div>

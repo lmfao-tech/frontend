@@ -16,7 +16,7 @@ import usePostFeed from "~/hooks/usePostFeed";
 import Post from "~/types/Post";
 import FeedPost from "~/components/FeedPost";
 import { Status } from "../../types/Request";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 function UserProfile({ u, user }: any) {
   const router = useRouter();
@@ -33,7 +33,7 @@ function UserProfile({ u, user }: any) {
     });
   const observer = useRef<IntersectionObserver>();
   
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
 
   const lastMemeRef = useCallback(
     (node: any) => {

@@ -7,7 +7,7 @@ import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
 import { Spinner } from "flowbite-react";
-import useNotifs from "~/hooks/useNotifs";
+import { useNotifs } from '~/contexts/NotifyContext';
 
 const Community: NextPageWithLayout = () => {
   const [last, setLastTweet] = useState<number>(0);
@@ -20,7 +20,7 @@ const Community: NextPageWithLayout = () => {
   });
   const observer = useRef<IntersectionObserver>();
 
-  const unseens = useNotifs();
+  const { unseens } = useNotifs();
 
   const lastMemeRef = useCallback(
     (node: any) => {
