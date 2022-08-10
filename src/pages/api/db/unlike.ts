@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
 import { prisma } from '~/db/client';
+import { Novu } from '@novu/node';
 
 interface Request extends NextApiRequest {
     query: {
@@ -58,6 +59,13 @@ export default async function handler(
                 likes: true
             }
         })
+
+        const novu = new Novu(process.env.NOVU!);
+
+        novu.subscribers.identify(session?.twitter.twitterHandle!, {
+            firstName: session?.user.name,
+        })
+
     }
 
     if (user.likes.find(
