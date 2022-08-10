@@ -76,7 +76,7 @@ const HahaProvider = ({ children }: any) => {
     const data: Resp = await resp.json();
 
     if (data.success === Status.Success) {
-      const r = await fetch(`api/db/like?id=${id}&authorId=${authorId}`);
+      const r = await fetch(`/api/db/like?id=${id}&authorId=${authorId}`);
       const d: Resp = await r.json();
       if (d.success === Status.Success) {
         setLmfaoCoins(d.data.user.lmfaoCoins);
@@ -89,7 +89,7 @@ const HahaProvider = ({ children }: any) => {
     const data: Resp = await resp.json();
 
     if (data.success === Status.Success) {
-      const r = await fetch(`api/db/unlike?id=${id}&authorId=${authorId}`);
+      const r = await fetch(`/api/db/unlike?id=${id}&authorId=${authorId}`);
       const d: Resp = await r.json();
       if (d.success === Status.Success) {
         setHahaCoins(d.data.user.hahaCoins);

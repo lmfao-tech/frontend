@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
@@ -53,6 +54,10 @@ function UserProfile({ u, user }: any) {
 
   return (
     <div className="grid lg:grid-cols-6">
+      <Head>
+        <title>@{user.name} | LMFAO.tech</title>
+        <meta property="og:image" content="/og-image.png" />
+      </Head>
       <div className="block lg:hidden w-full col-span-4">
         {/* Display the user object*/}
         {user && <User user={user} pfp={pfp} meta={meta} />}
