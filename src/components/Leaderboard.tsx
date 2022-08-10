@@ -95,7 +95,6 @@ function Leaderboard({ rank }: { rank: number }) {
         </span>
         <div className="flex flex-col h-48 py-2 overflow-y-scroll scrollbar-thin xl:h-72 2xl:h-96 ">
           {data.map((user, index) => (
-            <>
               <LeaderboardIcon
                 key={index}
                 rank={index + 1}
@@ -106,7 +105,6 @@ function Leaderboard({ rank }: { rank: number }) {
                 onMouseOver={() => setOver(index + 1)}
                 onMouseLeave={() => setOver(0)}
               />
-            </>
           ))}
         </div>
       </div>

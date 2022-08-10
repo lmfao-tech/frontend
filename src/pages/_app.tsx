@@ -11,7 +11,6 @@ import { ReactNode } from "react";
 import HelpProvider from "~/contexts/HelpContext";
 import { Toaster } from "react-hot-toast";
 import { AnimatePresence } from "framer-motion";
-import { NovuProvider } from "@novu/notification-center";
 
 const LmfaoTech: NextComponentType<
   AppContext,
@@ -23,24 +22,19 @@ const LmfaoTech: NextComponentType<
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
       <HahaProvider>
-        <NovuProvider
-          subscriberId={session?.twitter.twitterHandle}
-          applicationIdentifier={process.env.NEXT_PUBLIC_NOVUI!}
-        >
-          <HelpProvider>
-            <Head>
-              <link rel="manifest" href="/manifest.json" />
-              <link rel="shortcut icon" href="/icons/maskable.png" />
-              <link rel="apple-touch-icon" href="/icons/maskable.png"></link>
-            </Head>
-            <Toaster />
-            <AnimatePresence>
-              <div id="modals"></div>
-            </AnimatePresence>
-            {getLayout(<Component {...pageProps} />)}
-            <Script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></Script>
-          </HelpProvider>
-        </NovuProvider>
+        <HelpProvider>
+          <Head>
+            <link rel="manifest" href="/manifest.json" />
+            <link rel="shortcut icon" href="/icons/maskable.png" />
+            <link rel="apple-touch-icon" href="/icons/maskable.png"></link>
+          </Head>
+          <Toaster />
+          <AnimatePresence>
+            <div id="modals"></div>
+          </AnimatePresence>
+          {getLayout(<Component {...pageProps} />)}
+          <Script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></Script>
+        </HelpProvider>
       </HahaProvider>
     </SessionProvider>
   );

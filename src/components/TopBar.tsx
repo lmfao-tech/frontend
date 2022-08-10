@@ -35,7 +35,7 @@ function TopBar() {
           </div>
         </button>
 
-        <button onClick={() => router.push("/noti")} className="relative ml-auto w-9 h-9 bg-slate-200 dark:text-white dark:bg-slate-700 p-2 rounded-md">
+        <button onClick={() => router.push("/notifications")} className="relative ml-auto w-9 h-9 bg-slate-200 dark:text-white dark:bg-slate-700 p-2 rounded-md">
           {unseens > 0 && <div className="text-[10px] rounded-full bg-rose-400 absolute -top-1 flex justify-center items-center -right-1 w-4 h-4">{unseens > 9 ? "9+" : unseens}</div>}
           <BellIcon className="w-5 h-5" />
         </button>
