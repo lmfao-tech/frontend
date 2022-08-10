@@ -1,6 +1,7 @@
 import { HeartIcon, UserAddIcon, UserRemoveIcon } from '@heroicons/react/solid';
 import { useNotifications } from '@novu/notification-center';
 import { Spinner } from 'flowbite-react';
+import { motion } from 'framer-motion';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { useNotifs } from '~/contexts/NotifyContext';
@@ -54,11 +55,11 @@ const Notifications = () => {
 
     const [unseens, setUnseens] = React.useState(0);
     const { readAll } = useNotifs();
-    
+
     const [nLoading, setNLoading] = React.useState(false);
 
     useEffect(() => {
-        
+
         let tutol = 0;
         for (const notif of notifications) {
             if (!notif.seen) {
@@ -77,36 +78,71 @@ const Notifications = () => {
 
                 <div className='flex mt-2 flex-col gap-2'>
                     {notifications.map((notif, index) => {
-                        return (
-                            <div className='border relative flex gap-2 items-center border-gray-400/20 bg-gray-400/20 dark:border-[#292929] dark:bg-[#292929] rounded-md p-2' key={index}>
-                                <div className={`inline-block ${notif.seen ? "dark:bg-white bg-gray-700" : "dark:bg-gray-500 bg-gray-400"} w-1 rounded-md h-7 min-h-full`} />
-                                <div className='inline-block'>
-                                    <h1 className="text-sm flex items-center justify-center gap-2 text-gray-800 dark:text-white">
-                                        {notif.templateIdentifier === 'likedyourpost' && (
-                                            <HeartIcon
-                                                className={`w-6 h-6 text-red-600`} />
-                                        )}
-                                        {notif.templateIdentifier === 'followedyou' && (
-                                            <>
-                                                {
-                                                    notif.payload.what === "followed" ? (
-                                                        <UserAddIcon
-                                                            className={`w-6 h-6 text-blue-300`}
-                                                        />
-                                                    ) : (
-                                                        <UserRemoveIcon
-                                                            className={`w-6 h-6 text-red-400`}
-                                                        />
-                                                    )
-                                                }
-                                            </>
-                                        )}
-                                        {`${notif.content}`}<br />
-                                        <span className='text-xs text-gray-500 font-bold'>{timeDifference((new Date), new Date(notif.createdAt))}</span>
-                                    </h1>
-                                </div>
-                            </div>
-                        );
+
+                        if (notif.cta.data.url) {
+
+                            return (
+                                <motion.a initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} whileHover={{ scale: 1.1 }} href={notif.cta.data.url} target="_blank" className='border relative flex gap-2 items-center border-gray-400/20 bg-gray-400/20 dark:border-[#292929] dark:bg-[#292929] rounded-md p-2' key={index} rel="noreferrer">
+                                    <div className={`inline-block ${notif.seen ? "dark:bg-white bg-gray-700" : "dark:bg-gray-500 bg-gray-400"} w-1 rounded-md h-7 min-h-full`} />
+                                    <div className='inline-block'>
+                                        <h1 className="text-sm flex items-center justify-center gap-2 text-gray-800 dark:text-white">
+                                            {notif.templateIdentifier === 'likedyourpost' && (
+                                                <HeartIcon
+                                                    className={`w-6 h-6 text-red-600`} />
+                                            )}
+                                            {notif.templateIdentifier === 'followedyou' && (
+                                                <>
+                                                    {
+                                                        notif.payload.what === "followed" ? (
+                                                            <UserAddIcon
+                                                                className={`w-6 h-6 text-blue-300`}
+                                                            />
+                                                        ) : (
+                                                            <UserRemoveIcon
+                                                                className={`w-6 h-6 text-red-400`}
+                                                            />
+                                                        )
+                                                    }
+                                                </>
+                                            )}
+                                            {`${notif.content}`}<br />
+                                            <span className='text-xs text-gray-500 font-bold'>{timeDifference((new Date), new Date(notif.createdAt))}</span>
+                                        </h1>
+                                    </div>
+                                </motion.a>
+                            );
+                        } else {
+                            return (
+                                <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} whileHover={{ scale: 1.1 }} className='border relative flex gap-2 items-center border-gray-400/20 bg-gray-400/20 dark:border-[#292929] dark:bg-[#292929] rounded-md p-2' key={index}>
+                                    <div className={`inline-block ${notif.seen ? "dark:bg-white bg-gray-700" : "dark:bg-gray-500 bg-gray-400"} w-1 rounded-md h-7 min-h-full`} />
+                                    <div className='inline-block'>
+                                        <h1 className="text-sm flex items-center justify-center gap-2 text-gray-800 dark:text-white">
+                                            {notif.templateIdentifier === 'likedyourpost' && (
+                                                <HeartIcon
+                                                    className={`w-6 h-6 text-red-600`} />
+                                            )}
+                                            {notif.templateIdentifier === 'followedyou' && (
+                                                <>
+                                                    {
+                                                        notif.payload.what === "followed" ? (
+                                                            <UserAddIcon
+                                                                className={`w-6 h-6 text-blue-300`}
+                                                            />
+                                                        ) : (
+                                                            <UserRemoveIcon
+                                                                className={`w-6 h-6 text-red-400`}
+                                                            />
+                                                        )
+                                                    }
+                                                </>
+                                            )}
+                                            {`${notif.content}`}<br />
+                                            <span className='text-xs text-gray-500 font-bold'>{timeDifference((new Date), new Date(notif.createdAt))}</span>
+                                        </h1>
+                                    </div>
+                                </motion.div>
+                            )
+                        }
                     })}
                     {hasNextPage && (
                         <div className="flex justify-center items-center w-full">
