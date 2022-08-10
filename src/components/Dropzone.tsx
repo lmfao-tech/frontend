@@ -26,6 +26,7 @@ export default function Dropzone({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={URL.createObjectURL(image)}
+          className="max-h-96"
           alt="Image to be uploaded"
           width={350}
         />
@@ -40,11 +41,6 @@ export default function Dropzone({
         </button>
       </div>
     );
-  }
-
-  function publishMeme(e: any) {
-    e.preventDefault();
-    publish(image!);
   }
 
   function onDrag() {
@@ -128,12 +124,6 @@ export default function Dropzone({
           <h1 className="text-xl">Drag your image here or click to select</h1>
         </div>
       </div>
-      <button
-        onClick={publishMeme}
-        className="px-5 py-3 my-10 text-white bg-blue-500 rounded"
-      >
-        Publish
-      </button>
     </div>
   );
 }

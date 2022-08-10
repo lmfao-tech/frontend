@@ -24,7 +24,7 @@ const CreatePage: NextPageWithLayout = () => {
     av = "";
   }
 
-  async function publish(image:File | null) {
+  async function publish(image: File | null) {
     if (image === null) {
       toast.error("Please upload an image", {
         style: {
@@ -86,7 +86,7 @@ const CreatePage: NextPageWithLayout = () => {
       <Head>
         <title>Create | LMFAO.tech</title>
       </Head>
-      <div className="pb-20">
+      <div className="pb-20 md:pb-0">
         <div className="flex flex-col items-center px-3 pt-10 dark:bg-[#242424] md:pt-28 dark:text-white">
           <h1 className="text-2xl font-bold text-center md:text-3xl">
             Upload your own meme
@@ -108,24 +108,30 @@ const CreatePage: NextPageWithLayout = () => {
               {
                 name: "Upload",
                 component: (
-                  <Dropzone
-                    onFileDrop={(file: File[]) => {
-                      setImage(file[0]!);
-                    }}
-                    maxFiles={1}
-                    image={image}
-                    setImage={setImage}
-                    publish={publish}
-                  />
+                  <div className="flex flex-col justify-center items-center gap-4">
+                    <Dropzone
+                      onFileDrop={(file: File[]) => {
+                        setImage(file[0]!);
+                      }}
+                      maxFiles={1}
+                      image={image}
+                      setImage={setImage}
+                      publish={publish}
+                    />
+                    <button
+                      onClick={() => publish(image)}
+                      className="px-5 py-3 my-10 text-white bg-blue-500 rounded"
+                    >
+                      Publish
+                    </button>
+                  </div>
                 ),
               },
               {
                 name: "Meme Maker",
                 component: (
                   <div className="w-full">
-                    <Create
-                      publish={publish}
-                    />
+                    <Create publish={publish} />
                   </div>
                 ),
               },
