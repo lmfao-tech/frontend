@@ -1,7 +1,7 @@
 {
     "theme_color": "#222e42",
     "background_color": "#1e293b",
-    "display": "standalone",
+    "display": "fullscreen",
     "scope": "/",
     "start_url": "/",
     "name": "LMFAO.tech",
