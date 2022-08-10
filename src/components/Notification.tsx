@@ -66,7 +66,7 @@ const Notifications = () => {
     }, [notifications])
 
     return (
-        <div className="p-10 lg:px-36">
+        <div className="p-5 lg:p-10 lg:px-36">
             <Head>
                 <title>{unseens > 0 ? `(${unseens}) ` : " "}Notifications | LMFAO.tech</title>
             </Head>

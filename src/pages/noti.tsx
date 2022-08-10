@@ -22,12 +22,7 @@ const Notification: NextPageWithLayout = () => {
 
   return (
     <div className="">
-      <NovuProvider
-        subscriberId={session?.twitter.twitterHandle}
-        applicationIdentifier={process.env.NEXT_PUBLIC_NOVUI!}
-      >
-        <Notifications />
-      </NovuProvider>
+      <Notifications />
     </div>
   )
 }

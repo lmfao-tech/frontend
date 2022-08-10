@@ -4,11 +4,14 @@ import { useAtom } from "jotai";
 import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
 import { useRouter } from "next/router";
+import { BellIcon } from "@heroicons/react/outline";
+import useNotifs from "~/hooks/useNotifs";
 
 function TopBar() {
 
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
   const router = useRouter();
+  const unseens = useNotifs();
 
   return (
     <div className="z-auto bg-white border-b-2 dark:bg-[#242424] dark:shadow-md dark:border-none">
@@ -30,6 +33,11 @@ function TopBar() {
               </div>
             </div>
           </div>
+        </button>
+
+        <button onClick={() => router.push("/noti")} className="relative ml-auto w-9 h-9 bg-slate-200 dark:text-white dark:bg-slate-700 p-2 rounded-md">
+          {unseens > 0 && <div className="text-[10px] rounded-full bg-rose-400 absolute -top-1 flex justify-center items-center -right-1 w-4 h-4">{unseens > 9 ? "9+" : unseens}</div>}
+          <BellIcon className="w-5 h-5" />
         </button>
 
         <button
