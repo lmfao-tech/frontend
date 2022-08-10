@@ -67,9 +67,6 @@ const Notifications = () => {
 
     return (
         <div className="p-5 lg:p-10 lg:px-36">
-            <Head>
-                <title>{unseens > 0 ? `(${unseens}) ` : " "}Notifications | LMFAO.tech</title>
-            </Head>
             <h1 className="relative text-2xl font-bold dark:text-white">
                 Notifications
                 {unseens > 0 && <div className="absolute top-0 -left-2 h-2 w-2 rounded-full bg-red-600" />}

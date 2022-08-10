@@ -7,10 +7,12 @@ import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
 import { Spinner } from "flowbite-react";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
+import useNotifs from "~/hooks/useNotifs";
 
 const Home: NextPageWithLayout = () => {
   const [last, setLast] = useState<number>(0);
-
+  const unseens = useNotifs();
+  
   let {
     memes,
     loading,
@@ -33,14 +35,14 @@ const Home: NextPageWithLayout = () => {
       if (node) observer.current.observe(node);
     },
     [loading, memes]
-  );
+    );
 
 
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Home | LMFAO.tech</title>
+        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Home | LMFAO.tech</title>
       </Head>
 
       <div className="flex flex-col w-full mb-20 overflow-hidden shadow-sm md:md-0">
