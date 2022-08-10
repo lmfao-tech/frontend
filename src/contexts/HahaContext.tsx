@@ -21,8 +21,8 @@ interface haha {
   unlike: (id: string | number, authorId: string | number) => Promise<void>;
   retweet: (id: string | number) => Promise<any>;
   unretweet: (id: string | number) => Promise<any>;
-  follow: (id: string | number) => Promise<void>;
-  unfollow: (id: string | number) => Promise<void>;
+  follow: (id: string | number, username: string) => Promise<void>;
+  unfollow: (id: string | number, username: string) => Promise<void>;
   post: () => Promise<void>;
   deletePost: (id: string) => Promise<void>;
   mod: boolean;
@@ -111,10 +111,12 @@ const HahaProvider = ({ children }: any) => {
   const deletePost = async (id: string) => {};
   const revivePost = async (id: string) => {};
 
-  const follow = async (id: string | number) => {
-    const resp = await fetch(`/api/twitter/tweet/follow?id=${id}`);
+  const follow = async (id: string | number, username: string) => {
+    const resp = await fetch(`/api/twitter/tweet/follow?id=${id}&username=${username}`);
+    const data = await resp.json();
+    console.log(data);
     const old = localStorage.getItem("follows");
-
+    
     if (old) {
       const ummYeah = JSON.parse(old);
       ummYeah[`${id}`] = true;
@@ -126,8 +128,10 @@ const HahaProvider = ({ children }: any) => {
     }
   };
 
-  const unfollow = async (id: string | number) => {
-    const resp = await fetch(`/api/twitter/tweet/unfollow?id=${id}`);
+  const unfollow = async (id: string | number, username: string) => {
+    const resp = await fetch(`/api/twitter/tweet/unfollow?id=${id}&username=${username}`);
+    const data = await resp.json();
+    console.log(data);
     const old = localStorage.getItem("follows");
 
     if (old) {
