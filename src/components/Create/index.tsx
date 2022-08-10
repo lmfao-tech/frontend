@@ -60,12 +60,7 @@ function selectFile(
   });
 }
 
-
-function Create({
-  publish
-}: {
-  publish: (image: File) => void;
-}) {
+function Create({ publish }: { publish: (image: File) => void }) {
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
   const [memeTemplateView, setMemeTemplate] =
@@ -77,7 +72,7 @@ function Create({
 
   const [modalOpen, setModalOpen] = useState(false);
   const [dark, setDark] = useAtom(darkModeAtom);
-  
+
   const tms = useRef<any>(null);
 
   useEffect(() => {
@@ -87,9 +82,8 @@ function Create({
     for (let i = 1; i <= total; i++) {
       templates.push(`/templates/${i}.jpg`);
     }
-    setMemeTemplates(templates); 
-
-  }, [])
+    setMemeTemplates(templates);
+  }, []);
 
   function dragMoveListener(event: any) {
     var target = event.target;
@@ -111,6 +105,28 @@ function Create({
     ) {
       canvas.toBlob((blob) => saveAs(blob!, `lmfao-tech-${Date.now()}.png`));
     });
+  };
+
+  const takeInputAndUseTemplate = (e: FormEvent) => {
+    e.preventDefault();
+
+    // Take input for image
+    selectFile("image/*")
+      .then((file) => {
+        // Get image link
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setSelectedImage(e.target?.result as string);
+        };
+        reader.readAsDataURL(file as File);
+      })
+      .catch(() => {
+        toast.error("Please select an image");
+      })
+      .finally(() => {
+        setMemeTemplate(selectedImage);
+        setModalOpen(false);
+      });
   };
 
   const publishMeme = (e: any) => {
@@ -375,66 +391,92 @@ function Create({
     <Container>
       <HomeCategory>
         <div className="flex justify-center items-center">
-          <button onClick={() => setModalOpen(true)} className="text-white bg-blue-500 rounded-md px-5 py-3">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="text-white bg-blue-500 rounded-md px-5 py-3"
+          >
             Choose a meme template
           </button>
         </div>
-        {modalOpen && ReactDOM.createPortal((
-          <div className="bg-black/40 lg:bg-black/30 flex justify-center items-center p-5 lg:p-52 fixed w-screen h-screen z-[10000]">
-            <motion.div
-              initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }}
-              className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[80vh] ${dark ? "bg-gray-600 text-white" : "bg-gray-200"}`}
-            >
-              <button
-                onClick={() => setModalOpen(false)}
-                className={`focus:bg-gray-500 ${!dark && "hover:text-white focus:text-white"
-                  } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
+        {modalOpen &&
+          ReactDOM.createPortal(
+            <div className="bg-black/40 lg:bg-black/30 flex justify-center items-center p-5 lg:p-52 fixed w-screen h-screen z-[10000]">
+              <motion.div
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                exit={{ scaleY: 0 }}
+                className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[80vh] ${
+                  dark ? "bg-gray-600 text-white" : "bg-gray-200"
+                }`}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                  className=""
-                  width="1.5em"
-                  height="1.5em"
-                  viewBox="0 0 24 24"
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className={`focus:bg-gray-500 ${
+                    !dark && "hover:text-white focus:text-white"
+                  } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
                 >
-                  <path
-                    fill="currentColor"
-                    d="m12 13.4l-4.9 4.9q-.275.275-.7.275q-.425 0-.7-.275q-.275-.275-.275-.7q0-.425.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275q.425 0 .7.275q.275.275.275.7q0 .425-.275.7L13.4 12l4.9 4.9q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275Z"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    className=""
+                    width="1.5em"
+                    height="1.5em"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m12 13.4l-4.9 4.9q-.275.275-.7.275q-.425 0-.7-.275q-.275-.275-.275-.7q0-.425.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275q.425 0 .7.275q.275.275.275.7q0 .425-.275.7L13.4 12l4.9 4.9q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275Z"
+                    ></path>
+                  </svg>
+                </button>
 
-              <div className="p-3">
+                <div className="p-3">
+                  <h1 className="text-center font-bold text-2xl my-2">
+                    Choose a meme template
+                  </h1>
 
-                <h1 className="text-center font-bold text-2xl my-2">Choose a meme template</h1>
-                
-                <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-                  <Masonry ref={tms} className="flex gap-5 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200">
-                    {memeTemplates.map((template, index) => {
-                      return (
-                        <button
-                          key={index}
-                          className={`card p-1 border ${!dark && "border-gray-800"} m-1`}
-                          onClick={useTemplate}
-                        >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={template}
-                            alt="LMFAO Template"
-                            className="w-full"
-                          />
-                        </button>
-                      );
-                    })}
-                  </Masonry>
-                </ResponsiveMasonry>
-              
-              </div>
-
-            </motion.div>
-          </div>
-        ), document.getElementById('modals')!)}
+                  <ResponsiveMasonry
+                    columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+                  >
+                    <Masonry
+                      ref={tms}
+                      className="flex gap-5 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
+                    >
+                      <button
+                        className={`card p-1 border h-20 ${
+                          !dark && "border-gray-800"
+                        } m-1`}
+                        onClick={(e) => takeInputAndUseTemplate(e)}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        {/* Custom image */}
+                        Custom template
+                      </button>
+                      {memeTemplates.map((template, index) => {
+                        return (
+                          <button
+                            key={index}
+                            className={`card p-1 border ${
+                              !dark && "border-gray-800"
+                            } m-1`}
+                            onClick={useTemplate}
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={template}
+                              alt="LMFAO Template"
+                              className="w-full"
+                            />
+                          </button>
+                        );
+                      })}
+                    </Masonry>
+                  </ResponsiveMasonry>
+                </div>
+              </motion.div>
+            </div>,
+            document.getElementById("modals")!
+          )}
       </HomeCategory>
 
       {/*  */}
@@ -459,13 +501,36 @@ function Create({
               className="btn btn-secondary z-10 dark:fill-white flex justify-center items-center gap-2 border"
               onClick={downloadMeme}
             >
-              Download <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 20q-.825 0-1.412-.587Q4 18.825 4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 20 18 20Zm6-4l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11Z"></path></svg>
+              Download{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M6 20q-.825 0-1.412-.587Q4 18.825 4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 20 18 20Zm6-4l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11Z"
+                ></path>
+              </svg>
             </ActionButton>
             <ActionButton
               onClick={publishMeme}
               className="btn btn-primary z-10 bg-blue-600 text-white fill-white flex justify-center items-center gap-2 "
             >
-              <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4ZM5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h14q.825 0 1.413.587Q21 4.175 21 5v14q0 .825-.587 1.413Q19.825 21 19 21Z"></path></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4ZM5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h14q.825 0 1.413.587Q21 4.175 21 5v14q0 .825-.587 1.413Q19.825 21 19 21Z"
+                ></path>
+              </svg>
               Publish
             </ActionButton>
           </Actions>
@@ -593,7 +658,11 @@ function Create({
             <div>
               <p>Stroke color:</p>
               <div className="inputStroke">
-                <input type="color" className="w-24 h-10 p-1 bg-gray-200 dark:bg-gray-700 rounded-sm" defaultValue="#000000" />
+                <input
+                  type="color"
+                  className="w-24 h-10 p-1 bg-gray-200 dark:bg-gray-700 rounded-sm"
+                  defaultValue="#000000"
+                />
               </div>
             </div>
           </div>

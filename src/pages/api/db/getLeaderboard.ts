@@ -22,7 +22,7 @@ export default async function handler(
         orderBy: {
             lmfaoCoins: "desc"
         },
-        take: 10
+        take: 25
     });
 
     // Remove email from every user
