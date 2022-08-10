@@ -55,7 +55,7 @@ function Item({
     <Link passHref href={link}>
       <a className="relative">
         {isHere && (
-          <motion.div layoutId="on" initial={false} transition={spring} className="absolute top-0 right-0 rounded-full w-12 h-12 flex justify-center items-center dark:bg-slate-700/50 bg-slate-400/20"></motion.div>
+          <motion.div layoutId="on" initial={false} transition={spring} className="absolute top-0 right-0 rounded-full w-12 h-12 dark:bg-slate-700/50 bg-slate-400/20"></motion.div>
         )}
         <div
           className={`rounded-full w-12 h-12 flex justify-center items-center`}
