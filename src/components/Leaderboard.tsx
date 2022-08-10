@@ -19,7 +19,7 @@ function LeaderboardIcon({ coins,rank, name, avatar }: Props) {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   return (
-    <a href={`/u/${name}`} target="_blank">
+    <a href={`/u/${name}`} target="_blank" rel="noreferrer">
       <div className="py-1 mx-5 rounded-md hover:bg-slate-500/20 dark:hover:bg-slate-500/30 hover:cursor-pointer">
         <div className="flex items-center gap-2 px-3">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500">
