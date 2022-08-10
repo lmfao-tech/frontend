@@ -166,6 +166,19 @@ export default async function handler(
         }
     })
 
+    console.log("l")
+
+    const novu = new Novu(process.env.NOVU!);
+
+    novu.trigger('likedyourpost', {
+        to: { 
+          subscriberId: authorId
+        },
+        payload: {
+          who: `@${session.twitter.twitterHandle}`,
+        }
+    });
+
     return res.status(200).json({
         success: Status.Success,
         data: {

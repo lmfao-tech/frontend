@@ -82,7 +82,7 @@ function FeedPost({
           <a
             className="flex items-center"
             href={`/u/${post.username}`}
-            target="_blank"
+            target="_blank" rel="noreferrer"
           >
             <Image
               className="w-8 h-8 rounded-full"

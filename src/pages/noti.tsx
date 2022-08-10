@@ -1,15 +1,33 @@
 import { ReactElement } from "react";
+import dynamic from 'next/dynamic';
 import FeedPage from "~/components/layouts/FeedPage";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
+import {
+  NovuProvider,
+  NotificationBell,
+} from "@novu/notification-center";
+import { useSession } from "next-auth/react";
+import darkModeAtom from "~/atoms/darkmode";
+import { useAtom } from "jotai";
+import Notifications from "~/components/Notification";
+
+const NotificationCenter = dynamic(async () => (await import("@novu/notification-center")).NotificationCenter, {
+  ssr: false
+})
 
 const Notification: NextPageWithLayout = () => {
-  return (
-    <div className="p-10">
-        <h1 className="text-2xl font-bold dark:text-white">Notifications</h1>
+  
+  const { data: session } = useSession();
+  const [dark, setDark] = useAtom(darkModeAtom);
 
-        <div className="flex flex-row">
-            <div></div>
-        </div>
+  return (
+    <div className="">
+      <NovuProvider
+        subscriberId={session?.twitter.twitterHandle}
+        applicationIdentifier={process.env.NEXT_PUBLIC_NOVUI!}
+      >
+        <Notifications />
+      </NovuProvider>
     </div>
   )
 }
