@@ -21,6 +21,7 @@ specifiers:
   '@types/uuid': ^8.3.4
   autoprefixer: ^10.4.7
   babel-core: ^6.26.3
+  babel-loader: ^8.2.5
   eslint: 8.18.0
   eslint-config-next: 12.1.6
   file-saver: ^2.0.5
@@ -69,6 +70,7 @@ dependencies:
   '@types/react-lazy-load-image-component': 1.5.2
   '@types/uuid': 8.3.4
   babel-core: 6.26.3
+  babel-loader: 8.2.5
   file-saver: 2.0.5
   flowbite: 1.4.7
   flowbite-react: 0.0.27_f7u7coe27y5lebjwvpvlijmrdm

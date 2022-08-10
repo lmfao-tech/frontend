@@ -26,11 +26,14 @@ const Notification: NextPageWithLayout = () => {
   return (
     <div className="">
       <Head>
-        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Notifications | LMFAO.tech</title>
+        <title>
+          {(unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " ") +
+            "Notifications | LMFAO.tech"}
+        </title>
       </Head>
       <Notifications />
     </div>
-  )
+  );
 }
 
 Notification.getLayout = (page: ReactElement) => <FeedPage>{page}</FeedPage>
