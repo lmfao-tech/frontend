@@ -104,7 +104,7 @@ function FeedPost({
                   className="text-[.5rem] md:text-[.7rem] mt-1 px-2 py-1 text-cyan-500 border-2 dark:hover:bg-slate-600 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-white cursor-pointer dark:border-slate-600"
                   onClick={async () => {
                     setFollowed(true);
-                    await follow(post.user_id);
+                    await follow(post.user_id, post.username);
                   }}
                 >
                   Follow
@@ -114,7 +114,7 @@ function FeedPost({
                   className="text-[.5rem] bg-cyan-100 hover:bg-cyan-200 dark:bg-slate-500 dark:hover:bg-transparent text-white md:text-[.7rem] mt-1 px-2 py-1 border-2 border-cyan-200 rounded-lg hover:text-white cursor-pointer dark:border-slate-600"
                   onClick={async () => {
                     setFollowed(false);
-                    await unfollow(post.user_id);
+                    await unfollow(post.user_id, post.username);
                   }}
                 >
                   Followed
