@@ -60,11 +60,6 @@ function selectFile(
   });
 }
 
-const breakpointColumnsObj = {
-  default: 3,
-  900: 2,
-  640: 1,
-};
 
 function Create({
   publish
@@ -74,7 +69,7 @@ function Create({
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
   const [memeTemplateView, setMemeTemplate] =
-    useState<string>("/templates/1.jpg");
+    useState<string>("/templates/19.jpg");
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
@@ -82,6 +77,8 @@ function Create({
 
   const [modalOpen, setModalOpen] = useState(false);
   const [dark, setDark] = useAtom(darkModeAtom);
+  
+  const tms = useRef<any>(null);
 
   useEffect(() => {
     // Get all meme templates from folder /templates
@@ -90,8 +87,9 @@ function Create({
     for (let i = 1; i <= total; i++) {
       templates.push(`/templates/${i}.jpg`);
     }
-    setMemeTemplates(templates);
-  }, []);
+    setMemeTemplates(templates); 
+
+  }, [])
 
   function dragMoveListener(event: any) {
     var target = event.target;
@@ -385,7 +383,7 @@ function Create({
           <div className="bg-black/40 lg:bg-black/30 flex justify-center items-center p-5 lg:p-52 fixed w-screen h-screen z-[10000]">
             <motion.div
               initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }}
-              className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[80vh] ${dark ? "bg-gray-600 text-white" : "bg-gray-300"}`}
+              className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[80vh] ${dark ? "bg-gray-600 text-white" : "bg-gray-200"}`}
             >
               <button
                 onClick={() => setModalOpen(false)}
@@ -412,19 +410,19 @@ function Create({
                 <h1 className="text-center font-bold text-2xl my-2">Choose a meme template</h1>
                 
                 <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-                  <Masonry breakpointCols={breakpointColumnsObj} className="flex gap-5 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200">
+                  <Masonry ref={tms} className="flex gap-5 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200">
                     {memeTemplates.map((template, index) => {
                       return (
                         <button
                           key={index}
-                          className="card p-1 border m-1"
+                          className={`card p-1 border ${!dark && "border-gray-800"} m-1`}
                           onClick={useTemplate}
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={template}
                             alt="LMFAO Template"
-                            className=""
+                            className="w-full"
                           />
                         </button>
                       );
