@@ -62,7 +62,7 @@ export default async function handler(
         
         const novu = new Novu(process.env.NOVU!);
 
-        novu.subscribers.identify(session?.twitter.twitterHandle!, {
+        await novu.subscribers.identify(session?.twitter.twitterHandle!, {
             firstName: session?.user.name,
         })
     }
@@ -166,11 +166,9 @@ export default async function handler(
         }
     })
 
-    console.log("l")
-
     const novu = new Novu(process.env.NOVU!);
 
-    novu.trigger('likedyourpost', {
+    await novu.trigger('likedyourpost', {
         to: { 
           subscriberId: authorId
         },

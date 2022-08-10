@@ -47,7 +47,7 @@ export default async function handler(
         const data = await client.v2.unfollow(session.tokens.authToken.split("-")[0]!, id);
 
         const novu = new Novu(process.env.NOVU!);
-        novu.trigger("followedyou", {
+        await novu.trigger("followedyou", {
             to: {
                 subscriberId: username,
             },

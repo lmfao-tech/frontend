@@ -51,7 +51,7 @@ export default async function handler(
     
     const novu = new Novu(process.env.NOVU!);
 
-    await novu.subscribers.identify(session?.twitter.twitterHandle!, {
+    novu.subscribers.identify(session?.twitter.twitterHandle!, {
       firstName: session?.user.name,
     })
 
