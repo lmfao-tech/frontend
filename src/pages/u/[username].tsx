@@ -48,7 +48,7 @@ function UserProfile({ u, user }: any) {
   );
 
   let pfp;
-  if (user){
+  if (user) {
     pfp = `https://unavatar.io/twitter/${u}`;
   }
 
@@ -57,6 +57,15 @@ function UserProfile({ u, user }: any) {
       <Head>
         <title>@{user.name} | LMFAO.tech</title>
         <meta property="og:image" content="/og-image.png" />
+
+        <meta
+          name="description"
+          content={`View @${user.name}'s profile on LMFAO.tech | ${user.name} has ${meta.total} memes and ${user.lmfaoCoins} LMFAO 💀 coins`}
+        />
+        <meta
+          name="og:description"
+          content={`View @${user.name}'s profile on LMFAO.tech | ${user.name} has ${meta.total} memes and ${user.lmfaoCoins} LMFAO 💀 coins`}
+        />
       </Head>
       <div className="block lg:hidden w-full col-span-4">
         {/* Display the user object*/}
@@ -184,14 +193,13 @@ function User({ user, pfp, meta }: any) {
 }
 
 export async function getServerSideProps(context: any) {
-
   let username = context.params.username;
 
   const url =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
       : "https://lmfao.tech";
-  
+
   try {
     const resp = await fetch(`${url}/api/db/user?username=${username}`);
     const user = await resp.json();
@@ -201,10 +209,9 @@ export async function getServerSideProps(context: any) {
         props: {},
         redirect: {
           permanent: false,
-          destination: `https://twitter.com/${username}`
-        }
-      }
-      
+          destination: `https://twitter.com/${username}`,
+        },
+      };
     }
 
     if (!user) {
@@ -212,9 +219,9 @@ export async function getServerSideProps(context: any) {
         props: {},
         redirect: {
           permanent: false,
-          destination: `https://twitter.com/${username}`
-        }
-      }
+          destination: `https://twitter.com/${username}`,
+        },
+      };
     }
 
     return {
@@ -228,11 +235,10 @@ export async function getServerSideProps(context: any) {
       props: {},
       redirect: {
         permanent: false,
-        destination: `https://twitter.com/${username}`
-      }
-    }
+        destination: `https://twitter.com/${username}`,
+      },
+    };
   }
-  
 }
 
 UserProfile.getLayout = (page: ReactElement) => {
