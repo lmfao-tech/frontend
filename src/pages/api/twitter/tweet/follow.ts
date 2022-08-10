@@ -3,10 +3,12 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
 import { TwitterApi } from 'twitter-api-v2';
+import { Novu } from '@novu/node';
 
 interface Request extends NextApiRequest {
     query: {
         id: string;
+        username: string;
     }
 }
 
@@ -16,7 +18,7 @@ export default async function handler(
 ) {
     const session = await getSession({ req });
 
-    const { id } = req.query;
+    const { id, username } = req.query;
 
     if (!session) {
         res.status(401).json({
@@ -26,10 +28,10 @@ export default async function handler(
         return
     }
 
-    if (!id) {
+    if (!id || !username) {
         res.status(400).json({
             success: Status.Failure,
-            error: "Missing id"
+            error: "Invalid query"
         })
         return
     }
@@ -43,6 +45,17 @@ export default async function handler(
 
     try {
         const data = await client.v2.follow(session.tokens.authToken.split("-")[0]!, id);
+
+        const novu = new Novu(process.env.NOVU!);
+        novu.trigger("followedyou", {
+            to: {
+                subscriberId: username,
+            },
+            payload: {
+                who: session.twitter.twitterHandle,
+                what: "followed"
+            }
+        })
 
         res.status(200).json({
             success: Status.Success,

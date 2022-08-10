@@ -7,6 +7,7 @@ import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
 import { Spinner } from "flowbite-react";
+import useNotifs from "~/hooks/useNotifs";
 
 const Community: NextPageWithLayout = () => {
   const [last, setLastTweet] = useState<number>(0);
@@ -18,6 +19,8 @@ const Community: NextPageWithLayout = () => {
     url: `/api/communityMemes?last=${last}&max_tweets=5`,
   });
   const observer = useRef<IntersectionObserver>();
+
+  const unseens = useNotifs();
 
   const lastMemeRef = useCallback(
     (node: any) => {
@@ -38,7 +41,7 @@ const Community: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Community memes | LMFAO.tech</title>
+        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Community memes | LMFAO.tech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 

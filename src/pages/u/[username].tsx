@@ -16,6 +16,7 @@ import usePostFeed from "~/hooks/usePostFeed";
 import Post from "~/types/Post";
 import FeedPost from "~/components/FeedPost";
 import { Status } from "../../types/Request";
+import useNotifs from "~/hooks/useNotifs";
 
 function UserProfile({ u, user }: any) {
   const router = useRouter();
@@ -31,6 +32,8 @@ function UserProfile({ u, user }: any) {
       url: `/api/profileMemes?u=${u}&last=${last}&max_tweets=10`,
     });
   const observer = useRef<IntersectionObserver>();
+  
+  const unseens = useNotifs();
 
   const lastMemeRef = useCallback(
     (node: any) => {
@@ -55,7 +58,7 @@ function UserProfile({ u, user }: any) {
   return (
     <div className="grid lg:grid-cols-6">
       <Head>
-        <title>@{user.name} | LMFAO.tech</title>
+        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}@{user.name} | LMFAO.tech</title>
         <meta property="og:image" content="/og-image.png" />
 
         <meta name="og:title" content={`@${user.name} | LMFAO.tech`} />

@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
 import { prisma } from '~/db/client';
+import { Novu } from '@novu/node';
 
 interface Request extends NextApiRequest {
     query: {
@@ -57,6 +58,12 @@ export default async function handler(
             include: {
                 likes: true
             }
+        })
+        
+        const novu = new Novu(process.env.NOVU!);
+
+        novu.subscribers.identify(session?.twitter.twitterHandle!, {
+            firstName: session?.user.name,
         })
     }
 
@@ -158,6 +165,19 @@ export default async function handler(
             likes: true
         }
     })
+
+    console.log("l")
+
+    const novu = new Novu(process.env.NOVU!);
+
+    novu.trigger('likedyourpost', {
+        to: { 
+          subscriberId: authorId
+        },
+        payload: {
+          who: `@${session.twitter.twitterHandle}`,
+        }
+    });
 
     return res.status(200).json({
         success: Status.Success,
