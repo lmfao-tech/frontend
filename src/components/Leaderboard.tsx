@@ -19,8 +19,8 @@ function LeaderboardIcon({ coins,rank, name, avatar }: Props) {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   return (
-    <a target="_blank" href={`/u/${name}`} rel="noreferrer">
-      <div className="hover:bg-slate-500/20 dark:hover:bg-slate-500/30 py-1 mx-5 hover:cursor-pointer rounded-md">
+    <a href={`/u/${name}`}>
+      <div className="py-1 mx-5 rounded-md hover:bg-slate-500/20 dark:hover:bg-slate-500/30 hover:cursor-pointer">
         <div className="flex items-center gap-2 px-3">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500">
             #{rank}
@@ -57,7 +57,7 @@ function Leaderboard({ rank }: { rank: number }) {
 
   return (
     <div>
-      <div className="w-full py-3 rounded-2xl bg-slate-200 dark:bg-slate-500/30 text-black dark:text-white">
+      <div className="w-full py-3 text-black rounded-2xl bg-slate-200 dark:bg-slate-500/30 dark:text-white">
         <h1 className="text-lg text-center">Leaderboard</h1>
         <div className="flex flex-col h-48 gap-1 py-2 overflow-y-scroll scrollbar-thin xl:h-72 2xl:h-96 ">
           <span className="px-5">
@@ -66,7 +66,7 @@ function Leaderboard({ rank }: { rank: number }) {
           {data.map((user, index) => (
             <>
               {index !== 0 && (
-                <div className="mx-4 px-3">
+                <div className="px-3 mx-4">
                   <div className="rounded-2xl h-[2px] w-full bg-slate-300 dark:bg-slate-800/60"></div>
                 </div>
               )}
