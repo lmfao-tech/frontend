@@ -58,6 +58,8 @@ function UserProfile({ u, user }: any) {
         <title>@{user.name} | LMFAO.tech</title>
         <meta property="og:image" content="/og-image.png" />
 
+        <meta name="og:title" content={`@${user.name} | LMFAO.tech`} />
+        <meta name="title" content={`@${user.name} | LMFAO.tech`} />
         <meta
           name="description"
           content={`View @${user.name}'s profile on LMFAO.tech | ${user.name} has ${meta.total} memes and ${user.lmfaoCoins} LMFAO 💀 coins`}
