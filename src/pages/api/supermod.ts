@@ -6,10 +6,10 @@ type Data = any;
 
 type Request = NextApiRequest & {
   query: {
-    word?: string[];
-    url?: string[];
-    users?: string[];
-    action?: string;
+    word?: string;
+    url?: string;
+    users?: string;
+    action: string;
   };
 };
 
@@ -19,6 +19,8 @@ export default async function response(
 ) {
   let { word, url, users, action } = req.query;
 
+  console.log(word, url, users, action);
+
   const session = await getSession({ req });
   if (!session) {
     res.status(401).json({
@@ -27,10 +29,11 @@ export default async function response(
     });
     return;
   }
-
   if (
-    !(session.twitter.twitterHandle.toLowerCase() == "dhravyashah") ||
-    !(session.twitter.twitterHandle.toLowerCase() == "yash72274544")
+    !(
+      session.twitter.twitterHandle.toLowerCase() == "dhravyashah" ||
+      session.twitter.twitterHandle.toLowerCase() == "yash72274544"
+    )
   ) {
     res.status(401).json({
       success: Status.Failure,
@@ -39,9 +42,17 @@ export default async function response(
     return;
   }
 
-  const resp = await fetch(
-    `https://api.lmfao.tech/supermod?action=${action}&word=${word}&url=${url}&users=${users}&password=yousussybaka`
-  );
+  const url_ = `https://api.lmfao.tech/supermod?password=yousussybaka&word=${word}&url=${url}&users=${users}&action=${action}`;
+
+  console.log(url_);
+
+  const resp = await fetch(url_, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: process.env.AUTH || "",
+    },
+  });
 
   const data = await resp.json();
   res.status(200).json(data);
