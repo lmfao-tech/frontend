@@ -42,7 +42,7 @@ export default async function response(
     return;
   }
 
-  const url_ = `https://api.lmfao.tech/supermod?password=yousussybaka&word=${word}&url=${url}&users=${users}&action=${action}`;
+  const url_ = `http://localhost:8000/supermod?password=yousussybaka&word=${word}&url=${url}&users=${users}&action=${action?action: "add"}`;
 
   console.log(url_);
 
