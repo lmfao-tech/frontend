@@ -174,6 +174,7 @@ export default async function handler(
         },
         payload: {
           who: `@${session.twitter.twitterHandle}`,
+          id: id
         }
     });
 
