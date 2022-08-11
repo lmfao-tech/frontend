@@ -43,22 +43,23 @@ function Supermod() {
         <div className="dark:text-white mb-4 flex w-full justify-around items-center">
           <div>
             <span className="text-xl">Total memes</span>
-            {Object.keys(data.total).map((key) => (
-              <div key={key}>
-                {key} : {data.total[key]}
-              </div>
-            ))}
+            {data?.total &&
+              Object.keys(data.total).map((key) => (
+                <div key={key}>
+                  {key} : {data.total[key]}
+                </div>
+              ))}
           </div>
 
           <div className="max-h-min">
             <span className="text-xl">Moderator performance</span>
-            {Object.keys(data.mods).map((key) => (
-              <div key={key}>
-                {key} : {data.mods[key]}
-              </div>
-            ))}
+            {data?.mods &&
+              Object.keys(data.mods).map((key) => (
+                <div key={key}>
+                  {key} : {data.mods[key]}
+                </div>
+              ))}
           </div>
-
         </div>
         <div className="flex w-full justify-center items-center gap-2 mb-4">
           <select
