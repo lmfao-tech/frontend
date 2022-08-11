@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect } from "react";
 import NotFeedPage from "~/components/layouts/NotFeedPage";
 
 function Supermod() {
+  const [data, setData] = React.useState<any>({ total: {} });
   const [blocked, setBlocked] = React.useState<string[]>([]);
   const [urls, setUrls] = React.useState<string[]>([]);
   const [users, setUsers] = React.useState<string[]>([]);
@@ -13,28 +14,23 @@ function Supermod() {
     const fetchData = async () => {
       const response = await fetch("/api/supermod");
       const data = await response.json();
-      console.log(data);
       setBlocked(data.keywords);
       setUrls(data.urls);
       setUsers(data.blocked);
+      setData(data);
     };
     fetchData();
   }, []);
 
   const handleSubmit = async () => {
-    console.debug("Running handle submit");
-    console.debug(action, selectedType, values);
     const fetchUrl = `/api/supermod?action=${action}&${
       selectedType ? selectedType : "word"
     }=${values}`;
-    console.debug(fetchUrl);
     const response = await fetch(fetchUrl);
     const data = await response.json();
-    console.log(data);
     setBlocked(data.keywords);
     setUrls(data.urls);
     setUsers(data.blocked);
-    console.info("Done");
   };
 
   return (
@@ -44,6 +40,26 @@ function Supermod() {
       </div>
 
       <div className="mx-3 mt-10">
+        <div className="dark:text-white mb-4 flex w-full justify-around items-center">
+          <div>
+            <span className="text-xl">Total memes</span>
+            {Object.keys(data.total).map((key) => (
+              <div key={key}>
+                {key} : {data.total[key]}
+              </div>
+            ))}
+          </div>
+
+          <div className="max-h-min">
+            <span className="text-xl">Moderator performance</span>
+            {Object.keys(data.mods).map((key) => (
+              <div key={key}>
+                {key} : {data.mods[key]}
+              </div>
+            ))}
+          </div>
+
+        </div>
         <div className="flex w-full justify-center items-center gap-2 mb-4">
           <select
             onChange={(e) => setAction(e.target.value)}

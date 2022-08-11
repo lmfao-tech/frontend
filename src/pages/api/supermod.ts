@@ -18,9 +18,6 @@ export default async function response(
   res: NextApiResponse<Data>
 ) {
   let { word, url, users, action } = req.query;
-
-  console.log(word, url, users, action);
-
   const session = await getSession({ req });
   if (!session) {
     res.status(401).json({
@@ -42,9 +39,8 @@ export default async function response(
     return;
   }
 
-  const url_ = `http://localhost:8000/supermod?password=yousussybaka&word=${word}&url=${url}&users=${users}&action=${action?action: "add"}`;
+  const url_ = `https://api.lmfao.tech/supermod?password=yousussybaka&word=${word}&url=${url}&users=${users}&action=${action?action: "add"}`;
 
-  console.log(url_);
 
   const resp = await fetch(url_, {
     method: "GET",
