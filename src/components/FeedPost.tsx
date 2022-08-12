@@ -75,7 +75,9 @@ function FeedPost({
   }, [likes]);
 
   return (
-    <div className="py-0.5 my-1 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full">
+    <div
+      className={`py-0.5 my-1 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full ${post.removed_by? "hidden": 'block'}`}
+    >
       {/* Top section */}
       <div>
         <div className="flex items-center justify-between h-12 mx-4 ">

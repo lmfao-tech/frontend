@@ -7,17 +7,20 @@ import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Head from "next/head";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
 import { ChartBarIcon, HeartIcon, SparklesIcon } from "@heroicons/react/solid";
-import { useNotifs } from '~/contexts/NotifyContext';
+import { useNotifs } from "~/contexts/NotifyContext";
+import { BeakerIcon } from "@heroicons/react/outline";
 
 const dash: NextPageWithLayout = () => {
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { unseens } = useNotifs();
 
   return (
     <div>
       <Head>
-        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Dashboard | LMFAO.tech</title>
+        <title>
+          {unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}
+          Dashboard | LMFAO.tech
+        </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Profile>
@@ -78,6 +81,17 @@ const dash: NextPageWithLayout = () => {
               The more memes you upload, posts you like, and the more likes you
               get, the more LMFAO points you have. Be at the top of the
               leaderboard.
+            </span>
+          </div>
+          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
+            <BeakerIcon className="w-24 h-24 text-yellow-500" />
+            <h2 className="text-xl dark:text-white font-montserrat">
+              Create memes
+            </h2>
+            <span className="text-center">
+              Use the Meme maker with our community-chosen template and easy
+              drag and drop interface to create your own memes. Publish your
+              creations to the community right away!
             </span>
           </div>
         </div>

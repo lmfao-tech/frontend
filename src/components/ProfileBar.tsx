@@ -164,7 +164,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
             }`}
           >
             <h1
-              className={`text-5xl ${
+              className={`text-3xl md:text-5xl ${
                 children && "text-6xl"
               } font-trispace font-bold main-heading dark:text-slate-300 mb-3`}
             >
