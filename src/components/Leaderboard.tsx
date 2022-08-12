@@ -91,20 +91,23 @@ function Leaderboard({ rank }: { rank: number }) {
       <div className="w-full py-3 text-black rounded-2xl bg-slate-200 dark:bg-slate-500/30 dark:text-white">
         <h1 className="text-lg text-center">Leaderboard</h1>
         <span className="px-5">
-          Your rank: <span className='rounded-full text-black inline-flex w-8 h-8 justify-center items-center dark:bg-[#ffcc00] bg-yellow-300'>#{rank}</span>
+          Your rank:{" "}
+          <span className=" text-transparent bg-blue-600 bg-clip-text dark:bg-gradient-to-r dark:from-yellow-100 dark:via-yellow-300 dark:to-yellow-500">
+            #{rank}
+          </span>
         </span>
         <div className="flex flex-col h-48 py-2 overflow-y-scroll scrollbar-thin xl:h-72 2xl:h-96 ">
           {data.map((user, index) => (
-              <LeaderboardIcon
-                key={index}
-                rank={index + 1}
-                coins={user.lmfaoCoins}
-                name={user.name}
-                avatar={`https://unavatar.io/twitter/${user.name}`}
-                over={over === index + 1}
-                onMouseOver={() => setOver(index + 1)}
-                onMouseLeave={() => setOver(0)}
-              />
+            <LeaderboardIcon
+              key={index}
+              rank={index + 1}
+              coins={user.lmfaoCoins}
+              name={user.name}
+              avatar={`https://unavatar.io/twitter/${user.name}`}
+              over={over === index + 1}
+              onMouseOver={() => setOver(index + 1)}
+              onMouseLeave={() => setOver(0)}
+            />
           ))}
         </div>
       </div>
