@@ -15,11 +15,9 @@ import { AnimateSharedLayout, motion } from "framer-motion";
 
 function SidebarIcon({ icon }: { icon: React.ReactNode }) {
   return (
-    <button>
-      <div className="p-2 duration-150 ease-out rounded-full cursor-pointer hover:scale-125">
-        {icon}
-      </div>
-    </button>
+    <div className="p-2 duration-150 ease-out rounded-full cursor-pointer hover:scale-125">
+      {icon}
+    </div>
   );
 }
 
@@ -48,14 +46,19 @@ function Item({
   const spring = {
     type: "spring",
     stiffness: 500,
-    damping: 30
+    damping: 30,
   };
 
   return (
     <Link passHref href={link}>
       <a className="relative">
         {isHere && (
-          <motion.div layoutId="on" initial={false} transition={spring} className="absolute top-0 right-0 rounded-full w-12 h-12 dark:bg-slate-700/50 bg-slate-400/20"></motion.div>
+          <motion.div
+            layoutId="on"
+            initial={false}
+            transition={spring}
+            className="absolute top-0 right-0 rounded-full w-12 h-12 dark:bg-slate-700/50 bg-slate-400/20"
+          ></motion.div>
         )}
         <div
           className={`rounded-full w-12 h-12 flex justify-center items-center`}
@@ -86,8 +89,9 @@ function Sidebar() {
       <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-8 bg-white md:hidden dark:bg-[#242424] drop-shadow-2xl">
         <Link href="/">
           <div
-            className={`rounded-full ${isHome && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
+            className={`rounded-full ${
+              isHome && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
           >
             <SidebarIcon
               icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
@@ -97,8 +101,9 @@ function Sidebar() {
 
         <Link href="/community">
           <div
-            className={`rounded-full ${isCommunity && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
+            className={`rounded-full ${
+              isCommunity && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
           >
             <SidebarIcon
               icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
@@ -109,8 +114,9 @@ function Sidebar() {
         {session && (
           <Link href="/create">
             <div
-              className={`rounded-full ${isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
-                }`}
+              className={`rounded-full ${
+                isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
+              }`}
             >
               <SidebarIcon
                 icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
@@ -132,8 +138,9 @@ function Sidebar() {
         {session && (
           <Link href={`/u/${session?.twitter?.twitterHandle}`}>
             <div
-              className={`rounded-full ${isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
-                }`}
+              className={`rounded-full ${
+                isProfile && "dark:bg-slate-700/50 bg-slate-400/20"
+              }`}
             >
               <SidebarIcon
                 icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
@@ -144,8 +151,9 @@ function Sidebar() {
 
         <Link href="/dash">
           <div
-            className={`rounded-full ${isDashboard && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
+            className={`rounded-full ${
+              isDashboard && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
           >
             <SidebarIcon
               icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
@@ -156,7 +164,6 @@ function Sidebar() {
 
       {/* Larger devices */}
       <AnimateSharedLayout>
-
         <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
           <div className="ml-10 flex flex-col gap-1 space-y-7">
             <Item
