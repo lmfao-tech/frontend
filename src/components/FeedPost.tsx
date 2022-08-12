@@ -35,6 +35,16 @@ const removeLinksHashtagsMention = (text: string) => {
   return unEscape(m);
 };
 
+const isUrlImage = (url: string) => {
+  return (
+    url.endsWith(".jpg") ||
+    url.endsWith(".jpeg") ||
+    url.endsWith(".png") ||
+    url.endsWith(".gif") ||
+    url.endsWith(".webp")
+  );
+};
+
 function FeedPost({
   post,
   removed = false,
@@ -42,7 +52,8 @@ function FeedPost({
   post: Post;
   removed?: boolean;
 }) {
-  const { like, unlike, likes, follow, unfollow, mod, retweet, unretweet } = useHaha();
+  const { like, unlike, likes, follow, unfollow, mod, retweet, unretweet } =
+    useHaha();
 
   const [followed, setFollowed] = useState<boolean>(false);
 
@@ -76,7 +87,9 @@ function FeedPost({
 
   return (
     <div
-      className={`py-0.5 my-1 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full ${post.removed_by? "hidden": 'block'}`}
+      className={`py-0.5 my-1 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full ${
+        post.removed_by ? "hidden" : "block"
+      }`}
     >
       {/* Top section */}
       <div>
@@ -140,7 +153,11 @@ function FeedPost({
       <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
         {removeLinksHashtagsMention(post.tweet_text)}
       </div>
-      <div className="w-full px-0 my-2 md:px-3">
+      <div
+        className={`w-full px-0 my-2 md:px-3 ${
+          !isUrlImage(post.meme_link) && "hidden"
+        }`}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <LazyLoadImage
           className="w-full rounded-md text-slate-500"
