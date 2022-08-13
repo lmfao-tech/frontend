@@ -13,7 +13,7 @@ import { useNotifs } from '~/contexts/NotifyContext';
 
 const CreatePage: NextPageWithLayout = () => {
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
 
   const { unseens } = useNotifs();
 
