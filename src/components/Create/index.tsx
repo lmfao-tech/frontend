@@ -472,6 +472,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
                         <input
                           type="search"
                           value={search}
+                          className="text-black placeholder:text-gray-500"
+                          placeholder="Search for meme templates"
                           onKeyUpCapture={
                             // If enter key
                             (e) => {
