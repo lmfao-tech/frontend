@@ -472,7 +472,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                         <input
                           type="search"
                           value={search}
-                          className="text-black placeholder:text-gray-500"
+                          className="text-black placeholder:text-gray-500 rounded-md focus:border-2 border-blue-500"
                           placeholder="Search for meme templates"
                           onKeyUpCapture={
                             // If enter key
