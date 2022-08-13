@@ -78,7 +78,7 @@ function Sidebar() {
   const { data: session } = useSession();
 
   const currentPath = router.pathname;
-  const isHome = currentPath === "/";
+  const isHome = currentPath === "/home";
   const isCommunity = currentPath === "/community";
   const isCreate = currentPath === "/create";
   const isDashboard = currentPath === "/dash";
@@ -87,7 +87,7 @@ function Sidebar() {
     <div className="bg-white dark:bg-[#242424]  z-10">
       {/* Mobile */}
       <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-8 bg-white md:hidden dark:bg-[#242424] drop-shadow-2xl">
-        <Link href="/">
+        <Link href="/home">
           <div
             className={`rounded-full ${
               isHome && "dark:bg-slate-700/50 bg-slate-400/20"
@@ -167,7 +167,7 @@ function Sidebar() {
         <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
           <div className="ml-10 flex flex-col gap-1 space-y-7">
             <Item
-              link="/"
+              link="/home"
               tip="Home"
               icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
               home={true}
