@@ -170,7 +170,6 @@ function Sidebar() {
               link="/home"
               tip="Home"
               icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
-              home={true}
             />
 
             <Item
