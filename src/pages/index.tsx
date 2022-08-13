@@ -1,19 +1,21 @@
-import React from 'react'
-import {useSession} from "next-auth/react"
-import { useRouter } from 'next/router'
+import React, { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { NextPageContext } from "next";
 
 function Index() {
-    const session = useSession()
-    const router = useRouter()
-
-    // TODO: @yxshv pls lol
-    // If user is logged in, redirect to /home.
-    // otherwise, redirect to what-is.lmfao.tech
-  return (
-    <div>
-        LMFAO
-    </div>
-  )
+  return <div>LMFAO</div>;
 }
 
-export default Index
+export async function getServerSideProps(context: NextPageContext) {
+  // TODO: redirect to website if user is not logged in
+
+  return {
+    redirect: {
+      destination: "/home",
+      permanent: false,
+    },
+  };
+}
+
+export default Index;
