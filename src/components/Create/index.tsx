@@ -107,28 +107,6 @@ function Create({ publish }: { publish: (image: File) => void }) {
     });
   };
 
-  const takeInputAndUseTemplate = (e: FormEvent) => {
-    e.preventDefault();
-
-    // Take input for image
-    selectFile("image/*")
-      .then((file) => {
-        // Get image link
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setSelectedImage(e.target?.result as string);
-        };
-        reader.readAsDataURL(file as File);
-      })
-      .catch(() => {
-        toast.error("Please select an image");
-      })
-      .finally(() => {
-        setMemeTemplate(selectedImage);
-        setModalOpen(false);
-      });
-  };
-
   const publishMeme = (e: any) => {
     e.preventDefault();
     html2canvas(imageContainer.current!, { useCORS: true })
@@ -446,11 +424,30 @@ function Create({ publish }: { publish: (image: File) => void }) {
                         className={`card p-1 border h-20 ${
                           !dark && "border-gray-800"
                         } m-1`}
-                        onClick={(e) => takeInputAndUseTemplate(e)}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         {/* Custom image */}
-                        Custom template
+                        <input
+                          className="h-full w-full"
+                          type="file"
+                          accept="image/png, image/gif, image/jpeg"
+                          placeholder="Custom template"
+                          onChange={(e) => {
+                            // Convert image to URL
+                            const reader = new FileReader();
+                            // @ts-ignore
+                            reader.readAsDataURL(e.target.files[0]);
+                            reader.onload = (event) => {
+                              const img = new Image();
+                              // @ts-ignore
+                              img.src = event.target?.result;
+                              img.onload = () => {
+                                setMemeTemplate(img.src);
+                                setModalOpen(false)
+                              };
+                            };
+                          }}
+                        />
                       </button>
                       {memeTemplates.map((template, index) => {
                         return (
