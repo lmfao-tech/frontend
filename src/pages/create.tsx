@@ -13,7 +13,7 @@ import { useNotifs } from '~/contexts/NotifyContext';
 
 const CreatePage: NextPageWithLayout = () => {
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
 
   const { unseens } = useNotifs();
 
@@ -87,7 +87,10 @@ const CreatePage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Create | LMFAO.tech</title>
+        <title>
+          {unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Create
+          | LMFAO.tech
+        </title>
       </Head>
       <div className="pb-20 md:pb-0">
         <div className="flex flex-col items-center px-3 pt-10 dark:bg-[#242424] md:pt-28 dark:text-white">
@@ -109,6 +112,14 @@ const CreatePage: NextPageWithLayout = () => {
           <Tabs
             items={[
               {
+                name: "Meme Maker",
+                component: (
+                  <div className="w-full">
+                    <Create publish={publish} />
+                  </div>
+                ),
+              },
+              {
                 name: "Upload",
                 component: (
                   <div className="flex flex-col justify-center items-center gap-4">
@@ -127,14 +138,6 @@ const CreatePage: NextPageWithLayout = () => {
                     >
                       Publish
                     </button>
-                  </div>
-                ),
-              },
-              {
-                name: "Meme Maker",
-                component: (
-                  <div className="w-full">
-                    <Create publish={publish} />
                   </div>
                 ),
               },
