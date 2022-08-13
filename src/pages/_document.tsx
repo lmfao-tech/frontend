@@ -23,7 +23,7 @@ export default function Document() {
         <meta name="og:site_name" content="LMFAO.tech" />
         <meta
           name="og:description"
-          content="LMFAO.tech - A content discovery platform where you can find memes from all across the internet and go LMFAO"
+          content="LMFAO.tech - One place for all your meme needs. Discover, Create, Share memes with the community - in one place."
         />
         <meta name="og:email" content="hi@lmfao.tech" />
 
@@ -31,7 +31,7 @@ export default function Document() {
         <meta property="twitter:url" content="LMFAO.tech" />
         <meta
           property="twitter:title"
-          content="LMFAO.tech - A content discovery platform"
+          content="LMFAO.tech - One place for all your meme needs. Discover, Create, Share memes with the community - in one place."
         />
         <meta
           property="twitter:description"
