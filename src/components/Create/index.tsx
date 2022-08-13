@@ -33,6 +33,7 @@ import darkModeAtom from "~/atoms/darkmode";
 // @ts-ignore
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import toast from "react-hot-toast";
+import { Spinner } from "flowbite-react";
 
 /**
  * Select file(s).
@@ -72,6 +73,19 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [dark, setDark] = useAtom(darkModeAtom);
+  const [search, setSearch] = useState("");
+  const [googleSearchResults, setGoogleSearchResults] = useState<string[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const searchNow = () => {
+    async function getResults() {
+      const res = await fetch(`/api/getGoogleResults?search=${search}`);
+      const d = await res.json();
+      setSearchLoading(true);
+      setGoogleSearchResults(d);
+      setSearchLoading(false);
+    }
+    getResults();
+  };
 
   const tms = useRef<any>(null);
 
@@ -443,12 +457,52 @@ function Create({ publish }: { publish: (image: File) => void }) {
                               img.src = event.target?.result;
                               img.onload = () => {
                                 setMemeTemplate(img.src);
-                                setModalOpen(false)
+                                setModalOpen(false);
                               };
                             };
                           }}
                         />
                       </button>
+
+                      <div
+                        className={`card flex flex-col p-1 border ${
+                          googleSearchResults.length > 0 ? "h-80" : "h-20"
+                        } ${!dark && "border-gray-800"} m-1`}
+                      >
+                        <input
+                          type="search"
+                          value={search}
+                          onKeyUpCapture={
+                            // If enter key
+                            (e) => {
+                              if (e.key === "Enter") {
+                                setSearchLoading(true);
+                                searchNow();
+                                setSearchLoading(false);
+                              }
+                            }
+                          }
+                          onChange={(e) => setSearch(e.target.value)}
+                        />
+
+                        {googleSearchResults.length > 0 && (
+                          <div className="flex flex-col h-full overflow-auto">
+                            {searchLoading && <Spinner />}
+                            {googleSearchResults.map((result) => (
+                              <button
+                                key={result}
+                                className={`card p-1 border ${
+                                  !dark && "border-gray-800"
+                                } m-1`}
+                                onClick={useTemplate}
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={result} alt="meme template" />
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                       {memeTemplates.map((template, index) => {
                         return (
                           <button
