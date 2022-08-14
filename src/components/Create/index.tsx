@@ -278,6 +278,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
     newText.toggleAttribute("data-text-underlined");
     newText.toggleAttribute("data-text-bold");
     newText.toggleAttribute("data-text-italics");
+    newText.setAttribute("spellcheck", "false");
+    newText.setAttribute("data-gramm", "false");
+    newText.setAttribute("data-gramm_editor", "false");
+    newText.setAttribute("data-enable-grammarly", "false");
     newText.style.color = "white";
     newText.style.webkitTextStroke = "1px black";
     newText.classList.add("meme_text");
@@ -613,7 +617,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               onClick={publishMeme}
               disabled={!session}
               {...{[publishD]: "You need to login to post to twitter"}}
-              className="disabled:bg-gray-700/20 z-10 flex items-center justify-center gap-2 text-white bg-blue-600 btn btn-primary fill-white "
+              className="z-10 flex items-center justify-center gap-2 text-white bg-blue-600 disabled:bg-gray-700/20 btn btn-primary fill-white "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
