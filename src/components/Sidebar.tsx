@@ -111,19 +111,17 @@ function Sidebar() {
           </div>
         </Link>
 
-        {session && (
-          <Link href="/create">
-            <div
-              className={`rounded-full ${
-                isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
-              }`}
-            >
-              <SidebarIcon
-                icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-              />
-            </div>
-          </Link>
-        )}
+        <Link href="/create">
+          <div
+            className={`rounded-full ${
+              isCreate && "dark:bg-slate-700/50 bg-slate-400/20"
+            }`}
+          >
+            <SidebarIcon
+              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+            />
+          </div>
+        </Link>
 
         {mod && (
           <Link href="/mod">
@@ -193,13 +191,11 @@ function Sidebar() {
               icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
             />
 
-            {session && (
-              <Item
-                link="/create"
-                tip="Create"
-                icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-              />
-            )}
+            <Item
+              link="/create"
+              tip="Create"
+              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+            />
 
             {mod && (
               <Item

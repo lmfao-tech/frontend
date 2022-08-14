@@ -95,20 +95,22 @@ const CreatePage: NextPageWithLayout = () => {
       <div className="pb-20 md:pb-0">
         <div className="flex flex-col items-center px-3 pt-10 dark:bg-[#242424] md:pt-28 dark:text-white">
           <h1 className="text-2xl font-bold text-center md:text-3xl">
-            Upload your own meme
+            {session ? "Upload your own meme" : "Create your own meme!"}
           </h1>
-          <div className="mt-10 bg-slate-100 h-36 resize flex max-h-96 p-4 focus-within:border-blue-500 border-transparent border-2 dark:bg-[#141414] shadow-2xl drop-shadow-2xl dark:text-white rounded-md w-full md:w-[600px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={av} className="h-16 rounded-full" alt="avatar" />
-            <textarea
-              maxLength={280}
-              id="haha"
-              className="w-full p-5 bg-transparent border-none resize haha"
-              placeholder="Say something like ... THIS MEME IS SO FUNNY LMFAO"
-              onChange={(e) => setStatus(e.target.value)}
-              value={status}
-            />
-          </div>
+          {session && (
+            <div className="mt-10 bg-slate-100 h-36 resize flex max-h-96 p-4 focus-within:border-blue-500 border-transparent border-2 dark:bg-[#141414] shadow-2xl drop-shadow-2xl dark:text-white rounded-md w-full md:w-[600px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={av} className="h-16 rounded-full" alt="avatar" />
+              <textarea
+                maxLength={280}
+                id="haha"
+                className="w-full p-5 bg-transparent border-none resize haha"
+                placeholder="Say something like ... THIS MEME IS SO FUNNY LMFAO"
+                onChange={(e) => setStatus(e.target.value)}
+                value={status}
+              />
+            </div>
+          )}
           <Tabs
             items={[
               {
@@ -121,6 +123,7 @@ const CreatePage: NextPageWithLayout = () => {
               },
               {
                 name: "Upload",
+                disabled: !session,
                 component: (
                   <div className="flex flex-col justify-center items-center gap-4">
                     <Dropzone

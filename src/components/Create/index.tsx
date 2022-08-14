@@ -34,6 +34,7 @@ import darkModeAtom from "~/atoms/darkmode";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import toast from "react-hot-toast";
 import { Spinner } from "flowbite-react";
+import { useSession } from "next-auth/react";
 
 /**
  * Select file(s).
@@ -62,6 +63,10 @@ function selectFile(
 }
 
 function Create({ publish }: { publish: (image: File) => void }) {
+  
+  const { data: session } = useSession();
+  const publishD = session === null ? "data-tip" : "data-not-tip";
+
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
   const [memeTemplateView, setMemeTemplate] =
@@ -606,7 +611,13 @@ function Create({ publish }: { publish: (image: File) => void }) {
             </ActionButton>
             <ActionButton
               onClick={publishMeme}
+<<<<<<< Updated upstream
               className="z-10 flex items-center justify-center gap-2 text-white bg-blue-600 btn btn-primary fill-white "
+=======
+              disabled={!session}
+              {...{[publishD]: "You need to login to post to twitter"}}
+              className="btn btn-primary disabled:bg-gray-700/20 z-10 bg-blue-600 text-white fill-white flex justify-center items-center gap-2 "
+>>>>>>> Stashed changes
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
