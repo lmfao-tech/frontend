@@ -70,6 +70,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
   const [memeTemplates, setMemeTemplates] = useState<string[]>([]);
+  const [strokeWidth, setStrokeWidth] = useState(1);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [dark, setDark] = useAtom(darkModeAtom);
@@ -272,6 +273,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
     newText.toggleAttribute("data-text-underlined");
     newText.toggleAttribute("data-text-bold");
     newText.toggleAttribute("data-text-italics");
+    newText.style.color = "white";
+    newText.style.webkitTextStroke = "1px black";
     newText.classList.add("meme_text");
     newText.innerText = "Enter text here...";
     newText.contentEditable = "true";
@@ -388,7 +391,25 @@ function Create({ publish }: { publish: (image: File) => void }) {
       return;
       // TODO: fix justify
     },
+    changeStrokeColor: function (e: any) {
+      if (!selectedText) return;
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+      if (!textElem) return setSelectedText("");
+      textElem.style.webkitTextStroke = `${strokeWidth}px ${e.target.value}`;
+    },
+    changeStrokeWidth: function (e: any) {
+      console.log(e)
+      if (!selectedText) return;
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+      if (!textElem) return setSelectedText("");
+      textElem.style.webkitTextStrokeWidth = `${e}px`;
+    },
   };
+
+  useEffect(() => {
+    textFunctions.changeStrokeWidth(strokeWidth);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [strokeWidth]);
 
   return (
     <Container>
@@ -705,7 +726,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
               <div className="inputStroke">
                 <input
                   type="number"
-                  defaultValue="0"
+                  value={strokeWidth? strokeWidth : 0}
+                  onChange={(e) => setStrokeWidth(Number(e.target.value))}
                   className="w-full rounded resize-none dark:text-white dark:bg-gray-700"
                 />
               </div>
@@ -730,6 +752,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                   type="color"
                   className="w-24 h-10 p-1 bg-gray-200 rounded-sm dark:bg-gray-700"
                   defaultValue="#000000"
+                  onChange={textFunctions.changeStrokeColor}
                 />
               </div>
             </div>
