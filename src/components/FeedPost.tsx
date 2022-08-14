@@ -85,10 +85,12 @@ function FeedPost({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [likes]);
 
+  const isModPage = router.route === "/mod";
+
   return (
     <div
       className={`py-0.5 my-1 md:my-4 bg-white shadow-md dark:bg-[#242424] dark:border-gray-900 md:rounded-xl rounded-md break-inside-avoid h-fit w-full ${
-        post.removed_by ? "hidden" : "block"
+        !isModPage ? (post.removed_by ? "hidden" : "block") : "block"
       }`}
     >
       {/* Top section */}
@@ -140,7 +142,7 @@ function FeedPost({
         </div>
       </div>
       {post.removed_by && (
-        <div className="mx-3 ml-5 dark:text-white text-gray-700">
+        <div className="mx-3 ml-5 text-gray-700 dark:text-white">
           Removed by{" "}
           <a
             className="text-blue-500"
