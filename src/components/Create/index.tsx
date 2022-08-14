@@ -548,7 +548,9 @@ function Create({ publish }: { publish: (image: File) => void }) {
               height: "300px",
               border: "1px solid #000",
             }}
-          ></EditView>
+          >
+            <h1 className="z-[10000000] select-none text-[10px] -my-1 text-gray-500 font-bold">Made using <span className="text-rose-500">LMFAO.tech</span></h1>
+          </EditView>
           <Actions className="flex justify-center items-center px-5">
             <ActionButton
               className="btn btn-secondary z-10 dark:fill-white flex justify-center items-center gap-2 border"
