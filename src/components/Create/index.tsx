@@ -611,13 +611,9 @@ function Create({ publish }: { publish: (image: File) => void }) {
             </ActionButton>
             <ActionButton
               onClick={publishMeme}
-<<<<<<< Updated upstream
-              className="z-10 flex items-center justify-center gap-2 text-white bg-blue-600 btn btn-primary fill-white "
-=======
               disabled={!session}
               {...{[publishD]: "You need to login to post to twitter"}}
-              className="btn btn-primary disabled:bg-gray-700/20 z-10 bg-blue-600 text-white fill-white flex justify-center items-center gap-2 "
->>>>>>> Stashed changes
+              className="disabled:bg-gray-700/20 z-10 flex items-center justify-center gap-2 text-white bg-blue-600 btn btn-primary fill-white "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
