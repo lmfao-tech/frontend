@@ -542,13 +542,15 @@ function Create({ publish }: { publish: (image: File) => void }) {
           <img className="hidden -z-10" src="." ref={offScreenImage} />
           <EditView
             ref={imageContainer}
-            className="editorView"
+            className="editorView relative"
             style={{
               backgroundImage: `url(${memeTemplateView})`,
               height: "300px",
               border: "1px solid #000",
             }}
-          ></EditView>
+          >
+            <h1 className="absolute z-[10000000] select-none text-xs bottom-3 right-3 text-gray-500 font-bold">Made using LMFAO.tech</h1>
+          </EditView>
           <Actions className="flex justify-center items-center px-5">
             <ActionButton
               className="btn btn-secondary z-10 dark:fill-white flex justify-center items-center gap-2 border"
