@@ -101,7 +101,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
       templates.push(`/templates/${i}.jpg`);
     }
     setMemeTemplates(templates);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function dragMoveListener(event: any) {
@@ -286,6 +286,12 @@ function Create({ publish }: { publish: (image: File) => void }) {
         setCurrentText(e.target.innerText);
       })
       .on("keypress", (e) => {
+        if (
+          e.target.innerText.startsWith("Enter text here...") ||
+          e.target.innerText.endsWith("Enter text here...")
+        ) {
+          e.target.innerText = "";
+        }
         setCurrentText(e.target.innerText);
       })
       .draggable({
@@ -554,7 +560,9 @@ function Create({ publish }: { publish: (image: File) => void }) {
               border: "1px solid #000",
             }}
           >
-            <h1 className="absolute z-[10000000] select-none text-xs bottom-3 right-3 text-gray-500 font-bold">Made using LMFAO.tech</h1>
+            <h1 className="absolute z-[10000000] select-none text-xs bottom-3 right-3 text-gray-500 font-bold">
+              Made using LMFAO.tech
+            </h1>
           </EditView>
           <Actions className="flex items-center justify-center px-5">
             <ActionButton
