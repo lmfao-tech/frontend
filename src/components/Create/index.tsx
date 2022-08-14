@@ -90,6 +90,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
   const tms = useRef<any>(null);
 
   useEffect(() => {
+    const e = { target: { src: memeTemplateView } };
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useTemplate(e);
+
     // Get all meme templates from folder /templates
     const total = 22;
     let templates = [];
@@ -97,6 +101,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
       templates.push(`/templates/${i}.jpg`);
     }
     setMemeTemplates(templates);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function dragMoveListener(event: any) {
@@ -382,10 +387,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
   return (
     <Container>
       <HomeCategory>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <button
             onClick={() => setModalOpen(true)}
-            className="text-white bg-blue-500 rounded-md px-5 py-3"
+            className="px-5 py-3 text-white bg-blue-500 rounded-md"
           >
             Choose a meme template
           </button>
@@ -423,7 +428,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 </button>
 
                 <div className="p-3">
-                  <h1 className="text-center font-bold text-2xl my-2">
+                  <h1 className="my-2 text-2xl font-bold text-center">
                     Choose a meme template
                   </h1>
 
@@ -432,7 +437,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                   >
                     <Masonry
                       ref={tms}
-                      className="flex gap-5 w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
+                      className="flex w-full h-full gap-5 overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
                     >
                       <button
                         className={`card p-1 border h-20 ${
@@ -442,7 +447,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         {/* Custom image */}
                         <input
-                          className="h-full w-full"
+                          className="w-full h-full"
                           type="file"
                           accept="image/png, image/gif, image/jpeg"
                           placeholder="Custom template"
@@ -472,7 +477,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                         <input
                           type="search"
                           value={search}
-                          className="text-black placeholder:text-gray-500 rounded-md focus:border-2 border-blue-500"
+                          className="text-black border-blue-500 rounded-md placeholder:text-gray-500 focus:border-2"
                           placeholder="Search for meme templates"
                           onKeyUpCapture={
                             // If enter key
@@ -535,25 +540,25 @@ function Create({ publish }: { publish: (image: File) => void }) {
       {/*  */}
       <Flex>
         {/* Editing View */}
-        <div className="editContainer relative">
-          <div className="absolute h-full w-full border-2"></div>
+        <div className="relative editContainer">
+          <div className="absolute w-full h-full border-2"></div>
           {/* eslint-disable @next/next/no-img-element*/}
           {/* eslint-disable jsx-a11y/alt-text */}
           <img className="hidden -z-10" src="." ref={offScreenImage} />
           <EditView
             ref={imageContainer}
-            className="editorView relative"
+            className="relative editorView"
             style={{
               backgroundImage: `url(${memeTemplateView})`,
-              height: "300px",
+              // height: "300px",
               border: "1px solid #000",
             }}
           >
             <h1 className="absolute z-[10000000] select-none text-xs bottom-3 right-3 text-gray-500 font-bold">Made using LMFAO.tech</h1>
           </EditView>
-          <Actions className="flex justify-center items-center px-5">
+          <Actions className="flex items-center justify-center px-5">
             <ActionButton
-              className="btn btn-secondary z-10 dark:fill-white flex justify-center items-center gap-2 border"
+              className="z-10 flex items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
               onClick={downloadMeme}
             >
               Download{" "}
@@ -572,7 +577,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
             </ActionButton>
             <ActionButton
               onClick={publishMeme}
-              className="btn btn-primary z-10 bg-blue-600 text-white fill-white flex justify-center items-center gap-2 "
+              className="z-10 flex items-center justify-center gap-2 text-white bg-blue-600 btn btn-primary fill-white "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -593,25 +598,25 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
         {/* Editing Controls */}
         <Controls>
-          <Actions className="flex justify-center items-center">
+          <Actions className="flex items-center justify-center">
             <ActionButton
-              className="btn bg-gray-200 dark:text-white dark:bg-gray-600 btn-light flex justify-center items-center gap-2"
+              className="flex items-center justify-center gap-2 bg-gray-200 btn dark:text-white dark:bg-gray-600 btn-light"
               onClick={AddTextToCanvas}
             >
               Add Text{" "}
-              <FontAwesomeIcon className="h-5 w-5" icon={faTextHeight} />
+              <FontAwesomeIcon className="w-5 h-5" icon={faTextHeight} />
             </ActionButton>
             <ActionButton
-              className="btn bg-gray-200 dark:text-white dark:bg-gray-600 btn-light flex justify-center items-center gap-2"
+              className="flex items-center justify-center gap-2 bg-gray-200 btn dark:text-white dark:bg-gray-600 btn-light"
               onClick={AddImageToCanvas}
             >
-              Add Image <FontAwesomeIcon className="h-5 w-5" icon={faImage} />
+              Add Image <FontAwesomeIcon className="w-5 h-5" icon={faImage} />
             </ActionButton>
           </Actions>
-          <div className="text border p-0 border-none">
+          <div className="p-0 border border-none text">
             <textarea
               onChange={textFunctions.changeText}
-              className="w-full resize-none dark:text-white dark:bg-gray-700 rounded"
+              className="w-full rounded resize-none dark:text-white dark:bg-gray-700"
               value={currentText}
             />
           </div>
@@ -623,19 +628,19 @@ function Create({ publish }: { publish: (image: File) => void }) {
               <p className="font-bold">Font Style:</p>
               <div>
                 <button
-                  className="font-bold border border-gray-500 w-8 h-8"
+                  className="w-8 h-8 font-bold border border-gray-500"
                   onClick={textFunctions.toggleBold}
                 >
                   B
                 </button>
                 <button
-                  className="italic border border-gray-500 w-8 h-8"
+                  className="w-8 h-8 italic border border-gray-500"
                   onClick={textFunctions.toggleItalics}
                 >
                   I
                 </button>
                 <button
-                  className="underline border border-gray-500 w-8 h-8"
+                  className="w-8 h-8 underline border border-gray-500"
                   onClick={textFunctions.toggleUnderline}
                 >
                   U
@@ -649,7 +654,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 type="number"
                 defaultValue={16}
                 maxLength={3}
-                className="w-full resize-none dark:text-white dark:bg-gray-700 rounded"
+                className="w-full rounded resize-none dark:text-white dark:bg-gray-700"
                 onChange={textFunctions.changeTextSize}
               />
             </div>
@@ -693,7 +698,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 <input
                   type="number"
                   defaultValue="0"
-                  className="w-full resize-none dark:text-white dark:bg-gray-700 rounded"
+                  className="w-full rounded resize-none dark:text-white dark:bg-gray-700"
                 />
               </div>
             </div>
@@ -706,7 +711,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 type="color"
                 defaultValue="#ffffff"
                 onChange={textFunctions.changeTextColor}
-                className="w-24 h-10 p-1 bg-gray-200 dark:bg-gray-700 rounded-sm"
+                className="w-24 h-10 p-1 bg-gray-200 rounded-sm dark:bg-gray-700"
               ></input>
             </div>
 
@@ -715,7 +720,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               <div className="inputStroke">
                 <input
                   type="color"
-                  className="w-24 h-10 p-1 bg-gray-200 dark:bg-gray-700 rounded-sm"
+                  className="w-24 h-10 p-1 bg-gray-200 rounded-sm dark:bg-gray-700"
                   defaultValue="#000000"
                 />
               </div>
