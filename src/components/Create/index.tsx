@@ -78,7 +78,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
   const [memeTemplateView, setMemeTemplate] =
-    useState<string>("https://drmemes.com/meme-photos/always-has-been.png");
+    useState<string>("/meme-photos/always-has-been.png");
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
