@@ -1,4 +1,4 @@
-import { useState, useRef, SyntheticEvent, FormEvent, useEffect } from "react";
+import { useState, useRef, SyntheticEvent, FormEvent, useEffect, useDeferredValue, useMemo } from "react";
 import interact from "interactjs";
 import html2canvas from "html2canvas";
 import { v4 as uuid } from "uuid";
@@ -62,6 +62,14 @@ function selectFile(
   });
 }
 
+interface Template {
+  id: number;
+  src: string;
+  previewSrc: string;
+  title: string;
+  alt: string;
+}
+
 function Create({ publish }: { publish: (image: File) => void }) {
   
   const { data: session } = useSession();
@@ -70,18 +78,20 @@ function Create({ publish }: { publish: (image: File) => void }) {
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
   const [memeTemplateView, setMemeTemplate] =
-    useState<string>("/templates/19.jpg");
+    useState<string>("https://drmemes.com/meme-photos/always-has-been.png");
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
-  const [memeTemplates, setMemeTemplates] = useState<string[]>([]);
+  const [memeTemplates, setMemeTemplates] = useState<Template[]>([]);
   const [strokeWidth, setStrokeWidth] = useState(1);
-
   const [modalOpen, setModalOpen] = useState(false);
   const [dark, setDark] = useAtom(darkModeAtom);
   const [search, setSearch] = useState("");
+  const [searchT, setSearchT] = useState("");
+  const defferedSearch = useDeferredValue(searchT)
   const [googleSearchResults, setGoogleSearchResults] = useState<string[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
+  const [tPlates, setTPlates] = useState<Template[]>([]);
   const searchNow = () => {
     async function getResults() {
       const res = await fetch(`/api/getGoogleResults?search=${search}`);
@@ -96,19 +106,37 @@ function Create({ publish }: { publish: (image: File) => void }) {
   const tms = useRef<any>(null);
 
   useEffect(() => {
-    const e = { target: { src: memeTemplateView } };
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useTemplate(e);
+
+    setTimeout(() => {
+      const e = { target: { src: memeTemplateView } };
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useTemplate(e);
+    }, 1000)
 
     // Get all meme templates from folder /templates
-    const total = 22;
-    let templates = [];
-    for (let i = 1; i <= total; i++) {
-      templates.push(`/templates/${i}.jpg`);
-    }
-    setMemeTemplates(templates);
+    fetch(`/api/getMemeTemplates`).then(
+      async (res) => {
+        const templates = await res.json();
+        setMemeTemplates(templates);
+      }
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useMemo(() => {
+    let tpl: Template[] = [];
+    
+    memeTemplates.forEach(t => {
+      if (t.alt.toLowerCase().includes(defferedSearch.toLowerCase())) {
+        tpl.push(t);
+      }
+    });
+
+    console.log(tpl.length)
+
+    setTPlates(tpl);
+
+  },[defferedSearch, memeTemplates]);
 
   function dragMoveListener(event: any) {
     var target = event.target;
@@ -510,23 +538,26 @@ function Create({ publish }: { publish: (image: File) => void }) {
                           googleSearchResults.length > 0 ? "h-80" : "h-20"
                         } ${!dark && "border-gray-800"} m-1`}
                       >
-                        <input
-                          type="search"
-                          value={search}
-                          className="text-black border-blue-500 rounded-md placeholder:text-gray-500 focus:border-2"
-                          placeholder="Search for meme templates"
-                          onKeyUpCapture={
-                            // If enter key
-                            (e) => {
-                              if (e.key === "Enter") {
-                                setSearchLoading(true);
-                                searchNow();
-                                setSearchLoading(false);
+                        <div className="flex w-full pl-3 justify-center items-center bg-white text-black rounded-md">
+                          <svg width="1.48em" height="1.5em" viewBox="0 0 256 262"><path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622l38.755 30.023l2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path><path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055c-34.523 0-63.824-22.773-74.269-54.25l-1.531.13l-40.298 31.187l-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path><path fill="#FBBC05" d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82c0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"></path><path fill="#EB4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0C79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"></path></svg>
+                          <input
+                            type="search"
+                            value={search}
+                            className="w-full bg-transparent google-search-inpu"
+                            placeholder="Search google for meme templates"
+                            onKeyUpCapture={
+                              // If enter key
+                              (e) => {
+                                if (e.key === "Enter") {
+                                  setSearchLoading(true);
+                                  searchNow();
+                                  setSearchLoading(false);
+                                }
                               }
                             }
-                          }
-                          onChange={(e) => setSearch(e.target.value)}
-                        />
+                            onChange={(e) => setSearch(e.target.value)}
+                          />
+                        </div>
 
                         {googleSearchResults.length > 0 && (
                           <div className="flex flex-col h-full overflow-auto">
@@ -546,7 +577,36 @@ function Create({ publish }: { publish: (image: File) => void }) {
                           </div>
                         )}
                       </div>
-                      {memeTemplates.map((template, index) => {
+
+                      <div
+                        className={`card flex flex-col p-1 border ${
+                          googleSearchResults.length > 0 ? "h-80" : "h-20"
+                        } ${!dark && "border-gray-800"} m-1`}
+                      >
+                        <div className="flex w-full pl-3 justify-center items-center bg-white text-black rounded-md">
+                        <svg width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M500.3 443.7L380.6 324c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0c15.606-15.64 15.606-41.04.006-56.64zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128s-57.42 128-128 128s-128-57.4-128-128z"></path></svg>
+                          <input
+                            type="search"
+                            value={searchT}
+                            className="w-full bg-transparent google-search-inpu"
+                            placeholder="Search from below templates"
+                            onKeyUpCapture={
+                              // If enter key
+                              (e) => {
+                                if (e.key === "Enter") {
+                                  setSearchLoading(true);
+                                  searchNow();
+                                  setSearchLoading(false);
+                                }
+                              }
+                            }
+                            onChange={(e) => setSearchT(e.target.value)}
+                          />
+                        </div>
+
+                      </div>
+
+                      {tPlates.map((template, index) => {
                         return (
                           <button
                             key={index}
@@ -557,10 +617,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                              src={template}
-                              alt="LMFAO Template"
+                              src={"https://drmemes.com" + template.src}
+                              alt={template.alt}
                               className="w-full"
                             />
+                            <h1 className="text-center">{template.alt}</h1>
                           </button>
                         );
                       })}
