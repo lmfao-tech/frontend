@@ -438,7 +438,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 exit={{ scaleY: 0 }}
-                className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[80vh] ${
+                className={`relative overflow-y-auto scrollbar-thin w-screen z-50 rounded-md h-[80vh] ${
                   dark ? "bg-gray-600 text-white" : "bg-gray-200"
                 }`}
               >
@@ -590,7 +590,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               border: "1px solid #000",
             }}
           >
-            <h1 className="absolute z-[10000000] select-none text-xs bottom-3 right-3 text-gray-500 font-bold">
+            <h1 className="absolute z-10 text-xs font-bold text-gray-500 select-none bottom-3 right-3">
               Made using LMFAO.tech
             </h1>
           </EditView>
