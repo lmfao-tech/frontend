@@ -57,7 +57,7 @@ function Item({
             layoutId="on"
             initial={false}
             transition={spring}
-            className="absolute top-0 right-0 rounded-full w-12 h-12 dark:bg-slate-700/50 bg-slate-400/20"
+            className="absolute top-0 right-0 w-12 h-12 rounded-full dark:bg-slate-700/50 bg-slate-400/20"
           ></motion.div>
         )}
         <div
@@ -84,7 +84,7 @@ function Sidebar() {
   const isDashboard = currentPath === "/dash";
   const isProfile = currentPath === `/u/[username]`;
   return (
-    <div className="bg-white dark:bg-[#242424]  z-10">
+    <div className="bg-white dark:bg-[#242424]  z-50">
       {/* Mobile */}
       <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-8 bg-white md:hidden dark:bg-[#242424] drop-shadow-2xl">
         <Link href="/home">
@@ -163,7 +163,7 @@ function Sidebar() {
       {/* Larger devices */}
       <AnimateSharedLayout>
         <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
-          <div className="ml-10 flex flex-col gap-1 space-y-7">
+          <div className="flex flex-col gap-1 ml-10 space-y-7">
             <Item
               link="/home"
               tip="Home"
