@@ -86,6 +86,7 @@ function FeedPost({
   }, [likes]);
 
   const isModPage = router.route === "/mod";
+  const isCommunityPage = router.route === "/community";
 
   return (
     <div
@@ -118,7 +119,7 @@ function FeedPost({
             <div className="flex ml-1">
               {!followed ? (
                 <button
-                  className="text-[.5rem] md:text-[.7rem] mt-1 px-2 py-1 text-cyan-500 border-2 dark:hover:bg-slate-600 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-white cursor-pointer dark:border-slate-600"
+                  className="text-[.5rem] md:text-[.7rem] mt-1 px-2 py-1 text-cyan-500 border-2 dark:hover:bg-slate-600 border-cyan-200 rounded-lg hover:bg-cyan-200 hover:text-white cursor-pointer dark:border-slate-600 umami--click--follow-user"
                   onClick={async () => {
                     setFollowed(true);
                     await follow(post.user_id, post.username);
@@ -128,7 +129,7 @@ function FeedPost({
                 </button>
               ) : (
                 <button
-                  className="text-[.5rem] bg-cyan-100 hover:bg-cyan-200 dark:bg-slate-500 dark:hover:bg-transparent text-white md:text-[.7rem] mt-1 px-2 py-1 border-2 border-cyan-200 rounded-lg hover:text-white cursor-pointer dark:border-slate-600"
+                  className="text-[.5rem] bg-cyan-100 hover:bg-cyan-200 dark:bg-slate-500 dark:hover:bg-transparent text-white md:text-[.7rem] mt-1 px-2 py-1 border-2 border-cyan-200 rounded-lg hover:text-white cursor-pointer dark:border-slate-600 umami--click--unfollow-user"
                   onClick={async () => {
                     setFollowed(false);
                     await unfollow(post.user_id, post.username);
@@ -153,7 +154,9 @@ function FeedPost({
         </div>
       )}
       <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
-        {removeLinksHashtagsMention(post.tweet_text)}
+        {isCommunityPage
+          ? post.tweet_text
+          : removeLinksHashtagsMention(post.tweet_text)}
       </div>
       <div
         className={`w-full px-0 my-2 md:px-3 ${
@@ -182,7 +185,7 @@ function FeedPost({
         {!liked ? (
           <button
             disabled={!session}
-            className={`p-2 rounded-full group ${
+            className={`p-2 rounded-full group umami--click--like-button ${
               !session ? "hover:bg-none" : "hover:bg-red-700/20 cursor-pointer"
             }`}
             onClick={async () => {
@@ -199,7 +202,7 @@ function FeedPost({
           </button>
         ) : (
           <div
-            className="p-2 rounded-full cursor-pointer hover:bg-red-700/20 group"
+            className="p-2 rounded-full cursor-pointer hover:bg-red-700/20 group umami--click--unlike-button"
             onClick={async () => {
               setLiked(false);
               unlike(post.tweet_id, post.username);
@@ -212,7 +215,7 @@ function FeedPost({
         {!retweeted ? (
           <button
             disabled={!session}
-            className={`p-2 rounded-full group ${
+            className={`p-2 rounded-full group umami--click--retweet-button ${
               !session
                 ? "hover:bg-none"
                 : "cursor-pointer hover:bg-green-700/20"
@@ -247,7 +250,7 @@ function FeedPost({
           </button>
         ) : (
           <div
-            className="p-2 rounded-full cursor-pointer hover:bg-green-700/20 group"
+            className="p-2 rounded-full cursor-pointer hover:bg-green-700/20 group umami--click--undo-retweet-button"
             onClick={async () => {
               setRetweeted(false);
               const resp = await fetch(
@@ -279,7 +282,7 @@ function FeedPost({
           href={post.tweet_link}
           target="_blank"
           rel="noreferrer"
-          className="p-2 rounded-md bg-slate-200 dark:bg-slate-400"
+          className="p-2 rounded-md bg-slate-200 dark:bg-slate-400 umami--click--external-link-button"
         >
           <ExternalLinkIcon className="w-6 h-6 text-black" />
         </a>
@@ -291,13 +294,13 @@ function FeedPost({
               text: post.tweet_text,
             }}
           >
-            <ShareIcon className="w-5 h-5 text-green-400 dark:text-slate-900" />
+            <ShareIcon className="w-5 h-5 text-green-400 dark:text-slate-900 umami--click--share-button" />
           </RWebShare>
         </button>
         {mod && (
           <>
             <button
-              className={`text-[.5rem] md:text-[.7rem] px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
+              className={`text-[.5rem] md:text-[.7rem] px-2 py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg umami--click--delete-revive-post ${
                 deleted && "bg-red-200"
               } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
               onClick={async () => {
@@ -329,7 +332,7 @@ function FeedPost({
             </button>
 
             <button
-              className={`text-[.5rem] px-3 md:text-[.7rem] py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg ${
+              className={`text-[.5rem] px-3 md:text-[.7rem] py-1 text-red-500 border-2 dark:hover:bg-red-400 border-red-200 rounded-lg umami--click--ban-user ${
                 banned && "bg-red-200"
               } hover:bg-red-200 hover:text-white cursor-pointer dark:border-red-400`}
               disabled={banned}
