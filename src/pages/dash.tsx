@@ -47,54 +47,9 @@ const dash: NextPageWithLayout = () => {
           </div>
           Login with Twitter
         </Button>
-        <div className="flex flex-col justify-center w-full gap-5 mt-10 mb-24 overflow-y-hidden text-center md:flex-row md:mb-0">
-          {/* Discover */}
-          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
-            <SparklesIcon className="w-24 h-24 text-yellow-300" />
-            <h2 className="mt-3 text-xl dark:text-white font-montserrat">
-              Discover memes
-            </h2>
-            <span className="text-center">
-              Thousands of memes are uploaded every second on twitter. Be the
-              first to find them! Also see the amazing memes chosen, liked and
-              made by our community.
-            </span>
-          </div>
-          {/* Interact */}
-          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
-            <HeartIcon className="w-24 h-24 text-red-500" />
-            <h2 className="text-xl dark:text-white font-montserrat">
-              Interact
-            </h2>
-            <span className="text-center">
-              Interact with the community. Uploading and liking memes gives you
-              LMFAO points
-            </span>
-          </div>
-          {/* Be famous */}
-          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
-            <ChartBarIcon className="w-24 h-24 text-blue-500" />
-            <h2 className="text-xl dark:text-white font-montserrat">
-              Become famous
-            </h2>
-            <span className="text-center">
-              The more memes you upload, posts you like, and the more likes you
-              get, the more LMFAO points you have. Be at the top of the
-              leaderboard.
-            </span>
-          </div>
-          <div className="flex flex-col items-center justify-center flex-1 dark:text-white">
-            <BeakerIcon className="w-24 h-24 text-yellow-500" />
-            <h2 className="text-xl dark:text-white font-montserrat">
-              Create memes
-            </h2>
-            <span className="text-center">
-              Use the Meme maker with our community-chosen template and easy
-              drag and drop interface to create your own memes. Publish your
-              creations to the community right away!
-            </span>
-          </div>
-        </div>
+        
+        <iframe src="https://what-is.lmfao.tech/" className="w-full mt-5 mx-[-500px] h-[500px]" />
+        
       </Profile>
     </div>
   );
