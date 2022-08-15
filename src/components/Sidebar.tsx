@@ -173,7 +173,7 @@ function Sidebar() {
 
             <Item
               link="/explore"
-              tip="Community"
+              tip="Discover memes"
               icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
             />
 
