@@ -5,7 +5,7 @@ export default async function response(
   res: NextApiResponse<Response>
 ) {
 
-    const resp = await fetch(`https://www.drmemes.com/_next/data/7Zt_61K4LX-XJVg5YONpn/index.json`);
+    const resp = await fetch(`${process.env.NODE_ENV === "production" ? "https://lmfao.tech/" : "http://localhost:"+(process.env.PORT ?? "3000")}/getMemeTemplates.json`);
     const data = await resp.json();
 
     res.status(200).json(data.pageProps.memes)

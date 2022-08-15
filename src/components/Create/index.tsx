@@ -116,6 +116,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     fetch(`/api/getMemeTemplates`).then(
       async (res) => {
         const templates = await res.json();
+        console.log(templates)
         setMemeTemplates(templates);
       }
     )
@@ -612,7 +613,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                              src={"https://drmemes.com" + template.src}
+                              src={template.src}
                               alt={template.alt}
                               className="w-full"
                             />
