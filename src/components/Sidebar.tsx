@@ -5,6 +5,7 @@ import {
   UserIcon,
   PlusIcon,
   FilterIcon,
+  SparklesIcon,
   HomeIcon,
 } from "@heroicons/react/solid";
 import Link from "next/link";
@@ -78,8 +79,8 @@ function Sidebar() {
   const { data: session } = useSession();
 
   const currentPath = router.pathname;
-  const isHome = currentPath === "/home";
-  const isCommunity = currentPath === "/community";
+  const isExplore = currentPath === "/explore";
+  const isCommunity = currentPath === "/home";
   const isCreate = currentPath === "/create";
   const isDashboard = currentPath === "/dash";
   const isProfile = currentPath === `/u/[username]`;
@@ -90,7 +91,7 @@ function Sidebar() {
         <Link href="/home">
           <div
             className={`rounded-full ${
-              isHome && "dark:bg-slate-700/50 bg-slate-400/20"
+              isExplore && "dark:bg-slate-700/50 bg-slate-400/20"
             }`}
           >
             <SidebarIcon
@@ -99,14 +100,14 @@ function Sidebar() {
           </div>
         </Link>
 
-        <Link href="/community">
+        <Link href="/explore">
           <div
             className={`rounded-full ${
               isCommunity && "dark:bg-slate-700/50 bg-slate-400/20"
             }`}
           >
             <SidebarIcon
-              icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+              icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
             />
           </div>
         </Link>
@@ -141,7 +142,7 @@ function Sidebar() {
               }`}
             >
               <SidebarIcon
-                icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+                icon={<UserIcon className="w-6 h-6 text-blue-400" />}
               />
             </div>
           </Link>
@@ -171,16 +172,16 @@ function Sidebar() {
             />
 
             <Item
-              link="/community"
+              link="/explore"
               tip="Community"
-              icon={<UsersIcon className="w-6 h-6 text-blue-400" />}
+              icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
             />
 
             {session && (
               <Item
                 link={`/u/${session?.twitter?.twitterHandle}`}
                 tip="Profile"
-                icon={<UserIcon className="w-6 h-6 text-yellow-400" />}
+                icon={<UserIcon className="w-6 h-6 text-blue-400" />}
                 check="/u"
               />
             )}

@@ -7,18 +7,18 @@ import usePostFeed from "~/hooks/usePostFeed";
 import FeedPage from "~/components/layouts/FeedPage";
 import { Spinner } from "flowbite-react";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
-import { useNotifs } from '~/contexts/NotifyContext';
+import { useNotifs } from "~/contexts/NotifyContext";
 
 const Home: NextPageWithLayout = () => {
   const [last, setLast] = useState<number>(0);
   const { unseens } = useNotifs();
-  
+
   let {
     memes,
     loading,
-    hasMore
-  }: { memes: Post[]; loading: boolean; hasMore: boolean} = usePostFeed({
-    url: `/api/getMemes?last=${last}&max_tweets=10`,
+    hasMore,
+  }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
+    url: `/api/communityMemes?last=${last}&max_tweets=10`,
   });
   const observer = useRef<IntersectionObserver>();
 
@@ -29,20 +29,22 @@ const Home: NextPageWithLayout = () => {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0]?.isIntersecting) {
-          setLast(memes.length)
+          setLast(memes.length);
         }
       });
       if (node) observer.current.observe(node);
     },
     [loading, memes]
-    );
-
+  );
 
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Home | LMFAO.tech</title>
+        <title>
+          {unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Home |
+          LMFAO.tech
+        </title>
       </Head>
 
       <div className="flex flex-col w-full mb-20 overflow-hidden shadow-sm md:md-0">

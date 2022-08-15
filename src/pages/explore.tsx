@@ -16,7 +16,7 @@ const Community: NextPageWithLayout = () => {
     loading,
     hasMore,
   }: { memes: Post[]; loading: boolean; hasMore: boolean } = usePostFeed({
-    url: `/api/communityMemes?last=${last}&max_tweets=5`,
+    url: `/api/getMemes?last=${last}&max_tweets=5`,
   });
   const observer = useRef<IntersectionObserver>();
 

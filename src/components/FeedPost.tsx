@@ -86,7 +86,7 @@ function FeedPost({
   }, [likes]);
 
   const isModPage = router.route === "/mod";
-  const isCommunityPage = router.route === "/community";
+  const isCommunityPage = router.route === "/home";
 
   return (
     <div
