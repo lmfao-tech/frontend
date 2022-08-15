@@ -278,6 +278,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
     newText.toggleAttribute("data-text-underlined");
     newText.toggleAttribute("data-text-bold");
     newText.toggleAttribute("data-text-italics");
+    newText.setAttribute("spellcheck", "false");
+    newText.setAttribute("data-gramm", "false");
+    newText.setAttribute("data-gramm_editor", "false");
+    newText.setAttribute("data-enable-grammarly", "false");
     newText.style.color = "white";
     newText.style.webkitTextStroke = "1px black";
     newText.classList.add("meme_text");
@@ -434,7 +438,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 exit={{ scaleY: 0 }}
-                className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[80vh] ${
+                className={`relative overflow-y-auto scrollbar-thin w-screen z-50 rounded-md h-[80vh] ${
                   dark ? "bg-gray-600 text-white" : "bg-gray-200"
                 }`}
               >
@@ -586,7 +590,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               border: "1px solid #000",
             }}
           >
-            <h1 className="absolute z-[10000000] select-none text-xs bottom-3 right-3 text-gray-500 font-bold">
+            <h1 className="absolute z-10 text-xs font-bold text-gray-500 select-none bottom-3 right-3">
               Made using LMFAO.tech
             </h1>
           </EditView>
@@ -613,7 +617,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               onClick={publishMeme}
               disabled={!session}
               {...{[publishD]: "You need to login to post to twitter"}}
-              className="disabled:bg-gray-700/20 z-10 flex items-center justify-center gap-2 text-white bg-blue-600 btn btn-primary fill-white "
+              className="z-10 flex items-center justify-center gap-2 text-white bg-blue-600 disabled:bg-gray-700/20 btn btn-primary fill-white "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
