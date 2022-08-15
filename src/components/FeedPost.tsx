@@ -86,6 +86,7 @@ function FeedPost({
   }, [likes]);
 
   const isModPage = router.route === "/mod";
+  const isCommunityPage = router.route === "/community";
 
   return (
     <div
@@ -153,7 +154,7 @@ function FeedPost({
         </div>
       )}
       <div className="flex py-2 mx-3 ml-5 text-xs md:text-sm font-montserrat dark:text-slate-300">
-        {removeLinksHashtagsMention(post.tweet_text)}
+        {isCommunityPage? post.tweet_text : removeLinksHashtagsMention(post.tweet_text)}
       </div>
       <div
         className={`w-full px-0 my-2 md:px-3 ${
