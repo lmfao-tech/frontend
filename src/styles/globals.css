@@ -26,7 +26,7 @@ body {
     @apply bg-yellow-300 border-2 border-white absolute rounded-full w-10 h-10 flex justify-center items-center top-0 right-0 z-[9];
 }
 
-.google-search-input:active, 
+.google-search-input:active,
 .google-search-input:focus-visible,
 .google-search-input:focus {
     outline: none !important;
@@ -38,4 +38,20 @@ body {
 .google-search-input {
     outline: none;
     border: none;
+}
+
+.rotation-handle {
+    padding: 3px 4px;
+    display: table;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -35px;
+    background-color: blue;
+    border-radius: 10rem;
+    line-height: 1;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    cursor: move;
 }
