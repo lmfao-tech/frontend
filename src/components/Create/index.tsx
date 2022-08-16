@@ -33,15 +33,24 @@ import darkModeAtom from "~/atoms/darkmode";
 // @ts-ignore
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import toast from "react-hot-toast";
-import { Spinner } from "flowbite-react";
 import { useSession } from "next-auth/react";
 
-/**
- * Select file(s).
- * @param {String} contentType The content type of files you wish to select. For instance, use "image/*" to select all types of images.
- * @param {Boolean} multiple Indicates if the user can select multiple files.
- * @returns {Promise<File|File[]>} A promise of a file or array of files in case the multiple parameter is true.
- */
+interface Shape {
+  name: string;
+  styles: any;
+}
+
+const shapes: Shape[] = [
+  {
+    name: "Square/Rectangle",
+    styles: {
+      width: "100px",
+      height: "100px",
+      backgroundColor: "white"
+    }
+  }
+]
+
 function selectFile(
   contentType: string,
   multiple = false
@@ -77,14 +86,14 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
-  const [memeTemplateView, setMemeTemplate] =
-    useState<string>("/meme-photos/always-has-been.png");
+  const [memeTemplateView, setMemeTemplate] = useState<string>("/meme-photos/always-has-been.png");
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
   const [memeTemplates, setMemeTemplates] = useState<Template[]>([]);
   const [strokeWidth, setStrokeWidth] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
+  const [shapesModalOpen, setShapesModalOpen] = useState(false);
   const [dark, setDark] = useAtom(darkModeAtom);
   const [search, setSearch] = useState("");
   const [searchT, setSearchT] = useState("");
@@ -145,7 +154,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
     var y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
     // translate the element
-    target.style.transform = "translate(" + x + "px, " + y + "px)";
+    target.style.top = y + "px";
+    target.style.left = x + "px";
 
     // update the position attributes
     target.setAttribute("data-x", x);
@@ -153,15 +163,26 @@ function Create({ publish }: { publish: (image: File) => void }) {
   }
 
   const downloadMeme = () => {
+    const rotaters = document.querySelectorAll(".rotation-handle");
+    rotaters.forEach((r: any) => {
+      r.style.display = "none";
+    })
     html2canvas(imageContainer.current!, { useCORS: true }).then(function (
       canvas
     ) {
       canvas.toBlob((blob) => saveAs(blob!, `lmfao-tech-${Date.now()}.png`));
     });
+    rotaters.forEach((r: any) => {
+      r.style.display = "table";
+    })
   };
 
   const publishMeme = (e: any) => {
     e.preventDefault();
+    const rotaters = document.querySelectorAll(".rotation-handle");
+    rotaters.forEach((r: any) => {
+      r.style.display = "none";
+    })
     html2canvas(imageContainer.current!, { useCORS: true })
       .then(function (canvas) {
         canvas.toBlob((blob) => {
@@ -175,6 +196,9 @@ function Create({ publish }: { publish: (image: File) => void }) {
               color: "white",
             },
           });
+          rotaters.forEach((r: any) => {
+            r.style.display = "table";
+          })
         });
       })
       .catch(function (error) {
@@ -185,8 +209,81 @@ function Create({ publish }: { publish: (image: File) => void }) {
             color: "white",
           },
         });
+        rotaters.forEach((r: any) => {
+          r.style.display = "table";
+        })
       });
   };
+
+  const useShape = (shape: Shape) => {
+    const el = document.createElement("div");
+    Object.keys(shape.styles).forEach(
+      (st: string) => {
+        // @ts-ignore
+        el.style[`${st}`] = shape.styles[st];
+      }
+    )
+    // const rotater = document.createElement("div");
+    // rotater.innerHTML = "&circlearrowright;";
+    // rotater.contentEditable = "false";
+    // rotater.classList.add("rotation-handle");
+    // el.appendChild(rotater)
+    const random_id = "meme-" + uuid();
+    el.id = random_id;
+    imageContainer.current.append(el);
+    interactIcon(random_id)
+    setSelectedImage(random_id);
+
+    interact('.rotation-handle')
+      .draggable({
+        onstart: function (event) {
+          var box = event.target.parentElement;
+          var rect = box.getBoundingClientRect();
+
+          // store the center as the element has css `transform-origin: center center`
+          box.setAttribute('data-center-x', rect.left + rect.width / 2);
+          box.setAttribute('data-center-y', rect.top + rect.height / 2);
+          // get the angle of the element when the drag starts
+          box.setAttribute('data-angle', getDragAngle(event));
+        },
+        onmove: function (event) {
+          var box = event.target.parentElement;
+
+          var pos = {
+            x: parseFloat(box.getAttribute('data-x')) || 0,
+            y: parseFloat(box.getAttribute('data-y')) || 0
+          };
+
+          var angle = getDragAngle(event);
+
+          // update transform style on dragmove
+          box.style.transform = 'rotate(' + angle + 'rad' + ')';
+        },
+        onend: function (event) {
+          var box = event.target.parentElement;
+
+          // save the angle on dragend
+          box.setAttribute('data-angle', getDragAngle(event));
+        },
+      })
+
+    function getDragAngle(event: MouseEvent) {
+      const target = event.target as HTMLDivElement;
+      var box = target.parentElement;
+      if (box) {
+        var startAngle = parseFloat(box.getAttribute('data-angle') || "0") || 0;
+        var center = {
+          x: parseFloat(box.getAttribute('data-center-x') || "0") || 0,
+          y: parseFloat(box.getAttribute('data-center-y') || "0") || 0
+        };
+        var angle = Math.atan2(center.y - event.clientY,
+          center.x - event.clientX);
+
+        return angle - startAngle;
+      }
+    }
+
+  }
 
   const useTemplate = (e: any) => {
     if (!e.target.src) return;
@@ -208,12 +305,14 @@ function Create({ publish }: { publish: (image: File) => void }) {
       if (el) {
         el.remove();
       }
-    }
-    if (selectedImage) {
+      setSelectedText("");
+      setCurrentText("");
+    } else if (selectedImage) {
       let el = document.querySelector(`#${selectedImage}`);
       if (el) {
         el.remove();
       }
+      setSelectedImage("")
     }
   };
 
@@ -241,7 +340,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
   function interactIcon(id: string) {
     interact(`#${id}`)
-      .on("tap", (e) => {
+      .on("mousedown", (e) => {
         // set state of to manipulate the element from the toolkit
         // If element is text, set selectedText to the id of the element
         // If element is image, set selectedImage to the id of the element
@@ -250,23 +349,26 @@ function Create({ publish }: { publish: (image: File) => void }) {
         } else {
           setSelectedText(id);
         }
+
       })
       .resizable({
         edges: { top: true, left: true, bottom: true, right: true },
         listeners: {
           move: function (event) {
-            let { x, y } = event.target.dataset;
+            let { x, y } = event.target.dataset
 
-            x = (parseFloat(x) || 0) + event.deltaRect.left;
-            y = (parseFloat(y) || 0) + event.deltaRect.top;
+            x = (parseFloat(x) || 0) + event.deltaRect.left
+            y = (parseFloat(y) || 0) + event.deltaRect.top
 
             Object.assign(event.target.style, {
               width: `${event.rect.width}px`,
               height: `${event.rect.height}px`,
-              transform: `translate(${x}px, ${y}px)`,
-            });
+              top: `${y}px`,
+              left: `${x}px`,
+              transform: `rotate(${event.target.dataset.angle}rad)`
+            })
 
-            Object.assign(event.target.dataset, { x, y });
+            Object.assign(event.target.dataset, { x, y })
           },
         },
       })
@@ -317,15 +419,17 @@ function Create({ publish }: { publish: (image: File) => void }) {
     newText.contentEditable = "true";
     imageContainer.current.append(newText);
     newText.focus();
+    setSelectedText(random_id);
+    setCurrentText("Enter text here...")
 
     // Text's are not resizable but are draggle. To change size of text use the toolkit
     interact(`#${random_id}`)
-      .on("tap", (e) => {
+      .on("mousedown", (e) => {
         // set state of to manipulate the element from the toolkit
         setSelectedText(random_id);
         setCurrentText(e.target.innerText);
       })
-      .on("keypress", (e) => {
+      .on("keyup", (e) => {
         if (
           e.target.innerText.startsWith("Enter text here...") ||
           e.target.innerText.endsWith("Enter text here...")
@@ -420,12 +524,40 @@ function Create({ publish }: { publish: (image: File) => void }) {
       if (!textElem) return setSelectedText("");
       textElem.style.color = e.target.value;
     },
-    justify: function (e: any) {
+    changeBgColor: function (e: any) {
+      if (!selectedText) return;
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+      if (!textElem) return setSelectedText("");
+      textElem.style.backgroundColor = e.target.value;
+    },
+    removeBg: function (e: any) {
+      if (!selectedText) return;
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+      if (!textElem) return setSelectedText("");
+      textElem.style.backgroundColor = "transparent";
+    },
+    justifyLeft: function (e: any) {
       if (!selectedText) return;
 
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+      if (!textElem) return
+      textElem.style.textAlign = "left";
+      // TODO: fix justify
+    },
+    justifyCenter: function (e: any) {
+      if (!selectedText) return;
 
-      return;
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+      if (!textElem) return
+      textElem.style.textAlign = "center";
+      // TODO: fix justify
+    },
+    justifyRight: function (e: any) {
+      if (!selectedText) return;
+
+      const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
+      if (!textElem) return
+      textElem.style.textAlign = "right";
       // TODO: fix justify
     },
     changeStrokeColor: function (e: any) {
@@ -628,6 +760,96 @@ function Create({ publish }: { publish: (image: File) => void }) {
             </div>,
             document.getElementById("modals")!
           )}
+        {shapesModalOpen &&
+          ReactDOM.createPortal(
+            <div className="bg-black/40 lg:bg-black/30 flex justify-center items-center p-5 lg:p-52 fixed w-screen h-screen z-[10000]">
+              <motion.div
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                exit={{ scaleY: 0 }}
+                className={`relative overflow-y-auto scrollbar-thin w-screen z-50 rounded-md h-[80vh] ${dark ? "bg-gray-600 text-white" : "bg-gray-200"
+                  }`}
+              >
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className={`focus:bg-gray-500 ${!dark && "hover:text-white focus:text-white"
+                    } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    className=""
+                    width="1.5em"
+                    height="1.5em"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m12 13.4l-4.9 4.9q-.275.275-.7.275q-.425 0-.7-.275q-.275-.275-.275-.7q0-.425.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275q.425 0 .7.275q.275.275.275.7q0 .425-.275.7L13.4 12l4.9 4.9q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275Z"
+                    ></path>
+                  </svg>
+                </button>
+
+                <div className="p-3">
+                  <h1 className="my-2 text-2xl font-bold text-center">
+                    Choose a shape
+                  </h1>
+
+                  <ResponsiveMasonry
+                    columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+                  >
+                    <Masonry
+                      ref={tms}
+                      className="flex w-full h-full gap-5 overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
+                    >
+
+                      <div
+                        className={`card flex flex-col p-1 border ${googleSearchResults.length > 0 ? "h-80" : "h-20"
+                          } ${!dark && "border-gray-800"} m-1`}
+                      >
+                        <div className="flex w-full pl-3 justify-center items-center bg-white text-black rounded-md">
+                          <svg width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M500.3 443.7L380.6 324c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0c15.606-15.64 15.606-41.04.006-56.64zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128s-57.42 128-128 128s-128-57.4-128-128z"></path></svg>
+                          <input
+                            type="search"
+                            value={searchT}
+                            className="w-full bg-transparent google-search-inpu"
+                            placeholder="Search from below templates"
+                            onKeyUpCapture={
+                              // If enter key
+                              (e) => {
+                                if (e.key === "Enter") {
+                                  searchNow();
+                                }
+                              }
+                            }
+                            onChange={(e) => setSearchT(e.target.value)}
+                          />
+                        </div>
+
+                      </div>
+
+                      {shapes.map((shape, index) => {
+                        return (
+                          <button
+                            key={index}
+                            className={`card p-1 border flex justify-center items-center flex-col ${!dark && "border-gray-800"
+                              } m-1`}
+                            // eslint-disable-next-line react-hooks/rules-of-hooks
+                            onClick={() => { useShape(shape); setShapesModalOpen(false) }}
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <div style={shape.styles}></div>
+                            <h1 className="text-center">{shape.name}</h1>
+                          </button>
+                        );
+                      })}
+                    </Masonry>
+                  </ResponsiveMasonry>
+                </div>
+              </motion.div>
+            </div>,
+            document.getElementById("modals")!
+          )}
       </HomeCategory>
 
       {/*  */}
@@ -709,6 +931,12 @@ function Create({ publish }: { publish: (image: File) => void }) {
             >
               Add Image <FontAwesomeIcon className="w-5 h-5" icon={faImage} />
             </ActionButton>
+            <ActionButton
+              className="flex items-center justify-center gap-2 bg-gray-200 btn dark:text-white dark:bg-gray-600 btn-light"
+              onClick={() => setShapesModalOpen(true)}
+            >
+              Add Shapes <svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M1 21h22L12 2"></path></svg>
+            </ActionButton>
           </Actions>
           <div className="p-0 border border-none text">
             <textarea
@@ -763,7 +991,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               <div className="fill-black dark:fill-white">
                 <button
                   className="leftAlign border p-[5px] w-8 h-8"
-                  onClick={textFunctions.justify}
+                  onClick={textFunctions.justifyLeft}
                   value="left"
                   data-justification="left"
                 >
@@ -771,7 +999,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 </button>
                 <button
                   className="midAlign border p-[5px] w-8 h-8"
-                  onClick={textFunctions.justify}
+                  onClick={textFunctions.justifyCenter}
                   value="center"
                   data-justification="center"
                 >
@@ -779,7 +1007,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 </button>
                 <button
                   className="rightAlign border p-[5px] w-8 h-8"
-                  onClick={textFunctions.justify}
+                  onClick={textFunctions.justifyRight}
                   value="right"
                   data-justification="right"
                 >
@@ -821,6 +1049,20 @@ function Create({ publish }: { publish: (image: File) => void }) {
                   className="w-24 h-10 p-1 bg-gray-200 rounded-sm dark:bg-gray-700"
                   defaultValue="#000000"
                   onChange={textFunctions.changeStrokeColor}
+                />
+              </div>
+            </div>
+
+            <div>
+              <p>Background color:</p>
+              <div className="inputStroke relative w-24">
+                <button onClick={textFunctions.removeBg} className="absolute flex justify-center items-center top-0 right-0 w-4 h-4 -m-[7px] border-2 text-white dark:border-white border-gray-300 rounded-full bg-red-500">
+                  <svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6Z"></path></svg>
+                </button>
+                <input
+                  type="color"
+                  className="w-24 h-10 p-1 bg-gray-200 rounded-sm dark:bg-gray-700"
+                  onChange={textFunctions.changeBgColor}
                 />
               </div>
             </div>

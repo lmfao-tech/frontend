@@ -1,8 +1,8 @@
 import "../styles/globals.css";
 import "../styles/tooltip.css";
+import 'subjx/dist/style/subjx.css';
 import { SessionProvider } from "next-auth/react";
 import Script from "next/script";
-import { NextPage } from "next";
 import Head from "next/head";
 import HahaProvider from "~/contexts/HahaContext";
 import { AppContext, AppInitialProps, AppLayoutProps } from "next/app";

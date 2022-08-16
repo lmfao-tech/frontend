@@ -51,6 +51,7 @@ specifiers:
   react-toolkit: 2.0.0-alpha.6
   react-web-share: ^1.1.6
   styled-components: ^5.3.5
+  subjx: ^1.1.0
   tailwind-scrollbar: ^1.3.1
   tailwindcss: ^3.1.4
   twitter-api-v2: ^1.12.3
@@ -99,6 +100,7 @@ dependencies:
   react-toolkit: 2.0.0-alpha.6_scxhmbcwnay7fgl5u4mcdzbnsi
   react-web-share: 1.1.6_react@18.2.0
   styled-components: 5.3.5_biqbaboplfbrettd7655fr4n2y
+  subjx: 1.1.0
   tailwind-scrollbar: 1.3.1
   twitter-api-v2: 1.12.3
   twitter-lite: 1.1.0
@@ -7890,6 +7892,10 @@ packages:
 
   /stylis/4.0.13:
     resolution: {integrity: sha512-xGPXiFVl4YED9Jh7Euv2V220mriG9u4B2TA6Ybjc1catrstKD2PpIdU3U0RKpkVBC2EhmL/F0sPCr9vrFTNRag==}
+    dev: false
+
+  /subjx/1.1.0:
+    resolution: {integrity: sha512-wX9lQlPX8+1JJNjRf/fhYBATHMqSR8YfeSe4Q3Cx2ngJ6nvKAotkaF9rK3WEyskFG+zI1ITvujJzUyc9wXqwaQ==}
     dev: false
 
   /supports-color/2.0.0:
