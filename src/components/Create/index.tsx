@@ -598,13 +598,15 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 exit={{ scaleY: 0 }}
-                className={`relative overflow-y-auto scrollbar-thin w-screen z-50 rounded-md h-[80vh] ${dark ? "bg-gray-600 text-white" : "bg-gray-200"
-                  }`}
+                className={`relative overflow-y-auto scrollbar-thin w-screen z-50 rounded-md h-[80vh] ${
+                  dark ? "bg-gray-600 text-white" : "bg-gray-200"
+                }`}
               >
                 <button
                   onClick={() => setModalOpen(false)}
-                  className={`focus:bg-gray-500 ${!dark && "hover:text-white focus:text-white"
-                    } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
+                  className={`focus:bg-gray-500 ${
+                    !dark && "hover:text-white focus:text-white"
+                  } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -634,8 +636,9 @@ function Create({ publish }: { publish: (image: File) => void }) {
                       className="flex w-full h-full gap-5 overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
                     >
                       <button
-                        className={`card p-1 border h-20 ${!dark && "border-gray-800"
-                          } m-1`}
+                        className={`card p-1 border h-20 ${
+                          !dark && "border-gray-800"
+                        } m-1`}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         {/* Custom image */}
@@ -663,11 +666,33 @@ function Create({ publish }: { publish: (image: File) => void }) {
                       </button>
 
                       <div
-                        className={`card flex flex-col p-1 border ${googleSearchResults.length > 0 ? "h-80" : "h-20"
-                          } ${!dark && "border-gray-800"} m-1`}
+                        className={`card flex flex-col p-1 border ${
+                          googleSearchResults.length > 0 ? "h-80" : "h-20"
+                        } ${!dark && "border-gray-800"} m-1`}
                       >
                         <div className="flex w-full pl-3 justify-center items-center bg-white text-black rounded-md">
-                          <svg width="1.48em" height="1.5em" viewBox="0 0 256 262"><path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622l38.755 30.023l2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path><path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055c-34.523 0-63.824-22.773-74.269-54.25l-1.531.13l-40.298 31.187l-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path><path fill="#FBBC05" d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82c0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"></path><path fill="#EB4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0C79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"></path></svg>
+                          <svg
+                            width="1.48em"
+                            height="1.5em"
+                            viewBox="0 0 256 262"
+                          >
+                            <path
+                              fill="#4285F4"
+                              d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622l38.755 30.023l2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+                            ></path>
+                            <path
+                              fill="#34A853"
+                              d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055c-34.523 0-63.824-22.773-74.269-54.25l-1.531.13l-40.298 31.187l-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+                            ></path>
+                            <path
+                              fill="#FBBC05"
+                              d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82c0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
+                            ></path>
+                            <path
+                              fill="#EB4335"
+                              d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0C79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+                            ></path>
+                          </svg>
                           <input
                             type="search"
                             value={search}
@@ -689,17 +714,34 @@ function Create({ publish }: { publish: (image: File) => void }) {
                           <div className="flex flex-col h-full overflow-auto">
                             {searchLoading && (
                               <div className="flex justify-center items-center w-full py-10">
-                                <svg className="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                <svg
+                                  className="animate-spin -ml-1 mr-3 h-6 w-6 text-white"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                  ></circle>
+                                  <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                  ></path>
                                 </svg>
                               </div>
                             )}
                             {googleSearchResults.map((result) => (
                               <button
                                 key={result}
-                                className={`card p-1 border ${!dark && "border-gray-800"
-                                  } m-1`}
+                                className={`card p-1 border ${
+                                  !dark && "border-gray-800"
+                                } m-1`}
                                 onClick={useTemplate}
                               >
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -711,11 +753,17 @@ function Create({ publish }: { publish: (image: File) => void }) {
                       </div>
 
                       <div
-                        className={`card flex flex-col p-1 border ${googleSearchResults.length > 0 ? "h-80" : "h-20"
-                          } ${!dark && "border-gray-800"} m-1`}
+                        className={`card flex flex-col p-1 border ${
+                          googleSearchResults.length > 0 ? "h-80" : "h-20"
+                        } ${!dark && "border-gray-800"} m-1`}
                       >
                         <div className="flex w-full pl-3 justify-center items-center bg-white text-black rounded-md">
-                          <svg width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M500.3 443.7L380.6 324c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0c15.606-15.64 15.606-41.04.006-56.64zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128s-57.42 128-128 128s-128-57.4-128-128z"></path></svg>
+                          <svg width="1em" height="1em" viewBox="0 0 512 512">
+                            <path
+                              fill="currentColor"
+                              d="M500.3 443.7L380.6 324c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0c15.606-15.64 15.606-41.04.006-56.64zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128s-57.42 128-128 128s-128-57.4-128-128z"
+                            ></path>
+                          </svg>
                           <input
                             type="search"
                             value={searchT}
@@ -732,15 +780,15 @@ function Create({ publish }: { publish: (image: File) => void }) {
                             onChange={(e) => setSearchT(e.target.value)}
                           />
                         </div>
-
                       </div>
 
                       {tPlates.map((template, index) => {
                         return (
                           <button
                             key={index}
-                            className={`card p-1 border ${!dark && "border-gray-800"
-                              } m-1`}
+                            className={`card p-1 border ${
+                              !dark && "border-gray-800"
+                            } m-1`}
                             onClick={useTemplate}
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -767,13 +815,15 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 exit={{ scaleY: 0 }}
-                className={`relative overflow-y-auto scrollbar-thin w-screen z-50 rounded-md h-[80vh] ${dark ? "bg-gray-600 text-white" : "bg-gray-200"
-                  }`}
+                className={`relative overflow-y-auto scrollbar-thin w-screen z-50 rounded-md h-[80vh] ${
+                  dark ? "bg-gray-600 text-white" : "bg-gray-200"
+                }`}
               >
                 <button
                   onClick={() => setModalOpen(false)}
-                  className={`focus:bg-gray-500 ${!dark && "hover:text-white focus:text-white"
-                    } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
+                  className={`focus:bg-gray-500 ${
+                    !dark && "hover:text-white focus:text-white"
+                  } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -802,13 +852,18 @@ function Create({ publish }: { publish: (image: File) => void }) {
                       ref={tms}
                       className="flex w-full h-full gap-5 overflow-auto scrollbar-thin scrollbar-thumb-slate-200"
                     >
-
                       <div
-                        className={`card flex flex-col p-1 border ${googleSearchResults.length > 0 ? "h-80" : "h-20"
-                          } ${!dark && "border-gray-800"} m-1`}
+                        className={`card flex flex-col p-1 border ${
+                          googleSearchResults.length > 0 ? "h-80" : "h-20"
+                        } ${!dark && "border-gray-800"} m-1`}
                       >
                         <div className="flex w-full pl-3 justify-center items-center bg-white text-black rounded-md">
-                          <svg width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M500.3 443.7L380.6 324c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0c15.606-15.64 15.606-41.04.006-56.64zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128s-57.42 128-128 128s-128-57.4-128-128z"></path></svg>
+                          <svg width="1em" height="1em" viewBox="0 0 512 512">
+                            <path
+                              fill="currentColor"
+                              d="M500.3 443.7L380.6 324c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0c15.606-15.64 15.606-41.04.006-56.64zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128s-57.42 128-128 128s-128-57.4-128-128z"
+                            ></path>
+                          </svg>
                           <input
                             type="search"
                             value={searchT}
@@ -825,17 +880,21 @@ function Create({ publish }: { publish: (image: File) => void }) {
                             onChange={(e) => setSearchT(e.target.value)}
                           />
                         </div>
-
                       </div>
 
                       {shapes.map((shape, index) => {
                         return (
                           <button
                             key={index}
-                            className={`card p-1 border flex justify-center items-center flex-col ${!dark && "border-gray-800"
-                              } m-1`}
+                            className={`card p-1 border flex justify-center items-center flex-col ${
+                              !dark && "border-gray-800"
+                            } m-1`}
                             // eslint-disable-next-line react-hooks/rules-of-hooks
-                            onClick={() => { useShape(shape); setShapesModalOpen(false) }}
+                            onClick={() => {
+                              // eslint-disable-next-line react-hooks/rules-of-hooks
+                              useShape(shape);
+                              setShapesModalOpen(false);
+                            }}
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <div style={shape.styles}></div>
@@ -912,6 +971,24 @@ function Create({ publish }: { publish: (image: File) => void }) {
               </svg>
               Publish
             </ActionButton>
+            <ActionButton
+              className="z-10 flex items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
+              onClick={downloadMeme}
+            >
+              Download{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M6 20q-.825 0-1.412-.587Q4 18.825 4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 20 18 20Zm6-4l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11Z"
+                ></path>
+              </svg>
+            </ActionButton>
           </Actions>
         </div>
 
@@ -935,7 +1012,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
               className="flex items-center justify-center gap-2 bg-gray-200 btn dark:text-white dark:bg-gray-600 btn-light"
               onClick={() => setShapesModalOpen(true)}
             >
-              Add Shapes <svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M1 21h22L12 2"></path></svg>
+              Add Shapes{" "}
+              <svg width="1em" height="1em" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M1 21h22L12 2"></path>
+              </svg>
             </ActionButton>
           </Actions>
           <div className="p-0 border border-none text">
@@ -1056,8 +1136,16 @@ function Create({ publish }: { publish: (image: File) => void }) {
             <div>
               <p>Background color:</p>
               <div className="inputStroke relative w-24">
-                <button onClick={textFunctions.removeBg} className="absolute flex justify-center items-center top-0 right-0 w-4 h-4 -m-[7px] border-2 text-white dark:border-white border-gray-300 rounded-full bg-red-500">
-                  <svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6Z"></path></svg>
+                <button
+                  onClick={textFunctions.removeBg}
+                  className="absolute flex justify-center items-center top-0 right-0 w-4 h-4 -m-[7px] border-2 text-white dark:border-white border-gray-300 rounded-full bg-red-500"
+                >
+                  <svg width="1em" height="1em" viewBox="0 0 24 24">
+                    <path
+                      fill="currentColor"
+                      d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6Z"
+                    ></path>
+                  </svg>
                 </button>
                 <input
                   type="color"
