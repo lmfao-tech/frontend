@@ -8,7 +8,7 @@ export function Container(props: HTMLMotionProps<"div">) {
 	delete p.className;
 
 	return (
-		<div {...p} className={`${props.className} dark:bg-[#242424] text-black dark:text-white max-w-[1100px] p-4 [&>input]:text-[16px]`}></div>
+		<div {...p} className={`${props.className} dark:bg-[#242424] text-black dark:text-white max-w-[1100px] p-4 [&>input]:text-[16px] snap-always`}></div>
 	)
 }
 
@@ -165,7 +165,8 @@ export function Flex(props: HTMLMotionProps<"div">) {
 				bg-white
 				shadow-md
 				rounded-md
-				p-6
+				p-2
+				md:p-6
 
 				[&>.editContainer_.btn]:mt-6
 			`}

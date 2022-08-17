@@ -346,11 +346,13 @@ function Create({ publish }: { publish: (image: File) => void }) {
     try {
       const selectedFile: any = await selectFile("png, jpg");
       const fileReader = new FileReader();
+      const maxHeight = imageContainer.current!.offsetHeight;
       fileReader.readAsDataURL(selectedFile);
 
       fileReader.onload = function (oEvnt: any) {
         const newImage = document.createElement("img");
         newImage.src = oEvnt.target.result;
+        newImage.height = maxHeight;
         newImage.setAttribute("alt", ".");
         const random_id = "meme-" + uuid();
         newImage.setAttribute("id", random_id);
@@ -372,16 +374,36 @@ function Create({ publish }: { publish: (image: File) => void }) {
         // If element is image, set selectedImage to the id of the element
         if (e.target.tagName === "IMG") {
           setSelectedImage(id);
+          //
+          const selected = document.querySelector(`#${id}`);
+          if (selected) {
+            selected.classList.add("border");
+          }
         } else {
           setSelectedText(id);
+        }
+      })
+      .on("mouseup", (e) => {
+        // Remove borders from selected image
+        const selected = document.querySelector(`#${id}`);
+        console.log(id);
+        if (id != selectedImage && selected) {
+          selected.classList.remove("border");
         }
       })
       .resizable({
         edges: { top: true, left: true, bottom: true, right: true },
         listeners: {
+          start: (event) => {
+            // Locks scroll during resize
+            document.body.style.overflow = "hidden";
+          },
+          end: (event) => {
+            // Unlocks scroll after resize
+            document.body.style.overflow = "";
+          },
           move: function (event) {
             let { x, y } = event.target.dataset;
-
             x = (parseFloat(x) || 0) + event.deltaRect.left;
             y = (parseFloat(y) || 0) + event.deltaRect.top;
 
@@ -407,17 +429,17 @@ function Create({ publish }: { publish: (image: File) => void }) {
             endOnly: true,
           }),
         ],
-        // enable autoScroll
-        autoScroll: true,
 
         listeners: {
-          // call this function on every dragmove event
           move: dragMoveListener,
 
-          // call this function on every dragend event
-          end(event) {
-            // -------
+          start: (event) => {
+            // Locks scroll during resize
+            document.body.style.overflow = "hidden";
           },
+          end: (event) => {
+            document.body.style.overflow = "";
+          }
         },
       });
   }
