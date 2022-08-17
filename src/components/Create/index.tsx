@@ -1,4 +1,12 @@
-import { useState, useRef, SyntheticEvent, FormEvent, useEffect, useDeferredValue, useMemo } from "react";
+import {
+  useState,
+  useRef,
+  SyntheticEvent,
+  FormEvent,
+  useEffect,
+  useDeferredValue,
+  useMemo,
+} from "react";
 import interact from "interactjs";
 import html2canvas from "html2canvas";
 import { v4 as uuid } from "uuid";
@@ -46,10 +54,10 @@ const shapes: Shape[] = [
     styles: {
       width: "100px",
       height: "100px",
-      backgroundColor: "white"
-    }
-  }
-]
+      backgroundColor: "white",
+    },
+  },
+];
 
 function selectFile(
   contentType: string,
@@ -80,13 +88,14 @@ interface Template {
 }
 
 function Create({ publish }: { publish: (image: File) => void }) {
-
   const { data: session } = useSession();
   const publishD = session === null ? "data-tip" : "data-not-tip";
 
   const imageContainer: any = useRef();
   const offScreenImage: any = useRef();
-  const [memeTemplateView, setMemeTemplate] = useState<string>("/meme-photos/always-has-been.png");
+  const [memeTemplateView, setMemeTemplate] = useState<string>(
+    "/meme-photos/always-has-been.png"
+  );
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
@@ -97,7 +106,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
   const [dark, setDark] = useAtom(darkModeAtom);
   const [search, setSearch] = useState("");
   const [searchT, setSearchT] = useState("");
-  const defferedSearch = useDeferredValue(searchT)
+  const defferedSearch = useDeferredValue(searchT);
   const [googleSearchResults, setGoogleSearchResults] = useState<string[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [tPlates, setTPlates] = useState<Template[]>([]);
@@ -108,43 +117,36 @@ function Create({ publish }: { publish: (image: File) => void }) {
       const d = await res.json();
       setGoogleSearchResults(d);
       setSearchLoading(false);
-    }, 200)
+    }, 200);
   };
 
   const tms = useRef<any>(null);
 
   useEffect(() => {
-
     setTimeout(() => {
       const e = { target: { src: memeTemplateView } };
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useTemplate(e);
-    }, 1000)
+    }, 1000);
 
     // Get all meme templates from folder /templates
-    fetch(`/api/getMemeTemplates`).then(
-      async (res) => {
-        const templates = await res.json();
-        console.log(templates)
-        setMemeTemplates(templates);
-      }
-    )
+    fetch(`/api/getMemeTemplates`).then(async (res) => {
+      const templates = await res.json();
+      setMemeTemplates(templates);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useMemo(() => {
     let tpl: Template[] = [];
 
-    memeTemplates.forEach(t => {
+    memeTemplates.forEach((t) => {
       if (t.alt.toLowerCase().includes(defferedSearch.toLowerCase())) {
         tpl.push(t);
       }
     });
 
-    console.log(tpl.length)
-
     setTPlates(tpl);
-
   }, [defferedSearch, memeTemplates]);
 
   function dragMoveListener(event: any) {
@@ -166,7 +168,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     const rotaters = document.querySelectorAll(".rotation-handle");
     rotaters.forEach((r: any) => {
       r.style.display = "none";
-    })
+    });
     html2canvas(imageContainer.current!, { useCORS: true }).then(function (
       canvas
     ) {
@@ -174,7 +176,33 @@ function Create({ publish }: { publish: (image: File) => void }) {
     });
     rotaters.forEach((r: any) => {
       r.style.display = "table";
-    })
+    });
+  };
+
+  const addToClipboard = (image: Blob) => {
+    navigator.clipboard.write([
+      new ClipboardItem({
+        [image.type]: image,
+      }),
+    ]);
+    toast.success("Image copied to clipboard", {
+      position: "top-center",
+    });
+  };
+
+  const copyToClipboard = () => {
+    const rotaters = document.querySelectorAll(".rotation-handle");
+    rotaters.forEach((r: any) => {
+      r.style.display = "none";
+    });
+    html2canvas(imageContainer.current!, { useCORS: true }).then(function (
+      canvas
+    ) {
+      canvas.toBlob((blob) => addToClipboard(blob!));
+    });
+    rotaters.forEach((r: any) => {
+      r.style.display = "table";
+    });
   };
 
   const publishMeme = (e: any) => {
@@ -182,7 +210,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     const rotaters = document.querySelectorAll(".rotation-handle");
     rotaters.forEach((r: any) => {
       r.style.display = "none";
-    })
+    });
     html2canvas(imageContainer.current!, { useCORS: true })
       .then(function (canvas) {
         canvas.toBlob((blob) => {
@@ -198,7 +226,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
           });
           rotaters.forEach((r: any) => {
             r.style.display = "table";
-          })
+          });
         });
       })
       .catch(function (error) {
@@ -211,18 +239,16 @@ function Create({ publish }: { publish: (image: File) => void }) {
         });
         rotaters.forEach((r: any) => {
           r.style.display = "table";
-        })
+        });
       });
   };
 
   const useShape = (shape: Shape) => {
     const el = document.createElement("div");
-    Object.keys(shape.styles).forEach(
-      (st: string) => {
-        // @ts-ignore
-        el.style[`${st}`] = shape.styles[st];
-      }
-    )
+    Object.keys(shape.styles).forEach((st: string) => {
+      // @ts-ignore
+      el.style[`${st}`] = shape.styles[st];
+    });
     // const rotater = document.createElement("div");
     // rotater.innerHTML = "&circlearrowright;";
     // rotater.contentEditable = "false";
@@ -231,59 +257,59 @@ function Create({ publish }: { publish: (image: File) => void }) {
     const random_id = "meme-" + uuid();
     el.id = random_id;
     imageContainer.current.append(el);
-    interactIcon(random_id)
+    interactIcon(random_id);
     setSelectedImage(random_id);
 
-    interact('.rotation-handle')
-      .draggable({
-        onstart: function (event) {
-          var box = event.target.parentElement;
-          var rect = box.getBoundingClientRect();
+    interact(".rotation-handle").draggable({
+      onstart: function (event) {
+        var box = event.target.parentElement;
+        var rect = box.getBoundingClientRect();
 
-          // store the center as the element has css `transform-origin: center center`
-          box.setAttribute('data-center-x', rect.left + rect.width / 2);
-          box.setAttribute('data-center-y', rect.top + rect.height / 2);
-          // get the angle of the element when the drag starts
-          box.setAttribute('data-angle', getDragAngle(event));
-        },
-        onmove: function (event) {
-          var box = event.target.parentElement;
+        // store the center as the element has css `transform-origin: center center`
+        box.setAttribute("data-center-x", rect.left + rect.width / 2);
+        box.setAttribute("data-center-y", rect.top + rect.height / 2);
+        // get the angle of the element when the drag starts
+        box.setAttribute("data-angle", getDragAngle(event));
+      },
+      onmove: function (event) {
+        var box = event.target.parentElement;
 
-          var pos = {
-            x: parseFloat(box.getAttribute('data-x')) || 0,
-            y: parseFloat(box.getAttribute('data-y')) || 0
-          };
+        var pos = {
+          x: parseFloat(box.getAttribute("data-x")) || 0,
+          y: parseFloat(box.getAttribute("data-y")) || 0,
+        };
 
-          var angle = getDragAngle(event);
+        var angle = getDragAngle(event);
 
-          // update transform style on dragmove
-          box.style.transform = 'rotate(' + angle + 'rad' + ')';
-        },
-        onend: function (event) {
-          var box = event.target.parentElement;
+        // update transform style on dragmove
+        box.style.transform = "rotate(" + angle + "rad" + ")";
+      },
+      onend: function (event) {
+        var box = event.target.parentElement;
 
-          // save the angle on dragend
-          box.setAttribute('data-angle', getDragAngle(event));
-        },
-      })
+        // save the angle on dragend
+        box.setAttribute("data-angle", getDragAngle(event));
+      },
+    });
 
     function getDragAngle(event: MouseEvent) {
       const target = event.target as HTMLDivElement;
       var box = target.parentElement;
       if (box) {
-        var startAngle = parseFloat(box.getAttribute('data-angle') || "0") || 0;
+        var startAngle = parseFloat(box.getAttribute("data-angle") || "0") || 0;
         var center = {
-          x: parseFloat(box.getAttribute('data-center-x') || "0") || 0,
-          y: parseFloat(box.getAttribute('data-center-y') || "0") || 0
+          x: parseFloat(box.getAttribute("data-center-x") || "0") || 0,
+          y: parseFloat(box.getAttribute("data-center-y") || "0") || 0,
         };
-        var angle = Math.atan2(center.y - event.clientY,
-          center.x - event.clientX);
+        var angle = Math.atan2(
+          center.y - event.clientY,
+          center.x - event.clientX
+        );
 
         return angle - startAngle;
       }
     }
-
-  }
+  };
 
   const useTemplate = (e: any) => {
     if (!e.target.src) return;
@@ -312,7 +338,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
       if (el) {
         el.remove();
       }
-      setSelectedImage("")
+      setSelectedImage("");
     }
   };
 
@@ -349,26 +375,25 @@ function Create({ publish }: { publish: (image: File) => void }) {
         } else {
           setSelectedText(id);
         }
-
       })
       .resizable({
         edges: { top: true, left: true, bottom: true, right: true },
         listeners: {
           move: function (event) {
-            let { x, y } = event.target.dataset
+            let { x, y } = event.target.dataset;
 
-            x = (parseFloat(x) || 0) + event.deltaRect.left
-            y = (parseFloat(y) || 0) + event.deltaRect.top
+            x = (parseFloat(x) || 0) + event.deltaRect.left;
+            y = (parseFloat(y) || 0) + event.deltaRect.top;
 
             Object.assign(event.target.style, {
               width: `${event.rect.width}px`,
               height: `${event.rect.height}px`,
               top: `${y}px`,
               left: `${x}px`,
-              transform: `rotate(${event.target.dataset.angle}rad)`
-            })
+              transform: `rotate(${event.target.dataset.angle}rad)`,
+            });
 
-            Object.assign(event.target.dataset, { x, y })
+            Object.assign(event.target.dataset, { x, y });
           },
         },
       })
@@ -420,7 +445,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     imageContainer.current.append(newText);
     newText.focus();
     setSelectedText(random_id);
-    setCurrentText("Enter text here...")
+    setCurrentText("Enter text here...");
 
     // Text's are not resizable but are draggle. To change size of text use the toolkit
     interact(`#${random_id}`)
@@ -434,7 +459,14 @@ function Create({ publish }: { publish: (image: File) => void }) {
           e.target.innerText.startsWith("Enter text here...") ||
           e.target.innerText.endsWith("Enter text here...")
         ) {
-          e.target.innerText = "";
+          const diff = e.target.innerText.replace("Enter text here...", "");
+          e.target.innerText = diff;
+          const range = document.createRange();
+          range.selectNodeContents(e.target);
+          range.collapse(false);
+          const sel = window.getSelection();
+          sel?.removeAllRanges();
+          sel?.addRange(range);
         }
         setCurrentText(e.target.innerText);
       })
@@ -461,11 +493,6 @@ function Create({ publish }: { publish: (image: File) => void }) {
           },
         },
       });
-  };
-
-  const removeSelections = () => {
-    setSelectedText("");
-    setSelectedImage("");
   };
 
   const textFunctions = {
@@ -540,7 +567,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
       if (!selectedText) return;
 
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return
+      if (!textElem) return;
       textElem.style.textAlign = "left";
       // TODO: fix justify
     },
@@ -548,7 +575,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
       if (!selectedText) return;
 
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return
+      if (!textElem) return;
       textElem.style.textAlign = "center";
       // TODO: fix justify
     },
@@ -556,7 +583,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
       if (!selectedText) return;
 
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return
+      if (!textElem) return;
       textElem.style.textAlign = "right";
       // TODO: fix justify
     },
@@ -567,7 +594,6 @@ function Create({ publish }: { publish: (image: File) => void }) {
       textElem.style.webkitTextStroke = `${strokeWidth}px ${e.target.value}`;
     },
     changeStrokeWidth: function (e: any) {
-      console.log(e)
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
       if (!textElem) return setSelectedText("");
@@ -972,22 +998,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
               Publish
             </ActionButton>
             <ActionButton
-              className="z-10 flex items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
-              onClick={downloadMeme}
+              className="z-10 items-center justify-center gap-2 border btn btn-secondary dark:fill-white hidden md:block"
+              onClick={copyToClipboard}
             >
-              Download{" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                width="1.5em"
-                height="1.5em"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M6 20q-.825 0-1.412-.587Q4 18.825 4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 20 18 20Zm6-4l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11Z"
-                ></path>
-              </svg>
+              Copy to clipboard
             </ActionButton>
           </Actions>
         </div>

@@ -31,8 +31,8 @@ function Item({
 }: {
   check?: string;
   home?: boolean;
+  tip?: string;
   link: string;
-  tip: string;
   icon: JSX.Element | JSX.Element[];
 }) {
   const router = useRouter();
@@ -84,20 +84,22 @@ function Sidebar() {
       <div className="fixed bottom-0 flex items-center justify-between w-full h-20 px-8 bg-white md:hidden dark:bg-[#242424] drop-shadow-2xl">
         <Item
           link="/home"
-          tip="Home"
           icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
         />
 
         <Item
           link="/explore"
-          tip="Community"
           icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
+        />
+
+        <Item
+          link="/create"
+          icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
         />
 
         {session && (
           <Item
             link={`/u/${session?.twitter?.twitterHandle}`}
-            tip="Profile"
             icon={<UserIcon className="w-6 h-6 text-blue-400" />}
             check="/u"
           />
@@ -105,20 +107,12 @@ function Sidebar() {
 
         <Item
           link="/dash"
-          tip="Dashboard"
           icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
-        />
-
-        <Item
-          link="/create"
-          tip="Create"
-          icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
         />
 
         {mod && (
           <Item
             link="/mod"
-            tip="Moderation"
             icon={<FilterIcon className="w-6 h-6 text-red-500" />}
           />
         )}

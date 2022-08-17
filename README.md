@@ -78,6 +78,7 @@ A single page for all your memes and statistics
 ### Create page
 
 Create page is the one page where you can create and publish memes. This is the page with the meme creator and the template picker. Here’s a GIF
+
 ![Create page](https://us-east-1.tixte.net/uploads/i.dhr.wtf/l6sd84yfw5c.gif)
 
 ### Notifications

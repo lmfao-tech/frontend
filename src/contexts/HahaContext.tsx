@@ -114,7 +114,6 @@ const HahaProvider = ({ children }: any) => {
   const follow = async (id: string | number, username: string) => {
     const resp = await fetch(`/api/twitter/tweet/follow?id=${id}&username=${username}`);
     const data = await resp.json();
-    console.log(data);
     const old = localStorage.getItem("follows");
     
     if (old) {
@@ -131,7 +130,6 @@ const HahaProvider = ({ children }: any) => {
   const unfollow = async (id: string | number, username: string) => {
     const resp = await fetch(`/api/twitter/tweet/unfollow?id=${id}&username=${username}`);
     const data = await resp.json();
-    console.log(data);
     const old = localStorage.getItem("follows");
 
     if (old) {
