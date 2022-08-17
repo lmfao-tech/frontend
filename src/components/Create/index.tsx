@@ -352,7 +352,12 @@ function Create({ publish }: { publish: (image: File) => void }) {
       fileReader.onload = function (oEvnt: any) {
         const newImage = document.createElement("img");
         newImage.src = oEvnt.target.result;
-        newImage.height = maxHeight;
+
+        // Decrease image height if it is too large
+        if (newImage.height > maxHeight) {
+          newImage.style.height = maxHeight + "px";
+        }
+
         newImage.setAttribute("alt", ".");
         const random_id = "meme-" + uuid();
         newImage.setAttribute("id", random_id);
