@@ -41,7 +41,7 @@ const Community: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Community memes | LMFAO.tech</title>
+        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Explore | LMFAO.tech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
