@@ -36,8 +36,8 @@ const LmfaoTech: NextComponentType<
             <link rel="shortcut icon" href="/icons/maskable.png" />
             <link rel="apple-touch-icon" href="/icons/maskable.png"></link>
           </Head>
-          <NextNProgress color="linear-gradient(to right, #9061F9, #E74694)" />
           <Toaster />
+          <NextNProgress color="linear-gradient(to right, #9061F9, #E74694)" />
           <AnimatePresence>
             <div id="modals"></div>
           </AnimatePresence>
