@@ -54,12 +54,7 @@ function Item({
     <Link passHref href={link}>
       <a className="relative">
         {isHere && (
-          <motion.div
-            layoutId="on"
-            initial={false}
-            transition={spring}
-            className="absolute top-0 right-0 w-12 h-12 rounded-full dark:bg-slate-700/50 bg-slate-400/20"
-          ></motion.div>
+          <div className="absolute top-0 right-0 w-12 h-12 rounded-full dark:bg-slate-700/50 bg-slate-400/20" />
         )}
         <div
           className={`rounded-full w-12 h-12 flex justify-center items-center`}
@@ -119,58 +114,56 @@ function Sidebar() {
       </div>
 
       {/* Larger devices */}
-      <AnimateSharedLayout>
-        <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
-          <div className="flex flex-col gap-1 ml-10 space-y-7">
+      <div className="sticky top-0 flex-col items-center justify-center hidden min-h-screen border-gray-300 shadow-md md:flex w-28 border-1">
+        <div className="flex flex-col gap-1 ml-10 space-y-7">
+          <Item
+            link="/home"
+            tip="Home"
+            icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
+          />
+
+          <Item
+            link="/explore"
+            tip="Discover memes"
+            icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
+          />
+
+          {session && (
             <Item
-              link="/home"
-              tip="Home"
-              icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
+              link={`/u/${session?.twitter?.twitterHandle}`}
+              tip="Profile"
+              icon={<UserIcon className="w-6 h-6 text-blue-400" />}
+              check="/u"
             />
+          )}
 
+          <Item
+            link="/dash"
+            tip="Dashboard"
+            icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
+          />
+
+          <Item
+            link="/create"
+            tip="Create"
+            icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
+          />
+
+          {mod && (
             <Item
-              link="/explore"
-              tip="Discover memes"
-              icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
+              link="/mod"
+              tip="Moderation"
+              icon={<FilterIcon className="w-6 h-6 text-red-500" />}
             />
-
-            {session && (
-              <Item
-                link={`/u/${session?.twitter?.twitterHandle}`}
-                tip="Profile"
-                icon={<UserIcon className="w-6 h-6 text-blue-400" />}
-                check="/u"
-              />
-            )}
-
-            <Item
-              link="/dash"
-              tip="Dashboard"
-              icon={<DesktopComputerIcon className="w-6 h-6 text-gray-400" />}
-            />
-
-            <Item
-              link="/create"
-              tip="Create"
-              icon={<PlusIcon className="w-6 h-6 text-gray-400" />}
-            />
-
-            {mod && (
-              <Item
-                link="/mod"
-                tip="Moderation"
-                icon={<FilterIcon className="w-6 h-6 text-red-500" />}
-              />
-            )}
-          </div>
-
-          {/* TODO: Implement Sidebar toggle  */}
-          {/* <SidebarIcon
-            icon={<ChevronDoubleRightIcon className="w-6 h-6 text-gray-400" />}
-            tooltip="Open menu"
-          /> */}
+          )}
         </div>
-      </AnimateSharedLayout>
+
+        {/* TODO: Implement Sidebar toggle  */}
+        {/* <SidebarIcon
+          icon={<ChevronDoubleRightIcon className="w-6 h-6 text-gray-400" />}
+          tooltip="Open menu"
+        /> */}
+      </div>
     </div>
   );
 }
