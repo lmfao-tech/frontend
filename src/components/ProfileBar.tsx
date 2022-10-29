@@ -61,7 +61,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                 {extended && (
                   <motion.div
                     initial={{ opacity: 0, y: -20, width: 45, height: 45, color: darkMode ? "#4B5563" : "#76A9FA", overflow: "hidden" }}
-                    animate={{ opacity: 1, y: 0, width: [45, 45, 160], color: [darkMode ? "#4B5563" : "#76A9FA", darkMode ? "#4B5563" : "#76A9FA", "#FFFFFF"], overflow: ["hidden", "hidden", "auto"] }}
+                    animate={{ opacity: 1, y: 0, width: [45, 45, 160], color: [darkMode ? "#4B5563" : "#76A9FA", darkMode ? "#4B5563" : "#76A9FA", "#FFFFFF"], overflow: "hidden" }}
                     exit={{ opacity: 0, y: -20 }}
                     className="absolute mt-36 right-0 flex justify-center z-10 dark:bg-gray-600 bg-blue-400 rounded-full py-2"
                   >
