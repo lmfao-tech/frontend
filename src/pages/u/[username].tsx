@@ -125,7 +125,7 @@ function User({ user, pfp, meta }: any) {
     <div className="flex flex-col justify-center items-center py-10 w-full">
       <div className="flex flex-col gap-2 justify-center items-center w-full">
         <div className="rounded-full relative bg-gradient-to-r p-[5px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
-          <div className="rank-btn-profile text-black">#{user.rank}</div>
+          <div className="rank-btn-profile text-black" style={{ borderColor: darkMode ? "#141414" : "#FFFFFF" }}>#{user.rank}</div>
           <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
             <Avatar img={pfp} rounded={true} size="xl" alt="avatar" />
           </div>
@@ -228,6 +228,8 @@ export async function getServerSideProps(context: any) {
         },
       };
     }
+
+    console.log(user)
 
     return {
       props: {
