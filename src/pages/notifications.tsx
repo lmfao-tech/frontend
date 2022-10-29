@@ -2,10 +2,6 @@ import { ReactElement } from "react";
 import dynamic from 'next/dynamic';
 import FeedPage from "~/components/layouts/FeedPage";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
-import {
-  NovuProvider,
-  NotificationBell,
-} from "@novu/notification-center";
 import { useSession } from "next-auth/react";
 import darkModeAtom from "~/atoms/darkmode";
 import { useAtom } from "jotai";
