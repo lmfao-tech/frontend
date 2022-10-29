@@ -39,7 +39,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
           <div className="flex flex-col h-full min-h-screen mx-1">
             <button
               onClick={() => setExtended(!extended)}
-              className="relative flex items-center py-3 px-5 mx-2 mt-5 rounded-xl group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"
+              className="relative flex items-center py-3 px-5 mx-2 mt-5 rounded-2xl group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"
             >
               <div className="rounded-full relative bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
