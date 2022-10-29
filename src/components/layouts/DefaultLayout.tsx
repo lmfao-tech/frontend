@@ -9,6 +9,7 @@ import logo_white from "~/../public/logo-white.png";
 import { NovuProvider } from "@novu/notification-center";
 import { useSession } from "next-auth/react";
 import NotifyProvder from "~/contexts/NotifyContext";
+import { useRouter } from "next/router";
 
 function DefaultLayout({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -31,8 +32,33 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
     }
   }, [jotaiDarkmode, setIsDarkMode]);
 
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => setLoading(false);
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [])
+
   return (
     <div className={`${isDarkMode ? "dark" : null}`}>
+      <motion.div
+        animate={{
+          opacity: loading ? 1 : 0,
+        }}
+        style={{ pointerEvents: loading ? "all": "none" }}
+        className="fixed bg-[#b0b2b5] dark:bg-[#242424] top-0 left-0 w-screen h-screen z-[1000000] text-black dark:text-white flex flex-col justify-center items-center"
+      >
+          <img src={`/logo-${isDarkMode ? "white": "black"}.png`} className="h-40 loading-img" />
+      </motion.div>
       <NovuProvider
         subscriberId={session?.twitter.twitterHandle}
         applicationIdentifier={process.env.NEXT_PUBLIC_NOVUI!}
