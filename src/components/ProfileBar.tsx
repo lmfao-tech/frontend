@@ -1,4 +1,4 @@
-import { Avatar, Button } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { useSession, signOut } from "next-auth/react";
 import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
@@ -30,7 +30,7 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
     av = "";
   }
 
-  const { helpOpen, setHelpOpen } = useHelp();
+  const { setHelpOpen } = useHelp();
 
   return (
     <>
