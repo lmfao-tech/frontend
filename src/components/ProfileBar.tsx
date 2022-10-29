@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import darkModeAtom from "~/atoms/darkmode";
 import { useHelp } from "~/contexts/HelpContext";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Profile({ children }: { children?: React.ReactNode }) {
   const { data: session } = useSession();
@@ -38,11 +39,11 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
           <div className="flex flex-col h-full min-h-screen mx-1">
             <button
               onClick={() => setExtended(!extended)}
-              className="relative flex items-center px-6 mx-2 py-3 mt-5 rounded-full group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"
+              className="relative flex items-center py-3 px-5 mx-2 mt-5 rounded-xl group hover:bg-slate-200 dark:hover:bg-black/20 transition-[background-color] hover:cursor-pointer"
             >
               <div className="rounded-full relative bg-gradient-to-r p-[3px] from-[#6EE7B7] dark:from-pink-500 via-[#3B82F6] dark:via-purple-600 dark:to-indigo-800 to-[#9333EA]">
                 <div className="flex flex-col justify-between h-full text-white bg-white rounded-full">
-                  <Avatar img={av} rounded={true} alt="avatar" />
+                  <img alt="avatar" src={av} className="rounded-full w-14" />
                 </div>
               </div>
               <div className="flex flex-col mx-3 mt-2">
@@ -50,19 +51,26 @@ export default function Profile({ children }: { children?: React.ReactNode }) {
                   {" "}
                   {session?.user?.name}
                 </span>
-                <span className="font-mono text-slate-500">
+                <span className="font-mono text-left text-slate-500">
                   @{session.twitter.twitterHandle}
                 </span>
               </div>
               <ChevronDownIcon className="w-6 h-6 ml-auto mr-2 transition-all ease-out delay-150 text-back dark:text-white group-hover:translate-y-1" />
 
-              {extended && (
-                <div className="absolute ml-40 mt-32 mr-2 flex justify-center z-10 dark:bg-gray-600 bg-blue-400 rounded-full w-40 text-white py-2">
-                  <button onClick={() => signOut()} className="flex">
-                    Logout <LogoutIcon className="w-6 h-6 ml-3" />
-                  </button>
-                </div>
-              )}
+              <AnimatePresence>
+                {extended && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -20, width: 45, height: 45, color: darkMode ? "#4B5563" : "#76A9FA", overflow: "hidden" }}
+                    animate={{ opacity: 1, y: 0, width: [45, 45, 160], color: [darkMode ? "#4B5563" : "#76A9FA", darkMode ? "#4B5563" : "#76A9FA", "#FFFFFF"], overflow: ["hidden", "hidden", "auto"] }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="absolute mt-36 right-0 flex justify-center z-10 dark:bg-gray-600 bg-blue-400 rounded-full py-2"
+                  >
+                    <button onClick={() => signOut()} className="flex">
+                      Logout <LogoutIcon className="w-6 h-6 ml-3" />
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </button>
             <div className="flex items-center justify-center mt-7">
               <div className="flex items-center justify-around max-w-lg gap-5 mx-5 space-x-4">
