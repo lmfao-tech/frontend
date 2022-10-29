@@ -48,9 +48,6 @@ const Notifications = () => {
         notifications,
         fetchNextPage,
         hasNextPage,
-        fetching,
-        markAsSeen,
-        refetch
     } = useNotifications();
 
     const [unseens, setUnseens] = React.useState(0);
