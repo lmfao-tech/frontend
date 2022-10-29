@@ -11,7 +11,6 @@ import { ReactNode } from "react";
 import HelpProvider from "~/contexts/HelpContext";
 import { Toaster } from "react-hot-toast";
 import { AnimatePresence } from "framer-motion";
-import NextNProgress from "nextjs-progressbar";
 import Honeybadger from "@honeybadger-io/js";
 
 if (process.env.NODE_ENV === "production") {
@@ -26,7 +25,9 @@ const LmfaoTech: NextComponentType<
   AppInitialProps,
   AppLayoutProps
 > = ({ Component, pageProps: { session, ...pageProps } }: AppLayoutProps) => {
+
   const getLayout = Component.getLayout || ((page: ReactNode) => page);
+
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
       <HahaProvider>
@@ -37,7 +38,6 @@ const LmfaoTech: NextComponentType<
             <link rel="apple-touch-icon" href="/icons/maskable.png"></link>
           </Head>
           <Toaster />
-          <NextNProgress color="linear-gradient(to right, #9061F9, #E74694)" />
           <AnimatePresence>
             <div id="modals"></div>
           </AnimatePresence>
