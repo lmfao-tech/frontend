@@ -7,7 +7,7 @@ function Index() {
 export async function getServerSideProps(context: NextPageContext) {
   return {
     redirect: {
-      destination: "/explore",
+      destination: "/home",
       permanent: false,
     },
   };
