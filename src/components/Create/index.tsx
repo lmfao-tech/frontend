@@ -32,7 +32,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import ReactDOM from "react-dom";
 import { motion } from "framer-motion";
@@ -986,8 +985,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
             </h1>
           </EditView>
           <Actions className="flex items-center justify-center px-5">
-            <ActionButton
-              className="z-10 flex items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
+            <button
+              className="z-10 flex w-40 h-15 py-3 rounded-sm items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
               onClick={downloadMeme}
             >
               Download{" "}
@@ -1003,12 +1002,12 @@ function Create({ publish }: { publish: (image: File) => void }) {
                   d="M6 20q-.825 0-1.412-.587Q4 18.825 4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 20 18 20Zm6-4l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11Z"
                 ></path>
               </svg>
-            </ActionButton>
-            <ActionButton
+            </button>
+            <button
               onClick={publishMeme}
               disabled={!session}
               {...{ [publishD]: "You need to login to post to twitter" }}
-              className="z-10 flex items-center justify-center gap-2 text-white bg-blue-600 disabled:bg-gray-700/20 btn btn-primary fill-white "
+              className="z-10 flex w-40 h-15 py-3 rounded-sm items-center justify-center gap-2 text-white bg-blue-600 disabled:bg-gray-700/20 btn btn-primary fill-white "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1023,13 +1022,14 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 ></path>
               </svg>
               Publish
-            </ActionButton>
-            <ActionButton
-              className="z-10 items-center justify-center gap-2 border btn btn-secondary dark:fill-white hidden md:block"
+            </button>
+            <button
+              className="z-10 flex items-center justify-center p-2 py-2 gap-2 dark:fill-white hidden md:block"
               onClick={copyToClipboard}
+              data-tip="Copy to clipboard"
             >
-              Copy to clipboard
-            </ActionButton>
+              <svg width="2em" height="2em" viewBox="0 0 24 24" className="translate-y-[10px]"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path d="M19.4 20H9.6a.6.6 0 0 1-.6-.6V9.6a.6.6 0 0 1 .6-.6h9.8a.6.6 0 0 1 .6.6v9.8a.6.6 0 0 1-.6.6Z"></path><path d="M15 9V4.6a.6.6 0 0 0-.6-.6H4.6a.6.6 0 0 0-.6.6v9.8a.6.6 0 0 0 .6.6H9"></path></g></svg>
+            </button>
           </Actions>
         </div>
 
