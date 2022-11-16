@@ -984,9 +984,9 @@ function Create({ publish }: { publish: (image: File) => void }) {
               Made using LMFAO.tech
             </h1>
           </EditView>
-          <Actions className="flex items-center justify-center px-5">
+          <Actions className="flex items-center justify-center">
             <button
-              className="z-10 flex w-40 h-15 py-3 rounded-sm items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
+              className="z-10 flex px-4 lg:px-0 lg:w-40 lg:h-15 lg:px-0 lg:py-3 py-2 rounded-sm items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
               onClick={downloadMeme}
             >
               Download{" "}
@@ -1007,7 +1007,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               onClick={publishMeme}
               disabled={!session}
               {...{ [publishD]: "You need to login to post to twitter" }}
-              className="z-10 flex w-40 h-15 py-3 rounded-sm items-center justify-center gap-2 text-white bg-blue-600 disabled:bg-gray-700/20 btn btn-primary fill-white "
+              className="z-10 flex px-4 lg:px-0 bg-blue-500 lg:w-40 lg:h-15 lg:py-3 py-2 rounded-sm items-center justify-center gap-2 text-white disabled:bg-blue-500/20 btn btn-primary fill-white "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

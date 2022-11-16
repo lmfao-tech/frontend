@@ -25,6 +25,7 @@ specifiers:
   autoprefixer: ^10.4.7
   babel-core: ^6.26.3
   babel-loader: ^8.2.5
+  csstype: ^3.1.0
   eslint: 8.18.0
   eslint-config-next: 12.1.6
   file-saver: ^2.0.5
@@ -32,6 +33,7 @@ specifiers:
   flowbite-react: ^0.0.27
   formidable: ^2.0.1
   framer-motion: ^6.5.1
+  goober: ^2.1.10
   google-img-scrap: ^1.0.7
   html-to-image: ^1.9.0
   html2canvas: ^1.4.1
@@ -79,11 +81,13 @@ dependencies:
   '@types/uuid': 8.3.4
   babel-core: 6.26.3
   babel-loader: 8.2.5
+  csstype: 3.1.0
   file-saver: 2.0.5
   flowbite: 1.4.7
   flowbite-react: 0.0.27_f7u7coe27y5lebjwvpvlijmrdm
   formidable: 2.0.1
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
+  goober: 2.1.11_csstype@3.1.0
   google-img-scrap: 1.0.7
   html-to-image: 1.9.0
   html2canvas: 1.4.1
@@ -96,7 +100,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-dropzone: 14.2.2_react@18.2.0
-  react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
+  react-hot-toast: 2.4.0_vt6aeitzauirmcdhimiad2yjxy
   react-lazy-load-image-component: 1.5.5_biqbaboplfbrettd7655fr4n2y
   react-masonry-css: 1.0.16_react@18.2.0
   react-responsive-masonry: 2.1.5
@@ -5151,10 +5155,12 @@ packages:
       pinkie-promise: 2.0.1
     dev: false
 
-  /goober/2.1.11:
+  /goober/2.1.11_csstype@3.1.0:
     resolution: {integrity: sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==}
     peerDependencies:
       csstype: ^3.0.10
+    dependencies:
+      csstype: 3.1.0
     dev: false
 
   /google-img-scrap/1.0.7:
@@ -7116,14 +7122,14 @@ packages:
     resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
     dev: false
 
-  /react-hot-toast/2.4.0_biqbaboplfbrettd7655fr4n2y:
+  /react-hot-toast/2.4.0_vt6aeitzauirmcdhimiad2yjxy:
     resolution: {integrity: sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      goober: 2.1.11
+      goober: 2.1.11_csstype@3.1.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     transitivePeerDependencies:
