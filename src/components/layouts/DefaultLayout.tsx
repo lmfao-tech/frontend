@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 function DefaultLayout({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const jotaiDarkmode = useAtomValue(darkModeAtom);
+  const [d, setD] = useAtom(darkModeAtom);
   const { helpOpen, setHelpOpen } = useHelp();
   const { data: session } = useSession();
 
@@ -21,14 +22,17 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
     const darkMode = window.localStorage.getItem("darkMode");
     if (darkMode === "true") {
       setIsDarkMode(true);
+      setD(true);
     }
   }, []);
 
   useEffect(() => {
     if (jotaiDarkmode) {
       setIsDarkMode(true);
+      setD(true);
     } else {
       setIsDarkMode(false);
+      setD(false)
     }
   }, [jotaiDarkmode, setIsDarkMode]);
 
