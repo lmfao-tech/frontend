@@ -1,7 +1,6 @@
 import {
   useState,
   useRef,
-  SyntheticEvent,
   FormEvent,
   useEffect,
   useDeferredValue,
@@ -44,7 +43,8 @@ import { useSession } from "next-auth/react";
 
 interface Shape {
   name: string;
-  styles: any;
+  svg?: React.ReactNode;
+  styles?: any;
 }
 
 const shapes: Shape[] = [
@@ -97,6 +97,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
   );
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
+  const [selected, setSelected] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
   const [memeTemplates, setMemeTemplates] = useState<Template[]>([]);
   const [strokeWidth, setStrokeWidth] = useState(1);
@@ -118,6 +119,30 @@ function Create({ publish }: { publish: (image: File) => void }) {
       setSearchLoading(false);
     }, 200);
   };
+
+  useEffect(() => {
+    if (!selectedText) {
+      return
+    }
+    const currentSelected = document.querySelector(".selected-meme-item")
+    if (currentSelected) {
+      currentSelected.classList.remove("selected-meme-item")
+    }
+    const shouldBeSelected = document.querySelector(`#${selectedText}`)
+    shouldBeSelected?.classList.add("selected-meme-item")
+  }, [selectedText])
+
+  useEffect(() => {
+    if (!selectedImage) {
+      return
+    }
+    const currentSelected = document.querySelector(".selected-meme-item")
+    if (currentSelected) {
+      currentSelected.classList.remove("selected-meme-item")
+    }
+    const shouldBeSelected = document.querySelector(`#${selectedImage}`)
+    shouldBeSelected?.classList.add("selected-meme-item")
+  }, [selectedImage])
 
   const tms = useRef<any>(null);
 
@@ -258,6 +283,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     imageContainer.current.append(el);
     interactIcon(random_id);
     setSelectedImage(random_id);
+    setSelected(random_id)
 
     interact(".rotation-handle").draggable({
       onstart: function (event) {
@@ -325,12 +351,14 @@ function Create({ publish }: { publish: (image: File) => void }) {
   };
 
   const deleteSelected = (e: FormEvent) => {
-    if (selectedText) {
-      let el = document.querySelector(`#${selectedText}`);
+    if (selected) {
+      let el = document.querySelector(`#${selected}`);
       if (el) {
         el.remove();
       }
       setSelectedText("");
+      setSelectedImage("");
+      setSelected("")
       setCurrentText("");
     } else if (selectedImage) {
       let el = document.querySelector(`#${selectedImage}`);
@@ -338,6 +366,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
         el.remove();
       }
       setSelectedImage("");
+      setSelectedText("");
+      setSelected("")
     }
   };
 
@@ -364,6 +394,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
         interactIcon(random_id);
         setSelectedImage(random_id);
+        setSelected(random_id)
       };
     } catch (error) {
       console.log(error);
@@ -378,13 +409,19 @@ function Create({ publish }: { publish: (image: File) => void }) {
         // If element is image, set selectedImage to the id of the element
         if (e.target.tagName === "IMG") {
           setSelectedImage(id);
+          setSelected(id)
           //
           const selected = document.querySelector(`#${id}`);
           if (selected) {
-            selected.classList.add("border");
+            const currentSelected = document.querySelector(".selected-meme-item")
+            if (currentSelected) {
+              currentSelected.classList.remove("selected-meme-item")
+            }
+            selected.classList.add("selected-meme-item");
           }
         } else {
           setSelectedText(id);
+          setSelected(id)
         }
       })
       .on("mouseup", (e) => {
@@ -471,6 +508,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     imageContainer.current.append(newText);
     newText.focus();
     setSelectedText(random_id);
+    setSelected(random_id)
     setCurrentText("Enter text here...");
 
     // Text's are not resizable but are draggle. To change size of text use the toolkit
@@ -478,7 +516,18 @@ function Create({ publish }: { publish: (image: File) => void }) {
       .on("mousedown", (e) => {
         // set state of to manipulate the element from the toolkit
         setSelectedText(random_id);
+        setSelected(random_id)
         setCurrentText(e.target.innerText);
+        const selected = document.getElementById(random_id);
+        if (selected) {
+          const currentSelected = document.querySelector(".selected-meme-item")
+          if (currentSelected) {
+            currentSelected.classList.remove("selected-meme-item")
+          }
+          console.log(selected)
+          selected.classList.add("selected-meme-item");
+        }
+        
       })
       .on("keyup", (e) => {
         if (
@@ -525,7 +574,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
     toggleBold: function () {
       if (!selectedText) return;
       const textElem = document.querySelector(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.toggleAttribute("data-text-bold");
       if (textElem.hasAttribute("data-text-bold")) {
         // @ts-ignore
@@ -538,7 +591,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
     toggleItalics: function () {
       if (!selectedText) return;
       const textElem = document.querySelector(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelected("")
+        setSelectedText("")
+        return
+      }
       textElem.toggleAttribute("data-text-italic");
       if (textElem.hasAttribute("data-text-italic")) {
         // @ts-ignore
@@ -551,7 +608,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
     toggleUnderline: function () {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.toggleAttribute("data-text-underlined");
       if (textElem.hasAttribute("data-text-underlined")) {
         textElem.style.textDecoration = "underline";
@@ -562,31 +623,51 @@ function Create({ publish }: { publish: (image: File) => void }) {
     changeText: function (e: any) {
       setCurrentText(e.target.value);
       const textElem = document.getElementById(selectedText);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.innerText = e.target.value;
     },
     changeTextSize: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("");
+        setSelected("")
+        return
+      }
       textElem.style.fontSize = `${e.target.value}px`;
     },
     changeTextColor: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.color = e.target.value;
     },
     changeBgColor: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.backgroundColor = e.target.value;
     },
     removeBg: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.backgroundColor = "transparent";
     },
     justifyLeft: function (e: any) {
@@ -616,13 +697,21 @@ function Create({ publish }: { publish: (image: File) => void }) {
     changeStrokeColor: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.webkitTextStroke = `${strokeWidth}px ${e.target.value}`;
     },
     changeStrokeWidth: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.webkitTextStrokeWidth = `${e}px`;
     },
   };
@@ -872,7 +961,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 }`}
               >
                 <button
-                  onClick={() => setModalOpen(false)}
+                  onClick={() => setShapesModalOpen(false)}
                   className={`focus:bg-gray-500 ${
                     !dark && "hover:text-white focus:text-white"
                   } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
@@ -949,7 +1038,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
                             }}
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <div style={shape.styles}></div>
+                            {shape.styles &&  <div style={shape.styles}></div>}
+                            {shape.svg}
                             <h1 className="text-center">{shape.name}</h1>
                           </button>
                         );
