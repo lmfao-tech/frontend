@@ -9,6 +9,7 @@ import {
 import interact from "interactjs";
 import html2canvas from "html2canvas";
 import { v4 as uuid } from "uuid";
+import { renderToString } from 'react-dom/server'
 import { saveAs } from "file-saver";
 import {
   Container,
@@ -54,8 +55,8 @@ const shapes: Shape[] = [
       width: "100px",
       height: "100px",
       backgroundColor: "white",
-    },
-  },
+    }
+  }
 ];
 
 function selectFile(
@@ -190,6 +191,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
   const downloadMeme = () => {
     const rotaters = document.querySelectorAll(".rotation-handle");
+    const selected = document.querySelectorAll('.selected-meme-item')
+    selected.forEach(s => {
+      s.classList.remove('selected-meme-item')
+    })
     rotaters.forEach((r: any) => {
       r.style.display = "none";
     });
@@ -216,6 +221,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
   const copyToClipboard = () => {
     const rotaters = document.querySelectorAll(".rotation-handle");
+    const selected = document.querySelectorAll('.selected-meme-item')
+    selected.forEach(s => {
+      s.classList.remove('selected-meme-item')
+    })
     rotaters.forEach((r: any) => {
       r.style.display = "none";
     });
@@ -268,72 +277,33 @@ function Create({ publish }: { publish: (image: File) => void }) {
   };
 
   const useShape = (shape: Shape) => {
+    if (shape.svg) {
+      const el = document.createElement("div");
+      el.style.width = "100px";
+      el.style.height = "100px";
+      const random_id = "meme-" + uuid();
+      el.id = random_id;
+      interactIcon(random_id, true);
+      setSelectedImage(random_id);
+      setSelected(random_id)
+      // @ts-ignore
+      el.innerHTML = renderToString(shape.svg);
+      imageContainer.current.append(el);
+      setSelectedImage(random_id);
+      setSelected(random_id)
+      return;
+    }
     const el = document.createElement("div");
     Object.keys(shape.styles).forEach((st: string) => {
       // @ts-ignore
       el.style[`${st}`] = shape.styles[st];
     });
-    // const rotater = document.createElement("div");
-    // rotater.innerHTML = "&circlearrowright;";
-    // rotater.contentEditable = "false";
-    // rotater.classList.add("rotation-handle");
-    // el.appendChild(rotater)
     const random_id = "meme-" + uuid();
     el.id = random_id;
     imageContainer.current.append(el);
     interactIcon(random_id);
     setSelectedImage(random_id);
     setSelected(random_id)
-
-    interact(".rotation-handle").draggable({
-      onstart: function (event) {
-        var box = event.target.parentElement;
-        var rect = box.getBoundingClientRect();
-
-        // store the center as the element has css `transform-origin: center center`
-        box.setAttribute("data-center-x", rect.left + rect.width / 2);
-        box.setAttribute("data-center-y", rect.top + rect.height / 2);
-        // get the angle of the element when the drag starts
-        box.setAttribute("data-angle", getDragAngle(event));
-      },
-      onmove: function (event) {
-        var box = event.target.parentElement;
-
-        var pos = {
-          x: parseFloat(box.getAttribute("data-x")) || 0,
-          y: parseFloat(box.getAttribute("data-y")) || 0,
-        };
-
-        var angle = getDragAngle(event);
-
-        // update transform style on dragmove
-        box.style.transform = "rotate(" + angle + "rad" + ")";
-      },
-      onend: function (event) {
-        var box = event.target.parentElement;
-
-        // save the angle on dragend
-        box.setAttribute("data-angle", getDragAngle(event));
-      },
-    });
-
-    function getDragAngle(event: MouseEvent) {
-      const target = event.target as HTMLDivElement;
-      var box = target.parentElement;
-      if (box) {
-        var startAngle = parseFloat(box.getAttribute("data-angle") || "0") || 0;
-        var center = {
-          x: parseFloat(box.getAttribute("data-center-x") || "0") || 0,
-          y: parseFloat(box.getAttribute("data-center-y") || "0") || 0,
-        };
-        var angle = Math.atan2(
-          center.y - event.clientY,
-          center.x - event.clientX
-        );
-
-        return angle - startAngle;
-      }
-    }
   };
 
   const useTemplate = (e: any) => {
@@ -401,7 +371,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     }
   };
 
-  function interactIcon(id: string) {
+  function interactIcon(id: string, svg = false) {
     interact(`#${id}`)
       .on("mousedown", (e) => {
         // set state of to manipulate the element from the toolkit
@@ -444,6 +414,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
             document.body.style.overflow = "";
           },
           move: function (event) {
+            if (svg) {
+              const trgt = event.target.childNodes[0] as HTMLElement;
+              trgt.setAttribute("width", `${event.rect.width}px`);
+              trgt.setAttribute("height", `${event.rect.height}px`);
+            }
             let { x, y } = event.target.dataset;
             x = (parseFloat(x) || 0) + event.deltaRect.left;
             y = (parseFloat(y) || 0) + event.deltaRect.top;
@@ -1039,7 +1014,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             {shape.styles &&  <div style={shape.styles}></div>}
-                            {shape.svg}
+                            {shape.svg && (
+                              <div className="w-[100%] h-[100%]">
+                                {shape.svg}
+                              </div>
+                            )}
                             <h1 className="text-center">{shape.name}</h1>
                           </button>
                         );
