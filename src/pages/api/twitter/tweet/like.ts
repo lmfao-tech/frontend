@@ -34,19 +34,11 @@ export default async function handler(
         return
     }
 
-    const client = new TwitterApi({
-        appKey: process.env.TWITTER_API_KEY!,
-        appSecret: process.env.TWITTER_API_SECRET!,
-        accessToken: session.tokens.authToken,
-        accessSecret: session.tokens.authSecret,
-    })
-
+    // TODO: like in database
     try {
-        const data = await client.v2.like(session.tokens.authToken.split("-")[0]!, id);
-
         res.status(200).json({
             success: Status.Success,
-            data: data
+            data: "Liked"
         })
 
     } catch (e: any) {

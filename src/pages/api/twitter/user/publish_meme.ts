@@ -42,6 +42,7 @@ export default async function handler(
       "base64"
     );
 
+      // TODO: Upload images to cloudflare r2
     const mediaId = await client.v1.uploadMedia(buff, {
       type: "png",
       target: "tweet",
@@ -56,7 +57,7 @@ export default async function handler(
     const user = prisma.user
       .findFirst({
         where: {
-          name: session.twitter.twitterHandle,
+          username: session.user.username,
         },
       })
       .then(async (user) => {
@@ -73,7 +74,7 @@ export default async function handler(
         if (diffDays > 1 && diffDays < 2) {
           await prisma.user.update({
             where: {
-              name: session.twitter.twitterHandle,
+              username: session.user.username,
             },
             data: {
               longest_streak: isNewLongestStreak
@@ -86,7 +87,7 @@ export default async function handler(
         } else if (diffDays > 2) {
           await prisma.user.update({
             where: {
-              name: session.twitter.twitterHandle,
+              username: session.user.username,
             },
             data: {
               current_streak: 1,

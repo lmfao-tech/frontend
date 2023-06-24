@@ -10,7 +10,6 @@ import logo_black from "~/../public/logo-black.png";
 import { InformationCircleIcon, FireIcon } from "@heroicons/react/solid";
 import { useAtom } from "jotai";
 import darkModeAtom from "~/atoms/darkmode";
-import { useHaha } from "~/contexts/HahaContext";
 import { useHelp } from "~/contexts/HelpContext";
 import usePostFeed from "~/hooks/usePostFeed";
 import Post from "~/types/Post";
@@ -58,7 +57,7 @@ function UserProfile({ u, user }: any) {
   return (
     <div className="grid lg:grid-cols-6">
       <Head>
-        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}@{user.name} | LMFAO.tech</title>
+        <title>{`${unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "} @${user.name} | LMFAO.tech`}</title>
         <meta property="og:image" content="/og-image.png" />
 
         <meta name="og:title" content={`@${user.name} | LMFAO.tech`} />
@@ -228,8 +227,6 @@ export async function getServerSideProps(context: any) {
         },
       };
     }
-
-    console.log(user)
 
     return {
       props: {

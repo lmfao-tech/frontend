@@ -28,8 +28,7 @@ export default async function response(
   }
   if (
     !(
-      session.twitter.twitterHandle.toLowerCase() == "dhravyashah" ||
-      session.twitter.twitterHandle.toLowerCase() == "yash72274544"
+      session.user.email.toLowerCase() == "dhravyashah@gmail.com"
     )
   ) {
     res.status(401).json({

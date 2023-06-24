@@ -50,7 +50,8 @@ const Moderation: NextPageWithLayout = () => {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}LMFAO.tech</title>
+        <title>{`${unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "} LMFAO.tech`}
+        </title>
       </Head>
 
       <div className="flex flex-col w-full mb-20 overflow-hidden shadow-sm md:md-0">

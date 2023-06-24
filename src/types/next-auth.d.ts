@@ -6,21 +6,12 @@ declare module "next-auth" {
      */
     interface Session {
         user: {
+            id: string;
             name: string;
             email: string;
             image: string;
+            username: string;
         }
         expires: string;
-        twitter: {
-            followersCount: number;
-            twitterHandle: string;
-            userID: number;
-            followingCount: number;
-            postCount: number;
-        }
-        tokens: {
-            authToken: string;
-            authSecret: string;
-        }
     }
 }

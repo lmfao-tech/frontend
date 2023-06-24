@@ -3,6 +3,8 @@
 lmfao-tech.code-workspace
 worker/*
 worker
+pnpm-lock.yaml
+package-lock.json
 
 # dependencies
 /node_modules

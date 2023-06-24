@@ -55,7 +55,7 @@ export default async function handler(
                 subscriberId: username,
             },
             payload: {
-                who: session.twitter.twitterHandle,
+                who: `${session.user.id}`,
                 what: "followed"
             }
         })

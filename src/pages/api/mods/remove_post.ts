@@ -31,7 +31,7 @@ export default async function handler(req: Req, res: NextApiResponse<Resp>) {
 
   const mod = await prisma.mods.findFirst({
     where: {
-      id: session.twitter.twitterHandle,
+      id: session.user.id,
     },
   });
 
@@ -44,7 +44,7 @@ export default async function handler(req: Req, res: NextApiResponse<Resp>) {
   }
 
   await fetch(
-    `https://api.lmfao.tech/remove_meme?id=${id}&by=${session.twitter.twitterHandle}`,
+    `https://api.lmfao.tech/remove_meme?id=${id}&by=${session.user.id}`,
     {
       headers: {
         "Content-Type": "application/json",

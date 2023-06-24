@@ -1,40 +1,26 @@
 import NextAuth from "next-auth"
-import TwitterProvider from "next-auth/providers/twitter";
+import GoogleProvider from "next-auth/providers/google";
 import {cloneDeep} from "tailwindcss/lib/util/cloneDeep";
 
 export default NextAuth({
-
     providers: [
-        TwitterProvider({
-            clientId: process.env.TWITTER_API_KEY!,
-            clientSecret: process.env.TWITTER_API_SECRET!,
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         }),
     ],
     callbacks: {
-        async jwt({ token, user, account, profile, isNewUser }) {
-            if (profile) {
-                token['userProfile'] = {
-                    followersCount: profile.followers_count,
-                    twitterHandle: profile.screen_name,
-                    userID: profile.id,
-                    followingCount: profile.friends_count,
-                    postCount: profile.statuses_count
-                };
-            }
-            if (account) {
-                token['credentials'] = {
-                    authToken: account.oauth_token,
-                    authSecret: account.oauth_token_secret,
-                }
-            }
-            return token
-        },
         async session({ session, token, user }) {
-            let userData = cloneDeep(token.userProfile);
-            let credentials = cloneDeep(token.credentials);
-            session.twitter = userData;
-            session.tokens = credentials; 
-            return session;
+            if (!token['username']) {
+                const username = (session?.user.name?.toLowerCase().replace(/\s/g, "") || session?.user.email?.split("@")[0] || "user") + "-" + Math.floor(Math.random() * 10000).toString()
+                token['username'] = username
+            }
+            if (!session.user.id && token['sub']) {
+                session.user.id = token['sub']
+            }
+            // @ts-ignore
+            session.user = {...session.user, username: token['username']}
+            return session
         }
     }
 })

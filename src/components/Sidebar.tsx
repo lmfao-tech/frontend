@@ -72,6 +72,7 @@ function Sidebar() {
   const { mod } = useHaha();
   const router = useRouter();
   const { data: session } = useSession();
+  const { user } = useHaha();
 
   return (
     <div className="bg-white dark:bg-[#242424]  z-50">
@@ -82,10 +83,6 @@ function Sidebar() {
           icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
         />
 
-        <Item
-          link="/explore"
-          icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
-        />
 
         <Item
           link="/create"
@@ -94,7 +91,7 @@ function Sidebar() {
 
         {session && (
           <Item
-            link={`/u/${session?.twitter?.twitterHandle}`}
+            link={`/u/${user.username}`}
             icon={<UserIcon className="w-6 h-6 text-blue-400" />}
             check="/u"
           />
@@ -122,15 +119,9 @@ function Sidebar() {
             icon={<HomeIcon className="w-6 h-6 text-cyan-500" />}
           />
 
-          <Item
-            link="/explore"
-            tip="Discover memes"
-            icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />}
-          />
-
           {session && (
             <Item
-              link={`/u/${session?.twitter?.twitterHandle}`}
+              link={`/u/${user.username}`}
               tip="Profile"
               icon={<UserIcon className="w-6 h-6 text-blue-400" />}
               check="/u"

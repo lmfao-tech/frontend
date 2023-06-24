@@ -19,14 +19,13 @@ interface haha {
   }>;
   like: (id: string | number, authorId: string | number) => Promise<void>;
   unlike: (id: string | number, authorId: string | number) => Promise<void>;
-  retweet: (id: string | number) => Promise<any>;
-  unretweet: (id: string | number) => Promise<any>;
   follow: (id: string | number, username: string) => Promise<void>;
   unfollow: (id: string | number, username: string) => Promise<void>;
   post: () => Promise<void>;
   deletePost: (id: string) => Promise<void>;
   mod: boolean;
   rank: number;
+  user: any;
 }
 
 const HahaContext = createContext<haha>({
@@ -39,19 +38,19 @@ const HahaContext = createContext<haha>({
     longest: 0,
   },
   likes: [],
-  like: async () => {},
-  unlike: async () => {},
-  retweet: async () => {},
-  unretweet: async () => {},
-  follow: async () => {},
-  unfollow: async () => {},
-  post: async () => {},
-  deletePost: async () => {},
+  like: async () => { },
+  unlike: async () => { },
+  follow: async () => { },
+  unfollow: async () => { },
+  post: async () => { },
+  deletePost: async () => { },
   mod: false,
   rank: 0,
+  user: {},
 });
 
 const HahaProvider = ({ children }: any) => {
+  const [user, setUser] = useState<any>({});
   const [hahaCoins, setHahaCoins] = useState<number>(0);
   const [lmfaoCoins, setLmfaoCoins] = useState<number>(0);
   const [mod, setMod] = useState<boolean>(false);
@@ -97,25 +96,17 @@ const HahaProvider = ({ children }: any) => {
       }
     }
   };
-  const retweet = async (id: string | number) => {
-    const resp = await fetch(`/api/twitter/tweet/retweet?id=${id}`);
-    return await resp.json();
-  };
-  const unretweet = async (id: string | number) => {
-    const resp = await fetch(`/api/twitter/tweet/unretweet?id=${id}`);
-    return await resp.json();
-  };
 
-  const post = async () => {};
+  const post = async () => { };
 
-  const deletePost = async (id: string) => {};
-  const revivePost = async (id: string) => {};
+  const deletePost = async (id: string) => { };
+  const revivePost = async (id: string) => { };
 
   const follow = async (id: string | number, username: string) => {
     const resp = await fetch(`/api/twitter/tweet/follow?id=${id}&username=${username}`);
     const data = await resp.json();
     const old = localStorage.getItem("follows");
-    
+
     if (old) {
       const ummYeah = JSON.parse(old);
       ummYeah[`${id}`] = true;
@@ -148,6 +139,7 @@ const HahaProvider = ({ children }: any) => {
       const resp = await fetch(`/api/db/user`);
       const data: Resp = await resp.json();
       if (data.success == Status.Success) {
+        setUser(data.data)
         setHahaCoins(data.data.hahaCoins);
         setLmfaoCoins(data.data.lmfaoCoins);
         setLikes(data.data.likes);
@@ -171,8 +163,6 @@ const HahaProvider = ({ children }: any) => {
         like,
         likes,
         unlike,
-        retweet,
-        unretweet,
         post,
         follow,
         unfollow,
@@ -180,6 +170,7 @@ const HahaProvider = ({ children }: any) => {
         deletePost,
         streaks,
         rank,
+        user
       }}
     >
       {children}

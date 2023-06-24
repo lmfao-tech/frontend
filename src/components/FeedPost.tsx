@@ -52,7 +52,7 @@ function FeedPost({
   post: Post;
   removed?: boolean;
 }) {
-  const { like, unlike, likes, follow, unfollow, mod, retweet, unretweet } =
+  const { like, unlike, likes, follow, unfollow, mod } =
     useHaha();
 
   const [followed, setFollowed] = useState<boolean>(false);
@@ -66,7 +66,6 @@ function FeedPost({
   };
 
   const [liked, setLiked] = useState(false);
-  const [retweeted, setRetweeted] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const { data: session } = useSession();
@@ -210,72 +209,6 @@ function FeedPost({
             }}
           >
             <HeartIconSolid className="w-6 h-6 text-red-500" />
-          </div>
-        )}
-        {!retweeted ? (
-          <button
-            disabled={!session}
-            className={`p-2 rounded-full group umami--click--retweet-button ${
-              !session
-                ? "hover:bg-none"
-                : "cursor-pointer hover:bg-green-700/20"
-            }`}
-            onClick={async () => {
-              setRetweeted(true);
-              const data: any = await retweet(post.tweet_id);
-              vibrateOnceOnClick();
-              if (data.success === Status.Success) {
-                toast.success("Retweeted successfully", {
-                  style: {
-                    backgroundColor: "#292929",
-                    color: "white",
-                  },
-                });
-              } else if (data.success === Status.Failure) {
-                toast.error("An error occured while retweeting the post...", {
-                  style: {
-                    backgroundColor: "#292929",
-                    color: "white",
-                  },
-                });
-                setRetweeted(false);
-              }
-            }}
-          >
-            <SwitchHorizontalIcon
-              className={`w-6 h-6 text-gray-400 ${
-                !session ? null : "group-hover:text-green-400"
-              }`}
-            />
-          </button>
-        ) : (
-          <div
-            className="p-2 rounded-full cursor-pointer hover:bg-green-700/20 group umami--click--undo-retweet-button"
-            onClick={async () => {
-              setRetweeted(false);
-              const resp = await fetch(
-                `/api/twitter/tweet/unretweet?id=${post.tweet_id}`
-              );
-              vibrateOnceOnClick();
-              const data = await resp.json();
-              if (data.success === Status.Success) {
-                toast.success("Unretweeted successfully", {
-                  style: {
-                    backgroundColor: "#292929",
-                    color: "white",
-                  },
-                });
-              } else if (data.success === Status.Failure) {
-                toast.error("An error occured while unretweeting the post...", {
-                  style: {
-                    backgroundColor: "#292929",
-                    color: "white",
-                  },
-                });
-              }
-            }}
-          >
-            <SwitchHorizontalIcon className="w-6 h-6 text-green-400" />
           </div>
         )}
         <a

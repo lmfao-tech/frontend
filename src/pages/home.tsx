@@ -42,8 +42,7 @@ const Home: NextPageWithLayout = () => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-          {unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Home |
-          LMFAO.tech
+          {`${unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "} Home | LMFAO.tech`}
         </title>
       </Head>
 

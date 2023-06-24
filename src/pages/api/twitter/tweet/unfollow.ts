@@ -36,30 +36,22 @@ export default async function handler(
         return
     }
 
-    const client = new TwitterApi({
-        appKey: process.env.TWITTER_API_KEY!,
-        appSecret: process.env.TWITTER_API_SECRET!,
-        accessToken: session.tokens.authToken,
-        accessSecret: session.tokens.authSecret,
-    })
-
+    // TODO: Unfollow in database here
     try {
-        const data = await client.v2.unfollow(session.tokens.authToken.split("-")[0]!, id);
-
         const novu = new Novu(process.env.NOVU!);
         await novu.trigger("followedyou", {
             to: {
                 subscriberId: username,
             },
             payload: {
-                who: session.twitter.twitterHandle,
+                who: `${session.user.id}`,
                 what: "unfollowed"
             }
         })
 
         res.status(200).json({
             success: Status.Success,
-            data: data
+            data: "Unfollowed"
         })
 
     } catch (e: any) {

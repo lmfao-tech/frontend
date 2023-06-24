@@ -102,8 +102,8 @@ function Leaderboard({ rank }: { rank: number }) {
               key={index}
               rank={index + 1}
               coins={user.lmfaoCoins}
-              name={user.name}
-              avatar={`https://unavatar.io/twitter/${user.name}`}
+              name={user.username}
+              avatar={user.pfp}
               over={over === index + 1}
               onMouseOver={() => setOver(index + 1)}
               onMouseLeave={() => setOver(0)}

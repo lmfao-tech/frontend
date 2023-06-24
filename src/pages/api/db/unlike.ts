@@ -39,7 +39,7 @@ export default async function handler(
 
     let user = await prisma.user.findFirst({
         where: {
-            name: session.twitter.twitterHandle
+            email : session.user.email
         },
         include: {
             likes: true
@@ -49,9 +49,11 @@ export default async function handler(
     if (user === null) {
         user = await prisma.user.create({
             data: {
-                id: `${session.twitter.userID}`,
-                name: session.twitter.twitterHandle,
+                id: `${session.user.id}`,
+                name: session.user.name,
                 email: session.user.email,
+                username: session.user.id,
+                pfp:  session?.user.image!,
                 hahaCoins: 50,
                 lmfaoCoins: 0
             },
@@ -62,7 +64,7 @@ export default async function handler(
 
         const novu = new Novu(process.env.NOVU!);
 
-        novu.subscribers.identify(session?.twitter.twitterHandle!, {
+        novu.subscribers.identify(session?.user.id!, {
             firstName: session?.user.name,
         })
 
@@ -85,14 +87,14 @@ export default async function handler(
         },
         data: {
             user: {
-                disconnect: [{name: session.twitter.twitterHandle}]
+                disconnect: [{email: session.user.email}]
             }
         }
     })
     
     await prisma.user.update({
         where: {
-            name: session.twitter.twitterHandle
+            email : session.user.email
         },
         data: {
             hahaCoins: {
@@ -112,7 +114,7 @@ export default async function handler(
     try {        
         await prisma.user.update({
             where: {
-                name: `${authorId}`
+                username: `${authorId}`
             },
             data: {
                 lmfaoCoins: {
@@ -133,7 +135,7 @@ export default async function handler(
 
     const daUser = await prisma.user.findFirst({
         where: {
-            name: session.twitter.twitterHandle
+            email : session.user.email
         },
         include: {
             likes: true

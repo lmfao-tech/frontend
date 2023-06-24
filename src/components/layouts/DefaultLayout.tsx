@@ -34,7 +34,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
@@ -54,36 +54,33 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
         animate={{
           opacity: loading ? 1 : 0,
         }}
-        style={{ pointerEvents: loading ? "all": "none" }}
+        style={{ pointerEvents: loading ? "all" : "none" }}
         className="fixed bg-[#b0b2b5] dark:bg-[#242424] top-0 left-0 w-screen h-screen z-[1000000] text-black dark:text-white flex flex-col justify-center items-center"
       >
-          <img src={`/logo-${isDarkMode ? "white": "black"}.png`} className="h-40 loading-img" />
+        <img src={`/logo-${isDarkMode ? "white" : "black"}.png`} className="h-40 loading-img" />
       </motion.div>
       <NovuProvider
-        subscriberId={session?.twitter.twitterHandle}
+        subscriberId={session?.user.id!}
         applicationIdentifier={process.env.NEXT_PUBLIC_NOVUI!}
       >
         <NotifyProvder>
           <AnimatePresence>
             {helpOpen && (
               <div
-                className={`fixed p-10 lg:p-72 z-[400] ${
-                  isDarkMode ? "bg-black/20" : "bg-black/10"
-                } flex justify-center items-center w-screen h-screen`}
+                className={`fixed p-10 lg:p-72 z-[400] ${isDarkMode ? "bg-black/20" : "bg-black/10"
+                  } flex justify-center items-center w-screen h-screen`}
               >
                 <motion.div
                   initial={{ scaleY: 0 }}
                   exit={{ scaleY: 0 }}
                   animate={{ scaleY: 1 }}
-                  className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[60vh] ${
-                    isDarkMode ? "bg-gray-600 text-white" : "bg-gray-300"
-                  }`}
+                  className={`relative overflow-y-auto scrollbar-thin w-screen rounded-md h-[60vh] ${isDarkMode ? "bg-gray-600 text-white" : "bg-gray-300"
+                    }`}
                 >
                   <button
                     onClick={() => setHelpOpen(false)}
-                    className={`focus:bg-gray-500 ${
-                      !isDarkMode && "hover:text-white focus:text-white"
-                    } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
+                    className={`focus:bg-gray-500 ${!isDarkMode && "hover:text-white focus:text-white"
+                      } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -107,14 +104,12 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
 
                     <div className="flex flex-col lg:flex-row mt-5 flex-wrap gap-1">
                       <div
-                        className={`flex-1 rounded-md p-3 border-2 ${
-                          isDarkMode ? "border-gray-700" : "border-gray-500"
-                        }`}
+                        className={`flex-1 rounded-md p-3 border-2 ${isDarkMode ? "border-gray-700" : "border-gray-500"
+                          }`}
                       >
                         <h2
-                          className={`flex gap-2 text-center font-bold text-lg px-3 py-1 rounded-md ${
-                            isDarkMode ? "bg-gray-700" : "bg-gray-500 text-white"
-                          }`}
+                          className={`flex gap-2 text-center font-bold text-lg px-3 py-1 rounded-md ${isDarkMode ? "bg-gray-700" : "bg-gray-500 text-white"
+                            }`}
                         >
                           <Image
                             src="/icons/HAHAcoins.png"
@@ -134,14 +129,12 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
                         </p>
                       </div>
                       <div
-                        className={`flex-1 rounded-md p-3 border-2 ${
-                          isDarkMode ? "border-gray-700" : "border-gray-500"
-                        }`}
+                        className={`flex-1 rounded-md p-3 border-2 ${isDarkMode ? "border-gray-700" : "border-gray-500"
+                          }`}
                       >
                         <h2
-                          className={`flex gap-2 text-center font-bold text-lg px-3 py-1 rounded-md ${
-                            isDarkMode ? "bg-gray-700" : "bg-gray-500 text-white"
-                          }`}
+                          className={`flex gap-2 text-center font-bold text-lg px-3 py-1 rounded-md ${isDarkMode ? "bg-gray-700" : "bg-gray-500 text-white"
+                            }`}
                         >
                           <Image
                             src={logo_white}
@@ -169,14 +162,12 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
                         </p>
                       </div>
                       <div
-                        className={`flex-1 rounded-md p-3 border-2 ${
-                          isDarkMode ? "border-gray-700" : "border-gray-500"
-                        }`}
+                        className={`flex-1 rounded-md p-3 border-2 ${isDarkMode ? "border-gray-700" : "border-gray-500"
+                          }`}
                       >
                         <h2
-                          className={`text-center font-bold text-lg px-3 py-1 rounded-md ${
-                            isDarkMode ? "bg-gray-700" : "bg-gray-500 text-white"
-                          }`}
+                          className={`text-center font-bold text-lg px-3 py-1 rounded-md ${isDarkMode ? "bg-gray-700" : "bg-gray-500 text-white"
+                            }`}
                         >
                           Streaks
                         </h2>

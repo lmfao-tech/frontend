@@ -28,7 +28,10 @@ export default async function handler(
 
   const user = await prisma.user.findFirst({
     where: {
-      name: username ? username : session?.twitter.twitterHandle,
+      OR: {
+        username: username ? username : session?.user.username,
+        email: session?.user.email,
+      }
     },
     include: {
       likes: true,
@@ -38,10 +41,12 @@ export default async function handler(
   if (!user && !username) {
     const newUser = await prisma.user.create({
       data: {
-        id: `${session?.twitter.userID}`,
-        name: session!.twitter.twitterHandle,
+        id: `${session?.user.id}`,
+        name: session?.user.name!,
+        pfp:  session?.user.image!,
+        username: session?.user.username!,
         email: session?.user!.email!,
-        hahaCoins: 100,
+        hahaCoins: 50,
         lmfaoCoins: 0,
       },
       include: {
@@ -51,7 +56,7 @@ export default async function handler(
     
     const novu = new Novu(process.env.NOVU!);
 
-    novu.subscribers.identify(session?.twitter.twitterHandle!, {
+    novu.subscribers.identify(session?.user.id!, {
       firstName: session?.user.name,
     })
 
@@ -77,7 +82,7 @@ export default async function handler(
 
   const isMod = await prisma.mods.findFirst({
     where: {
-      id: username ? username : session?.twitter.twitterHandle,
+      id: username ? username : session?.user.username,
     },
   });
 

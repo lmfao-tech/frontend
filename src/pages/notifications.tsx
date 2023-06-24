@@ -23,8 +23,7 @@ const Notification: NextPageWithLayout = () => {
     <div className="">
       <Head>
         <title>
-          {(unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " ") +
-            "Notifications | LMFAO.tech"}
+          {`${unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "} Notifications | LMFAO.tech`}
         </title>
       </Head>
       <Notifications />

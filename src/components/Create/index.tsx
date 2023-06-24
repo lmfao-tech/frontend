@@ -390,7 +390,6 @@ function Create({ publish }: { publish: (image: File) => void }) {
       .on("mouseup", (e) => {
         // Remove borders from selected image
         const selected = document.querySelector(`#${id}`);
-        console.log(id);
         if (id != selectedImage && selected) {
           selected.classList.remove("border");
         }

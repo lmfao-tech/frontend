@@ -44,8 +44,7 @@ const CreatePage: NextPageWithLayout = () => {
     reader.onload = async () => {
       const base64 = reader.result as string;
       const response = await fetch(
-        `/api/twitter/user/publish_meme?${
-          status.length < 1 ? "" : `status=${status}`
+        `/api/twitter/user/publish_meme?${status.length < 1 ? "" : `status=${status}`
         }`,
         {
           method: "POST",
@@ -88,8 +87,9 @@ const CreatePage: NextPageWithLayout = () => {
     <>
       <Head>
         <title>
-          {unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "}Create
-          | LMFAO.tech
+          {
+            `${ unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "} Create | LMFAO.tech`
+          }
         </title>
       </Head>
       <div className="pb-20 md:pb-0">

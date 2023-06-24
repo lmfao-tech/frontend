@@ -1,12 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Like {
@@ -15,9 +13,11 @@ model Like {
 }
 
 model User {
-  id             String
-  name           String   @id
-  email          String
+  email          String   @id @unique
+  id             String   @unique
+  username       String   @unique
+  name           String
+  pfp            String
   hahaCoins      Int      @default(0)
   lmfaoCoins     Int      @default(0)
   likes          Like[]
