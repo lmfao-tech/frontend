@@ -1,7 +1,6 @@
 import {
   useState,
   useRef,
-  SyntheticEvent,
   FormEvent,
   useEffect,
   useDeferredValue,
@@ -10,6 +9,7 @@ import {
 import interact from "interactjs";
 import html2canvas from "html2canvas";
 import { v4 as uuid } from "uuid";
+import { renderToString } from 'react-dom/server'
 import { saveAs } from "file-saver";
 import {
   Container,
@@ -44,7 +44,8 @@ import { useSession } from "next-auth/react";
 
 interface Shape {
   name: string;
-  styles: any;
+  svg?: React.ReactNode;
+  styles?: any;
 }
 
 const shapes: Shape[] = [
@@ -54,8 +55,8 @@ const shapes: Shape[] = [
       width: "100px",
       height: "100px",
       backgroundColor: "white",
-    },
-  },
+    }
+  }
 ];
 
 function selectFile(
@@ -97,6 +98,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
   );
   const [selectedText, setSelectedText] = useState(""); // Id of generated element
   const [selectedImage, setSelectedImage] = useState(""); // Id of generated element
+  const [selected, setSelected] = useState(""); // Id of generated element
   const [currentText, setCurrentText] = useState("");
   const [memeTemplates, setMemeTemplates] = useState<Template[]>([]);
   const [strokeWidth, setStrokeWidth] = useState(1);
@@ -118,6 +120,30 @@ function Create({ publish }: { publish: (image: File) => void }) {
       setSearchLoading(false);
     }, 200);
   };
+
+  useEffect(() => {
+    if (!selectedText) {
+      return
+    }
+    const currentSelected = document.querySelector(".selected-meme-item")
+    if (currentSelected) {
+      currentSelected.classList.remove("selected-meme-item")
+    }
+    const shouldBeSelected = document.querySelector(`#${selectedText}`)
+    shouldBeSelected?.classList.add("selected-meme-item")
+  }, [selectedText])
+
+  useEffect(() => {
+    if (!selectedImage) {
+      return
+    }
+    const currentSelected = document.querySelector(".selected-meme-item")
+    if (currentSelected) {
+      currentSelected.classList.remove("selected-meme-item")
+    }
+    const shouldBeSelected = document.querySelector(`#${selectedImage}`)
+    shouldBeSelected?.classList.add("selected-meme-item")
+  }, [selectedImage])
 
   const tms = useRef<any>(null);
 
@@ -165,6 +191,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
   const downloadMeme = () => {
     const rotaters = document.querySelectorAll(".rotation-handle");
+    const selected = document.querySelectorAll('.selected-meme-item')
+    selected.forEach(s => {
+      s.classList.remove('selected-meme-item')
+    })
     rotaters.forEach((r: any) => {
       r.style.display = "none";
     });
@@ -191,6 +221,10 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
   const copyToClipboard = () => {
     const rotaters = document.querySelectorAll(".rotation-handle");
+    const selected = document.querySelectorAll('.selected-meme-item')
+    selected.forEach(s => {
+      s.classList.remove('selected-meme-item')
+    })
     rotaters.forEach((r: any) => {
       r.style.display = "none";
     });
@@ -243,71 +277,33 @@ function Create({ publish }: { publish: (image: File) => void }) {
   };
 
   const useShape = (shape: Shape) => {
+    if (shape.svg) {
+      const el = document.createElement("div");
+      el.style.width = "100px";
+      el.style.height = "100px";
+      const random_id = "meme-" + uuid();
+      el.id = random_id;
+      interactIcon(random_id, true);
+      setSelectedImage(random_id);
+      setSelected(random_id)
+      // @ts-ignore
+      el.innerHTML = renderToString(shape.svg);
+      imageContainer.current.append(el);
+      setSelectedImage(random_id);
+      setSelected(random_id)
+      return;
+    }
     const el = document.createElement("div");
     Object.keys(shape.styles).forEach((st: string) => {
       // @ts-ignore
       el.style[`${st}`] = shape.styles[st];
     });
-    // const rotater = document.createElement("div");
-    // rotater.innerHTML = "&circlearrowright;";
-    // rotater.contentEditable = "false";
-    // rotater.classList.add("rotation-handle");
-    // el.appendChild(rotater)
     const random_id = "meme-" + uuid();
     el.id = random_id;
     imageContainer.current.append(el);
     interactIcon(random_id);
     setSelectedImage(random_id);
-
-    interact(".rotation-handle").draggable({
-      onstart: function (event) {
-        var box = event.target.parentElement;
-        var rect = box.getBoundingClientRect();
-
-        // store the center as the element has css `transform-origin: center center`
-        box.setAttribute("data-center-x", rect.left + rect.width / 2);
-        box.setAttribute("data-center-y", rect.top + rect.height / 2);
-        // get the angle of the element when the drag starts
-        box.setAttribute("data-angle", getDragAngle(event));
-      },
-      onmove: function (event) {
-        var box = event.target.parentElement;
-
-        var pos = {
-          x: parseFloat(box.getAttribute("data-x")) || 0,
-          y: parseFloat(box.getAttribute("data-y")) || 0,
-        };
-
-        var angle = getDragAngle(event);
-
-        // update transform style on dragmove
-        box.style.transform = "rotate(" + angle + "rad" + ")";
-      },
-      onend: function (event) {
-        var box = event.target.parentElement;
-
-        // save the angle on dragend
-        box.setAttribute("data-angle", getDragAngle(event));
-      },
-    });
-
-    function getDragAngle(event: MouseEvent) {
-      const target = event.target as HTMLDivElement;
-      var box = target.parentElement;
-      if (box) {
-        var startAngle = parseFloat(box.getAttribute("data-angle") || "0") || 0;
-        var center = {
-          x: parseFloat(box.getAttribute("data-center-x") || "0") || 0,
-          y: parseFloat(box.getAttribute("data-center-y") || "0") || 0,
-        };
-        var angle = Math.atan2(
-          center.y - event.clientY,
-          center.x - event.clientX
-        );
-
-        return angle - startAngle;
-      }
-    }
+    setSelected(random_id)
   };
 
   const useTemplate = (e: any) => {
@@ -325,12 +321,14 @@ function Create({ publish }: { publish: (image: File) => void }) {
   };
 
   const deleteSelected = (e: FormEvent) => {
-    if (selectedText) {
-      let el = document.querySelector(`#${selectedText}`);
+    if (selected) {
+      let el = document.querySelector(`#${selected}`);
       if (el) {
         el.remove();
       }
       setSelectedText("");
+      setSelectedImage("");
+      setSelected("")
       setCurrentText("");
     } else if (selectedImage) {
       let el = document.querySelector(`#${selectedImage}`);
@@ -338,6 +336,8 @@ function Create({ publish }: { publish: (image: File) => void }) {
         el.remove();
       }
       setSelectedImage("");
+      setSelectedText("");
+      setSelected("")
     }
   };
 
@@ -364,13 +364,14 @@ function Create({ publish }: { publish: (image: File) => void }) {
 
         interactIcon(random_id);
         setSelectedImage(random_id);
+        setSelected(random_id)
       };
     } catch (error) {
       console.log(error);
     }
   };
 
-  function interactIcon(id: string) {
+  function interactIcon(id: string, svg = false) {
     interact(`#${id}`)
       .on("mousedown", (e) => {
         // set state of to manipulate the element from the toolkit
@@ -378,13 +379,19 @@ function Create({ publish }: { publish: (image: File) => void }) {
         // If element is image, set selectedImage to the id of the element
         if (e.target.tagName === "IMG") {
           setSelectedImage(id);
+          setSelected(id)
           //
           const selected = document.querySelector(`#${id}`);
           if (selected) {
-            selected.classList.add("border");
+            const currentSelected = document.querySelector(".selected-meme-item")
+            if (currentSelected) {
+              currentSelected.classList.remove("selected-meme-item")
+            }
+            selected.classList.add("selected-meme-item");
           }
         } else {
           setSelectedText(id);
+          setSelected(id)
         }
       })
       .on("mouseup", (e) => {
@@ -406,6 +413,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
             document.body.style.overflow = "";
           },
           move: function (event) {
+            if (svg) {
+              const trgt = event.target.childNodes[0] as HTMLElement;
+              trgt.setAttribute("width", `${event.rect.width}px`);
+              trgt.setAttribute("height", `${event.rect.height}px`);
+            }
             let { x, y } = event.target.dataset;
             x = (parseFloat(x) || 0) + event.deltaRect.left;
             y = (parseFloat(y) || 0) + event.deltaRect.top;
@@ -470,6 +482,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
     imageContainer.current.append(newText);
     newText.focus();
     setSelectedText(random_id);
+    setSelected(random_id)
     setCurrentText("Enter text here...");
 
     // Text's are not resizable but are draggle. To change size of text use the toolkit
@@ -477,7 +490,18 @@ function Create({ publish }: { publish: (image: File) => void }) {
       .on("mousedown", (e) => {
         // set state of to manipulate the element from the toolkit
         setSelectedText(random_id);
+        setSelected(random_id)
         setCurrentText(e.target.innerText);
+        const selected = document.getElementById(random_id);
+        if (selected) {
+          const currentSelected = document.querySelector(".selected-meme-item")
+          if (currentSelected) {
+            currentSelected.classList.remove("selected-meme-item")
+          }
+          console.log(selected)
+          selected.classList.add("selected-meme-item");
+        }
+        
       })
       .on("keyup", (e) => {
         if (
@@ -524,7 +548,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
     toggleBold: function () {
       if (!selectedText) return;
       const textElem = document.querySelector(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.toggleAttribute("data-text-bold");
       if (textElem.hasAttribute("data-text-bold")) {
         // @ts-ignore
@@ -537,7 +565,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
     toggleItalics: function () {
       if (!selectedText) return;
       const textElem = document.querySelector(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelected("")
+        setSelectedText("")
+        return
+      }
       textElem.toggleAttribute("data-text-italic");
       if (textElem.hasAttribute("data-text-italic")) {
         // @ts-ignore
@@ -550,7 +582,11 @@ function Create({ publish }: { publish: (image: File) => void }) {
     toggleUnderline: function () {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.toggleAttribute("data-text-underlined");
       if (textElem.hasAttribute("data-text-underlined")) {
         textElem.style.textDecoration = "underline";
@@ -561,31 +597,51 @@ function Create({ publish }: { publish: (image: File) => void }) {
     changeText: function (e: any) {
       setCurrentText(e.target.value);
       const textElem = document.getElementById(selectedText);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.innerText = e.target.value;
     },
     changeTextSize: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("");
+        setSelected("")
+        return
+      }
       textElem.style.fontSize = `${e.target.value}px`;
     },
     changeTextColor: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.color = e.target.value;
     },
     changeBgColor: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.backgroundColor = e.target.value;
     },
     removeBg: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.backgroundColor = "transparent";
     },
     justifyLeft: function (e: any) {
@@ -615,13 +671,21 @@ function Create({ publish }: { publish: (image: File) => void }) {
     changeStrokeColor: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.webkitTextStroke = `${strokeWidth}px ${e.target.value}`;
     },
     changeStrokeWidth: function (e: any) {
       if (!selectedText) return;
       const textElem = document.querySelector<HTMLElement>(`#${selectedText}`);
-      if (!textElem) return setSelectedText("");
+      if (!textElem) {
+        setSelectedText("")
+        setSelected("")
+        return
+      }
       textElem.style.webkitTextStrokeWidth = `${e}px`;
     },
   };
@@ -871,7 +935,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                 }`}
               >
                 <button
-                  onClick={() => setModalOpen(false)}
+                  onClick={() => setShapesModalOpen(false)}
                   className={`focus:bg-gray-500 ${
                     !dark && "hover:text-white focus:text-white"
                   } hover:bg-gray-500 p-1 rounded absolute top-0 right-0 mt-3 mr-3`}
@@ -948,7 +1012,12 @@ function Create({ publish }: { publish: (image: File) => void }) {
                             }}
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <div style={shape.styles}></div>
+                            {shape.styles &&  <div style={shape.styles}></div>}
+                            {shape.svg && (
+                              <div className="w-[100%] h-[100%]">
+                                {shape.svg}
+                              </div>
+                            )}
                             <h1 className="text-center">{shape.name}</h1>
                           </button>
                         );
@@ -983,9 +1052,9 @@ function Create({ publish }: { publish: (image: File) => void }) {
               Made using LMFAO.tech
             </h1>
           </EditView>
-          <Actions className="flex items-center justify-center px-5">
+          <Actions className="flex items-center justify-center">
             <button
-              className="z-10 flex w-40 h-15 py-3 rounded-sm items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
+              className="z-10 flex px-4 lg:px-0 lg:w-40 lg:h-15 lg:px-0 lg:py-3 py-2 rounded-sm items-center justify-center gap-2 border btn btn-secondary dark:fill-white"
               onClick={downloadMeme}
             >
               Download{" "}
@@ -1006,7 +1075,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
               onClick={publishMeme}
               disabled={!session}
               {...{ [publishD]: "You need to login to post to twitter" }}
-              className="z-10 flex w-40 h-15 py-3 rounded-sm items-center justify-center gap-2 text-white bg-blue-600 disabled:bg-gray-700/20 btn btn-primary fill-white "
+              className="z-10 flex px-4 lg:px-0 bg-blue-500 lg:w-40 lg:h-15 lg:py-3 py-2 rounded-sm items-center justify-center gap-2 text-white disabled:bg-blue-500/20 btn btn-primary fill-white "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -10,6 +10,12 @@ body {
     outline-color: transparent;
 }
 
+.selected-meme-item {
+    border: 1px rgba(0, 238, 255) solid !important;
+
+    animation: changeop 2s ease infinite forwards;
+}
+
 #haha:focus {
     border: none;
     box-shadow: none;

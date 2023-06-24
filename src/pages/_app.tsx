@@ -32,12 +32,14 @@ const LmfaoTech: NextComponentType<
     <SessionProvider session={session} refetchInterval={5 * 60}>
       <HahaProvider>
         <HelpProvider>
+          <div>
+            <Toaster />
+          </div>
           <Head>
             <link rel="manifest" href="/manifest.json" />
             <link rel="shortcut icon" href="/icons/maskable.png" />
             <link rel="apple-touch-icon" href="/icons/maskable.png"></link>
           </Head>
-          <Toaster />
           <AnimatePresence>
             <div id="modals"></div>
           </AnimatePresence>
