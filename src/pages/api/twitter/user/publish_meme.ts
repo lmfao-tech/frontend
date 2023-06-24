@@ -27,32 +27,11 @@ export default async function handler(
     return;
   }
 
-  const client = new TwitterApi({
-    appKey: process.env.TWITTER_API_KEY!,
-    appSecret: process.env.TWITTER_API_SECRET!,
-    accessToken: session.tokens.authToken,
-    accessSecret: session.tokens.authSecret,
-  });
-
   try {
     // Get image from the post request
     const imageBase64 = req.body;
-    const buff = Buffer.from(
-      imageBase64.replace(/^data:image\/\w+;base64,/, ""),
-      "base64"
-    );
 
-      // TODO: Upload images to cloudflare r2
-    const mediaId = await client.v1.uploadMedia(buff, {
-      type: "png",
-      target: "tweet",
-    });
-    const data = await client.v2.tweet(
-      status ? `${status} @LMFAO_tech` : "Meme from @LMFAO_tech",
-      {
-        media: { media_ids: [mediaId] },
-      }
-    );
+    
 
     const user = prisma.user
       .findFirst({

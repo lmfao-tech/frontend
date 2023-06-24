@@ -36,19 +36,9 @@ export default async function handler(
         return
     }
 
-    const client = new TwitterApi({
-        appKey: process.env.TWITTER_API_KEY!,
-        appSecret: process.env.TWITTER_API_SECRET!,
-        accessToken: session.tokens.authToken,
-        accessSecret: session.tokens.authSecret,
-    })
-
     try {
-        const data = await client.v2.follow(session.tokens.authToken.split("-")[0]!, id);
 
         const novu = new Novu(process.env.NOVU!);
-
-
 
         await novu.trigger("followedyou", {
             to: {
@@ -62,7 +52,7 @@ export default async function handler(
 
         res.status(200).json({
             success: Status.Success,
-            data: data
+            data: "Followed"
         })
 
     } catch (e: any) {
