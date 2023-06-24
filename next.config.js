@@ -10,7 +10,6 @@ const {
 } = process.env;
 
 const nextConfig = withPWA({
-  reactStrictMode: false,
   pwa: {
     dest: "public",
     register: true,

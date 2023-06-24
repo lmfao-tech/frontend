@@ -1,7 +1,7 @@
 {
   "name": "lmfao_tech_frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate --data-proxy && next build",
