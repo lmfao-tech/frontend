@@ -10,12 +10,6 @@ const {
 } = process.env;
 
 const nextConfig = withPWA({
-  pwa: {
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === "development",
-  },
   experimental: { images: { allowFutureImage: true } },
   env: {
     HONEYBADGER_API_KEY
