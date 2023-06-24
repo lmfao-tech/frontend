@@ -74,7 +74,7 @@ const Notifications = () => {
                 {unseens > 0 && <div className="absolute top-0 -left-2 h-2 w-2 rounded-full bg-red-600" />}
 
                 <div className='flex mt-2 flex-col gap-2'>
-                    {notifications.map((notif, index) => {
+                    {notifications?.map((notif, index) => {
 
                         if (notif.cta.data.url) {
 

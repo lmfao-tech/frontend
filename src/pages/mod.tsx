@@ -56,7 +56,7 @@ const Moderation: NextPageWithLayout = () => {
 
       <div className="flex flex-col w-full mb-20 overflow-hidden shadow-sm md:md-0">
         <div className="flex flex-col px-2 md:px-32">
-          {memes.map((post, index) => {
+          {memes?.map((post, index) => {
             if (index === memes.length - 1) {
               return (
                 <div key={post.tweet_id} ref={lastMemeRef}>

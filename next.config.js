@@ -1,19 +1,16 @@
-/** @type {import('next').NextConfig} */
-
 const withPWA = require("next-pwa");
 const HoneybadgerSourceMapPlugin = require("@honeybadger-io/webpack");
-const { execSync } = require("child_process");
 
 const {
   HONEYBADGER_API_KEY,
   NODE_ENV,
 } = process.env;
 
-const nextConfig = withPWA({
-  experimental: { images: { allowFutureImage: true } },
-  env: {
-    HONEYBADGER_API_KEY
-  },
+module.exports = withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
   webpack: (config, options) => {
     // When all the Honeybadger configuration env variables are
     // available/configured The Honeybadger webpack plugin gets pushed to the
@@ -41,5 +38,3 @@ const nextConfig = withPWA({
     return config;
   },
 });
-
-module.exports = nextConfig;

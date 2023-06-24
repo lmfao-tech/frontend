@@ -63,11 +63,11 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
       >
         <img src={`/logo-${isDarkMode ? "white" : "black"}.png`} className="h-40 loading-img" />
       </motion.div>
-      <NovuProvider
+      {/* <NovuProvider
         subscriberId={session?.user.id!}
         applicationIdentifier={process.env.NEXT_PUBLIC_NOVUI!}
       >
-        <NotifyProvder>
+        <NotifyProvder> */}
           <AnimatePresence>
             {helpOpen && (
               <div
@@ -187,8 +187,8 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
             )}
           </AnimatePresence>
           <div>{children}</div>
-        </NotifyProvder>
-      </NovuProvider>
+        {/* </NotifyProvder>
+      </NovuProvider> */}
     </div>
   );
 }

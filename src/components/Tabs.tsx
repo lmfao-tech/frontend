@@ -26,7 +26,7 @@ const Tabs = ({ items, activeTab, extendTailwind }: Props) => {
     return (
         <div className={`${extendTailwind?.parent}`}>
             <div className={`flex gap-1 w-full ${extendTailwind?.tabButtons?.list}`}>
-                {items.map((item, index) => {
+                {items?.map((item, index) => {
                     if (item.disabled) {
                         return (
                             <button key={index} disabled={item.disabled} data-tip="You need to login to upload to twitter" onClick={() => {

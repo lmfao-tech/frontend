@@ -851,7 +851,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                                 </svg>
                               </div>
                             )}
-                            {googleSearchResults.map((result) => (
+                            {googleSearchResults?.map((result) => (
                               <button
                                 key={result}
                                 className={`card p-1 border ${
@@ -897,7 +897,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                         </div>
                       </div>
 
-                      {tPlates.map((template, index) => {
+                      {tPlates?.map((template, index) => {
                         return (
                           <button
                             key={index}
@@ -997,7 +997,7 @@ function Create({ publish }: { publish: (image: File) => void }) {
                         </div>
                       </div>
 
-                      {shapes.map((shape, index) => {
+                      {shapes?.map((shape, index) => {
                         return (
                           <button
                             key={index}
