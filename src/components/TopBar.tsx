@@ -5,14 +5,14 @@ import logo_white from "~/../public/logo-white.png";
 import logo_black from "~/../public/logo-black.png";
 import { useRouter } from "next/router";
 import { BellIcon } from "@heroicons/react/outline";
-import { useNotifs } from '~/contexts/NotifyContext';
+// import { useNotifs } from '~/contexts/NotifyContext';
 import { useSession } from "next-auth/react";
 
 function TopBar() {
 
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
   const router = useRouter();
-  const { unseens } = useNotifs();
+  // const { unseens } = useNotifs();
 
   const { data: session } = useSession();
 

@@ -7,19 +7,19 @@ import NotFeedPage from "~/components/layouts/NotFeedPage";
 import Head from "next/head";
 import NextPageWithLayout from "~/types/NextPageWithLayout";
 import { ChartBarIcon, HeartIcon, SparklesIcon } from "@heroicons/react/solid";
-import { useNotifs } from "~/contexts/NotifyContext";
+// import { useNotifs } from "~/contexts/NotifyContext";
 import { BeakerIcon } from "@heroicons/react/outline";
 
 const dash: NextPageWithLayout = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { unseens } = useNotifs();
+  // const { unseens } = useNotifs();
 
   return (
     <div>
       <Head>
         <title>
           {
-            `${unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "} Dashboard | LMFAO.tech`
+            `Dashboard | LMFAO.tech`
           }
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

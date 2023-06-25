@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Resp, Status } from "~/types/Request";
 import { getSession } from "next-auth/react";
 import { prisma } from "~/db/client";
-import { Novu } from "@novu/node";
+// import { Novu } from "@novu/node";
 
 type Request = NextApiRequest & {
   query: {
@@ -62,11 +62,11 @@ export default async function handler(
       },
     });
 
-    const novu = new Novu(process.env.NOVU!);
+    // const novu = new Novu(process.env.NOVU!);
 
-    await novu.subscribers.identify(session?.user.username!, {
-      firstName: session?.user.name,
-    })
+    // await novu.subscribers.identify(session?.user.username!, {
+    //   firstName: session?.user.name,
+    // })
 
     return res.status(200).json({
       success: Status.Success,

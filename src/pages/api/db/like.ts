@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
 import { prisma } from '~/db/client';
-import { Novu } from '@novu/node';
+// import { Novu } from '@novu/node';
 
 interface Request extends NextApiRequest {
     query: {
@@ -62,11 +62,11 @@ export default async function handler(
             }
         })
         
-        const novu = new Novu(process.env.NOVU!);
+        // const novu = new Novu(process.env.NOVU!);
 
-        await novu.subscribers.identify(session.user.id!, {
-            firstName: session?.user.name,
-        })
+        // await novu.subscribers.identify(session.user.id!, {
+        //     firstName: session?.user.name,
+        // })
     }
 
     const lessHaha = user.hahaCoins < 1 ? true : false;
@@ -172,17 +172,17 @@ export default async function handler(
         }
     })
 
-    const novu = new Novu(process.env.NOVU!);
+    // const novu = new Novu(process.env.NOVU!);
 
-    await novu.trigger('likedyourpost', {
-        to: { 
-          subscriberId: authorId
-        },
-        payload: {
-          who: `${session.user.id}`,
-          id: id
-        }
-    });
+    // await novu.trigger('likedyourpost', {
+    //     to: { 
+    //       subscriberId: authorId
+    //     },
+    //     payload: {
+    //       who: `${session.user.id}`,
+    //       id: id
+    //     }
+    // });
 
     return res.status(200).json({
         success: Status.Success,

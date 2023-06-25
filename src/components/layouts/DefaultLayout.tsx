@@ -6,9 +6,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useHelp } from "~/contexts/HelpContext";
 import Image from "next/image";
 import logo_white from "~/../public/logo-white.png";
-import { NovuProvider } from "@novu/notification-center";
+// import { NovuProvider } from "@novu/notification-center";
 import { useSession } from "next-auth/react";
-import NotifyProvder from "~/contexts/NotifyContext";
+// import NotifyProvder from "~/contexts/NotifyContext";
 import { useRouter } from "next/router";
 
 function DefaultLayout({ children }: { children: React.ReactNode }) {

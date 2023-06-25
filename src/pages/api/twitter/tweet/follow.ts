@@ -2,8 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resp, Status } from '~/types/Request'
 import { getSession } from "next-auth/react";
-import { TwitterApi } from 'twitter-api-v2';
-import { Novu } from '@novu/node';
+// import { TwitterApi } from 'twitter-api-v2';
+// import { Novu } from '@novu/node';
 
 interface Request extends NextApiRequest {
     query: {
@@ -38,17 +38,17 @@ export default async function handler(
 
     try {
 
-        const novu = new Novu(process.env.NOVU!);
+        // const novu = new Novu(process.env.NOVU!);
 
-        await novu.trigger("followedyou", {
-            to: {
-                subscriberId: username,
-            },
-            payload: {
-                who: `${session.user.id}`,
-                what: "followed"
-            }
-        })
+        // await novu.trigger("followedyou", {
+        //     to: {
+        //         subscriberId: username,
+        //     },
+        //     payload: {
+        //         who: `${session.user.id}`,
+        //         what: "followed"
+        //     }
+        // })
 
         res.status(200).json({
             success: Status.Success,

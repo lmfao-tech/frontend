@@ -9,13 +9,13 @@ import NextPageWithLayout from "~/types/NextPageWithLayout";
 import Create from "~/components/Create";
 import { Status } from "~/types/Request";
 import Head from "next/head";
-import { useNotifs } from '~/contexts/NotifyContext';
+// import { useNotifs } from '~/contexts/NotifyContext';
 
 const CreatePage: NextPageWithLayout = () => {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState(0);
 
-  const { unseens } = useNotifs();
+  // const { unseens } = useNotifs();
 
   const [status, setStatus] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
@@ -87,9 +87,7 @@ const CreatePage: NextPageWithLayout = () => {
     <>
       <Head>
         <title>
-          {
-            `${ unseens > 0 ? (unseens > 9 ? "(9+) " : `(${unseens}) `) : " "} Create | LMFAO.tech`
-          }
+          Create | LMFAO.tech
         </title>
       </Head>
       <div className="pb-20 md:pb-0">
